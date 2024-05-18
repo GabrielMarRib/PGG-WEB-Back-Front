@@ -89,7 +89,7 @@ function Home() {
                         if(erro == true){
                           await exibeMsg(setMensagem, error, 1000, true, SetStyle);
                         }else{
-                          history.push('/PagHome', { User });
+                          navigate('/PagHome', { state: { user: User } });
                         }
                         if (erro) return;
                       })();
@@ -99,7 +99,7 @@ function Home() {
                   </button>
                   <div className="esqueceu-senha">
                     Esqueceu a senha?
-                    <br></br>
+                 
                     <span className="politica-privacidade">
                       Política de Privacidade
                     </span>
@@ -113,14 +113,18 @@ function Home() {
             ) : (
               <div className="Container_EsqueceuSenha">
                 <div className="linha-com-texto">
+                    <span className="texto-no-meio">
                   <a
                     onClick={() => {
                       TrocarloginEsquecerSenha(setMostrarLogin, mostrarLogin);
                       apagarCampos([setEmail, setPassword]);
                     }}
                   >
-                    <span className="texto-no-meio">Esqueceu a senha?</span>
-                  </a>
+                      
+                      
+                      Esqueceu a senha?
+                        </a>
+                    </span>
                 </div>
                 {mensagem && Style && <p className={Style}>{mensagem}</p>}
                 <form>
