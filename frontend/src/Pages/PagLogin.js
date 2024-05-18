@@ -89,7 +89,7 @@ function Home() {
                         if(erro == true){
                           await exibeMsg(setMensagem, error, 1000, true, SetStyle);
                         }else{
-                          history.push('/PagHome', { User });
+                         // history.push('/PagHome', { User });
                         }
                         if (erro) return;
                       })();
@@ -98,7 +98,13 @@ function Home() {
                     Enviar
                   </button>
                   <div className="esqueceu-senha">
-                    Esqueceu a senha?
+                 <a
+                  onClick={() => {
+                    TrocarloginEsquecerSenha(setMostrarLogin, mostrarLogin);
+                    apagarCampos([setEmail, setPassword]);
+                  }}>
+                  Esqueceu a senha?
+                  </a>
                     <br></br>
                     <span className="politica-privacidade">
                       Política de Privacidade
@@ -119,7 +125,7 @@ function Home() {
                       apagarCampos([setEmail, setPassword]);
                     }}
                   >
-                    <span className="texto-no-meio">Esqueceu a senha?</span>
+                    <span className="texto-no-meio">Esqueceu</span>
                   </a>
                 </div>
                 {mensagem && Style && <p className={Style}>{mensagem}</p>}
@@ -163,6 +169,7 @@ function Home() {
                       }}
                     >
                       Voltar
+                      <br></br>
                     </a>
                     <span className="politica-privacidade2">
                       Desenvolvido por Rígel Tech
