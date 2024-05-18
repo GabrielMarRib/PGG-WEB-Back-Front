@@ -89,7 +89,7 @@ function Home() {
                         if(erro == true){
                           await exibeMsg(setMensagem, error, 1000, true, SetStyle);
                         }else{
-                         // history.push('/PagHome', { User });
+                          navigate('/PagHome', { state: { user: User } });
                         }
                         if (erro) return;
                       })();
