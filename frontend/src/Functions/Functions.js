@@ -7,24 +7,30 @@ export function IsMobile() {
   }
 
 
-  export const handleLogin = async (email, password, setUser, setError) => {
+  export const handleLogin = async (email, password, setUser, setError, User) => {
     try {
-        const response = await axios.post('http://localhost:4000/PagLogin', {
+        const response = await axios.post('http://localhost:4000/Login', {
             email: email,
             password: password
         });
 
         setUser(response.data);
+        console.log(response.data)
         setError(""); // Limpa qualquer erro anterior
-        return false;
+        return [false, response.data];
     } catch (error) {
-        if (!error?.response) {
-            setError("Usuário ou senha inválidos");
-        } else if (error?.response.status == 401){
-            setError("Erro ao acessar o servidor");
-        }
-        console.error("Erro durante o login:", error);
-        return true; 
+      if (!error.response || error.response.status === 500) {
+        setError("Erro ao acessar o servidor");
+        console.log("Erro ao acessar o servidor");
+    } else if (error.response.status === 401) {
+        setError("Usuário ou senha inválidos");
+        console.log("Usuário ou senha inválidos");
+    } else {
+        setError("Erro desconhecido");
+        console.log("Erro desconhecido");
+    }
+    console.log("Erro durante o login:", error);
+    return [true, null]; 
     }
 };
 

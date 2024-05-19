@@ -22,7 +22,7 @@ function AppRoutes() {
             <Route path="/" element={<Navigate to="/PagLogin" />} />
             <Route path="/PagLogin" element={<PagLogin />} />
 
-            {/* <Route path="/PagHome" element={<PagHome />} /> */}
+            <Route path="/PagHome" element={<PagHome />} />
           </>
         )}
         {/* Rota padrão para redirecionar qualquer rota desconhecida */}

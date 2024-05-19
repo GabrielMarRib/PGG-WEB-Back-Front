@@ -1,21 +1,44 @@
 const express = require('express');
 const routes = express.Router();
+const { getAuth, signInWithEmailAndPassword } = require('firebase/auth');
+const { app } = require('./Firebase/Firebase.js');
+const { db } = require('./Firebase/FirebaseAdmin.js');
 
-const users = [{
-    id: 1,
-    name: "Mehelpa",
-    email: "tguigomarques@gmail.com",
-    password: "outrasenha"
-}];
-
-routes.post('/Login', (req, res) => {
+routes.post('/Login', async (req, res) => { // Adicionando 'async' aqui
+    const auth = getAuth(app);
     const { email, password } = req.body;
-    const user = users.find(user => user.email === email && user.password === password);
+    
+    try {
+        // Autenticação no Firebase
+        await signInWithEmailAndPassword(auth, email, password);
+        // Obtenha o usuário autenticado
+        const user = auth.currentUser;
 
-    if (user) {
-        return res.status(200).json(user);
-    } else {
-        return res.status(401).json({ message: "Usuário ou senha inválidos" });
+        // Buscar informações adicionais no Firestore
+        const userDoc = await db.collection('Logins').doc(user.uid).get();
+
+        if (!userDoc.exists) {
+            return res.status(404).json({ message: "Usuário não encontrado no Firestore" });
+        }
+
+        const userData = userDoc.data();
+    
+        // Retorne os dados do usuário
+        return res.status(200).json({
+          id: user.uid,
+          name: userData.name,
+          email: user.email,
+          cpf: userData.cpf,
+        });
+    } catch (error) {
+        // Trate os erros de autenticação
+        if (!error.response) {
+            return res.status(500).json({ message: "Erro ao acessar o servidor" });
+        } else if (error.response.status === 401) {
+            return res.status(401).json({ message: "Usuário ou senha inválidos" });
+        } else {
+            return res.status(500).json({ message: "Erro desconhecido", error: error.message });
+        }
     }
 });
 

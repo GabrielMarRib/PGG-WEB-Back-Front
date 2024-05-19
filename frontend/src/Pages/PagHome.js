@@ -1,20 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "../Styles/PagHome.css";
-import { useLocation } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-function PagHome(){
-    const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    const email = searchParams.get('email');
-    const nome = searchParams.get('nome');
+function PagHome() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { user } = location.state || {};
 
-    return(
-       <div>
-         <h1>Bem-vindo, {nome}</h1>
-         <p>Seu email é: {email}</p>
-       </div>
-    );
+  useEffect(() => {
+    if (!user) {
+      navigate('/PagLogin');
+    }
+  }, [user, navigate]);
+
+  return (
+    <div className='PagHome'>
+      {user ? (
+        <div>
+          <h1>Bem-vindo, {user.name}</h1>
+          <p>Seu email é: {user.email}</p>
+        </div>
+      ) : (
+        <div>
+          <h1>Redirecionando para a página de login...</h1>
+        </div>
+      )}
+    </div>
+  );
 }
+
 export default PagHome;

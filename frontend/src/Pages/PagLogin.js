@@ -80,16 +80,18 @@ function Home() {
                     type="button"
                     onClick={() => {
                       (async () => {
-                        let erro; 
+                      
                         if (CheckCamposVazios([email, password])) {
                           exibeMsg(setMensagem, "Preencha todos os campos antes de continuar", 4000, true, SetStyle);
                           return;
                         }
-                        erro = await handleLogin(email, password, setUser, setError, erro);
+                        const [erro, user] = await handleLogin(email, password, setUser, setError);
                         if(erro == true){
-                          await exibeMsg(setMensagem, error, 1000, true, SetStyle);
+                          await exibeMsg(setMensagem, error, 2000, true, SetStyle);
                         }else{
-                          navigate('/PagHome', { state: { user: User } });
+                          console.log("Entrou aqui");
+                          console.log("User antes do navigate:", user);
+                          navigate('/PagHome', { state: { user: user } });
                         }
                         if (erro) return;
                       })();
