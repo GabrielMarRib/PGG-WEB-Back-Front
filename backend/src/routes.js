@@ -11,8 +11,10 @@ routes.post('/Login', async (req, res) => { // Adicionando 'async' aqui
     try {
         // Autenticação no Firebase
         await signInWithEmailAndPassword(auth, email, password);
+
         // Obtenha o usuário autenticado
         const user = auth.currentUser;
+
 
         // Buscar informações adicionais no Firestore
         const userDoc = await db.collection('Logins').doc(user.uid).get();
@@ -26,15 +28,11 @@ routes.post('/Login', async (req, res) => { // Adicionando 'async' aqui
         // Retorne os dados do usuário
         return res.status(200).json({
           id: user.uid,
-          name: userData.name,
-          email: user.email,
-          cpf: userData.cpf,
+          userData: userData,
         });
     } catch (error) {
         // Trate os erros de autenticação
-        if (!error.response) {
-            return res.status(500).json({ message: "Erro ao acessar o servidor" });
-        } else if (error.response.status === 401) {
+        if (error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
             return res.status(401).json({ message: "Usuário ou senha inválidos" });
         } else {
             return res.status(500).json({ message: "Erro desconhecido", error: error.message });

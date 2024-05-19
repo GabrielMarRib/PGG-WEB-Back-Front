@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import "../Styles/PagHome.css";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from "react-router-dom";
+import Cabecalho from '../PartesDoSite/Cabecalho.js'
 
 function PagHome() {
   const location = useLocation();
@@ -9,17 +10,22 @@ function PagHome() {
 
   useEffect(() => {
     if (!user) {
-      navigate('/PagLogin');
+      navigate("/PagLogin");
     }
   }, [user, navigate]);
+  // user.userData['Email']
+  // user.userData['Nome']
 
   return (
-    <div className='PagHome'>
+    <div className="PagHome">
       {user ? (
-        <div>
-          <h1>Bem-vindo, {user.name}</h1>
-          <p>Seu email é: {user.email}</p>
+
+        <div>    
+            <Cabecalho />
         </div>
+
+
+
       ) : (
         <div>
           <h1>Redirecionando para a página de login...</h1>

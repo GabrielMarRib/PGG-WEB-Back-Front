@@ -1,4 +1,4 @@
-.PaginaInicialCssWeb *{
+.PagHome *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -7,21 +7,21 @@
     font-family: 'JetBrains Mono';
 }
 
-.PaginaInicialCssWeb .logo{
+.PagHome .logo{
     display: flex;
     font-size: 30px;
     font-weight: bold;
     color: white;
 }
 
-.PaginaInicialCssWeb .ul {
+.PagHome .ul {
     display: flex;
     align-items: center;
     justify-content: space-between; 
     text-shadow: 10px 10px 12px rgba(0, 0, 0, 0.5);
     transition: color 0.3s ease;
 }
-.PaginaInicialCssWeb .conteudoPagina {
+.PagHome .conteudoPagina {
     width: 90%;
     height: 100%;
     display: flex;
@@ -30,7 +30,7 @@
     align-items: center;
 }
 
-.PaginaInicialCssWeb .ul li{
+.PagHome .ul li{
     color: white;
     margin: 0 35px;
     font-size: 15px;
@@ -38,17 +38,17 @@
     white-space: nowrap;
 }
 
-.PaginaInicialCssWeb .ul li:hover{
+.PagHome .ul li:hover{
     color: rgb(0, 0, 0);
 }
 
-.PaginaInicialCssWeb .clicavel{
+.PagHome .clicavel{
     cursor: pointer !important;
 }
 
 
 
-.PaginaInicialCssWeb .conteudoPaginaMaster{
+.PagHome .conteudoPaginaMaster{
     width: 100%;
     display: flex;
     justify-content: center;
@@ -58,7 +58,7 @@
 
 
 
-.PaginaInicialCssWeb h1 {
+.PagHome h1 {
     background-color: #dd501c;
     min-width: 100px;
     width: calc(100% + 5vh);
