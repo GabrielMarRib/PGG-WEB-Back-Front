@@ -14,8 +14,8 @@ export const handleLogin = async (email, password, setError) => {
         });
 
         setError(""); // Clear any previous errors
-        console.log(response.data)
-        return [response.data];
+        //console.log(response.data)
+        return [response.data, false];
     } catch (error) {
         if (!error.response || error.response.status === 500) {
             setError("Erro ao acessar o servidor");
@@ -28,7 +28,7 @@ export const handleLogin = async (email, password, setError) => {
             console.log("Erro desconhecido");
         }
         console.log("Erro durante o login:", error);
-        return [null];
+        return [null,true];
     }
 };
 
