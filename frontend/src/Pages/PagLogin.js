@@ -1,7 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "../Styles/PagLogin.css";
 import axios from "axios";
-import { handleLogin, handleLogOut } from "../Functions/Functions.js";
+import { handleLogin } from "../Functions/Functions.js";
 import Logo from "../Assets/FundoLoginWeb1921x1416.png";
 import { TrocarloginEsquecerSenha, CheckCamposVazios, exibeMsg, apagarCampos } from "../Functions/Functions.js";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +18,20 @@ function Home() {
   const navigate = useNavigate();
 
   // Correctly destructure the context value
-  const { setUser } = useContext(UserContext);
+  const { setUser} = useContext(UserContext);
+ 
+  const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
+  const User = UserOBJ.User; //Pega só o User...
+
+  
+  useEffect(() => {
+    if(User != null){
+      navigate('/PagHome');
+    }
+}, [User]);
+
+
+
 
   return (
     <div className="PagLogin">
@@ -86,7 +99,7 @@ function Home() {
                         }else{
                           console.log("userData NOVO!!! " + JSON.stringify(userData));
                           setUser(userData);
-                          navigate('/PagHome');
+                          localStorage.setItem('User', JSON.stringify(userData));
                         }
                         if (erro) return;
                       })();

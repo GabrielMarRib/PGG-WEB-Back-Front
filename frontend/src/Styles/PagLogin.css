@@ -16,6 +16,7 @@
     margin-left: -6% !important;
     width: 130% !important;
     height: 100% !important;
+  
   }
 
   .PagLogin .container{
@@ -30,8 +31,11 @@
   
   .PagLogin .container-formulario{
     min-width: 100% !important;
-    margin-top: -40% !important;
     height: 100% !important;
+  }
+  .PagLogin .conteudo-formulario{
+    text-align: center;
+    width: 100%;
   }
 
   .PagLogin .container-imagem{
@@ -51,6 +55,18 @@
   font-family: 'JetBrains Mono', sans-serif;
 }
 
+.PagLogin .container-formulario {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 50vw;
+}
+.PagLogin .conteudo-formulario{
+  text-align: center;
+  width: 100%;
+}
+
 .PagLogin .container-imagem img{
   width: 100%;
   height: 100%;
@@ -63,16 +79,6 @@
   width: 100%;
 }
 
-
-.PagLogin .container-formulario{
-  min-width: 60vh;
-  background-color: rgb(255, 255, 255);
-}
-
-.PagLogin .conteudo-formulario{
-  text-align: center;
-  margin-top: 38%;
-}
 
 .PagLogin h1{
   margin: 10px;

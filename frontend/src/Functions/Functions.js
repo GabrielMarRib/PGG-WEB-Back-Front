@@ -32,9 +32,10 @@ export const handleLogin = async (email, password, setError) => {
     }
 };
 
-const handleLogOut = (setUser, setError) => {
-    setUser(null);
-    setError('');
+export const handleLogOut = (navigate) => {
+    console.log("Deslogando . . . . ");
+    localStorage.setItem('User', null);
+    navigate('/PagLogin');
 }
 
 
