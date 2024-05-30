@@ -12,6 +12,8 @@ import { UserContext } from '../../Context/UserContext.js'
 import { handleLogOut } from "../../Functions/Functions.js";
 import { useNavigate } from "react-router-dom";
 import Redirect from "../../Functions/Redirect.js";
+
+
 function PagPerfil() {
     const [showPopup, setShowPopup] = useState(false);
     const UserOBJ = useContext(UserContext);
@@ -26,7 +28,8 @@ function PagPerfil() {
 
     const mostraNivelAcesso = () => {
         if (User && User.userData && User.userData.Nivel_acesso) {
-            switch (User.userData.Nivel_acesso) {
+            console.log(User.userData.Nivel_acesso)
+            switch (parseInt(User.userData.Nivel_acesso)) {
                 case 0:
                     return "(Funcionário)"
                 case 1:

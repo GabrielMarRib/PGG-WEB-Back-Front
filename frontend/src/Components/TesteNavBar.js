@@ -48,11 +48,6 @@ const TesteNavBar = () => {
                 <img src={ImageProfile} alt="Userimg" />
               </div>
             </Link>
-            <Link to="/PagAddFunc">
-              <div className='AddPerfil'>
-                <img src={AddPerfil} alt="AddUserimg" />
-              </div>
-            </Link>
           </div>
         </div>
         <div id="mobile" onClick={handleClick}>

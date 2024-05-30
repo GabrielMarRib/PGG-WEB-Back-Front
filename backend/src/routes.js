@@ -69,7 +69,6 @@ routes.post('/CriarFuncionario', async (req, res) => {
     //senha aleatória...
     //const senhaAleat = gerarSenhaAleat(15);
 
-
     try {
         const userRecord = await auth.createUser({
             email: email,

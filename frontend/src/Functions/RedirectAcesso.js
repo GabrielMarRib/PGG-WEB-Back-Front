@@ -1,20 +1,19 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Redirect(User) {
+function RedirectAcesso(User) {
     const navigate = useNavigate();
-
     useEffect(() => {
-        const timeout = setTimeout(() => {
-            if (User === null) {
-                navigate('/PagLogin');
-            }
-        }, 100);
-            //qqer comentario
-        return () => clearTimeout(timeout);
+        if (User && User.userData && User.userData.Nivel_acesso === 2) {
+            // Authorized access
+            return;
+        } else {
+            // Unauthorized access
+            navigate('/pagHome');
+        }
     }, [User, navigate]);
 }
 
 
 
-export default Redirect;
+export default RedirectAcesso;

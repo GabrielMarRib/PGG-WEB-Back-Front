@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../../../Context/UserContext';
 import Redirect from '../../../Functions/Redirect';
+import RedirectAcesso from '../../../Functions/RedirectAcesso';
 import { handleAdicionarUser } from '../../../Functions/Functions';
 function PagAddFunc() {
     const [nome, setNome] = useState("");
@@ -20,16 +21,7 @@ function PagAddFunc() {
     const User = UserOBJ.User; //Pega só o User....
 
 
-    useEffect(() => {
-        if (User && User.userData && User.userData.Nivel_acesso === 2) {
-            // Authorized access
-            return;
-        } else {
-            // Unauthorized access
-            navigate('/pagHome');
-        }
-    }, [User, navigate]);
-
+    RedirectAcesso(User)
     Redirect(User)
 
     
