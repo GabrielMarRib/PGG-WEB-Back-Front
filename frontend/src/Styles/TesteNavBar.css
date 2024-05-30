@@ -1,0 +1,137 @@
+.TesteNavBar *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'JetBrains Mono';
+  }
+  
+  .TesteNavBar #NomeEmpresa{
+    color: #fff;
+    font-size: 40px;
+  }
+  
+  
+  .TesteNavBar nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #c53d0f;
+    padding: 20px 80px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+    max-height: 100px;
+  }
+  
+  
+  .TesteNavBar nav  #logo{
+    text-decoration: none;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #f6f6f6;
+    text-align: center;
+  }
+  
+  .TesteNavBar #navbar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .TesteNavBar #navbar li{
+    list-style: none;
+    padding: 0 20px;
+    position: relative;
+  }
+  
+  .TesteNavBar #navbar li a{
+    text-decoration: none;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #f6f6f6;
+    transition: 0.3s ease-in-out;
+  }
+  
+  .TesteNavBar #navbar li a:hover,.TesteNavBar #navbar li a.active{
+    color: #6b2108;
+  }
+  
+  .TesteNavBar #navbar li a:hover::after,.TesteNavBar #navbar li a.active::after{
+    content: "";
+    width: 30%;
+    height: 2px;
+    background-color: #6d1b00;
+    position: absolute;
+    bottom: -4px;
+    left: 20px;
+  }
+  
+  .TesteNavBar #mobile i{
+    align-items: center;
+    color:#fff
+  }
+  
+  .TesteNavBar #mobile{
+    display: none;
+  }
+  
+  @media screen and (max-width:769px){
+    .TesteNavBar #navbar{
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      flex-direction: column;
+      position: fixed;
+      top: 90px;
+      right: -300px;
+      width: 300px;
+      height:100vh;
+      background-color: #992d09;
+      box-shadow: 0 40px 60px rgba(0, 0, 0, 0.1);
+      padding: 40px 0 0 10px;
+      transition: 0.3s ease-in-out;
+    }
+  
+    .TesteNavBar #navbar.active{
+      right: 0px;
+    }
+  
+    .TesteNavBar #navbar li{
+      margin-bottom: 25px;
+    }
+  
+    .TesteNavBar #mobile{
+      display: block;
+    }
+  
+    .TesteNavBar #mobile i{
+      font-size: 24px;
+      cursor: pointer;
+    }
+  
+  }
+  
+  
+  /* Informações sobre os usuários */
+  
+  .TesteNavBar img{
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+  }
+  
+  .TesteNavBar #FigurasAlado{
+    margin-left: 60px;
+    display: flex;
+    justify-content: space-between;
+    max-width: 80px;
+    background-color: #ffffff00;
+  }
+  
+  .TesteNavBar .ImageProfile img{
+    background-color: #fff;
+  }
+  
+  .TesteNavBar .AddPerfil img{
+    background-color: #fff;
+  }
+  
+  

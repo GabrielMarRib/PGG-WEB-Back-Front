@@ -2,8 +2,8 @@
 import React from 'react';
 import { BrowserRouter, Routes as RouterRoutes, Route, Navigate } from 'react-router-dom';
 import PagLogin from './Pages/PagLogin';
-import PagLoginMobile from './Pages-Mobile/PagLogin-Mobile';
-import PagHome from './Pages/PagHome';
+import PagLoginMobile from './Mobile/PagLogin-Mobile';
+import PagHome from './Pages/App/PagHome';
 import { IsMobile } from './Functions/Functions';
 
 const Mobile = IsMobile();
