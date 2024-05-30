@@ -10,7 +10,7 @@ function Redirect(User) {
                 navigate('/PagLogin');
             }
         }, 100);
-
+            //qqer comentario
         return () => clearTimeout(timeout);
     }, [User, navigate]);
 }
