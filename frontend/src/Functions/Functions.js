@@ -13,7 +13,7 @@ export const handleLogin = async (email, password) => {
             email: email,
             password: password
         });
-        return [response.data, false, ""];
+        return [response.data, false, "Logado com sucesso"];
     } catch (error) {
         if (!error.response || error.response.status === 500) {
             msg = ("Erro ao acessar o servidor");
@@ -29,6 +29,44 @@ export const handleLogin = async (email, password) => {
         return [null, true, msg];
     }
 };
+
+export const handleAdicionarUser = async (nome, cpf, email, telefone, acesso, userRequisitado) => {
+    if(!userRequisitado)
+        return;
+    else if(userRequisitado.userData.Nivel_acesso != 2){
+        alert("irmao vc nao tem permissao pra isso nao kkkkk")
+        return;
+    }
+        
+    let msg = "";
+    try {
+        const response = await axios.post('http://localhost:4000/CriarFuncionario', {
+            nome: nome,
+            cpf: cpf,
+            email: email,
+            telefone: telefone,
+            acesso: acesso
+        });
+        console.log(response.data.message)
+        return [response.data.message, false];
+
+    } catch (error) {
+        if (!error.response) {
+            msg = "Erro ao acessar o servidor";
+            console.log(msg);
+        } else {
+            switch (error.response.status) {
+                case 500:
+                    msg = error;
+                    break;
+                default:
+                    msg = "Erro desconhecido";
+            }
+        }
+        console.error("Erro durante o login:", error);
+        return [msg, true];
+    }
+}
 
 export const handleRedefinirSenha = async (email) => {
     let msg = "";
@@ -62,7 +100,6 @@ export const handleRedefinirSenha = async (email) => {
         return [msg, true];
     }
 }
-
 export const handleLogOut = (navigate) => {
     console.log("Deslogando . . . . ");
     setTimeout(() => {

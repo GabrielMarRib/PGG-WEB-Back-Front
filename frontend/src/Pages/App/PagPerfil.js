@@ -7,6 +7,7 @@ import NivelAcesso from '../../Assets/userProfile/CHAVE.png';
 import Telefone from '../../Assets/userProfile/TELEFONE.png';
 import SININHO from '../../Assets/userProfile/SININHO.png';
 import Cpf from '../../Assets/userProfile/CPF.png';
+import AddPerfil from '../../Assets/add-user2.png';
 import { UserContext } from '../../Context/UserContext.js'
 import { handleLogOut } from "../../Functions/Functions.js";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +15,6 @@ import Redirect from "../../Functions/Redirect.js";
 function PagPerfil() {
     const [showPopup, setShowPopup] = useState(false);
     const UserOBJ = useContext(UserContext);
-    const [userDataLoaded, setUserDataLoaded] = useState(false);
     const User = UserOBJ.User;
     const navigate = useNavigate();
 
@@ -59,7 +59,7 @@ function PagPerfil() {
                             <h2>Atividade Administrativa</h2>
                             <p> - Verificar estoque em 25/05/2024 </p>
                             <p> - 2 novos pedidos aguardando aprovação </p>
-                            <p>  - Novo acesso em 23/05/2024 </p>
+                            <p> - Novo acesso em 23/05/2024 </p>
                         </div>
 
                         <div className="buttons">
@@ -72,7 +72,12 @@ function PagPerfil() {
 
                 <div className="coluna2">
                     <button className="Notificacao" onClick={togglePopup}> <img src={SININHO} alt="Sino"></img> </button>
-
+                    {User && User.userData && User.userData.Nivel_acesso && User.userData.Nivel_acesso==2 ? (
+                        <button className="AddFunc" onClick={() =>{navigate('/PagAddFunc')}}> <img src={AddPerfil} alt="Sino"></img> Adicionar Funcionário</button>
+                    ):
+                        null
+                    }
+                    
                     {showPopup && (
                         <div className="popup">
                             <div className="popup-content">

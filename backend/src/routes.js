@@ -1,9 +1,9 @@
 const express = require('express');
 const routes = express.Router();
-const { getAuth, signInWithEmailAndPassword,sendPasswordResetEmail } = require('firebase/auth');
+const { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, createUserWithEmailAndPassword } = require('firebase/auth');
 const { app } = require('./Firebase/Firebase.js');
-const { db } = require('./Firebase/FirebaseAdmin.js');
-const e = require('express');
+const { admin, db } = require('./Firebase/FirebaseAdmin.js');
+
 
 routes.post('/Login', async (req, res) => { // Adicionando 'async' aqui
     const auth = getAuth(app);
@@ -57,6 +57,38 @@ routes.post('/RedefinirSenha', async (req, res) => {
             return res.status(404).json({ message: "Email não encontrado na base de dados" }) // 404 = Not found, nao achou
         else
             return res.status(500).json({ message: "Erro desconhecido", error: error.message }); //500 internal server error, ou seja, deu merda mas nao se sabe qual
+    }
+});
+
+routes.post('/CriarFuncionario', async (req, res) => {
+    const auth = admin.auth();
+
+    //vindo do frontend...
+    const { nome, cpf, email, telefone, acesso } = req.body;
+
+    //senha aleatória...
+    //const senhaAleat = gerarSenhaAleat(15);
+
+
+    try {
+        const userRecord = await auth.createUser({
+            email: email,
+            password: "batataFrita"
+        });
+        const userId = userRecord.uid;
+        const LoginsRef = db.collection('Logins');
+        const docRef = LoginsRef.doc(userId);
+        await docRef.set({
+            Nome: nome,
+            Email: email,
+            CPF: cpf,
+            Celular: telefone,
+            Nivel_acesso: acesso
+        });
+        return res.status(200).json({ message: "Usuario adicionado" })
+
+    } catch (error) {
+        return res.status(500).json({ message: "Erro ao adicionar o usuario", error: error.message });
     }
 });
 

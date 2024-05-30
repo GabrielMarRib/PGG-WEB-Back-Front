@@ -48,7 +48,7 @@ const TesteNavBar = () => {
                 <img src={ImageProfile} alt="Userimg" />
               </div>
             </Link>
-            <Link to="/AddFunc">
+            <Link to="/PagAddFunc">
               <div className='AddPerfil'>
                 <img src={AddPerfil} alt="AddUserimg" />
               </div>

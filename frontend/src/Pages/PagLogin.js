@@ -89,14 +89,10 @@ function Home() {
                           return;
                         }
                         const [userData, erro, msg] = await handleLogin(email, password);
-                        if (erro) {
-                          await exibeMsg(setMensagem, msg, 2000, true, SetStyle);
-                        } else {
+                          await exibeMsg(setMensagem, msg, 2000, erro, SetStyle);
                           console.log("userData NOVO!!! " + JSON.stringify(userData));
                           setUser(userData);
                           localStorage.setItem('User', JSON.stringify(userData));
-                        }
-                        if (erro) return;
                       })();
                     }}
                   >

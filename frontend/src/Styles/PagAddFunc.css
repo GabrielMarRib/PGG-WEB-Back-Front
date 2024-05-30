@@ -1,0 +1,46 @@
+.PagAddFunc *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'JetBrains Mono';
+  }
+  
+  .PagAddFunc .formAddFunc {
+    margin:20px auto;
+    border: 1px solid #000;
+    border-radius: 20px;
+    width: 50%;
+    padding: 20px;
+  }
+  
+  .PagAddFunc .formAddFunc input[type=text],[type=number],[type=email]{
+    width: 100%;
+  }
+  
+  .PagAddFunc h2{
+    text-align: left;
+  }
+  
+  .PagAddFunc h1{
+    text-align: center;
+  }
+  
+  .PagAddFunc button{
+    background-color: #C53D0F;
+    border-color: transparent;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 18px;
+    padding: 3px;
+    cursor: pointer;
+  }
+  .PagAddFunc button:hover{
+    background-color: #86290a;
+    transition: 0.6s;
+    transform: scale(1.05);
+  }
+  
+  .PagAddFunc .formAddFunc input{
+    padding: 5px;
+  }
+  
