@@ -6,11 +6,10 @@ import Logo from "../Assets/FundoLoginWeb1921x1416.png";
 import { TrocarloginEsquecerSenha, CheckCamposVazios, exibeMsg, apagarCampos } from "../Functions/Functions.js";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/UserContext.js";
-
+import { camposNaoPreenchidos, loginOk, loginFalha, emailOk, emailFalha } from "../Messages/Msg.js"
 function Home() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const [mostrarLogin, setMostrarLogin] = useState(true);
   const [Style, SetStyle] = useState("");
   const [mensagem, setMensagem] = useState("");
@@ -18,17 +17,17 @@ function Home() {
   const navigate = useNavigate();
 
   // Correctly destructure the context value
-  const { setUser} = useContext(UserContext);
- 
+  const { setUser } = useContext(UserContext);
+
   const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
   const User = UserOBJ.User; //Pega só o User...
 
-  
+
   useEffect(() => {
-    if(User != null){
+    if (User != null) {
       navigate('/PagHome');
     }
-}, [User]);
+  }, [User]);
 
 
 
@@ -90,13 +89,13 @@ function Home() {
                     onClick={() => {
                       (async () => {
                         if (CheckCamposVazios([email, password])) {
-                          exibeMsg(setMensagem, "Preencha todos os campos antes de continuar", 4000, true, SetStyle);
+                          exibeMsg(setMensagem, camposNaoPreenchidos(true), 4000, true, SetStyle);
                           return;
                         }
-                        const [userData, erro] = await handleLogin(email, password, setError);
-                        if(erro){
-                          await exibeMsg(setMensagem, error, 2000, true, SetStyle);
-                        }else{
+                        const [userData, erro] = await handleLogin(email, password);
+                        if (erro) {
+                          await exibeMsg(setMensagem, loginFalha(), 2000, true, SetStyle);
+                        } else {
                           console.log("userData NOVO!!! " + JSON.stringify(userData));
                           setUser(userData);
                           localStorage.setItem('User', JSON.stringify(userData));
@@ -159,13 +158,13 @@ function Home() {
                     onClick={() => {
                       (async () => {
                         if (CheckCamposVazios([emailRecuperacao])) {
-                          exibeMsg(setMensagem, "Preencha o campo antes de continuar", 4000, true, SetStyle);
+                          exibeMsg(setMensagem, camposNaoPreenchidos(false), 4000, true, SetStyle);
                           return;
                         }
-                        // const { msg, erro } = await recuperarSenha(
-                        //   emailRecuperacao
-                        // );
-                        // exibeMsg(setMensagem, msg, 4000, erro, SetStyle);
+                        const { msg, erro } = await recuperarSenha( // TODO
+                          emailRecuperacao
+                        );
+                        exibeMsg(setMensagem, msg, 4000, erro, SetStyle);
                       })();
                     }}
                   >

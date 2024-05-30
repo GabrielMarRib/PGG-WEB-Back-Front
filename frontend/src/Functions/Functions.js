@@ -12,9 +12,6 @@ export const handleLogin = async (email, password, setError) => {
             email: email,
             password: password
         });
-
-        setError(""); // Clear any previous errors
-        //console.log(response.data)
         return [response.data, false];
     } catch (error) {
         if (!error.response || error.response.status === 500) {
@@ -28,7 +25,7 @@ export const handleLogin = async (email, password, setError) => {
             console.log("Erro desconhecido");
         }
         console.log("Erro durante o login:", error);
-        return [null,true];
+        return [null, true];
     }
 };
 

@@ -5,7 +5,9 @@ const app = express();
 
 //npm i react-scripts
 //npm i express
-//nao sei mais nao pai kk
+//npm i firebase
+//npm i firebase-admin
+//npm i nodemon
 
 app.use(express.json());
 app.use(cors());
