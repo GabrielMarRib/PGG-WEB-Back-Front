@@ -43,7 +43,7 @@ const TesteNavBar = () => {
           </ul>
           <br />
           <div id='FigurasAlado'>
-            <Link to="/Perfil">
+            <Link to="/PagPerfil">
               <div className='ImageProfile' >
                 <img src={ImageProfile} alt="Userimg" />
               </div>

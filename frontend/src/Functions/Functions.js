@@ -65,7 +65,10 @@ export const handleRedefinirSenha = async (email) => {
 
 export const handleLogOut = (navigate) => {
     console.log("Deslogando . . . . ");
-    localStorage.setItem('User', null);
+    setTimeout(() => {
+        localStorage.setItem('User', null);
+        window.location.reload();
+    }, 1);
     navigate('/PagLogin');
 }
 

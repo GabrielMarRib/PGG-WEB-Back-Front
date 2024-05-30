@@ -4,6 +4,7 @@ import { BrowserRouter, Routes as RouterRoutes, Route, Navigate } from 'react-ro
 import PagLogin from './Pages/PagLogin';
 import PagLoginMobile from './Mobile/PagLogin-Mobile';
 import PagHome from './Pages/App/PagHome';
+import PagPerfil from './Pages/App/PagPerfil';
 import { IsMobile } from './Functions/Functions';
 
 const Mobile = IsMobile();
@@ -23,6 +24,7 @@ function AppRoutes() {
             <Route path="/PagLogin" element={<PagLogin />} />
 
             <Route path="/PagHome" element={<PagHome />} />
+            <Route path="/PagPerfil" element={<PagPerfil />} />
           </>
         )}
         {/* Rota padrão para redirecionar qualquer rota desconhecida */}

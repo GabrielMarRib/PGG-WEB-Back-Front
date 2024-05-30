@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useLayoutEffect, useEffect } from "react";
 import "../../Styles/PagHome.css";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../Context/UserContext.js";
 import { handleLogOut } from "../../Functions/Functions.js";
 import TesteNavBar from "../../Components/TesteNavBar.js";
-
+import Redirect from "../../Functions/Redirect.js";
 function PagHome() {
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => {
@@ -13,15 +13,11 @@ function PagHome() {
   };
 
   const navigate = useNavigate();
-  // const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
-  // const User = UserOBJ.User; //Pega só o User....
+  const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
+  const User = UserOBJ.User; //Pega só o User....
 
 
-  // useEffect(() => {
-  //   if (User == null) {
-  //     navigate('/PagLogin');
-  //   }
-  // }, []);
+  Redirect(User)
 
   return (
     <div className="PagHome">

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useLayoutEffect } from "react";
 import "../Styles/PagLogin.css";
 import Logo from "../Assets/FundoLoginWeb1921x1416.png";
 import { TrocarloginEsquecerSenha, CheckCamposVazios, exibeMsg, apagarCampos, handleRedefinirSenha, handleLogin } from "../Functions/Functions.js";
@@ -22,7 +22,7 @@ function Home() {
   const User = UserOBJ.User; //Pega só o User...
 
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (User != null) {
       navigate('/PagHome');
     }
