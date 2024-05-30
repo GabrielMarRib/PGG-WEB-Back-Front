@@ -1,12 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
 import "../Styles/PagLogin.css";
-import axios from "axios";
-import { handleLogin } from "../Functions/Functions.js";
 import Logo from "../Assets/FundoLoginWeb1921x1416.png";
-import { TrocarloginEsquecerSenha, CheckCamposVazios, exibeMsg, apagarCampos } from "../Functions/Functions.js";
+import { TrocarloginEsquecerSenha, CheckCamposVazios, exibeMsg, apagarCampos, handleRedefinirSenha, handleLogin } from "../Functions/Functions.js";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/UserContext.js";
-import { camposNaoPreenchidos, loginOk, loginFalha, emailOk, emailFalha } from "../Messages/Msg.js"
+import { camposNaoPreenchidos } from "../Messages/Msg.js"
+
 function Home() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,10 +26,7 @@ function Home() {
     if (User != null) {
       navigate('/PagHome');
     }
-  }, [User]);
-
-
-
+  }, [User,navigate]);
 
   return (
     <div className="PagLogin">
@@ -92,9 +88,9 @@ function Home() {
                           exibeMsg(setMensagem, camposNaoPreenchidos(true), 4000, true, SetStyle);
                           return;
                         }
-                        const [userData, erro] = await handleLogin(email, password);
+                        const [userData, erro, msg] = await handleLogin(email, password);
                         if (erro) {
-                          await exibeMsg(setMensagem, loginFalha(), 2000, true, SetStyle);
+                          await exibeMsg(setMensagem, msg, 2000, true, SetStyle);
                         } else {
                           console.log("userData NOVO!!! " + JSON.stringify(userData));
                           setUser(userData);
@@ -107,7 +103,7 @@ function Home() {
                     Enviar
                   </button>
                   <div className="esqueceu-senha">
-                    <a
+                    <a 
                       onClick={() => {
                         TrocarloginEsquecerSenha(setMostrarLogin, mostrarLogin);
                         apagarCampos([setEmail, setPassword]);
@@ -161,9 +157,9 @@ function Home() {
                           exibeMsg(setMensagem, camposNaoPreenchidos(false), 4000, true, SetStyle);
                           return;
                         }
-                        const { msg, erro } = await recuperarSenha( // TODO
-                          emailRecuperacao
-                        );
+                        const [msg, erro] = await handleRedefinirSenha(emailRecuperacao);
+
+                        console.log("msg frontend: " + msg)
                         exibeMsg(setMensagem, msg, 4000, erro, SetStyle);
                       })();
                     }}

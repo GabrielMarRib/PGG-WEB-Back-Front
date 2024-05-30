@@ -6,28 +6,62 @@ export function IsMobile() {
 }
 
 
-export const handleLogin = async (email, password, setError) => {
+export const handleLogin = async (email, password) => {
+    let msg = "";
     try {
         const response = await axios.post('http://localhost:4000/Login', {
             email: email,
             password: password
         });
-        return [response.data, false];
+        return [response.data, false, ""];
     } catch (error) {
         if (!error.response || error.response.status === 500) {
-            setError("Erro ao acessar o servidor");
+            msg = ("Erro ao acessar o servidor");
             console.log("Erro ao acessar o servidor");
         } else if (error.response.status === 401) {
-            setError("Usuário ou senha inválidos");
+            msg = ("Usuário ou senha inválidos");
             console.log("Usuário ou senha inválidos");
         } else {
-            setError("Erro desconhecido");
+            msg = ("Erro desconhecido");
             console.log("Erro desconhecido");
         }
         console.log("Erro durante o login:", error);
-        return [null, true];
+        return [null, true, msg];
     }
 };
+
+export const handleRedefinirSenha = async (email) => {
+    let msg = "";
+    try {
+        const response = await axios.post('http://localhost:4000/RedefinirSenha', {
+            email: email
+        });
+        console.log(response.data.message)
+        return [response.data.message, false];
+
+    } catch (error) {
+        if (!error.response) {
+            msg = "Erro ao acessar o servidor";
+            console.log(msg);
+        } else {
+            switch (error.response.status) {
+                case 400:
+                    msg = "Email inválido inserido";
+                    break;
+                case 404:
+                    msg = "Email não encontrado na base de dados";
+                    break;
+                case 500:
+                    msg = "Erro ao acessar o servidor";
+                    break;
+                default:
+                    msg = "Erro desconhecido";
+            }
+        }
+        console.error("Erro durante o login:", error);
+        return [msg, true];
+    }
+}
 
 export const handleLogOut = (navigate) => {
     console.log("Deslogando . . . . ");

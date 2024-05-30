@@ -1,13 +1,14 @@
 const express = require('express');
 const routes = express.Router();
-const { getAuth, signInWithEmailAndPassword } = require('firebase/auth');
+const { getAuth, signInWithEmailAndPassword,sendPasswordResetEmail } = require('firebase/auth');
 const { app } = require('./Firebase/Firebase.js');
 const { db } = require('./Firebase/FirebaseAdmin.js');
+const e = require('express');
 
 routes.post('/Login', async (req, res) => { // Adicionando 'async' aqui
     const auth = getAuth(app);
     const { email, password } = req.body;
-    
+
     try {
         // Autenticação no Firebase
         await signInWithEmailAndPassword(auth, email, password);
@@ -24,11 +25,11 @@ routes.post('/Login', async (req, res) => { // Adicionando 'async' aqui
         }
 
         const userData = userDoc.data();
-    
+
         // Retorne os dados do usuário
         return res.status(200).json({
-          id: user.uid,
-          userData: userData,
+            id: user.uid,
+            userData: userData,
         });
     } catch (error) {
         // Trate os erros de autenticação
@@ -37,6 +38,25 @@ routes.post('/Login', async (req, res) => { // Adicionando 'async' aqui
         } else {
             return res.status(500).json({ message: "Erro desconhecido", error: error.message });
         }
+    }
+});
+
+routes.post('/RedefinirSenha', async (req, res) => {
+    const auth = getAuth(app);
+    const { email } = req.body;
+
+    try {
+        await sendPasswordResetEmail(auth, email); // se der ruim, manda exception....
+
+        return res.status(200).json({ message: "Caso o e-mail estiver cadastrado, enviamos um link de redefinição" })
+
+    } catch (error) {
+        if (error.code === 'auth/invalid-email')
+            return res.status(400).json({ message: "Email inválido inserido" }) //400 = Bad Request, nao foi possivel concluir a operação
+        else if (error.code === 'auth/user-not-found')
+            return res.status(404).json({ message: "Email não encontrado na base de dados" }) // 404 = Not found, nao achou
+        else
+            return res.status(500).json({ message: "Erro desconhecido", error: error.message }); //500 internal server error, ou seja, deu merda mas nao se sabe qual
     }
 });
 
