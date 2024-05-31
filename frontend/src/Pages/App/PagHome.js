@@ -16,10 +16,6 @@ function PagHome() {
   const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
   const User = UserOBJ.User; //Pega só o User....
 
-
-
-
-
   Redirect(User)
 
   return (
@@ -55,7 +51,7 @@ function PagHome() {
             </div>
 
             <div className="ag-courses_item">
-              <a onClick={() => { navigate("/PontoPedido") }} className="ag-courses-item_link">
+              <a onClick={() => { navigate("/PagPontoPedido") }} className="ag-courses-item_link">
                 <div className="ag-courses-item_bg"></div>
                 <div className="ag-courses-item_title">
                   Ponto de pedido
@@ -76,7 +72,7 @@ function PagHome() {
             </div>
 
             <div className="ag-courses_item">
-              <a onClick={() => { navigate("/LoteEco") }} className="ag-courses-item_link">
+              <a onClick={() => { navigate("/PagLoteEconomico") }} className="ag-courses-item_link">
                 <div className="ag-courses-item_bg"></div>
 
                 <div className="ag-courses-item_title">

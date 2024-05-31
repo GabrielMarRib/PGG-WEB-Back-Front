@@ -31,7 +31,7 @@ class Cabecalho extends Component {
               <li><Link to="/EscolhaCurvaABC" className='active'>Curva ABC</Link></li>
               <li><Link to="/PontoPedido" className='active'>Ponto de Pedido</Link></li>
               <li><Link to="/Peps" className='active'>Peps</Link></li>
-              <li><Link to="/LoteEco" className='active'>Lote Econômico</Link></li>
+              <li><Link to="/PagLoteEconomico" className='active'>Lote Econômico</Link></li>
             </ul>
           </div>
 

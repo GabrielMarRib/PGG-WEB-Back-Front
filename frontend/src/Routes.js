@@ -8,6 +8,7 @@ import PagPerfil from './Pages/App/PagPerfil';
 import { IsMobile } from './Functions/Functions';
 import PagAddFunc from './Pages/App/Services/PagAddFunc';
 import PagProdutos from './Pages/App/Services/PagProdutos';
+import PagLoteEconomico from './Pages/App/Services/PagLoteEconomico';
 const Mobile = IsMobile();
 
 function AppRoutes() {
@@ -28,6 +29,7 @@ function AppRoutes() {
             <Route path="/PagPerfil" element={<PagPerfil />} />
             <Route path="/PagAddFunc" element={<PagAddFunc />} />
             <Route path="/PagProdutos" element={<PagProdutos />} />
+            <Route path="/PagLoteEconomico" element={<PagLoteEconomico />} />
           </>
         )}
         {/* Rota padrão para redirecionar qualquer rota desconhecida */}

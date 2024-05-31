@@ -1,0 +1,141 @@
+.LoteEconomico {
+    font-family: 'JetBrains Mono', sans-serif;
+    flex-direction: row;
+    align-items: center; 
+    box-sizing: border-box;
+}
+
+.LoteEconomico .text-voltar-PontoPedido {
+    display: inline-block;
+    color: #fff;
+    font-size: 25px;
+}
+
+.LoteEconomico .container-main{
+    display: flex;
+    justify-content: center;
+    margin-left: 20px;
+}
+
+.LoteEconomico h2{
+    text-align: center;
+}
+
+.LoteEconomico .container-tela-ponto-pedido {
+    background-color: #ffffff;
+    width: 800px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: 2px solid #000000;
+    color: #000000;
+    margin-top: 100px;
+    flex-wrap: wrap;
+    height: 60%;
+    margin-right: 0px;
+}
+
+
+.LoteEconomico .lista-pontos-pedido {
+    font-size: 20px;
+    margin-left: 10%;
+}
+
+
+.LoteEconomico .titulo-pontos-pedido {
+    background-color: #2e2929;
+    color: #fff;
+    text-align: center;
+}
+
+
+.LoteEconomico label {
+    justify-content: right;
+    margin-left: 10%;
+}
+
+
+.LoteEconomico .grupo-input-produto,
+.LoteEconomico .grupo-input-tipo,
+.LoteEconomico .grupo-input-estoque-seguranca,
+.LoteEconomico .grupo-input-tempo-de-reposicao,
+.LoteEconomico .grupo-input-consumo-medio {
+    margin-bottom: 20px;
+}
+
+.LoteEconomico .Div-Select {
+    display: flex;
+    align-items: center;  
+    margin-left: 70px;
+    padding: 10px;  
+    border-radius: 5px;  
+}
+
+.LoteEconomico .Div-Select p {
+    margin: 0;  
+    margin-right: -250px;  
+}
+
+.LoteEconomico .Div-Select select {
+    padding: 5px;  
+    border-radius: 5px;  
+    border: 1px solid #ccc;  
+}
+
+
+.LoteEconomico .container-main input {
+    justify-content: right;
+    margin-left: 80px;
+    width: 80%;
+    height: 25px;
+}
+
+.LoteEconomico .Resultado-select{
+    align-items: center;
+    margin-left: 80px;
+}
+
+.LoteEconomico button {
+    padding: 10px;
+    border-radius: 3px;
+    background-color: #e04d18;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
+    font-family: 'JetBrains Mono';
+    margin-top: 20px;
+    margin-left: 30%;
+}
+
+/* Heading styles */
+/* .LoteEconomico h2 {
+    margin-top: 20px;
+    text-align: center;
+    margin-bottom: 20px; // da interferencia com a navegacao...
+} */
+
+
+
+.LoteEconomico .Conteudo-Resultado {
+    background-color: #000000;
+    color: #ffffff;
+    height: 300px;
+    width: 800px;
+    overflow-y: auto;
+    margin-top: 100px;
+    margin-left: 20px;
+}
+
+.LoteEconomico .grupo-input-produto select {
+    display: block;
+    margin: 0 auto; 
+}
+
+.LoteEconomico .grupo-input-produto .select option {
+    text-align: center;
+}
+
+
+
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
