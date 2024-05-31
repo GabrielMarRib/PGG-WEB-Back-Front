@@ -3,8 +3,11 @@ const routes = express.Router();
 const { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } = require('firebase/auth');
 const { app } = require('./Firebase/Firebase.js');
 const { admin, db } = require('./Firebase/FirebaseAdmin.js');
-const { getDocs, collection, onSnapshot } = require('firebase/firestore');
 
+
+routes.get('/teste', async (req, res) => {
+    res.json("hahaha teste ");
+})
 
 routes.post('/Login', async (req, res) => { // Adicionando 'async' aqui
     const auth = getAuth(app);

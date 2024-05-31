@@ -5,7 +5,6 @@ export function IsMobile() {
     return /Mobi|Android/i.test(navigator.userAgent);
 }
 
-
 export const handleLogin = async (email, password) => {
     let msg = "";
     try {

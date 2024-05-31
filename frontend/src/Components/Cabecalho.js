@@ -27,9 +27,9 @@ class Cabecalho extends Component {
           <div>
             <ul id='navbar' className={this.state.clicked ? "#navbar active" : "#navbar"}>
               <li><Link to="/PagInicial" className='active'>Home</Link></li>
-              <li><Link to="/Produtos" className='active'>Produtos</Link></li>
-              <li><Link to="/EscolhaCurvaABC" className='active'>Curva ABC</Link></li>
-              <li><Link to="/PontoPedido" className='active'>Ponto de Pedido</Link></li>
+              <li><Link to="/PagEscolhaProdutos" className='active'>Produtos</Link></li>
+              <li><Link to="/PagEscolhaCurvaABC" className='active'>Curva ABC</Link></li>
+              <li><Link to="/PagPontoPedido" className='active'>Ponto de Pedido</Link></li>
               <li><Link to="/Peps" className='active'>Peps</Link></li>
               <li><Link to="/PagLoteEconomico" className='active'>Lote Econômico</Link></li>
             </ul>

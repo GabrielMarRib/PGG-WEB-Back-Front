@@ -40,7 +40,7 @@ function PagHome() {
             </div>
 
             <div className="ag-courses_item">
-              <a onClick={() => { navigate("/EscolhaCurvaABC") }} className="ag-courses-item_link">
+              <a onClick={() => { navigate("/PagEscolhaCurvaABC") }} className="ag-courses-item_link">
                 <div className="ag-courses-item_bg"></div>
 
                 <div className="ag-courses-item_title">
@@ -85,7 +85,7 @@ function PagHome() {
               <a onClick={() => { navigate("/pagInicial") }} className="ag-courses-item_link">
                 <div className="ag-courses-item_bg"></div>
                 <div className="ag-courses-item_title">
-                  Sei lá
+
                 </div>
               </a>
             </div>

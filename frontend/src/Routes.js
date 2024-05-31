@@ -9,8 +9,12 @@ import { IsMobile } from './Functions/Functions';
 import PagAddFunc from './Pages/App/Services/PagAddFunc';
 import PagProdutos from './Pages/App/Services/PagProdutos';
 import PagEscolhaProdutos from './Pages/App/PagEscolhaProdutos';    
-import PagVenderProduto from './Pages/App/PagVenderProduto'; 
-import PagLoteEconomico from './Pages/App/Services/PagLoteEconomico';
+import PagVenderProduto from './Pages/App/Services/PagVenderProduto'; 
+import PagLoteEconomico from './Pages/App/Services/PagLoteEconomico'; 
+import PagEscolhaCurvaABC from './Pages/App/PagEscolhaCurvaABC'; 
+import PagCurvaABC from './Pages/App/Services/PagCurvaABC';
+import PagCurvaABCPorValor from './Pages/App/Services/PagCurvaABCPorValor'; 
+import PagPontoPedido from './Pages/App/Services/PagPontoPedido'; 
 
 const Mobile = IsMobile();
 
@@ -35,6 +39,10 @@ function AppRoutes() {
             <Route path="/PagLoteEconomico" element={<PagLoteEconomico />} />
             <Route path="/PagEscolhaProdutos" element={<PagEscolhaProdutos />} />
             <Route path="/PagVenderProduto" element={<PagVenderProduto />} />
+            <Route path="/PagEscolhaCurvaABC" element={<PagEscolhaCurvaABC />} />
+            <Route path="/PagCurvaABC" element={<PagCurvaABC />} />  
+            <Route path="/PagCurvaABCPorValor" element={<PagCurvaABCPorValor />} /> ]
+            <Route path="/PagPontoPedido" element={<PagPontoPedido />} /> 
           </>
         )}
         {/* Rota padrão para redirecionar qualquer rota desconhecida */}

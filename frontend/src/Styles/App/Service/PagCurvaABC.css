@@ -1,0 +1,281 @@
+.CurvaABC {
+    font-family: 'JetBrains Mono';
+}
+
+.CurvaABC .Nome-produto-input {
+    margin-top: 18px;
+
+}
+
+.CurvaABC .preco-input {
+    margin-top: 18px;
+}
+
+.CurvaABC .quantidade-input {
+    margin-top: 18px;
+}
+.CurvaABC label {
+    justify-content: right;
+    margin-left: 2%;
+    font-size: 20px;
+}
+
+.CurvaABC input {
+    justify-content: right;
+    height: 20px;
+    width: 80%;
+    display: block;
+}
+
+.CurvaABC .Curva-texto {
+    display: flex;
+    text-align: left;
+}
+
+.CurvaABC #DivBtnSubmit {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.CurvaABC button {
+    padding: 10px;
+    border-radius: 3px;
+    background-color: #e04d18;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-size: 20px;
+    font-family: 'JetBrains Mono';
+    margin-top: 20px;
+    margin-right: 50px;
+}
+
+.CurvaABC .Container-Textos {
+    background-color: #000000;
+    text-align: center;
+    width: 40%;
+    height: 200px;
+    overflow: auto;
+    margin: 10px;
+}
+
+.CurvaABC .Titulo-Info {
+    background-color: rgb(46, 41, 41);
+    color: #fff;
+    text-align: left;
+    height: 20px;
+}
+
+.CurvaABC .Informacoes {
+    margin: 1%;
+    width: 80%;
+    text-align: left;
+    color: aliceblue;
+}
+
+.CurvaABC .BarraSuperior {
+    width: 97.5%;
+    height: 30px;
+    background-color: #e3a72f;
+    display: flex;
+    gap: 35%;
+    align-items: center;
+    padding-left: 20px;
+    transition: transform 0.5s ease;
+}
+
+.CurvaABC .BarraSuperiorLateral {
+    width: 75%;
+    height: 400px;
+    background-color: #e3a72f;
+    display: flex;
+    justify-content: center;
+    transition: transform 0.5s ease;
+}
+
+.CurvaABC #BarraLateral {
+    margin-top: 50px;
+    width: 2%;
+    height: 100px;
+    background-color: #e3a72f;
+    display: flex;
+    gap: 35%;
+    align-items: center;
+    padding-left: 20px;
+
+}
+
+.CurvaABC .btnCloseInserirDados {
+    cursor: pointer;
+}
+
+.CurvaABC .BtnSeusProdutos {
+    cursor: pointer;
+}
+
+.CurvaABC .PBtn {
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.CurvaABC #TxtInserirDados {
+    width: 100%;
+    text-align: center;
+}
+
+.CurvaABC .Container-top {
+    width: 100%;
+    background-color: white;
+    border: solid #e3a72f;
+    border-width: 5px;
+}
+
+.CurvaABC .FormularioInserir {
+    margin-top: 50px;
+    margin-left: 10px;
+    width: 500px;
+    height: 400px;
+    display: inline-block;
+    vertical-align: middle;
+    transition: transform 0.5s ease;
+    background-color: #000000;
+
+}
+
+.CurvaABC .FormularioInserirBarraLeteral {
+    margin-top: 50px;
+    width: 80px;
+    height: 400px;
+    display: inline-block;
+    vertical-align: middle;
+
+}
+
+.CurvaABC .FormularioInserirdesactive {
+    display: none;
+}
+
+.DivImage {
+    height: 60px;
+    width: 60px;
+    cursor: pointer;
+}
+
+/*Grafico*/
+
+.CurvaABC .CurvaABCGrafico {
+    margin-top: 50px;
+    margin-left: -10px;
+    height: 540px;
+    width: 100%;
+    display: inline-block;
+    vertical-align: middle;
+    background-color: white;
+    margin-bottom: 10px;
+}
+
+.CurvaABC .CurvaABCGraficoExtendido {
+    margin-top: 50px;
+    width: 100%;
+    height: 560px;
+    display: inline-block;
+    vertical-align: middle;
+    background-color: white;
+    margin-bottom: 10px;
+
+}
+
+.CurvaABC #ParteSuperior {
+    width: 99vw;
+    display: flex;
+    flex-direction: row;
+}
+
+/* DivUser */
+.CurvaABC .custom-tooltip {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.CurvaABC .custom-tooltip .label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.CurvaABC .custom-tooltip .intro {
+    margin: 0;
+}
+
+.CurvaABC .DivUser {
+    height: 100%;
+    width: 400px;
+    display: inline-block;
+    float: right;
+    margin-right: 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.CurvaABC .nomeUser {
+    font-size: 15px;
+    width: 100%;
+}
+
+.CurvaABC #DivBtnsUser {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.CurvaABC nav {
+    height: 100%;
+}
+
+.CurvaABC .Tabela {
+    margin-top: -90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+
+
+.CurvaABC .Tabela table {
+    width: 80%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+
+tbody {
+    padding: 90px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+th {
+    background-color: #e04d18;
+    color: white;
+}
+
+.CurvaABC .lblTotal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
