@@ -1,8 +1,9 @@
 const express = require('express');
 const routes = express.Router();
-const { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, createUserWithEmailAndPassword } = require('firebase/auth');
+const { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } = require('firebase/auth');
 const { app } = require('./Firebase/Firebase.js');
 const { admin, db } = require('./Firebase/FirebaseAdmin.js');
+const { getDocs, collection, onSnapshot } = require('firebase/firestore');
 
 
 routes.post('/Login', async (req, res) => { // Adicionando 'async' aqui
@@ -88,6 +89,49 @@ routes.post('/CriarFuncionario', async (req, res) => {
 
     } catch (error) {
         return res.status(500).json({ message: "Erro ao adicionar o usuario", error: error.message });
+    }
+});
+
+routes.get('/PegaProdutos', async (req, res) => {
+    try {
+        const snapshot = await db.collection('Estoque').get(); // Get a snapshot of the current data
+
+        const products = [];
+        snapshot.forEach(doc => {
+            products.push(doc.data()); // Assuming each document contains product data
+        });
+
+        res.json(products); // Send the snapshot data as JSON
+
+    } catch (error) {
+        console.error('Error handling route: ', error);
+        res.status(500).json({ error: 'Internal Server Error', details: error.message });
+    }
+});
+
+routes.post('/insereProdutos', async (req, res) => {
+
+    const { nome, custoUnit, quantidade, descricao, qdeCon } = req.body;
+    const data = new Date();
+    try {
+        const EstoqueRef = db.collection('Estoque');
+        const CurvaAbcRef = db.collection('CurvaAbc');
+        const produtoNovo = await EstoqueRef.add({
+            Data_Entrada: data,
+            Descricao: descricao,
+            Nome: nome,
+            Custo_Unitario: custoUnit,
+            Quantidade: quantidade
+        });
+        const codigo = produtoNovo.id;
+        await CurvaAbcRef.add({
+            Codigo: codigo,
+            QtdeConsumo: qdeCon
+        })
+        res.status(200).json({message: "inserção OK"});
+    } catch (error) {
+        console.error('Error handling route: ', error);
+        res.status(500).json({ error: 'Internal Server Error', details: error.message });
     }
 });
 

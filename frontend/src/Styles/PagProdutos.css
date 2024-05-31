@@ -1,0 +1,121 @@
+.Produtos {
+    font-family: 'JetBrains Mono', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .Produtos #DivForms {
+    width: 100%;
+    justify-content: center;
+  
+  }
+
+  .Produtos .container-tela-produtos {
+    background-color: #ffffff;
+    width: 30%;
+    font-size: 20px;
+    border-radius: 5px;
+    border: 2px solid #000000;
+    color: #000000;
+    margin-top: 20px;
+    padding: 20px;
+    margin-top: 95px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left:10%;
+  }
+  
+  .Produtos .grupo-input-produto {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+  }
+  
+  .Produtos .grupo-input {
+    margin-bottom: 10px;
+  }
+  
+  .Produtos .grupo-input label {
+    margin-right: 10px;
+  }
+  
+  .Produtos .grupo-input input,
+  .Produtos .grupo-input textarea {
+    width: 100%;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #000;
+    border-radius: 3px;
+  }
+  
+  .Produtos button {
+    padding: 10px;
+    border-radius: 3px;
+    background-color: #e04d18;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
+    font-family: 'JetBrains Mono';
+    margin-top: 10px;
+  }
+  
+  .Produtos .terminal {
+    width: 35%;
+    margin-top: 20px;
+    border: 1px solid #000000;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    height: 444px;
+    margin-top: -465px;
+    float: right;
+    margin-right: 10%;
+    overflow: auto;
+  }
+  
+  .Produtos .barra-pesquisa {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .Produtos .barra-pesquisa input {
+    width: 80%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #000;
+    border-radius: 3px;
+  }
+
+  .Produtos .barra-pesquisa .botao-pesquisa {
+    width: 10%;
+    padding: 8px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 5px;
+    background-color: #ffffff;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+  
+  .imagem-botao {
+    width: 20px; 
+    height: 20px; 
+
+  }
+
+  .Produtos .lista-produtos {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .Produtos .lista-produtos li {
+    margin: 5px 0;
+  }
+  
+  

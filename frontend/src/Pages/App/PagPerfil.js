@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import "../../Styles/PagPerfil.css";
 import TesteNavBar2 from '../../Components/TesteNavBar2';
 import ImageProfile from '../../Assets/userProfile/TESTEUSER.png';
@@ -27,8 +27,7 @@ function PagPerfil() {
     Redirect(User)
 
     const mostraNivelAcesso = () => {
-        if (User && User.userData && User.userData.Nivel_acesso) {
-            console.log(User.userData.Nivel_acesso)
+        if (User && User.userData) {
             switch (parseInt(User.userData.Nivel_acesso)) {
                 case 0:
                     return "(Funcionário)"
@@ -36,6 +35,8 @@ function PagPerfil() {
                     return "(Funcionário+)"
                 case 2:
                     return "(Gestor)"
+                default:
+                    return null;
             }
         }
     }
@@ -75,7 +76,7 @@ function PagPerfil() {
 
                 <div className="coluna2">
                     <button className="Notificacao" onClick={togglePopup}> <img src={SININHO} alt="Sino"></img> </button>
-                    {User && User.userData && User.userData.Nivel_acesso && User.userData.Nivel_acesso==2 ? (
+                    {User && User.userData && User.userData.Nivel_acesso && User.userData.Nivel_acesso===2 ? (
                         <button className="AddFunc" onClick={() =>{navigate('/PagAddFunc')}}> <img src={AddPerfil} alt="Sino"></img> Adicionar Funcionário</button>
                     ):
                         null

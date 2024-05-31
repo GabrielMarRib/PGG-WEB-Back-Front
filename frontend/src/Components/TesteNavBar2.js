@@ -30,7 +30,7 @@ class TesteNavBar extends Component {
             {/* pelo amor de Deus gente, nao se usa href em react... se usa Navigate('/path'), arrumem isso */}
             <ul id='navbar' className={this.state.clicked ? "#navbar active" : "#navbar"}>
               <li><a href="/PagInicial" className='active'>Home</a></li>
-              <li><a href="/Produtos" className='active'>Produtos</a></li>
+              <li><a href="/PagProdutos" className='active'>Produtos</a></li>
               <li><a href="/EscolhaCurvaABC" className='active'>Curva ABC</a></li>
               <li><a href="/PontoPedido" className='active'>Ponto de Pedido</a></li>
               <li><a href="Peps" className='active'>Peps</a></li>
