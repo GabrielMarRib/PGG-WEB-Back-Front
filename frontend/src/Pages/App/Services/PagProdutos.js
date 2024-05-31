@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import TesteNavBar2 from '../../../Components/TesteNavBar2';
+import TesteNavBar2 from '../../../Components/Cabecalho';
 import '../../../Styles/PagProdutos.css'
 import lupa from '../../../Assets/lupa.png';
 import axios from 'axios';
