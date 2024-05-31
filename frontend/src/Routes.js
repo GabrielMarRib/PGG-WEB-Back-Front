@@ -1,12 +1,17 @@
 // src/Routes.js
-import React from 'react';
-import { BrowserRouter, Routes as RouterRoutes, Route, Navigate } from 'react-router-dom';
-import PagLogin from './Pages/PagLogin';
-import PagLoginMobile from './Mobile/PagLogin-Mobile';
-import PagHome from './Pages/App/PagHome';
-import PagPerfil from './Pages/App/PagPerfil';
-import { IsMobile } from './Functions/Functions';
-import PagAddFunc from './Pages/App/Services/PagAddFunc';
+import React from "react";
+import {
+  BrowserRouter,
+  Routes as RouterRoutes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import PagLogin from "./Pages/PagLogin";
+import PagLoginMobile from "./Mobile/PagLogin-Mobile";
+import PagHome from "./Pages/App/PagHome";
+import PagPerfil from "./Pages/App/PagPerfil";
+import PagAddFunc from "./Pages/App/Services/PagAddFunc";
+import { IsMobile } from "./Functions/Functions";
 const Mobile = IsMobile();
 
 function AppRoutes() {

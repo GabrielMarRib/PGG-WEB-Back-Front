@@ -1,128 +1,47 @@
-import React from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import "../Styles/Cabecalho.css";
-import ImageProfile from "../Assets/User_Icon.png";
+import React, { Component } from 'react';
+import { Link } from "react-router-dom";
+import "../Styles/Components/Cabecalho.css";
+import ImageProfile from "../Assets/Options.png";
 import ImageAddUser from "../Assets/add-user.svg";
 
-function Cabecalho() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  return (
-    <div className="Cabecalho">
-      <header>
-        <div className="PGGTextDiv">
-          <div className="texto-anima-wrapper">
-            <svg>
-              <text
-                x="25%"
-                y="10%"
-                dy=".50em"
-                className="animated-text-PPG"
-                onClick={() => {
-                  navigate("/PagHome");
-                }}
-              >
-                PGG
-              </text>
-              <text
-                x="0%"
-                y="35%"
-                dy=".50em"
-                className="animated-text-PGGLonger"
-                onClick={() => {
-                  navigate("/PagHome");
-                }}
-              >
-                Pequeno Grande Gestor
-              </text>
-            </svg>
-          </div>
-        </div>
+class Cabecalho extends Component {
+  state = { clicked: false };
 
-        <div className="EmpresaDiv">
-          <div className="texto-anima-wrapper">
-            <svg>
-              <text
-                x="5.5%"
-                y="20%"
-                dy=".50em"
-                className="animated-text-PPG"
-                onClick={() => {
-                  navigate("/PagHome");
-                }}
-              >
-                - Zetta -
-              </text>
-            </svg>
-          </div>
-        </div>
+  handleClick = () => {
+    this.setState({ clicked: !this.state.clicked });
+  }
 
-        <div className="DivUser">
-          <div className="nomeUser">
-            <h2>Olá, Guilherme Henrique</h2>
+  render() {
+    return (
+      <div className="Cabecalho">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"></link>
+        <nav>
+          <a id='logo'>
+            PGG
+            <br />
+            Pequeno Grande Gestor
+          </a>
+
+          <a id='NomeEmpresa'>- Zetta -</a>
+
+          <div>
+            <ul id='navbar' className={this.state.clicked ? "#navbar active" : "#navbar"}>
+              <li><Link to="/PagInicial" className='active'>Home</Link></li>
+              <li><Link to="/Produtos" className='active'>Produtos</Link></li>
+              <li><Link to="/EscolhaCurvaABC" className='active'>Curva ABC</Link></li>
+              <li><Link to="/PontoPedido" className='active'>Ponto de Pedido</Link></li>
+              <li><Link to="/Peps" className='active'>Peps</Link></li>
+              <li><Link to="/LoteEco" className='active'>Lote Econômico</Link></li>
+            </ul>
           </div>
 
-          <div id="DivBtnsUser">
-            <div className="DivImg">
-              <img src={ImageProfile} alt="Userimg" />
-            </div>
-
-            <div className="DivAddFunc">
-              <img src={ImageAddUser} alt="addFuncimg" />
-            </div>
+          <div id="mobile" onClick={this.handleClick}>
+            <i id="bar" className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
           </div>
-        </div>
-      </header>
-
-      <nav>
-        <div className="dot"></div>
-        <div className="navMenu">
-          <a
-            onClick={() => {
-              navigate("/Produtos");
-            }}
-            className={location.pathname === "/Produtos" ? "selecionado" : ""}
-          >
-            Produtos
-          </a>
-
-          <a
-            onClick={() => {
-              navigate("/CurvaABC");
-            }}
-            className={location.pathname === "/CurvaABC" ? "selecionado" : ""}
-          >
-            Curva ABC
-          </a>
-          <a
-            onClick={() => {
-              navigate("/PontoPedido");
-            }}
-            className={
-              location.pathname === "/PontoPedido" ? "selecionado" : ""
-            }
-          >
-            Ponto de Pedido
-          </a>
-          <a
-            onClick={() => {
-              navigate("/PEPS");
-            }}
-            className={location.pathname === "/PEPS" ? "selecionado" : ""}
-          >
-            PEPS
-          </a>
-          <a
-            onClick={() => {
-              navigate("/LoteEco");
-            }}
-            className={location.pathname === "/LoteEco" ? "selecionado" : ""}
-          >
-            Lote Econômico
-          </a>
-        </div>
-      </nav>
-    </div>
-  );
+        </nav>
+      </div>
+    );
+  }
 }
+
 export default Cabecalho;

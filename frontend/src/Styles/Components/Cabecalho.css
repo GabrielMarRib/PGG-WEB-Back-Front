@@ -1,17 +1,17 @@
-.TesteNavBar2 * {
+.Cabecalho * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'JetBrains Mono';
 }
 
-.TesteNavBar2 #NomeEmpresa {
+.Cabecalho #NomeEmpresa {
     color: #fff;
     font-size: 40px;
 }
 
 
-.TesteNavBar2 nav {
+.Cabecalho nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -22,7 +22,7 @@
 }
 
 
-.TesteNavBar2 nav #logo {
+.Cabecalho nav #logo {
     text-decoration: none;
     font-size: 1.3rem;
     font-weight: 600;
@@ -30,19 +30,19 @@
     text-align: center;
 }
 
-.TesteNavBar2 #navbar {
+.Cabecalho #navbar {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.TesteNavBar2 #navbar li {
+.Cabecalho #navbar li {
     list-style: none;
     padding: 0 20px;
     position: relative;
 }
 
-.TesteNavBar2 #navbar li a {
+.Cabecalho #navbar li a {
     text-decoration: none;
     font-size: 1.3rem;
     font-weight: 600;
@@ -50,12 +50,12 @@
     transition: 0.3s ease-in-out;
 }
 
-.TesteNavBar2 #navbar li a:hover,
+.Cabecalho #navbar li a:hover,
 .TesteNavBar #navbar li a.active {
     color: #6b2108;
 }
 
-.TesteNavBar2 #navbar li a:hover::after,
+.Cabecalho #navbar li a:hover::after,
 .TesteNavBar #navbar li a.active::after {
     content: "";
     width: 30%;
@@ -66,17 +66,17 @@
     left: 20px;
 }
 
-.TesteNavBar2 #mobile i {
+.Cabecalho #mobile i {
     align-items: center;
     color: #fff
 }
 
-.TesteNavBar2 #mobile {
+.Cabecalho #mobile {
     display: none;
 }
 
 @media screen and (max-width:769px) {
-    .TesteNavBar2 #navbar {
+    .Cabecalho #navbar {
         display: flex;
         align-items: flex-start;
         justify-content: flex-start;
@@ -92,19 +92,19 @@
         transition: 0.3s ease-in-out;
     }
 
-    .TesteNavBar2 #navbar.active {
+    .Cabecalho #navbar.active {
         right: 0px;
     }
 
-    .TesteNavBar2 #navbar li {
+    .Cabecalho #navbar li {
         margin-bottom: 25px;
     }
 
-    .TesteNavBar2 #mobile {
+    .Cabecalho #mobile {
         display: block;
     }
 
-    .TesteNavBar2 #mobile i {
+    .Cabecalho #mobile i {
         font-size: 24px;
         cursor: pointer;
     }

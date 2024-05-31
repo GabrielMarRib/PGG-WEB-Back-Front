@@ -1,13 +1,14 @@
 import React, { useState, useContext, useEffect } from "react";
-import "../../Styles/PagPerfil.css";
-import TesteNavBar2 from '../../Components/TesteNavBar2';
+import "../../Styles/App/PagPerfil.css";
+import Cabecalho from '../../Components/Cabecalho.js';
 import ImageProfile from '../../Assets/userProfile/TESTEUSER.png';
 import ImageEmail from '../../Assets/userProfile/EMAIL.png';
 import NivelAcesso from '../../Assets/userProfile/CHAVE.png';
 import Telefone from '../../Assets/userProfile/TELEFONE.png';
 import SININHO from '../../Assets/userProfile/SININHO.png';
 import Cpf from '../../Assets/userProfile/CPF.png';
-import AddPerfil from '../../Assets/add-user2.png';
+import AddPerfil from '../../Assets/add-userWhite.png';
+import IconListaFunc from '../../Assets/ListaFunc.png';
 import { UserContext } from '../../Context/UserContext.js'
 import { handleLogOut } from "../../Functions/Functions.js";
 import { useNavigate } from "react-router-dom";
@@ -41,8 +42,18 @@ function PagPerfil() {
     }
     return (
         <div className="PagPerfil">
-            <TesteNavBar2 />
-            <button onClick={() => { handleLogOut(navigate) }}>Log Out</button>
+            <Cabecalho />
+                {/* <button className="Notificacao" onClick={togglePopup}> <img src={SININHO} alt="Sino"></img> </button> */}
+            <div className="DivBtnsFuncionarios">
+                    {User && User.userData && User.userData.Nivel_acesso && User.userData.Nivel_acesso==2 ? (
+                     <div id="IdBtnAddFunc">
+                        <button className="AddFunc" onClick={() =>{navigate('/PagAddFunc')}}> <img src={AddPerfil} id="IdAddFuncIcon"></img> Adicionar Funcionário</button>
+                        <button className="AddFunc" onClick={() =>{navigate('/PagAddFunc')}}> <img src={IconListaFunc} id="IdAddFuncIcon"></img> Lista de Funcionarios</button>
+                     </div>
+                    ):
+                        null
+                    }
+            </div>
             <div className="Corpo">
                 <div className="coluna1">
 
@@ -74,12 +85,8 @@ function PagPerfil() {
                 </div>
 
                 <div className="coluna2">
-                    <button className="Notificacao" onClick={togglePopup}> <img src={SININHO} alt="Sino"></img> </button>
-                    {User && User.userData && User.userData.Nivel_acesso && User.userData.Nivel_acesso==2 ? (
-                        <button className="AddFunc" onClick={() =>{navigate('/PagAddFunc')}}> <img src={AddPerfil} alt="Sino"></img> Adicionar Funcionário</button>
-                    ):
-                        null
-                    }
+             
+                  
                     
                     {showPopup && (
                         <div className="popup">
@@ -116,7 +123,9 @@ function PagPerfil() {
                         </div>
                     </div>
                 </div>
+
             </div>
+                
         </div>
     );
 }

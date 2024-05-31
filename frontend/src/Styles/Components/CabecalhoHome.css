@@ -1,17 +1,17 @@
-.TesteNavBar *{
+.CabecalhoHome *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'JetBrains Mono';
   }
   
-  .TesteNavBar #NomeEmpresa{
+  .CabecalhoHome #NomeEmpresa{
     color: #fff;
     font-size: 40px;
   }
   
   
-  .TesteNavBar nav{
+  .CabecalhoHome nav{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -22,7 +22,7 @@
   }
   
   
-  .TesteNavBar nav  #logo{
+  .CabecalhoHome nav  #logo{
     text-decoration: none;
     font-size: 1.3rem;
     font-weight: 600;
@@ -30,19 +30,19 @@
     text-align: center;
   }
   
-  .TesteNavBar #navbar{
+  .CabecalhoHome #navbar{
     display: flex;
     align-items: center;
     justify-content: center;
   }
   
-  .TesteNavBar #navbar li{
+  .CabecalhoHome #navbar li{
     list-style: none;
     padding: 0 20px;
     position: relative;
   }
   
-  .TesteNavBar #navbar li a{
+  .CabecalhoHome #navbar li a{
     text-decoration: none;
     font-size: 1.3rem;
     font-weight: 600;
@@ -50,11 +50,11 @@
     transition: 0.3s ease-in-out;
   }
   
-  .TesteNavBar #navbar li a:hover,.TesteNavBar #navbar li a.active{
+  .CabecalhoHome #navbar li a:hover,.CabecalhoHome #navbar li a.active{
     color: #6b2108;
   }
   
-  .TesteNavBar #navbar li a:hover::after,.TesteNavBar #navbar li a.active::after{
+  .CabecalhoHome #navbar li a:hover::after,.CabecalhoHome #navbar li a.active::after{
     content: "";
     width: 30%;
     height: 2px;
@@ -64,17 +64,17 @@
     left: 20px;
   }
   
-  .TesteNavBar #mobile i{
+  .CabecalhoHome #mobile i{
     align-items: center;
     color:#fff
   }
   
-  .TesteNavBar #mobile{
+  .CabecalhoHome #mobile{
     display: none;
   }
   
   @media screen and (max-width:769px){
-    .TesteNavBar #navbar{
+    .CabecalhoHome #navbar{
       display: flex;
       align-items: flex-start;
       justify-content: flex-start;
@@ -90,19 +90,19 @@
       transition: 0.3s ease-in-out;
     }
   
-    .TesteNavBar #navbar.active{
+    .CabecalhoHome #navbar.active{
       right: 0px;
     }
   
-    .TesteNavBar #navbar li{
+    .CabecalhoHome #navbar li{
       margin-bottom: 25px;
     }
   
-    .TesteNavBar #mobile{
+    .CabecalhoHome #mobile{
       display: block;
     }
   
-    .TesteNavBar #mobile i{
+    .CabecalhoHome #mobile i{
       font-size: 24px;
       cursor: pointer;
     }
@@ -111,27 +111,25 @@
   
   
   /* Informações sobre os usuários */
-  
-  .TesteNavBar img{
-    width: 30px;
-    height: 30px;
-    border-radius: 30px;
-  }
-  
-  .TesteNavBar #FigurasAlado{
-    margin-left: 60px;
+  .CabecalhoHome .DivInfoUser{
     display: flex;
-    justify-content: space-between;
-    max-width: 80px;
-    background-color: #ffffff00;
+    flex-direction: row;
+    align-self: center;
+    gap: 30px;
+    
+  }
+  .CabecalhoHome img{
+    align-items: center;
+    width: 35px;
+    height: 38px;
+
+  }
+  .CabecalhoHome #DivImg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
   }
   
-  .TesteNavBar .ImageProfile img{
-    background-color: #fff;
-  }
-  
-  .TesteNavBar .AddPerfil img{
-    background-color: #fff;
-  }
   
   

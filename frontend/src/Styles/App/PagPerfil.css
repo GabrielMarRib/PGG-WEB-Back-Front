@@ -8,7 +8,7 @@
 .PagPerfil .Corpo {
     justify-content: center;
     display: flex;
-    margin-top: 100px;
+    margin-top: 30px;
 }
 
 
@@ -28,12 +28,19 @@
 
 .PagPerfil .coluna2 {
     flex-direction: column;
-    margin-top: 100px;
 }
 
 .PagPerfil .row {
     display: flex;
+    flex-direction: column;
+}
+
+.PagPerfil .buttons{
+    display: flex;
     flex-direction: row;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 15px;
 }
 
 .PagPerfil .ButtonEditar {
@@ -46,8 +53,6 @@
     color: #fff;
     font-size: 16px;
     font-family: 'JetBrains Mono';
-    margin-top: 130px;
-    margin-left: 40px;
 }
 
 .PagPerfil .ButtonExcluir {
@@ -60,9 +65,6 @@
     color: #fff;
     font-size: 16px;
     font-family: 'JetBrains Mono';
-    margin-top: 10px;
-    margin-top: 30px;
-    margin-left: 40px;
 }
 
 
@@ -117,6 +119,7 @@
 
 .PagPerfil .Pendencias {
     text-align: center;
+
 }
 
 .PagPerfil .Pendencias p {
@@ -138,7 +141,37 @@
     overflow-y: scroll;
     background-color: #eceae8;
 }
+.PagPerfil .DivBtnsFuncionarios{
 
+    width: 75vw;
+    margin-top: 30px;
+}
+.PagPerfil #IdBtnAddFunc{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    
+}
+.PagPerfil #IdAddFuncIcon{
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: -10px;
+    width: 30px;
+    height: 30px;
+}
+.PagPerfil .AddFunc{
+    display: flex;
+    flex-direction: row;
+    border-radius: 3px;
+    width: 200px;
+    background-color: #e04d18;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
+    font-family: 'JetBrains Mono';
+    box-shadow: 5px 5px 0px #888888;
+}
 /* Imagens das Informações*/
 
 .PagPerfil img {
@@ -151,10 +184,11 @@
 }
 
 .PagPerfil .Notificacao {
-    height: 70px;
+    position: absolute;
+    height: 85px;
     width: 70px;
-    float: right;
-    margin-top: -100px;
+    right: 18vw;
+    top: 12vh;
     border-radius: 10px;
 }
 

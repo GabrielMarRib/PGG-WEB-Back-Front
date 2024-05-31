@@ -1,10 +1,10 @@
 import React, { useState, useLayoutEffect, useEffect } from "react";
-import "../../Styles/PagHome.css";
+import "../../Styles/App/PagHome.css";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../Context/UserContext.js";
 import { handleLogOut } from "../../Functions/Functions.js";
-import TesteNavBar from "../../Components/TesteNavBar.js";
+import Cabecalho from "../../Components/CabecalhoHome.js";
 import Redirect from "../../Functions/Redirect.js";
 function PagHome() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -17,12 +17,16 @@ function PagHome() {
   const User = UserOBJ.User; //Pega só o User....
 
 
+
+
+
   Redirect(User)
 
   return (
     <div className="PagHome">
+
       <div className="Cabecalho">
-        <TesteNavBar />
+        <Cabecalho />
         {/*<NavegacaoHorizontal /> */} {/*Possui navMenu... nao sei qual fica melhor...*/}
       </div>
 
