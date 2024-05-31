@@ -45,46 +45,48 @@ function PagVenderProduto() {
                     <Cabecalho />
                 </div>
                 <div className="container-tela-produtos">
-                    <form className="formulario">
-                        <div className="grupo-input-produto">
-                            <div className="grupo-input">
-                                <label>Selecione um produto:</label>
-                                <select className="controle-formulario" value={JSON.stringify(produtoSelecionado)} onChange={handleChange}>
-                                    <option value="">Selecione um produto</option>
-                                    {dadosEstoqueGeral.map(pegaDadosUnicosEmVenda)}
-                                </select>
+                    <div className="enquadramento">
+                        <form className="formulario">
+                            <div className="grupo-input-produto">
+                                <div className="grupo-input">
+                                    <label>Selecione um produto:</label>
+                                    <select className="controle-formulario" value={JSON.stringify(produtoSelecionado)} onChange={handleChange}>
+                                        <option value="">Selecione um produto</option>
+                                        {dadosEstoqueGeral.map(pegaDadosUnicosEmVenda)}
+                                    </select>
+                                </div>
+                                <div className="Resultado-select">
+                                    {produtoSelecionado.data && produtoSelecionado.data.Nome && <p>Produto Selecionado: {produtoSelecionado.data.Nome}</p>}
+                                    {produtoSelecionado.id && <p> Produto id: {produtoSelecionado.id}</p>}
+                                </div>
+                                <div className="grupo-input">
+                                    <label>Custo unitário</label>
+                                    <input className="controle-formulario"
+                                        type="number"
+                                        value={produtoSelecionado.data && produtoSelecionado.data.Custo_Unitario ? produtoSelecionado.data.Custo_Unitario : 0} readOnly
+                                    />
+                                </div>
+                                <div className="grupo-input">
+                                    <label>Quantidade disponível</label>
+                                    <input className="controle-formulario"
+                                        type="number"
+                                        value={produtoSelecionado.data && produtoSelecionado.data.Quantidade ? produtoSelecionado.data.Quantidade : 0} readOnly
+                                    />
+                                </div>
+                                <div className="grupo-input">
+                                    <label>Quantidade de venda</label>
+                                    <input className="controle-formulario" type="number" value={quantidadeVenda} onChange={(e) => setQuantidadeVenda(parseFloat(e.target.value))} />
+                                </div>
+                                <div className="grupo-input">
+                                    <label>Receita estimada</label>
+                                    <input className="controle-formulario" type="number" value={receitaEstimada} readOnly />
+                                </div>
+                                <button className="botao" type="button">
+                                    Calcular Ponto de Pedido
+                                </button>
                             </div>
-                            <div className="Resultado-select">
-                                {produtoSelecionado.data && produtoSelecionado.data.Nome && <p>Produto Selecionado: {produtoSelecionado.data.Nome}</p>}
-                                {produtoSelecionado.id && <p> Produto id: {produtoSelecionado.id}</p>}
-                            </div>x
-                            <div className="grupo-input">
-                                <label>Custo unitário</label>
-                                <input className="controle-formulario"
-                                    type="number"
-                                    value={produtoSelecionado.data && produtoSelecionado.data.Custo_Unitario ? produtoSelecionado.data.Custo_Unitario : 0} readOnly
-                                />
-                            </div>
-                            <div className="grupo-input">
-                                <label>Quantidade disponível</label>
-                                <input className="controle-formulario"
-                                    type="number"
-                                    value={produtoSelecionado.data && produtoSelecionado.data.Quantidade ? produtoSelecionado.data.Quantidade : 0} readOnly
-                                />
-                            </div>
-                            <div className="grupo-input">
-                                <label>Quantidade de venda</label>
-                                <input className="controle-formulario" type="number" value={quantidadeVenda} onChange={(e) => setQuantidadeVenda(parseFloat(e.target.value))} />
-                            </div>
-                            <div className="grupo-input">
-                                <label>Receita estimada</label>
-                                <input className="controle-formulario" type="number" value={receitaEstimada} readOnly />
-                            </div>
-                            <button className="botao" type="button">
-                                Calcular Ponto de Pedido
-                            </button>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
                 <div className="terminal">
                     {/* Porra pra pesquisa aqui */}
