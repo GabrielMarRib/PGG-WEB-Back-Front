@@ -15,14 +15,14 @@ function PagEscolhaProdutos() {
                     <h1>Escolha a ação que você deseja realizar</h1>
                     <div className="ag-courses_box">
                         <div className="ag-courses_item">
-                            <a onClick={() => { navigate("/CurvaABC") }} className="ag-courses-item_link">
+                            <a onClick={() => { navigate("/PagProdutos") }} className="ag-courses-item_link">
                                 <div className="ag-courses-item_bg"></div>
-                                <div className="ag-courses-item_title">Adicionar Pedido</div>
+                                <div className="ag-courses-item_title">Adicionar Produto</div>
                             </a>
                         </div>
 
                         <div className="ag-courses_item">
-                            <a onClick={() => { navigate("/CurvaABCPorValor") }} className="ag-courses-item_link">
+                            <a onClick={() => { navigate("/PagVenderProduto") }} className="ag-courses-item_link">
                                 <div className="ag-courses-item_bg"></div>
                                 <div className="ag-courses-item_title">Vender Produto</div>
                             </a>
