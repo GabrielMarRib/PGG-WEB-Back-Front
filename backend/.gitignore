@@ -1,5 +1,5 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
+# agr vai essa bomba
 # dependencies
 /node_modules
 /.pnp
