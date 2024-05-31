@@ -40,10 +40,7 @@ function PagVenderProduto() {
 
     const handleReceita = (e) =>{
         const qtdeVenda = parseFloat(e.target.value)
-
         setQuantidadeVenda(qtdeVenda)
-
-        
     } 
     return (
         <div className="PagVenderProduto">
