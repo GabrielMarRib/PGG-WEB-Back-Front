@@ -5,6 +5,7 @@ import lupa from '../../../Assets/lupa.png';
 import axios from 'axios';
 import { apagarCampos, CheckCamposNulos, CheckCamposVazios } from '../../../Functions/Functions';
 import { camposNaoPreenchidos } from '../../../Messages/Msg';
+
 function PagProdutos() {
     const [nome, setNome] = useState('');
     const [dadosEstoqueGeral, setDadosEstoqueGeral] = useState([]);
