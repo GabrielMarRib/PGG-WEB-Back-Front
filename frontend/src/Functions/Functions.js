@@ -28,6 +28,16 @@ export const handleLogin = async (email, password) => {
         return [null, true, msg];
     }
 };
+export const PegaDadosGeralDB = async (setDadoOBJ) => {  // Função de pegar os dados... Recebe um Obj de UseState, mas especificamente um SET
+    try {
+        const response = await axios.get('http://localhost:4000/PegaProdutos'); //espera a resposta do axios na url...
+        const estoqueData = response.data.map(item => ({ id: item.id, ...item })); // mapeia os itens
+        setDadoOBJ(estoqueData); // seta os dados no setState solicidado (o q foi passado por parametro)
+        console.log(estoqueData)
+    } catch (error) {
+        console.error('erro pegando os dados mlk doido: ', error);
+    }
+};
 
 export const handleAdicionarUser = async (nome, cpf, email, telefone, acesso, userRequisitado) => {
     if(!userRequisitado)
