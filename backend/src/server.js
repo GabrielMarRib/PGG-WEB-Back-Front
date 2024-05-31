@@ -4,6 +4,7 @@ const cors = require('cors');
 const app = express();
 
 //npm i react-scripts
+//npm uninstall react-scripts
 //npm i express
 //npm i firebase
 //npm i firebase-admin
