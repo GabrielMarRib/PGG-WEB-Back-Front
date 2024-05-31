@@ -28,8 +28,7 @@ function PagPerfil() {
     Redirect(User)
 
     const mostraNivelAcesso = () => {
-        if (User && User.userData && User.userData.Nivel_acesso) {
-            console.log(User.userData.Nivel_acesso)
+        if (User && User.userData) {
             switch (parseInt(User.userData.Nivel_acesso)) {
                 case 0:
                     return "(Funcionário)"
@@ -37,6 +36,8 @@ function PagPerfil() {
                     return "(Funcionário+)"
                 case 2:
                     return "(Gestor)"
+                default:
+                    return null;
             }
         }
     }
