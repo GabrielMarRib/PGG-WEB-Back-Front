@@ -12,10 +12,11 @@ function PagLoteEconomico() {
   const [DadosPontoPedido, SetDadosPontoPedido] = useState({});
 
   const [produtoSelecionado, setProdutoSelecionado] = useState({ id: '', Nome: '' });
-  const [estoqueSeguranca, setEstoqueSeguranca] = useState(0);
-  const [tempoDeReposicao, setTempoDeReposicao] = useState(0);
-  const [consumoMedio, setConsumoMedio] = useState(0);
-  const [pontoPedidoCalculado, setPontoPedidoCalculado] = useState(0);
+  const [ValorDespesasAnual, setValorDespesasAnual] = useState(0);
+  const [DemandaAnual, setDemandaAnual] = useState(0);
+  const [QuantidadeProdutosEstocados, setQuantidadeProdutosEstocados] = useState(0);
+  const [NumeroPedidoAnual, setNumeroPedidoAnual] = useState(0);
+  const [CustoArmazenagem, setCustoArmazenagem] = useState(0);
   const fetchCountRef = useRef(0);
   let vezes = 1;
 
@@ -107,7 +108,7 @@ function PagLoteEconomico() {
 //   }
 
   const calcularPontoPedido = async () => {
-    if (CheckCamposNulos([estoqueSeguranca, tempoDeReposicao, consumoMedio])) {
+    if (CheckCamposNulos([ValorDespesasAnual, DemandaAnual, QuantidadeProdutosEstocados, NumeroPedidoAnual ])) {
       alert(camposNaoPreenchidos(true));
       return;
     }
@@ -117,8 +118,8 @@ function PagLoteEconomico() {
       return;
     }
 
-    const pontoPedido = estoqueSeguranca + (consumoMedio * tempoDeReposicao); // conta do ponto de pedido
-    setPontoPedidoCalculado(pontoPedido);
+    const CustoArmazenagem = ValorDespesasAnual / QuantidadeProdutosEstocados // conta do lote economico
+    setCustoArmazenagem(CustoArmazenagem);
 
     // try {
     //   const data = new Date();
@@ -172,36 +173,46 @@ function PagLoteEconomico() {
                 {produtoSelecionado.id && <p>Produto id: {produtoSelecionado.id}</p>}
             </div>
 
-            <div className="grupo-input-estoque-seguranca">
-              <label htmlFor="estoqueSeguranca">Estoque de Segurança:</label>
+            <div className="grupo-input-Valor-Despesas-Anuais">
+              <label htmlFor="ValorDespesasAnual">Valor Despesas Anuais:</label>
               <input
                 type="number"
-                id="estoqueSeguranca"
-                value={estoqueSeguranca}
-                onChange={(e) => setEstoqueSeguranca(parseInt(e.target.value))}
+                id="ValorDespesasAnual"
+                value={ValorDespesasAnual}
+                onChange={(e) => setValorDespesasAnual(parseInt(e.target.value))}
               />
             </div>
 
-            <div className="grupo-input-tempo-de-reposicao">
-              <label htmlFor="tempoDeReposicao">Tempo de Reposição (dias):</label>
+            <div className="grupo-input-Demanda-Anual">
+              <label htmlFor="DemandaAnual">Demanda Anual:</label>
               <input
                 type="number"
-                id="tempoDeReposicao"
-                value={tempoDeReposicao}
-                onChange={(e) => setTempoDeReposicao(parseInt(e.target.value))}
+                id="DemandaAnual"
+                value={DemandaAnual}
+                onChange={(e) =>  setDemandaAnual(parseInt(e.target.value))}
               />
             </div>
 
-            <div className="grupo-input-consumo-medio">
-              <label htmlFor="consumoMedio">Consumo Médio Diário:</label>
+            <div className="grupo-input-Quantidade-Produtos-Estocados">
+              <label htmlFor="QuantidadeProdutosEstocados">Quantidade Produtos Estocados:</label>
               <input
                 type="number"
-                id="consumoMedio"
-                value={consumoMedio}
-                onChange={(e) => setConsumoMedio(parseInt(e.target.value))}
+                id="QuantidadeProdutosEstocados"
+                value={QuantidadeProdutosEstocados}
+                onChange={(e) => setQuantidadeProdutosEstocados(parseInt(e.target.value))}
               />
             </div>
-            <button onClick={() => calcularPontoPedido()}>Calcular Ponto de Pedido</button>
+
+            <div className="grupo-input-Numero-Pedido-Anual">
+              <label htmlFor="NumeroPedidoAnual">Numero Pedidos Anuais:</label>
+              <input
+                type="number"
+                id="NumeroPedidoAnual"
+                value={NumeroPedidoAnual}
+                onChange={(e) => setNumeroPedidoAnual(parseInt(e.target.value))}
+              />
+            </div>
+            <button onClick={() => calcularPontoPedido()}>Calcular Lote Econômico</button>
           </div>
         </div>
         <div className="Conteudo-Resultado">
