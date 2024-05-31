@@ -38,6 +38,13 @@ function PagVenderProduto() {
         }
     };
 
+    const handleReceita = (e) =>{
+        const qtdeVenda = parseFloat(e.target.value)
+
+        setQuantidadeVenda(qtdeVenda)
+
+        
+    } 
     return (
         <div className="PagVenderProduto">
             <div id="DivForms">
@@ -57,7 +64,7 @@ function PagVenderProduto() {
                             <div className="Resultado-select">
                                 {produtoSelecionado.data && produtoSelecionado.data.Nome && <p>Produto Selecionado: {produtoSelecionado.data.Nome}</p>}
                                 {produtoSelecionado.id && <p> Produto id: {produtoSelecionado.id}</p>}
-                            </div>x
+                            </div>
                             <div className="grupo-input">
                                 <label>Custo unitário</label>
                                 <input className="controle-formulario"
@@ -74,7 +81,7 @@ function PagVenderProduto() {
                             </div>
                             <div className="grupo-input">
                                 <label>Quantidade de venda</label>
-                                <input className="controle-formulario" type="number" value={quantidadeVenda} onChange={(e) => setQuantidadeVenda(parseFloat(e.target.value))} />
+                                <input className="controle-formulario" type="number" value={quantidadeVenda} onChange={(e) => handleReceita(e)} />
                             </div>
                             <div className="grupo-input">
                                 <label>Receita estimada</label>
