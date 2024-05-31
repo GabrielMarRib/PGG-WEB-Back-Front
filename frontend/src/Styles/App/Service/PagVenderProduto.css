@@ -1,33 +1,45 @@
 .PagVenderProduto {
-    font-family: 'JetBrains Mono', sans-serif;
-    flex-direction: column;
-    align-items: center;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    font-family: 'JetBrains Mono';
 }
 
 .PagVenderProduto #DivForms {
     width: 100%;
-    justify-content: center;
 }
 
 .PagVenderProduto .container-tela-produtos {
-    background-color: #ffffff;
-    width: 30%;
-    font-size: 20px;
-    border-radius: 5px;
-    border: 2px solid #000000;
-    color: #000000;
-    margin-top: 20px;
-    padding: 20px;
-    margin-top: 95px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    margin-left: 10%;
+    padding: 70px 0px;
 }
+
+.PagVenderProduto .enquadramento{
+    width: 700px;
+    margin: 0 auto;
+}
+
+.PagVenderProduto .formulario{
+    border: 2px solid #000;
+    border-radius: 10px;
+    padding: 30px;
+}
+
 
 .PagVenderProduto .grupo-input-produto {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    padding: 0px 0px;
 }
 
 .PagVenderProduto .grupo-input {
@@ -40,8 +52,8 @@
 
 .PagVenderProduto .grupo-input input,
 .PagVenderProduto .grupo-input textarea {
-    width: 100%;
-    padding: 5px;
+    width: 98%;
+    padding: 5px 5px;
     font-size: 16px;
     border: 1px solid #000;
     border-radius: 3px;
@@ -57,59 +69,5 @@
     font-size: 16px;
     font-family: 'JetBrains Mono';
     margin-top: 10px;
-}
-
-.PagVenderProduto .terminal {
-    width: 35%;
-    margin-top: 20px;
-    border: 1px solid #000000;
-    padding: 10px;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    height: 444px;
-    margin-top: -465px;
-    float: right;
-    margin-right: 10%;
-    overflow: auto;
-}
-
-.PagVenderProduto .barra-pesquisa {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-
-.PagVenderProduto .barra-pesquisa input {
-    width: 80%;
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #000;
-    border-radius: 3px;
-}
-
-.PagVenderProduto .barra-pesquisa .botao-pesquisa {
-    width: 10%;
-    padding: 8px;
-    border: 1px solid #000;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 5px;
-    background-color: #ffffff;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-}
-
-.imagem-botao {
-    width: 20px;
-    height: 20px;
-}
-
-.PagVenderProduto .lista-produtos {
-    list-style-type: none;
-    padding: 0;
-}
-
-.PagVenderProduto .lista-produtos li {
-    margin: 5px 0;
+    width: 100%;
 }

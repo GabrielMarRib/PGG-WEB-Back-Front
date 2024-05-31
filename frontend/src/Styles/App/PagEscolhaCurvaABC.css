@@ -74,7 +74,7 @@
 .PagEscolhaCurvaABC .ag-format-container {
     width: 1000px;
     margin: 0 auto;
-    }
+}
 
 .PagEscolhaCurvaABC .ag-courses_box {
     display: -webkit-box;
@@ -87,6 +87,7 @@
     flex-wrap: wrap;
     padding: 100px 0;
 }
+
 .PagEscolhaCurvaABC .ag-courses_item {
     -ms-flex-preferred-size: calc(50% - 50px);
     flex-basis: calc(50% - 50px);
