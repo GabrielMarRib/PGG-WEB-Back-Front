@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { getDocs, collection, addDoc,onSnapshot,deleteDoc,query,where } from "firebase/firestore";
 import { useNavigate } from 'react-router-dom';
 import { camposNaoPreenchidos } from "../../../Messages/Msg";
 import { CheckCamposNulos, apagarCampos } from "../../../Functions/Functions";
