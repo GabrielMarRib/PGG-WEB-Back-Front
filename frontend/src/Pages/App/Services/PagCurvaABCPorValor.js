@@ -3,17 +3,13 @@ import React, { useState, useEffect } from "react";
 import Cabecalho from "../../../Components/Cabecalho";
 import '../../../Styles/App/Service/PagCurvaABC.css';
 import axios from 'axios';
+import { PegaDadosGeralDB } from '../../../Functions/Functions';
 import { ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-
-// import { ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-// import { db } from "../../BD/Firebase";
-// import { onSnapshot, collection } from "firebase/firestore";
-// npm install recharts
 
 function PagCurvaABCPorValor() {
 
   const [dadosEstoqueGeral, setDadosEstoqueGeral] = useState([]);
-  const [dadosCurvaABC, setDadosCurvaABC] = useState({});
+  const [dadosCurvaABC, setDadosCurvaABC] = useState({}); // nao tem conexao com curva abc ainda......
   const [valorTotalConsumo, setValorTotalConsumo] = useState(0);
   const [porcentagens, setPorcentagens] = useState({});
   const [porcentagensA, setPorcentagensA] = useState({});
@@ -23,18 +19,6 @@ function PagCurvaABCPorValor() {
   //   return { id: item.id, ...item.data() };
   // };
 
-
-  const PegaDadosGeralDB = async () => {
-    try {
-      const response = await axios.get('http://localhost:4000/PegaProdutos');
-      console.log(response.data);
-      const estoqueData = response.data.map(item => ({ id: item.id, ...item }));
-      console.log(estoqueData);
-      setDadosEstoqueGeral(estoqueData);
-    } catch (error) {
-      console.error('Error fetching data: ', error);
-    }
-  };
 
   // useEffect(() => {
   //   const PegaDadosGeralDB = async () => {
@@ -64,7 +48,11 @@ function PagCurvaABCPorValor() {
   //   };
   //   PegaDadosGeralDB();
   // }, []);
-  PegaDadosGeralDB();
+
+  useEffect(() =>{ 
+    PegaDadosGeralDB(setDadosEstoqueGeral); // arrumei essa merda pra nao mandar 50k de leitura pro bd. USEM USEEFFECT PELO AMOR DE CRISTO
+  },[])
+  
 
   useEffect(() => {
     if (dadosEstoqueGeral.length > 0) {
@@ -86,15 +74,16 @@ function PagCurvaABCPorValor() {
 
     // Percorre os dados do estoque
     dadosEstoqueGeral.forEach(item => {
-
+      console.log(dadosCurvaABC)
       // Obtém os dados relevantes da Curva ABC para o item, ou um objeto vazio caso não houver
       const dadosCabiveisAbc = dadosCurvaABC[item.id] || {};
-      console.log("Muita coisa" + item.id);
+      
+      console.log("Muita coisa" + item.data.Custo_Unitario);
       // Obtém a quantidade de consumo do item ou assume 0 se não houver
       const qtdConsumo = dadosCabiveisAbc.QtdeConsumo || 0;
-
+      
       // Obtém o custo unitário do item ou assume 0 se não houver
-      const custoUnitario = parseFloat(item.Custo_Unitario) || 0;
+      const custoUnitario = parseFloat(item.data.Custo_Unitario) || 0;
 
       // Calcula o valor total de consumo para este item e o adiciona ao "totalConsumo"
       totalConsumo += (qtdConsumo * custoUnitario);
