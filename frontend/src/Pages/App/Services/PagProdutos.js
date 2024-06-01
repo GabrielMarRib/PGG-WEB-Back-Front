@@ -24,7 +24,7 @@ function PagProdutos() {
         try {
             const response = await axios.get('http://localhost:4000/PegaProdutos');
             console.log(response.data);
-            const estoqueData = response.data.map(item => ({ id: item.id, ...item }));
+            const estoqueData = response.data.map(item => ({ id: item.id, ...item.data }));
             setDadosEstoqueGeral(estoqueData);
         } catch (error) {
             console.error('Error fetching data: ', error);

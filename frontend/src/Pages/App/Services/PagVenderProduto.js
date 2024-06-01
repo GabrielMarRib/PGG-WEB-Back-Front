@@ -3,18 +3,26 @@ import { useNavigate } from 'react-router-dom';
 import Cabecalho from "../../../Components/Cabecalho";
 import '../../../Styles/App/Service/PagVenderProduto.css';
 import axios from 'axios';
-import { PegaDadosGeralDB } from '../../../Functions/Functions';
+import { PegaDadosGeralDB, CheckCamposNulos, apagarCampos } from '../../../Functions/Functions';
+import { camposNaoPreenchidos } from '../../../Messages/Msg';
+import Redirect from '../../../Functions/Redirect';
+import { UserContext } from '../../../Context/UserContext';
+import { useContext } from 'react';
 
 function PagVenderProduto() {
-    const navigate = useNavigate();
 
-    const [produto, setProduto] = useState('');
     const [dadosEstoqueGeral, setDadosEstoqueGeral] = useState([]);
     const [custoUnitario, setCustoUnitario] = useState(0);
     const [quantidadeDisponivel, setQuantidadeDisponivel] = useState(0);
     const [quantidadeVenda, setQuantidadeVenda] = useState(0);
     const [receitaEstimada, setReceitaEstimada] = useState(0);
     const [produtoSelecionado, setProdutoSelecionado] = useState([]);
+
+    const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
+    const User = UserOBJ.User; //Pega só o User....
+
+    Redirect(User)
+
 
     function pegaDadosUnicosEmVenda(item) {
         return (<option key={item.id} value={JSON.stringify({ id: item.id, data: item.data })}>{item.data.Nome}</option>)
@@ -30,18 +38,72 @@ function PagVenderProduto() {
 
     const handleChange = (event) => { //codigo do git mt modificado
         try {
-            const produtoSelec = JSON.parse(event.target.value);
-            console.log(produtoSelec)
-            setProdutoSelecionado(produtoSelec);
-        } catch (error) {
+            setReceitaEstimada(0);
+            setQuantidadeVenda(0);
+            setQuantidadeDisponivel(0)
+            setCustoUnitario(0);
             setProdutoSelecionado('');
+
+            const produtoSelecJSON = JSON.parse(event.target.value);
+            if (produtoSelecJSON.data.Quantidade === 0) {
+                alert("produto esgotado") // fazer notificação mais bonita dps
+            }
+            setQuantidadeDisponivel(produtoSelecJSON.data.Quantidade)
+            setProdutoSelecionado(produtoSelecJSON);
+            setCustoUnitario(produtoSelecJSON.data.Custo_Unitario)
+        } catch (error) {
+
         }
     };
 
-    const handleReceita = (e) =>{
-        const qtdeVenda = parseFloat(e.target.value)
+    const handleReceita = (e) => {
+
+        const qtdeVenda = parseInt(e.target.value)
+
+        if (qtdeVenda > quantidadeDisponivel) return;
+
         setQuantidadeVenda(qtdeVenda)
-    } 
+        const receitaEst = (qtdeVenda * custoUnitario)
+        setReceitaEstimada(receitaEst)
+    }
+
+    const handleInsercaoVendas = async () => {
+        if (User && User.userData && User.userData.Nome) {
+            try {
+                await axios.post('http://localhost:4000/insereVendas', {
+                    pessoa: User.userData.Nome,
+                    quantidadeVenda: quantidadeVenda,
+                    quantidadeAtual: quantidadeDisponivel,
+                    receita: receitaEstimada,
+                    itemId: produtoSelecionado.id
+                });
+                alert("inserção OK")
+
+                setReceitaEstimada(0);
+                setQuantidadeVenda(0);
+                setQuantidadeDisponivel(0)
+                setCustoUnitario(0);
+                setProdutoSelecionado('');
+
+                PegaDadosGeralDB(setDadosEstoqueGeral); //rePesquisa
+
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+    }
+
+    const handleForm = (e) => {
+        e.preventDefault();
+        if (CheckCamposNulos([custoUnitario, quantidadeDisponivel, quantidadeVenda, receitaEstimada])) {
+            alert(camposNaoPreenchidos(true))
+            return
+        }
+
+        //alert(`Custo unitário: ${custoUnitario}\nQtde Disp: ${quantidadeDisponivel}\nQtde Venda: ${quantidadeVenda}\nReceita: ${receitaEstimada}`)
+        handleInsercaoVendas();
+    }
     return (
         <div className="PagVenderProduto">
             <div id="DivForms">
@@ -50,7 +112,7 @@ function PagVenderProduto() {
                 </div>
                 <div className="container-tela-produtos">
                     <div className="enquadramento">
-                        <form className="formulario">
+                        <form className="formulario" onSubmit={(e) => handleForm(e)}>
                             <div className="grupo-input-produto">
                                 <div className="grupo-input">
                                     <label>Selecione um produto:</label>
@@ -66,15 +128,15 @@ function PagVenderProduto() {
                                 <div className="grupo-input">
                                     <label>Custo unitário</label>
                                     <input className="controle-formulario"
-                                        type="number"
-                                        value={produtoSelecionado.data && produtoSelecionado.data.Custo_Unitario ? produtoSelecionado.data.Custo_Unitario : 0} readOnly
+                                        type="text"
+                                        value={custoUnitario} readOnly
                                     />
                                 </div>
                                 <div className="grupo-input">
                                     <label>Quantidade disponível</label>
                                     <input className="controle-formulario"
                                         type="number"
-                                        value={produtoSelecionado.data && produtoSelecionado.data.Quantidade ? produtoSelecionado.data.Quantidade : 0} readOnly
+                                        value={quantidadeDisponivel} readOnly
                                     />
                                 </div>
                                 <div className="grupo-input">
@@ -85,8 +147,8 @@ function PagVenderProduto() {
                                     <label>Receita estimada</label>
                                     <input className="controle-formulario" type="number" value={receitaEstimada} readOnly />
                                 </div>
-                                <button className="botao" type="button">
-                                    Calcular Ponto de Pedido
+                                <button className="botao" type="submit">
+                                    Efetuar venda
                                 </button>
                             </div>
                         </form>

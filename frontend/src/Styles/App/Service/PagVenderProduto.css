@@ -31,7 +31,7 @@
 .PagVenderProduto .formulario{
     border: 2px solid #000;
     border-radius: 10px;
-    padding: 30px;
+    padding: 50px;
 }
 
 
@@ -57,6 +57,12 @@
     font-size: 16px;
     border: 1px solid #000;
     border-radius: 3px;
+}
+
+.PagVenderProduto .controle-formulario[readonly] {
+    background-color: #f0f0f0; /* Adjust the color as needed */
+    color: #333; /* Adjust the text color as needed */
+    cursor: not-allowed; /* Change the cursor to indicate the field is not editable */
 }
 
 .PagVenderProduto button {
