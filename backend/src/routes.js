@@ -138,6 +138,31 @@ routes.post('/insereProdutos', async (req, res) => {
     }
 });
 
+routes.post('/insereCurvaAbc', async (req, res) => {
+
+    const { nome, custoUnit, quantidade, descricao, qdeCon } = req.body;
+    try {
+        const EstoqueRef = db.collection('Estoque');
+        const CurvaAbcRef = db.collection('CurvaAbc');
+        const produtoNovo = await EstoqueRef.add({
+            Data_Entrada: data,
+            Descricao: descricao,
+            Nome: nome,
+            Custo_Unitario: custoUnit,
+            Quantidade: quantidade
+        });
+        const codigo = produtoNovo.id;
+        await CurvaAbcRef.add({
+            Codigo: codigo,
+            QtdeConsumo: qdeCon
+        })
+        res.status(200).json({ message: "inserção OK" });
+    } catch (error) {
+        console.error('Error handling route: ', error);
+        res.status(500).json({ error: 'Internal Server Error', details: error.message });
+    }
+});
+
 routes.post('/insereVendas', async (req, res) => {
     const { pessoa, quantidadeVenda, itemId, receita, quantidadeAtual } = req.body;
     const data = new Date();
@@ -170,9 +195,8 @@ routes.post('/insereVendas', async (req, res) => {
             Total_Receita_Gerada: receitatotal
         });
 
-        await EstoqueProdutoRef.update({
-            Quantidade: (quantidadeAtual - quantidadeVenda)
-        });
+        atualizaProdutosQtde(EstoqueProdutoRef,(quantidadeAtual - quantidadeVenda))
+
 
         res.status(200).json({ message: "inserção OK" });
     } catch (error) {
@@ -180,6 +204,12 @@ routes.post('/insereVendas', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error', details: error.message });
     }
 });
+
+const atualizaProdutosQtde = async (EstoqueProdutoRef,valor) =>{
+    await EstoqueProdutoRef.update({
+        Quantidade: valor
+    });
+}
 
 
 module.exports = routes;

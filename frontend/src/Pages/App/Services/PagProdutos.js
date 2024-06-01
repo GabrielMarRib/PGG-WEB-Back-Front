@@ -7,14 +7,20 @@ import { apagarCampos, CheckCamposNulos, CheckCamposVazios } from '../../../Func
 import { camposNaoPreenchidos } from '../../../Messages/Msg';
 
 function PagProdutos() {
+    //genérico
     const [nome, setNome] = useState('');
     const [dadosEstoqueGeral, setDadosEstoqueGeral] = useState([]);
     const [custoUnit, setCustoUnit] = useState(0);
     const [quantidade, setQuantidade] = useState(0);
     const [descricao, setDescricao] = useState('');
+
+    //curva ABC
     const [quantidadeConsumo, setQuantidadeConsumo] = useState(0);
 
-    const [fetchCount, setFetchCount] = useState(0);
+    //Ponto de Pedido
+    const [demandaDiaria, setDemandaDiaria] = useState(0);
+    const [tempoEntrega, setTempoEntrega] = useState(0);
+    const [tempoReposicao,setTempoReposicao] = useState(0);
 
     const [restricao, setRestricao] = useState('');
     let vezes = 1;
@@ -58,6 +64,7 @@ function PagProdutos() {
             return;
         }
         try {
+            //const 
             await axios.post('http://localhost:4000/insereProdutos', {
                 descricao: descricao,
                 nome: nome,
@@ -65,6 +72,9 @@ function PagProdutos() {
                 quantidade: quantidade,
                 qdeCon: quantidadeConsumo
             });
+
+
+
             alert("inseriu o produto mlk kakakakak")
             PegaDadosGeralDB();
         } catch (erro) {
@@ -131,6 +141,36 @@ function PagProdutos() {
                                 rows="3"
                                 value={quantidadeConsumo}
                                 onChange={(e) => setQuantidadeConsumo(parseInt(e.target.value))}
+                            />
+                        </div>
+
+                        <div className="grupo-input">
+                            <label htmlFor="qtdeConsumo">Demanda média de vendas diárias:</label>
+                            <input
+                                id="qtdeConsumo"
+                                rows="3"
+                                value={demandaDiaria}
+                                onChange={(e) => setDemandaDiaria(parseInt(e.target.value))}
+                            />
+                        </div>
+
+                        <div className="grupo-input">
+                            <label htmlFor="qtdeConsumo">Tempo estimado de entrega:</label>
+                            <input
+                                id="qtdeConsumo"
+                                rows="3"
+                                value={tempoEntrega}
+                                onChange={(e) => setTempoEntrega(parseInt(e.target.value))}
+                            />
+                        </div>
+
+                        <div className="grupo-input">
+                            <label htmlFor="qtdeConsumo">Tempo de reposição:</label>
+                            <input
+                                id="qtdeConsumo"
+                                rows="3"
+                                value={tempoReposicao}
+                                onChange={(e) => setTempoReposicao(parseInt(e.target.value))}
                             />
                         </div>
 
