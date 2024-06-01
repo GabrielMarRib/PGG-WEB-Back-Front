@@ -5,7 +5,7 @@ import lupa from '../../../Assets/lupa.png';
 import axios from 'axios';
 import { apagarCampos, CheckCamposNulos, CheckCamposVazios } from '../../../Functions/Functions';
 import { camposNaoPreenchidos } from '../../../Messages/Msg';
-
+import { PegaDadosGeralDB } from '../../../Functions/Functions';
 function PagProdutos() {
     //genérico
     const [nome, setNome] = useState('');
@@ -23,30 +23,19 @@ function PagProdutos() {
     const [tempoReposicao,setTempoReposicao] = useState(0);
 
     const [restricao, setRestricao] = useState('');
-    let vezes = 1;
 
 
-    const PegaDadosGeralDB = async () => {
-        try {
-            const response = await axios.get('http://localhost:4000/PegaProdutos');
-            console.log(response.data);
-            const estoqueData = response.data.map(item => ({ id: item.id, ...item.data }));
-            setDadosEstoqueGeral(estoqueData);
-        } catch (error) {
-            console.error('Error fetching data: ', error);
-        }
-    };
 
     useEffect(() => {
-        console.log(vezes++);
-        PegaDadosGeralDB(); // Fetch data when the component mounts
+        PegaDadosGeralDB(setDadosEstoqueGeral)
     }, []);
 
-    const pegaProdutos = (item) => {// sem nenhum acento                                                                                     // com acentos      
+    const pegaProdutos = (item) => {// sem nenhum acento        
+        console.log(item)                                                                             // com acentos      
         if (restricao === '' || item.Nome.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(restricao.toLowerCase()) || item.Nome.toLowerCase().includes(restricao.toLowerCase())) {
             return (
                 <div key={item.id}>
-                    <li>{item.Nome}</li>
+                    <li>{item.data.Nome}</li>
                     <button>Editar item</button>
                     <li>--------------</li>
                 </div>
@@ -64,15 +53,20 @@ function PagProdutos() {
             return;
         }
         try {
-            //const 
-            await axios.post('http://localhost:4000/insereProdutos', {
+            // generico 
+            const ProdutoId = await axios.post('http://localhost:4000/insereProdutos', {
                 descricao: descricao,
                 nome: nome,
                 custoUnit: custoUnit,
                 quantidade: quantidade,
+            });
+            // curvaAbc
+            console.log(ProdutoId.data.response)
+            await axios.post('http://localhost:4000/insereCurvaAbc', {
+                produtoId: ProdutoId.data.response,
                 qdeCon: quantidadeConsumo
             });
-
+            
 
 
             alert("inseriu o produto mlk kakakakak")

@@ -114,24 +114,19 @@ routes.get('/PegaProdutos', async (req, res) => {
 
 routes.post('/insereProdutos', async (req, res) => {
 
-    const { nome, custoUnit, quantidade, descricao, qdeCon } = req.body;
+    const { nome, custoUnit, quantidade, descricao } = req.body;
     const data = new Date();
     try {
         const EstoqueRef = db.collection('Estoque');
-        const CurvaAbcRef = db.collection('CurvaAbc');
-        const produtoNovo = await EstoqueRef.add({
+        const produtoNew = await EstoqueRef.add({
             Data_Entrada: data,
             Descricao: descricao,
             Nome: nome,
             Custo_Unitario: custoUnit,
             Quantidade: quantidade
         });
-        const codigo = produtoNovo.id;
-        await CurvaAbcRef.add({
-            Codigo: codigo,
-            QtdeConsumo: qdeCon
-        })
-        res.status(200).json({ message: "inserção OK" });
+
+        res.status(200).json({ response: produtoNew.id});
     } catch (error) {
         console.error('Error handling route: ', error);
         res.status(500).json({ error: 'Internal Server Error', details: error.message });
@@ -140,22 +135,15 @@ routes.post('/insereProdutos', async (req, res) => {
 
 routes.post('/insereCurvaAbc', async (req, res) => {
 
-    const { nome, custoUnit, quantidade, descricao, qdeCon } = req.body;
+    const { produtoId,qdeCon } = req.body;
     try {
-        const EstoqueRef = db.collection('Estoque');
         const CurvaAbcRef = db.collection('CurvaAbc');
-        const produtoNovo = await EstoqueRef.add({
-            Data_Entrada: data,
-            Descricao: descricao,
-            Nome: nome,
-            Custo_Unitario: custoUnit,
-            Quantidade: quantidade
-        });
-        const codigo = produtoNovo.id;
-        await CurvaAbcRef.add({
-            Codigo: codigo,
+        const curvaAbcProdutoRef = CurvaAbcRef.doc(produtoId);
+        
+        await curvaAbcProdutoRef.set({
             QtdeConsumo: qdeCon
         })
+
         res.status(200).json({ message: "inserção OK" });
     } catch (error) {
         console.error('Error handling route: ', error);
