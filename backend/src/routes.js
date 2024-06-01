@@ -30,7 +30,7 @@ routes.post('/Login', async (req, res) => { // Adicionando 'async' aqui
 
         const userData = userDoc.data();
 
-        // Retorne os dados do usuário
+        // Retorne os dados do usuário salve
         return res.status(200).json({
             id: user.uid,
             userData: userData,
@@ -168,6 +168,23 @@ routes.post('/inserePontoDePedido', async (req, res) => {
         })
 
         res.status(200).json({ message: "inserção OK" });
+    } catch (error) {
+        console.error('Error handling route: ', error);
+        res.status(500).json({ error: 'Internal Server Error', details: error.message });
+    }
+});
+
+routes.get('/pegaPontoDePedido', async (req,res) =>{
+    try {
+        const snapshot = await db.collection('PontoDePedido').get(); // pega uma snap de PontoDePedido
+
+        const PP = []; // array de PP
+        snapshot.forEach(doc => { // pra cada doc na snapshot
+            PP.push({ id: doc.id, data: doc.data() }); // manda o doc.id e os dados
+        });
+        
+        res.json(PP); // Send the snapshot data as JSON
+
     } catch (error) {
         console.error('Error handling route: ', error);
         res.status(500).json({ error: 'Internal Server Error', details: error.message });

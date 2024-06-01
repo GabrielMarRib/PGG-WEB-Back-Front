@@ -1,13 +1,80 @@
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import Cabecalho from "../../../Components/Cabecalho";
 import '../../../Styles/App/Service/PagPontoPedido.css';
+import axios from 'axios';
+import { PegaDadosGeralDB } from '../../../Functions/Functions';
 
 function PagPontoPedido() {
-    const navigate = useNavigate();
+    const [dadosEstoqueGeral, setDadosEstoqueGeral] = useState([]);
+    const [dadosPP, setDadosPP] = useState([]);
+
+    useEffect(() => {
+        PegaDadosGeralDB(setDadosEstoqueGeral);
+    }, []);
+
+    useEffect(() => {
+        const pegaDadosPP = async () => {
+            try {
+                const response = await axios.get('http://localhost:4000/pegaPontoDePedido')
+                const PPData = response.data.map(item => ({ id: item.id, ...item }));
+                setDadosPP(PPData)
+                console.log(PPData)
+            } catch (erro) {
+                console.error('Error fetching data:', erro);
+            }
+        };
+        pegaDadosPP()
+    }, [])
+
+    const calculaCM = (QV) => {
+        return (parseFloat((QV / 30).toFixed(2)))
+    }
+
+    const pegaDadosComunsEmPP = (item) => {
+        if (item && item.data) {
+            const infoComumEmPP = dadosPP.find(obj => obj.id === item.id);
+            if (infoComumEmPP && infoComumEmPP.data) {
+                const CM = calculaCM(infoComumEmPP.data.QV)
+                return (
+                    <tr key={item.id}>
+                        <td>{item.id}</td>
+                        <td>{item.data.Nome}</td>
+                        <td>{item.data.Quantidade}</td>
+                        <td>{infoComumEmPP.data.QV}</td>
+                        <td>{CM}</td>
+                        <td>{infoComumEmPP.data.TR}</td>
+                        <td>{infoComumEmPP.data.ES}</td>
+                        <td>{infoComumEmPP.data.PP}</td>
+                    </tr>
+                );
+            }
+        }
+    }
+
     return (
         <div className="PagPontoPedido">
             <div className="Cabecalho">
                 <Cabecalho />
+            </div>
+            <h1 className='h1PontoDePedido'>Gestão de Ponto de Pedido</h1>
+            <div className="Tabela">
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nome</th>
+                            <th>Estoque Atual</th>
+                            <th>Quantia vendida mensal</th>
+                            <th>Consumo Médio</th>
+                            <th>Tempo de Reposição</th>
+                            <th>Estoque de Segurança</th>
+                            <th>Ponto de Pedido</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {dadosEstoqueGeral.map(pegaDadosComunsEmPP)}
+                    </tbody>
+                </table>
             </div>
         </div>
     );
