@@ -101,7 +101,7 @@ routes.get('/PegaProdutos', async (req, res) => {
 
         const produtos = []; // array de produtos
         snapshot.forEach(doc => { // pra cada doc na snapshot
-            produtos.push({id: doc.id, data: doc.data()}); // manda o doc.id e os dados
+            produtos.push({ id: doc.id, data: doc.data() }); // manda o doc.id e os dados
         });
 
         res.json(produtos); // Send the snapshot data as JSON
@@ -138,30 +138,48 @@ routes.post('/insereProdutos', async (req, res) => {
     }
 });
 
-routes.post('/insereProdutos', async (req, res) => {
-
-    const { nome, custoUnit, quantidade, descricao, qdeCon } = req.body;
+routes.post('/insereVendas', async (req, res) => {
+    const { pessoa, quantidadeVenda, itemId, receita, quantidadeAtual } = req.body;
     const data = new Date();
+
     try {
+        const VendasRef = db.collection('Vendas');
         const EstoqueRef = db.collection('Estoque');
-        const CurvaAbcRef = db.collection('CurvaAbc');
-        const produtoNovo = await EstoqueRef.add({
+        const VendaProdutoRef = VendasRef.doc(itemId);
+        const EstoqueProdutoRef = EstoqueRef.doc(itemId);
+
+        const vendaDoc = await VendaProdutoRef.get();
+        let vendidostotal = 0;
+        let receitatotal = 0;
+
+        if (vendaDoc.exists) {
+            const existingData = vendaDoc.data();
+            vendidostotal = existingData.Totais_Vendidos || 0;
+            receitatotal = existingData.Total_Receita_Gerada || 0;
+        }
+
+        vendidostotal += quantidadeVenda;
+        receitatotal += receita;
+
+        await VendaProdutoRef.set({
             Data_Entrada: data,
-            Descricao: descricao,
-            Nome: nome,
-            Custo_Unitario: custoUnit,
-            Quantidade: quantidade
+            Pessoa_Responsavel: pessoa,
+            Ultimos_Vendidos: quantidadeVenda,
+            Ultima_Receita_Gerada: receita,
+            Totais_Vendidos: vendidostotal,
+            Total_Receita_Gerada: receitatotal
         });
-        const codigo = produtoNovo.id;
-        await CurvaAbcRef.add({
-            Codigo: codigo,
-            QtdeConsumo: qdeCon
-        })
+
+        await EstoqueProdutoRef.update({
+            Quantidade: (quantidadeAtual - quantidadeVenda)
+        });
+
         res.status(200).json({ message: "inserção OK" });
     } catch (error) {
         console.error('Error handling route: ', error);
         res.status(500).json({ error: 'Internal Server Error', details: error.message });
     }
 });
+
 
 module.exports = routes;
