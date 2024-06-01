@@ -151,6 +151,29 @@ routes.post('/insereCurvaAbc', async (req, res) => {
     }
 });
 
+routes.post('/inserePontoDePedido', async (req, res) => {
+
+    const { DM,TE,TR,QV,PP,ES,produtoId } = req.body;
+    try {
+        const PontoDePedidoRef = db.collection('PontoDePedido');
+        const PontoDePedidoProdutoRef = PontoDePedidoRef.doc(produtoId);
+        
+        await PontoDePedidoProdutoRef.set({
+            DM: DM,
+            ES: ES,
+            PP: PP,
+            QV: QV,
+            TE: TE,
+            TR: TR
+        })
+
+        res.status(200).json({ message: "inserção OK" });
+    } catch (error) {
+        console.error('Error handling route: ', error);
+        res.status(500).json({ error: 'Internal Server Error', details: error.message });
+    }
+});
+
 routes.post('/insereVendas', async (req, res) => {
     const { pessoa, quantidadeVenda, itemId, receita, quantidadeAtual } = req.body;
     const data = new Date();
