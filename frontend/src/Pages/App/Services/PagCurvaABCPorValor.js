@@ -19,9 +19,9 @@ function PagCurvaABCPorValor() {
     const [porcentagensA, setPorcentagensA] = useState({});
     const [classificacao, setClassificacao] = useState({});
   
-    const pegaDadosGeral = (item) => {
-      return { id: item.id, ...item.data() };
-    };
+    // const pegaDadosGeral = (item) => {
+    //   return { id: item.id, ...item.data() };
+    // };
   
 
     const PegaDadosGeralDB = async () => {
@@ -29,6 +29,7 @@ function PagCurvaABCPorValor() {
             const response = await axios.get('http://localhost:4000/PegaProdutos');
             console.log(response.data);
             const estoqueData = response.data.map(item => ({ id: item.id, ...item }));
+            console.log(estoqueData);
             setDadosEstoqueGeral(estoqueData);
         } catch (error) {
             console.error('Error fetching data: ', error);
@@ -63,7 +64,8 @@ function PagCurvaABCPorValor() {
     //   };
     //   PegaDadosGeralDB();
     // }, []);
-  
+    PegaDadosGeralDB();
+    
     useEffect(() => {
       if (dadosEstoqueGeral.length > 0) {
         const valorTotalConsumo = calcularValorTotalConsumo(dadosEstoqueGeral);
@@ -87,7 +89,7 @@ function PagCurvaABCPorValor() {
   
         // Obtém os dados relevantes da Curva ABC para o item, ou um objeto vazio caso não houver
         const dadosCabiveisAbc = dadosCurvaABC[item.id] || {};
-  
+  console.log("Muita coisa" + item.id);
         // Obtém a quantidade de consumo do item ou assume 0 se não houver
         const qtdConsumo = dadosCabiveisAbc.QtdeConsumo || 0;
   
