@@ -8,10 +8,12 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.8",
     "primereact": "^10.6.6",
+    "reacharts": "^0.4.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.23.1",
     "react-scripts": "^5.0.1",
+    "recharts": "^2.12.7",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
