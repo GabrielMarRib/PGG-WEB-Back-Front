@@ -170,7 +170,7 @@ if (Array.isArray(dadosCurvaABC)) {
       <tr key={item.id}>
         <td>{item.id}</td>
         <td>{item.data.Nome}</td>
-        <td>R$: {valorConsumo.toFixed(2 )}</td> {/*QTD de consumo*/}
+        <td>{infoComumEmABC.data.QtdeConsumo}</td> {/*QTD de consumo*/}
         <td>R$: {parseFloat(item.data.Custo_Unitario).toFixed(2)}</td>
         <td>R$: {custoTotal.toFixed(2)}</td>
         <td>{porcentagens[item.id]}%</td>
@@ -182,7 +182,7 @@ if (Array.isArray(dadosCurvaABC)) {
 
  if (Array.isArray(dadosCurvaABC)) {
   dadosEstoqueGeral.sort((a, b) => {
-  
+    
     const A = dadosCurvaABC.find(obj => obj.id === a.id) || {};
     const B = dadosCurvaABC.find(obj => obj.id === b.id) || {};
     const valorConsumoA = (A?.data.QtdeConsumo || 0) * parseFloat(a.data.Custo_Unitario || 0);
