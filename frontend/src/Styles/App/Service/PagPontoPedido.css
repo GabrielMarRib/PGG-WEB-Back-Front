@@ -1,0 +1,43 @@
+.PagPontoPedido .Tabela {
+    margin-top: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    margin-bottom: 10px;
+
+}
+
+.PagPontoPedido .Tabela table {
+    width: 95%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    text-align: center;
+    height: 150px;
+}
+
+tbody {
+    padding: 90px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+th {
+    background-color: #e04d18;
+    color: white;
+}
+
+.PagPontoPedido .lblTotal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.PagPontoPedido .h1PontoDePedido {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");

@@ -71,12 +71,14 @@ function PagVenderProduto() {
         if (User && User.userData && User.userData.Nome) {
             try {
                 await axios.post('http://localhost:4000/insereVendas', {
-                    pessoa: User.userData.Nome,
                     quantidadeVenda: quantidadeVenda,
                     quantidadeAtual: quantidadeDisponivel,
                     receita: receitaEstimada,
                     itemId: produtoSelecionado.id
                 });
+
+                handleGerarRelatorio(produtoSelecionado.id,produtoSelecionado.data.Nome,quantidadeVenda)
+
                 alert("inserção OK")
 
                 setReceitaEstimada(0);
@@ -92,6 +94,24 @@ function PagVenderProduto() {
             }
         }
 
+    }
+
+    const handleGerarRelatorio = async (produtoId,produtoNome,quantidadeVenda) =>{
+        if (User && User.userData && User.userData.Nome) {
+            try {
+                await axios.post('http://localhost:4000/geraRelatorioVendas', {
+                    produtoVendidoId: produtoId,
+                    QtdeVendida: quantidadeVenda,
+                    pessoaId: User.id,
+                    PessoaNome: User.userData.Nome,
+                    produtoVendidoNome: produtoNome
+                });
+                alert("inserção OK")
+
+            }catch(eee){
+                console.log("deu merda")
+            }
+        }
     }
 
     const handleForm = (e) => {
