@@ -1,8 +1,10 @@
 .PagRelatorios {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    height: 100vh;
     font-family: 'JetBrains Mono', sans-serif;
+    align-items: center;
+    justify-content: center; 
 }
 
 .PagRelatorios .Cabecalho {
@@ -11,58 +13,51 @@
 
 .PagRelatorios .Conteudo {
     display: flex;
-    width: 80%;
-    max-width: 1200px;
-    margin-top: 50px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
+    flex-grow: 1;
+    width: 80%; 
+    max-width: 1200px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    margin-top: 20px; /* Adiciona um espaçamento superior */
 }
 
 .PagRelatorios .BarraLateral {
     width: 50%;
-    padding: 20px;
-    background-color: #fff;
     border-right: 1px solid #ccc;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.PagRelatorios .BarraLateral input[type="text"] {
-    width: 90%;
+.PagRelatorios .ItemRelatorio {
+    width: 80%; 
     padding: 10px;
-    margin-bottom: 20px;
-    border: 2px solid #000000;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #ffffff;
-}
-
-.PagRelatorios .ItemFuncionario {
-    width: -40px;
-    padding: 10px;
-    margin: 5px 20px;
-    
-    border-radius: 5px;
+    margin-bottom: 10px;
     cursor: pointer;
     transition: background-color 0.3s;
     text-align: center;
 }
 
-.PagRelatorios .ItemFuncionario:hover {
+.PagRelatorios .ItemRelatorio:hover {
     background-color: #f0f0f0;
 }
 
 .PagRelatorios .ConteudoPrincipal {
     flex-grow: 1;
-    padding: 20px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
 }
 
-.PagRelatorios .InfoFuncionario {
-    font-size: 18px;
+.PagRelatorios .InfoRelatorio {
+    font-size: 16px;
 }
 
-.PagRelatorios .InfoFuncionario h2 {
-    margin-bottom: 10px;
-}
-
-.PagRelatorios .InfoFuncionario p {
-    margin: 0;
+.PagRelatorios .EspacoReservado {
+    font-size: 16px;
+    color: #aaa;
 }
