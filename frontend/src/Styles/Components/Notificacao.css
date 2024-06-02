@@ -49,7 +49,6 @@
   position: relative;
   /* Necessário para posicionar o botão de fechar */
   overflow-y: auto;
-
   cursor: auto;
 }
 
