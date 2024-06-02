@@ -183,8 +183,8 @@ function PagCurvaABCPorValor() {
     return (
       <tr key={item.id}>
         <td>{item.id}</td>
-        <td>{item.Nome}</td>
-        <td>R$: {valorConsumo.toFixed(2)}</td>
+        <td>{item.data.Nome}</td>
+        <td>R$: {valorConsumo.toFixed(2 )}</td>
         <td>R$: {parseFloat(item.Custo_Unitario).toFixed(2)}</td>
         <td>R$: {custoTotal.toFixed(2)}</td>
         <td>{porcentagens[item.id]}%</td>

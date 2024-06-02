@@ -49,7 +49,8 @@ function PagPerfil() {
                     {User && User.userData && User.userData.Nivel_acesso && User.userData.Nivel_acesso==2 ? (
                      <div id="IdBtnAddFunc">
                         <button className="AddFunc" onClick={() =>{navigate('/PagAddFunc')}}> <img src={AddPerfil} id="IdAddFuncIcon"></img> Adicionar Funcionário</button>
-                        <button className="AddFunc" onClick={() =>{navigate('/PagAddFunc')}}> <img src={IconListaFunc} id="IdAddFuncIcon"></img> Lista de Funcionarios</button>
+                        <button className="AddFunc" onClick={() =>{navigate('/PagFuncionarios')}}> <img src={IconListaFunc} id="IdAddFuncIcon"></img> Lista de Funcionarios</button>
+                        <button className="AddFunc" onClick={() => { navigate('/PagRelatorios') }}><img src={IconListaFunc} id="IdAddFuncIcon"></img> Relatórios</button>
                      </div>
                     ):
                         null

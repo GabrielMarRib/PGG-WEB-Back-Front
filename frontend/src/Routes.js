@@ -15,6 +15,8 @@ import PagEscolhaCurvaABC from './Pages/App/PagEscolhaCurvaABC';
 import PagCurvaABC from './Pages/App/Services/PagCurvaABC';
 import PagCurvaABCPorValor from './Pages/App/Services/PagCurvaABCPorValor'; 
 import PagPontoPedido from './Pages/App/Services/PagPontoPedido'; 
+import PagRelatorios from './Pages/App/Services/PagRelatorios';
+import PagFuncionarios from './Pages/App/Services/PagFuncionarios';
 
 const Mobile = IsMobile();
 
@@ -41,9 +43,11 @@ function AppRoutes() {
             <Route path="/PagVenderProduto" element={<PagVenderProduto />} />
             <Route path="/PagEscolhaCurvaABC" element={<PagEscolhaCurvaABC />} />
             <Route path="/PagCurvaABC" element={<PagCurvaABC />} />  
-            <Route path="/PagCurvaABCPorValor" element={<PagCurvaABCPorValor />} /> ]
+            <Route path="/PagCurvaABCPorValor" element={<PagCurvaABCPorValor />} /> 
             <Route path="/PagPontoPedido" element={<PagPontoPedido />} /> 
-          </>
+            <Route path="/PagRelatorios" element={<PagRelatorios />} />   
+            <Route path="/PagFuncionarios" element={<PagFuncionarios />} /> 
+          </> 
         )}
         {/* Rota padrão para redirecionar qualquer rota desconhecida */}
         <Route path="*" element={<Navigate to="/" />} />
