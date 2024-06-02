@@ -109,7 +109,7 @@ function PagVenderProduto() {
             return;
             console.log("ta entrando aki")
         const data = new Date();
-        const msg = `URGENTE!!!! O produto '${produto.data.Nome}' de id: '${produto.id}', atingiu o nível de ponto de pedido!!! Na data de: ${data.toLocaleString('pt-BR')}\nO produto se encontra com APENAS ${qtdeSobra}/${PP} (PP) UNIDADES`;
+        const msg = `URGENTE!!!! O Produto '${produto.data.Nome}' de id: '${produto.id}', atingiu o nível de ponto de pedido!!! Na data de: ${data.toLocaleString('pt-BR')}\nO produto se encontra com APENAS ${qtdeSobra}/${PP} (PP) UNIDADES`;
         await axios.post('http://localhost:4000/geraRelatorioPP', {
             PP: PP,
             msg: msg,

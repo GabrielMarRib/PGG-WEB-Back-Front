@@ -44,7 +44,11 @@ const Notificacao = () => {
                         </button>
                         <h2>Notificações</h2>
                         {notificacoes.map(item => (
-                            <p key={item.id}>{` ${item.data?.msg}`}</p>
+                            <>
+                                <p key={item.id}>{` ${item.data?.msg}`}</p>
+                                ---------------------------------------------
+                            </>
+                            
                         ))}
 
                         {console.log(notificacoes)}
