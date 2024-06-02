@@ -7,6 +7,9 @@ import { apagarCampos, CheckCamposNulos, CheckCamposVazios } from '../../../Func
 import { camposNaoPreenchidos } from '../../../Messages/Msg';
 import { PegaDadosGeralDB } from '../../../Functions/Functions';
 
+import AlertaNotificação from "../../../Components/AlertaNotificação.js";
+import { useAlerta } from "../../../Context/AlertaContext.js";
+
 const ProdutoItem = memo(({ item }) => ( //evita de rerenderizar essa porra
     <div key={item.id}>
         <li>{item.data.Nome}</li>
@@ -22,6 +25,7 @@ const ProdutoList = memo(({ produtos, pegaProdutos }) => ( //evita de rerenderiz
 ));
 
 function PagProdutos() {
+    const { Alerta } = useAlerta();
     const [nome, setNome] = useState('');
     const [dadosEstoqueGeral, setDadosEstoqueGeral] = useState([]);
     const [custoUnit, setCustoUnit] = useState(0);
@@ -64,7 +68,7 @@ function PagProdutos() {
 
     const AddProduto = async () => {
         if (CheckCamposNulos([custoUnit, quantidade, quantidadeConsumo, demandaDiaria, tempoEntrega, tempoReposicao, produtosMensais]) || CheckCamposVazios([nome, descricao])) {
-            alert(camposNaoPreenchidos(true));
+            Alerta(1, "Campos não preenchidos")
             return;
         }
         try {
@@ -99,7 +103,7 @@ function PagProdutos() {
             });
 
             console.log(PontoDePedido)
-            alert("Produto inserido");
+            Alerta(2, "Produto inserido");
             PegaDadosGeralDB(setDadosEstoqueGeral);
         } catch (erro) {
             console.log(erro);
@@ -114,6 +118,7 @@ function PagProdutos() {
                 <div className="Cabecalho">
                     <TesteNavBar2 />
                 </div>
+                <AlertaNotificação />
                 <div className="container-tela-produtos">
                     <div className="grupo-input-produto">
                         <h2>Adicione um produto:</h2>

@@ -9,6 +9,9 @@ import Redirect from '../../../Functions/Redirect';
 import { UserContext } from '../../../Context/UserContext';
 import { useContext } from 'react';
 
+import AlertaNotificação from './../../../Components/AlertaNotificação.js';
+import { useAlerta } from ".././../../Context/AlertaContext.js";
+
 function PagVenderProduto() {
 
     const [dadosEstoqueGeral, setDadosEstoqueGeral] = useState([]);
@@ -22,6 +25,8 @@ function PagVenderProduto() {
 
     const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
     const User = UserOBJ.User; //Pega só o User....
+    const { Alerta } = useAlerta();
+
 
     Redirect(User)
 
@@ -50,7 +55,8 @@ function PagVenderProduto() {
 
             const produtoSelecJSON = JSON.parse(event.target.value);
             if (produtoSelecJSON.data.Quantidade === 0) {
-                alert("produto esgotado") // fazer notificação mais bonita dps
+                // alert("produto esgotado") // fazer notificação mais bonita dps
+                Alerta(3, "Produto esgotado");
             }
             setQuantidadeDisponivel(produtoSelecJSON.data.Quantidade)
             setProdutoSelecionado(produtoSelecJSON);
@@ -82,12 +88,13 @@ function PagVenderProduto() {
                 });
 
                 handleGerarRelatorioVenda(produtoSelecionado.id, produtoSelecionado.data.Nome, quantidadeVenda)
-                handleGerarRelatorioPP(produtoSelecionado)
-                alert("inserção OK")
+                handleGerarRelatorioPP(produtoSelecionado);
+                // alert("inserção OK")
+                Alerta(2, "Venda concluida!");
 
                 setReceitaEstimada(0);
                 setQuantidadeVenda(0);
-                setQuantidadeDisponivel(0)
+                setQuantidadeDisponivel(0);
                 setCustoUnitario(0);
                 setProdutoSelecionado('');
 
@@ -129,7 +136,7 @@ function PagVenderProduto() {
                     PessoaNome: User.userData.Nome,
                     produtoVendidoNome: produtoNome
                 });
-                alert("inserção OK")
+                
 
             } catch (eee) {
                 console.log("deu merda")
@@ -140,7 +147,7 @@ function PagVenderProduto() {
     const handleForm = (e) => {
         e.preventDefault();
         if (CheckCamposNulos([custoUnitario, quantidadeDisponivel, quantidadeVenda, receitaEstimada])) {
-            alert(camposNaoPreenchidos(true))
+            Alerta(3, "Campos não preenchidos");
             return
         }
 
@@ -153,6 +160,7 @@ function PagVenderProduto() {
                 <div className='Cabecalho'>
                     <Cabecalho />
                 </div>
+                <AlertaNotificação />
                 <div className="container-tela-produtos">
                     <div className="enquadramento">
                         <form className="formulario" onSubmit={(e) => handleForm(e)}>

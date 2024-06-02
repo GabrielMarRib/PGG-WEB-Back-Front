@@ -61,8 +61,13 @@ const Notificacao = () => {
 
                         {console.log(notificacoes)}
                     </div>
+
+                    
                 </div>
             )}
+
+
+
         </div>
     )
 

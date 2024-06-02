@@ -4,7 +4,10 @@ import Cabecalho from "../../../Components/Cabecalho";
 import "../../../Styles/App/Service/PagLoteEconomico.css";
 import lupa from "../../../Assets/lupa.png";
 import axios from "axios";
+import {Alerta} from "../../../Components/AlertaNotificação.js";
 import {CheckCamposNulos, apagarCampos, camposNaoPreenchidos} from './../../../Functions/Functions.js'
+import AlertaNotificação from "../../../Components/AlertaNotificação.js";
+import { useAlerta } from "../../../Context/AlertaContext.js";
 
 //Funcçoes
 const PesquisaLoteEconomico = async (HashProduto, setRespostaPesqusia) => {
@@ -35,6 +38,7 @@ const PesquisaLoteEconomico = async (HashProduto, setRespostaPesqusia) => {
 };
 
 function PagLoteEconomico() {
+  const { Alerta } = useAlerta();
   const [dadosEstoqueGeral, setDadosEstoqueGeral] = useState([]);
   const [restricao, setRestricao] = useState("");
   const [respostaPesquisa, setRespostaPesquisa] = useState({}); // Inicializando como objeto vazio
@@ -54,7 +58,8 @@ function PagLoteEconomico() {
   const CalcularLoteEconomico = async () => {
     console.log("AA" + valorDespezas)
     if(valorDespezas == ""  || qtdProdutosEstocados == "" || numPedidos == ""  || demandaAnual == ""){
-      alert("Campos não preenchidos");
+      // alert("Campos não preenchidos");
+      Alerta(1, "Campos não preenchidos");
       return;
     }
     const CPCalculo = valorDespezas / numPedidos;
@@ -70,7 +75,7 @@ try{
       LEC: LECCalculo,
       Existe: ExisteCalculoBD,
   });
-  alert("Calculos salvos")
+  Alerta(2, "Dados Atualizados");
     
   PegaDadosGeralDB();
   PesquisaLoteEconomico(HashAtual, setRespostaPesquisa)
@@ -161,6 +166,7 @@ try{
       }
 
       return (
+        
         <div key={item.id} className="DivsItens">
           <li>{item.data.Nome}</li>
           <div className="DivsResutlados">
@@ -220,6 +226,7 @@ try{
       <div className="Cabecalho">
         <Cabecalho />
       </div>
+   
       <div className="ConteudoDaPagina">
         <div className={isVisibleForms ? "terminalShow" : "terminal"}>
           <div className="barra-pesquisa">
@@ -303,6 +310,7 @@ try{
           </div>
         </div>
       </div>
+      <AlertaNotificação /> 
     </div>
   );
 }

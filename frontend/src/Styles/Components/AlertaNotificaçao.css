@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
+.AlertaNotificação{
+    position: absolute;
+    left: 70vw;
+    top: 78vh;
+    width: 500px;
+    height: 100px;
+    background-color: #e04d1800;
+    padding: 10px;
+}
+.AlertaNotificação label{
+    font-family:Quicksand;
+    color: rgb(44, 44, 44);
+    font-size: 35px;
+    margin-left: 15px;
+}
+
+/*Invisivel*/
+.AlertaNotificação .Hidden{
+    opacity: 0;
+    transition: opacity 1s ease-in-out; /* Transição de 0.5 segundos */
+}
+.AlertaNotificação .Show{
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out; /* Transição de 0.5 segundos */
+}
+
+
+/*Acerto*/
+.AlertaNotificação .DivAlertaSuccess{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 95px;
+    background-color: #a8f0c6;
+    padding: 0.5px;
+    border-radius:5px;
+    box-shadow:0 0 15px 5px #ccc;
+    overflow: hidden;
+  }
+.AlertaNotificação .BarraLateralSuccess{
+    background-color: #27e700;
+    height: 110%;
+    width: 5px;
+}
+
+/*Erro*/
+.AlertaNotificação .DivAlertaDanger{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 95px;
+    background-color: #f7a7a3;
+    padding: 0.5px;
+    border-radius:5px;
+    box-shadow:0 0 15px 5px #ccc;
+    overflow: hidden;
+  }
+.AlertaNotificação .BarraLateralDanger{
+    background-color: #ff0000;
+    height: 110%;
+    width: 5px;
+}
+
+/*Simples*/
+.AlertaNotificação .DivAlertaSimple{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 95px;
+    background-color: #ebebeb;
+    padding: 0.5px;
+    border-radius:5px;
+    box-shadow:0 0 15px 5px #ccc;
+    overflow: hidden;
+  }
+.AlertaNotificação .BarraLateralSimple{
+    background-color: #525252;
+    height: 110%;
+    width: 5px;
+}
