@@ -1,0 +1,65 @@
+.PagRelatorios {
+    display: flex;
+    flex-direction: column;
+    font-family: 'JetBrains Mono', sans-serif;
+    align-items: center;
+    justify-content: center; 
+}
+
+.PagRelatorios .Cabecalho {
+    width: 100%;
+}
+
+.PagRelatorios .Conteudo {
+    display: flex;
+    flex-grow: 1;
+    width: 80%; 
+    max-width: 1200px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    margin-top: 8ch; 
+    height: 750px;
+    overflow: scroll;
+}
+
+.PagRelatorios .BarraLateral {
+    width: 50%;
+    border-right: 1px solid #ccc;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.PagRelatorios .ItemRelatorio {
+    width: 80%; 
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+
+.PagRelatorios .ItemRelatorio:hover {
+    background-color: #f0f0f0;
+}
+
+.PagRelatorios .ConteudoPrincipal {
+    flex-grow: 1;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    align-self: center; 
+}
+
+.PagRelatorios .InfoRelatorio {
+    font-size: 16px;
+}
+
+.PagRelatorios .EspacoReservado {
+    font-size: 16px;
+    color: #aaa;
+}
