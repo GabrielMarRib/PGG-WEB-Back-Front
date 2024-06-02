@@ -1,4 +1,4 @@
-.PagRelatorios {
+.PagFuncionarios {
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -7,11 +7,11 @@
     justify-content: center; 
 }
 
-.PagRelatorios .Cabecalho {
+.PagFuncionarios .Cabecalho {
     width: 100%;
 }
 
-.PagRelatorios .Conteudo {
+.PagFuncionarios .Conteudo {
     display: flex;
     flex-grow: 1;
     width: 80%; 
@@ -20,7 +20,7 @@
     margin-top: 20px;
 }
 
-.PagRelatorios .BarraLateral {
+.PagFuncionarios .BarraLateral {
     width: 50%;
     border-right: 1px solid #ccc;
     padding: 10px;
@@ -29,35 +29,36 @@
     align-items: center;
 }
 
-.PagRelatorios .ItemRelatorio {
-    width: 80%; 
+.PagFuncionarios .BarraLateral input[type="text"] {
+    width: 580px;
     padding: 10px;
+    margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-bottom: 10px;
+}
+
+.PagFuncionarios .ItemFuncionario {
+    width: calc(100% - 40px);
+    padding: 10px;
+    margin: 5px 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
     text-align: center;
 }
 
-.PagRelatorios .ItemRelatorio:hover {
+.PagFuncionarios .ItemFuncionario:hover {
     background-color: #f0f0f0;
 }
 
-.PagRelatorios .ConteudoPrincipal {
+.PagFuncionarios .ConteudoPrincipal {
     flex-grow: 1;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 20px;
     text-align: center;
 }
 
-.PagRelatorios .InfoRelatorio {
-    font-size: 16px;
-}
-
-.PagRelatorios .EspacoReservado {
+.PagFuncionarios .EspacoReservado {
     font-size: 16px;
     color: #aaa;
 }
