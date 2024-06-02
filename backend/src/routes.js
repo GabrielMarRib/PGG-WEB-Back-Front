@@ -257,5 +257,26 @@ routes.post('/geraRelatorioVendas', async (req,res) =>{
     }
 });
 
+routes.post('/geraRelatorioPP', async (req,res) =>{
+    try {
+        const { PP,QtdeAtual,msg,produtoID,produtoNome } = req.body;
+        const data = new Date();
+
+        const relatoriosVendaRef = db.collection('Relatorios').doc('PontoDePedido').collection('ListaRelatorios');
+        await relatoriosVendaRef.add({
+            Data_Venda: data,
+            PP: PP,
+            msg: msg,
+            QtdeAtual: QtdeAtual,
+            produtoID: produtoID,
+            produtoNome: produtoNome
+        });
+        res.status(200).json({ message: "inserção OK" });
+    }catch(error){
+        console.error('Error handling route: ', error);
+        res.status(500).json({ error: 'Internal Server Error', details: error.message });
+    }
+});
+
 
 module.exports = routes;
