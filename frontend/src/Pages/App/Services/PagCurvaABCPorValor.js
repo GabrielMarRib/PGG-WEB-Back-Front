@@ -14,11 +14,13 @@ function PagCurvaABCPorValor() {
   const [porcentagens, setPorcentagens] = useState({});
   const [porcentagensA, setPorcentagensA] = useState({});
   const [classificacao, setClassificacao] = useState({});
-
-
+  const [carregando, setCarregando] = useState(true); // Estado para carregar
 
   useEffect(() =>{ 
-    PegaDadosGeralDB(setDadosEstoqueGeral); // arrumei essa merda pra nao mandar 50k de leitura pro bd. USEM USEEFFECT PELO AMOR DE CRISTO
+    PegaDadosGeralDB((data) => {
+      setDadosEstoqueGeral(data);
+      setCarregando(false);
+    }); // arrumei essa merda pra nao mandar 50k de leitura pro bd. USEM USEEFFECT PELO AMOR DE CRISTO
     PegadadosVALOR(setDadosCurvaABC);
   },[])
   
@@ -48,9 +50,7 @@ function PagCurvaABCPorValor() {
       if (Array.isArray(dadosCurvaABC)) {
         
       
-      
       // Obtém os dados relevantes da Curva ABC para o item, ou um objeto vazio caso não houver
-      
       const dadosCabiveisAbc = dadosCurvaABC.find(obj => obj.id === item.id) || {};
      
 
@@ -73,12 +73,9 @@ function PagCurvaABCPorValor() {
 
     // Percorre os dados do estoque
     dadosEstoqueGeral.forEach(item => {
-if (Array.isArray(dadosCurvaABC)) {
+    if (Array.isArray(dadosCurvaABC)) {
       // Obtém os dados relevantes da Curva ABC para o item, ou um objeto vazio se não houver
       const dadosCabiveisAbc = dadosCurvaABC.find(obj => obj.id === item.id);
-
-
-
 
       // Obtém a quantidade de consumo do item ou assume 0 se não houver
       const qtdConsumo = dadosCabiveisAbc.data.QtdeConsumo || 0;
@@ -152,11 +149,6 @@ if (Array.isArray(dadosCurvaABC)) {
     if (Array.isArray(dadosCurvaABC)) {
     const infoComumEmABC = dadosCurvaABC.find(obj => obj.id === item.id);
     
-    
-
-
-
-  
     const estiloClassificacao = {
       backgroundColor: pegaCorClassificacao(classificacao[item.id])
     };
@@ -164,7 +156,6 @@ if (Array.isArray(dadosCurvaABC)) {
     const valorConsumo = (infoComumEmABC.data.QtdeConsumo || 0) * parseFloat(item.data.Custo_Unitario || 0);
    
     const custoTotal = parseFloat(item.data.Custo_Unitario || 0) * (infoComumEmABC.data.QtdeConsumo || 0);
-
 
     return (
       <tr key={item.id}>
@@ -203,11 +194,15 @@ if (Array.isArray(dadosCurvaABC)) {
     return dadosPreparados;
   };
 
-  const mudaCorClassGrafico = (texto) => {
-    const corzinha = pegaCorClassificacaoVibrante(texto)
+  const mudaCorClassGrafico = (classificacao) => {
+    const corzinha = pegaCorClassificacaoVibrante(classificacao);
 
-    return <span style={{ color: corzinha, fontWeight: 'bold' }}>{texto}</span>;
-  }
+    function Vibrante(texto) {
+      return <span style={{ color: corzinha, fontWeight: 'bold' }}>{texto}</span>;
+    }
+
+    return Vibrante(classificacao);
+  };
 
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
@@ -296,7 +291,13 @@ if (Array.isArray(dadosCurvaABC)) {
             </tr>
           </thead>
           <tbody>
-            {dadosEstoqueGeral.map(pegaDadosComunsEmAbc)}
+            {carregando ? (
+              <tr>
+                <td colSpan="8">Carregando...</td>
+              </tr>
+            ) : (
+              dadosEstoqueGeral.map(pegaDadosComunsEmAbc)
+            )}
           </tbody>
         </table>
       </div>
