@@ -171,10 +171,8 @@ function PagCurvaABCPorValor() {
   };
 
   const pegaDadosComunsEmAbc = (item) => {
-    const dadosCabiveisAbc = dadosCurvaABC[item.id] || "nn tem valor";
-    console.log("mapeamento:" + JSON.stringify(dadosCurvaABC));
-    return;
-    console.log("teste: " + dadosCabiveisAbc)
+    const dadosCabiveisAbc = dadosCurvaABC[item.id] || {};
+
     const estiloClassificacao = {
       backgroundColor: pegaCorClassificacao(classificacao[item.id])
     };
@@ -207,8 +205,8 @@ function PagCurvaABCPorValor() {
       return {
         name: item.Nome,
         id: item.id,
-        acumulado: 100,
-        acumuladoBarra: 100
+        acumulado: parseFloat(porcentagensA[item.id]) || 0,
+        acumuladoBarra: parseFloat(porcentagensA[item.id]) || 0
       };
     });
     return dadosPreparados;
