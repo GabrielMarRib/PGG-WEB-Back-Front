@@ -278,5 +278,20 @@ routes.post('/geraRelatorioPP', async (req,res) =>{
     }
 });
 
+routes.get('/pegaRelatorioPP', async (req,res) =>{
+    try{
+        const snapshot = await db.collection('Relatorios').doc('PontoDePedido').collection('ListaRelatorios').get(); // pega uma snap de PontoDePedido
+
+        const PP = []; // array de PP
+        snapshot.forEach(doc => { // pra cada doc na snapshot
+            PP.push({ id: doc.id, data: doc.data() }); // manda o doc.id e os dados
+        });
+
+        res.json(PP)
+    }catch(error){
+
+    }
+});
+
 
 module.exports = routes;
