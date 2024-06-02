@@ -1,16 +1,17 @@
-import React, { Component, useContext, useState } from "react";
+import React, { Component, useContext, useState,useEffect } from "react";
 import "../Styles/Components/CabecalhoHome.css";
 import NotificacaoIcon from "../Assets/SinoWhite.png";
 import OptionIcon from "../Assets/OptionsWhite.png";
 import { UserContext } from "../Context/UserContext.js";
 import { Link, useNavigate } from "react-router-dom";
-import { handleLogOut } from "../Functions/Functions.js";
+import { NotificacaoPontoPedido, handleLogOut } from "../Functions/Functions.js";
 import IconLogOut from "../Assets/LogOutIconWhite.png";
 
 const CabecalhoHome = () => {
   const UserOBJ = useContext(UserContext);
   const User = UserOBJ.User;
   const [clicked, setClicked] = useState(false);
+  const [notificacoes, setNotificacoes] = useState([]);
 
   const handleClick = () => {
     setClicked(!clicked);
@@ -29,6 +30,22 @@ const CabecalhoHome = () => {
   const togglePopup = () => {
     setShowPopup(!showPopup);
   };
+
+  useEffect(() => {
+    const PegaNotificacoes = async () => {
+      if (showPopup) {
+        try {
+          const response = await NotificacaoPontoPedido(); // assuming this is a function that fetches data
+          setNotificacoes(response);
+        } catch (error) {
+          console.error('Error fetching notifications:', error);
+        }
+      }
+    };
+
+    PegaNotificacoes();
+  }, [showPopup]);
+
 
   const navigate = useNavigate();
   return (
@@ -95,7 +112,10 @@ const CabecalhoHome = () => {
               X
             </button>
             <h2>Notificações</h2>
-            <p>Notificação 1</p>
+            {notificacoes.map(item => (
+              <p key={item.id}>{` ${item.data?.msg}`}</p>
+            ))}
+            {console.log(notificacoes)}
             <p>Notificação 2</p>
           </div>
         </div>

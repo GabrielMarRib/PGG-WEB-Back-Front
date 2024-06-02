@@ -7,12 +7,12 @@ import { PegaDadosGeralDB } from '../../../Functions/Functions';
 function PagPontoPedido() {
     const [dadosEstoqueGeral, setDadosEstoqueGeral] = useState([]);
     const [dadosPP, setDadosPP] = useState([]);
-    const [carregando, setCarregando] = useState(true); 
+    const [carregando, setCarregando] = useState(true);
 
     useEffect(() => {
         PegaDadosGeralDB((data) => {
             setDadosEstoqueGeral(data);
-            setCarregando(false); 
+            setCarregando(false);
         });
     }, []);
 
@@ -22,11 +22,11 @@ function PagPontoPedido() {
                 const response = await axios.get('http://localhost:4000/pegaPontoDePedido');
                 const PPData = response.data.map(item => ({ id: item.id, ...item }));
                 setDadosPP(PPData);
-                setCarregando(false); 
+                setCarregando(false);
                 console.log(PPData);
             } catch (erro) {
                 console.error('Error fetching data:', erro);
-                setCarregando(false); 
+                setCarregando(false);
             }
         };
         pegaDadosPP();
@@ -51,11 +51,19 @@ function PagPontoPedido() {
                         <td>{infoComumEmPP.data.TR}</td>
                         <td>{infoComumEmPP.data.ES}</td>
                         <td>{infoComumEmPP.data.PP}</td>
+
+                        {item.data.Quantidade <= infoComumEmPP.data.PP ? (
+                            <td style={{backgroundColor: '#fa3d2f'}}>REQUER ATENÇÃO URGENTEMENTE</td>
+                        ) :
+                            <td style={{backgroundColor: '#89ff57', minWidth: '13.5vw'}}>OK</td>
+                        }
+
                     </tr>
+
                 );
             }
         }
-        return null; 
+        return null;
     }
 
     return (
@@ -76,6 +84,7 @@ function PagPontoPedido() {
                             <th>Tempo de Reposição</th>
                             <th>Estoque de Segurança</th>
                             <th>Ponto de Pedido</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>

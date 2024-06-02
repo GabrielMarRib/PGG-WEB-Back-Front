@@ -103,12 +103,13 @@ function PagVenderProduto() {
     const handleGerarRelatorioPP = async (produto) => {
         const infoComumEmPP = dadosPP.find(obj => obj.id === produto.id);
         const PP = infoComumEmPP.data.PP;
-
-        if (quantidadeDisponivel >= PP)  // se ainda pode vender, manda pra casa do krl
+        const qtdeSobra = (quantidadeDisponivel-quantidadeVenda)
+        console.log(qtdeSobra >= PP)
+        if (qtdeSobra >= PP)  // se ainda pode vender, manda pra casa do krl
             return;
-
+            console.log("ta entrando aki")
         const data = new Date();
-        const msg = `O produto '${produto.data.Nome}' de id: '${produto.id}', atingiu o nível de ponto de pedido!!! Atualmente, no data de: ${data.toLocaleString('pt-BR')}`;
+        const msg = `URGENTE!!!! O produto '${produto.data.Nome}' de id: '${produto.id}', atingiu o nível de ponto de pedido!!! Na data de: ${data.toLocaleString('pt-BR')}\nO produto se encontra com APENAS ${qtdeSobra}/${PP} (PP) UNIDADES`;
         await axios.post('http://localhost:4000/geraRelatorioPP', {
             PP: PP,
             msg: msg,
