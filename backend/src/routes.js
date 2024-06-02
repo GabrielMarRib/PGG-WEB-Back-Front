@@ -230,6 +230,12 @@ routes.post('/insereVendas', async (req, res) => {
     }
 });
 
+const atualizaProdutosQtde = async (EstoqueProdutoRef,valor) =>{
+    await EstoqueProdutoRef.update({
+        Quantidade: valor
+    });
+}
+
 routes.post('/LoteEconomico', async (req, res) => {
 
     const { HashProduto } = req.body;
