@@ -14,7 +14,6 @@
 /* Estilos para o popup */
 
 .popup {
-  overflow: scroll;
   position: fixed;
   top: 0;
   left: 0;
@@ -47,6 +46,7 @@
   /* Centraliza o texto */
   position: relative;
   /* Necessário para posicionar o botão de fechar */
+  overflow-y: auto;
 }
 
 .Notificacao .close-popup {
