@@ -49,9 +49,14 @@
   position: relative;
   /* Necessário para posicionar o botão de fechar */
   overflow-y: auto;
+  overflow-x: hidden;
   cursor: auto;
 }
+.Notificacao .notificacaoH2{
+  background: none !important; 
+  font-size: 30px;
 
+}
 .Notificacao .close-popup {
   position: absolute;
   /* Posiciona o botão de fechar */
@@ -102,6 +107,7 @@
 
 .Notificacao .BotaoAcao{
   margin-bottom: 2vh;
+  margin-top: 2vh;
   min-width: 8vw;
   min-height: 3.5vh;
   background-color: #eb6c3e;
