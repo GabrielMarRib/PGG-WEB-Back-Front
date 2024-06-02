@@ -1,101 +1,17 @@
 .LoteEconomico {
     font-family: 'JetBrains Mono', sans-serif;
-    flex-direction: row;
-    align-items: center; 
-    box-sizing: border-box;
-}
-
-.LoteEconomico .text-voltar-PontoPedido {
-    display: inline-block;
-    color: #fff;
-    font-size: 25px;
-}
-
-.LoteEconomico .container-main{
+  }
+  
+  .LoteEconomico .ConteudoDaPagina {
+    width: 100%;
     display: flex;
     justify-content: center;
-    margin-left: 20px;
-}
+    vertical-align: middle;
+    margin-top: 5%;
 
-.LoteEconomico h2{
-    text-align: center;
-}
-
-.LoteEconomico .container-tela-ponto-pedido {
-    background-color: #ffffff;
-    width: 800px;
-    font-size: 20px;
-    border-radius: 5px;
-    border: 2px solid #000000;
-    color: #000000;
-    margin-top: 100px;
-    flex-wrap: wrap;
-    height: 60%;
-    margin-right: 0px;
-}
-
-
-.LoteEconomico .lista-pontos-pedido {
-    font-size: 20px;
-    margin-left: 10%;
-}
-
-
-.LoteEconomico .titulo-pontos-pedido {
-    background-color: #2e2929;
-    color: #fff;
-    text-align: center;
-}
-
-
-.LoteEconomico label {
-    justify-content: right;
-    margin-left: 10%;
-}
-
-
-.LoteEconomico .grupo-input-produto,
-.LoteEconomico .grupo-input-tipo,
-.LoteEconomico .grupo-input-estoque-seguranca,
-.LoteEconomico .grupo-input-tempo-de-reposicao,
-.LoteEconomico .grupo-input-consumo-medio {
-    margin-bottom: 20px;
-}
-
-.LoteEconomico .Div-Select {
-    display: flex;
-    align-items: center;  
-    margin-left: 70px;
-    padding: 10px;  
-    border-radius: 5px;  
-}
-
-.LoteEconomico .Div-Select p {
-    margin: 0;  
-    margin-right: -250px;  
-}
-
-.LoteEconomico .Div-Select select {
-    padding: 5px;  
-    border-radius: 5px;  
-    border: 1px solid #ccc;  
-}
-
-
-.LoteEconomico .container-main input {
-    justify-content: right;
-    margin-left: 80px;
-    width: 80%;
-    height: 25px;
-}
-
-.LoteEconomico .Resultado-select{
-    align-items: center;
-    margin-left: 80px;
-}
-
-.LoteEconomico button {
-    padding: 10px;
+  }
+  
+  .LoteEconomico button {
     border-radius: 3px;
     background-color: #e04d18;
     border: none;
@@ -103,39 +19,229 @@
     color: #fff;
     font-size: 16px;
     font-family: 'JetBrains Mono';
-    margin-top: 20px;
-    margin-left: 30%;
-}
-
-/* Heading styles */
-/* .LoteEconomico h2 {
-    margin-top: 20px;
+    padding: 10px;
+    width: 25%;
+    transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
+  }
+  .LoteEconomico .grupo-input-produto button {
+    border-radius: 3px;
+    background-color: #e04d18;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
+    font-family: 'JetBrains Mono';
+    padding: 10px;
+    width: 35%;
+    margin-left: 10%;
+  }
+  
+  .LoteEconomico .ConteudoDaPagina {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .LoteEconomico .terminal {
+    width: 40%;
+    border: 1px solid #000000;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    height: 480px;
+    margin-top: -5px;
+    overflow: auto;
+    transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
+    z-index: 2;
+  }
+  .LoteEconomico .terminalShow {
+      width: 36%;
+      border: 1px solid #000000;
+      padding: 15px;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+      height: 480px;
+      margin-top: -5px;
+      overflow: auto;
+      transform: translateX(-300px);
+      transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
+      z-index: 2;
+  }
+  .LoteEconomico .terminalShow button{
+    transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
+    width: 30%;
+  }
+ 
+  
+  .LoteEconomico .barra-pesquisa {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .LoteEconomico .barra-pesquisa input {
+    width: 80%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #000;
+    border-radius: 3px;
+  }
+  
+  .LoteEconomico .barra-pesquisa .botao-pesquisa {
+    width: 5%;
+    margin-right: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #ffffff;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .imagem-botao {
+    width: 25px; 
+    height: 25px; 
+  }
+  
+  .LoteEconomico .lista-LoteEconomico {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .LoteEconomico li {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 5px 0;
+  }
+  
+  .LoteEconomico .DivsResutlados {
+    height: 30px;
+    width: 200px;
+    border: solid black;
+    border-width: 1px;
+    box-shadow: 5px 5px 5px #858585;
+    border-radius: 8px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: default;
+    position: relative; /* Necessário para o posicionamento da tooltip */
+  }
+  
+  .LoteEconomico .DivsResutlados label {
+    font-size: 14px;
     text-align: center;
-    margin-bottom: 20px; // da interferencia com a navegacao...
-} */
+    font-weight: bold;
+  }
+  
+  .LoteEconomico .tooltip {
+    visibility: hidden;
+    width: 160px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Posiciona a mensagem acima da div */
+    left: 50%;
+    margin-left: -80px; /* Centraliza a mensagem */
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%; /* Posição do triângulo */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+  }
+  
+  .LoteEconomico .DivsResutlados:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+  
 
 
 
-.LoteEconomico .Conteudo-Resultado {
-    background-color: #000000;
-    color: #ffffff;
-    height: 300px;
-    width: 800px;
-    overflow-y: auto;
-    margin-top: 100px;
-    margin-left: 20px;
-}
 
-.LoteEconomico .grupo-input-produto select {
+
+
+/*FORMULARIO*/
+
+
+
+  .LoteEconomico .ContainerFormularioLoteEconomico{
+    position: fixed;
+    height: 450px;
+    width: 40%;
+    margin-top: 0.2%;
+    z-index: 1;
+
+    opacity: 0;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+
+  } 
+  .LoteEconomico .ContainerFormularioLoteEconomicoShow{
+    position: fixed;
+    height: 450px;
+    width: 40%;
+    margin-top: 0.2%;
+    z-index: 1;
+
+    opacity: 1;
+    transition: transform 0.5s ease-in-out, visibility 0.5s ease-in-out 0.5s, opacity 0.5s ease-in-out;
+    transform: translateX(350px);
+  }
+
+
+  
+  .LoteEconomico .container-tela-produtos {
+    display: flex;
+    background-color: #ffffff;
+    width: 80%;
+    height: 435px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: 2px solid #000000;
+    color: #000000;
+    padding: 25px 0px 25px 130px;
+   
+  }
+
+  .LoteEconomico .grupo-input-produto {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+   
+  }
+  .LoteEconomico .grupo-input-produto h2{
+    margin-top: 0;
+  }
+  .LoteEconomico .grupo-input {
+    margin-bottom: 10px;
+  }
+  
+  .LoteEconomico .grupo-input label {
+    margin-right: 10px;
+  }
+  
+  .LoteEconomico .grupo-input input,
+  .LoteEconomico .grupo-input textarea {
     display: block;
-    margin: 0 auto; 
-}
-
-.LoteEconomico .grupo-input-produto .select option {
-    text-align: center;
-}
-
-
-
-
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+    width: 70%;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #000;
+    border-radius: 3px;
+    
+  }
+  
+  
+  

@@ -181,5 +181,49 @@ routes.post('/insereVendas', async (req, res) => {
     }
 });
 
+routes.post('/LoteEconomico', async (req, res) => {
+
+    const { HashProduto } = req.body;
+    try {
+        const EstoqueRef = db.collection('LoteEconomico').doc(HashProduto);
+        const doc = await EstoqueRef.get();
+    
+        if (!doc.exists) {
+            console.log('Documento não encontrado');
+            res.status(200).json({Resposta: 'Documento não encontrado'});
+            return;
+        }
+        res.status(200).json({ Resposta: JSON.stringify(doc.data()) });
+
+    } catch (error) {
+        console.error('Error handling route: ', error);
+        res.status(500).json({ error: 'Internal Server Error', details: error.message });
+    }
+    
+});
+
+
+routes.post('/InsereCalculosLote', async (req, res) => {
+
+    const { Hash, CP, CA, LEC, ExisteBD } = req.body;
+    try {
+        const LoteEconomicoRef = db.collection('LoteEconomico');
+        const LoteEconomicoRefDoc = LoteEconomicoRef.doc(Hash); 
+
+        const NovoCalculoDoc = await LoteEconomicoRefDoc.set({
+                CustoArmazem: CA,
+                CustoPedido: CP,
+                CalculoLoteEconomico: LEC,
+        });
+        
+    
+       
+        res.status(200).json({ message: "Inserção OK" });
+    } catch (error) {
+        console.error('Error handling route: ', error);
+        res.status(500).json({ error: 'Internal Server Error', details: error.message });
+    }
+});
+
 
 module.exports = routes;
