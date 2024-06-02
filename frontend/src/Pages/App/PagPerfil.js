@@ -13,7 +13,7 @@ import { UserContext } from '../../Context/UserContext.js'
 import { handleLogOut } from "../../Functions/Functions.js";
 import { useNavigate } from "react-router-dom";
 import Redirect from "../../Functions/Redirect.js";
-
+import Notificacao from "../../Components/Notificacao.js";
 
 function PagPerfil() {
     const [showPopup, setShowPopup] = useState(false);
@@ -51,6 +51,7 @@ function PagPerfil() {
                         <button className="AddFunc" onClick={() =>{navigate('/PagAddFunc')}}> <img src={AddPerfil} id="IdAddFuncIcon"></img> Adicionar Funcionário</button>
                         <button className="AddFunc" onClick={() =>{navigate('/PagFuncionarios')}}> <img src={IconListaFunc} id="IdAddFuncIcon"></img> Lista de Funcionarios</button>
                         <button className="AddFunc" onClick={() => { navigate('/PagRelatorios') }}><img src={IconListaFunc} id="IdAddFuncIcon"></img> Relatórios</button>
+                        <Notificacao />
                      </div>
                     ):
                         null

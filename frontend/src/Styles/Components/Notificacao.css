@@ -1,0 +1,12 @@
+.Notificacao .DivPrincipalzinha{
+    background-color: #e04d18;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    gap: 20px
+    
+  }
+.Notificacao #DivImg{
+    cursor: pointer;
+}
