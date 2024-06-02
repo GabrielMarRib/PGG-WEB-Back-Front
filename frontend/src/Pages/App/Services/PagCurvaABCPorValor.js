@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Cabecalho from "../../../Components/Cabecalho";
 import '../../../Styles/App/Service/PagCurvaABC.css';
 import axios from 'axios';
-import { PegaDadosGeralDB } from '../../../Functions/Functions';
+import { PegaDadosGeralDB, PegadadosVALOR } from '../../../Functions/Functions';
 import { ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 function PagCurvaABCPorValor() {
@@ -15,48 +15,18 @@ function PagCurvaABCPorValor() {
   const [porcentagensA, setPorcentagensA] = useState({});
   const [classificacao, setClassificacao] = useState({});
 
-  // const pegaDadosGeral = (item) => {
-  //   return { id: item.id, ...item.data() };
-  // };
 
-
-  // useEffect(() => {
-  //   const PegaDadosGeralDB = async () => {
-  //     try {
-  //       const unsubscribeEstoque = onSnapshot(collection(db, 'Estoque'), (snapshot) => {
-  //         const estoqueData = snapshot.docs.map(pegaDadosGeral);
-  //         setDadosEstoque(estoqueData);
-  //       });
-
-  //       const unsubscribeCurvaAbc = onSnapshot(collection(db, 'CurvaAbc'), (snapshot) => {
-  //         const curvaAbcData = snapshot.docs.reduce((acc, doc) => {
-  //           acc[doc.data().Codigo] = doc.data();
-  //           return acc;
-  //         }, {});
-  //         setDadosCurvaABC(curvaAbcData);
-  //       });
-
-  //       return () => {
-  //         unsubscribeEstoque();
-  //         unsubscribeCurvaAbc();
-
-  //       };
-  //     } catch (error) {
-  //       console.error('Error fetching data: ', error);
-  //     }
-
-  //   };
-  //   PegaDadosGeralDB();
-  // }, []);
 
   useEffect(() =>{ 
     PegaDadosGeralDB(setDadosEstoqueGeral); // arrumei essa merda pra nao mandar 50k de leitura pro bd. USEM USEEFFECT PELO AMOR DE CRISTO
+    PegadadosVALOR(setDadosCurvaABC);
   },[])
   
 
   useEffect(() => {
     if (dadosEstoqueGeral.length > 0) {
       const valorTotalConsumo = calcularValorTotalConsumo(dadosEstoqueGeral);
+
       setValorTotalConsumo(valorTotalConsumo);
 
       const porcentagens = calcularPorcentagemSimples(dadosEstoqueGeral, valorTotalConsumo);
@@ -71,23 +41,28 @@ function PagCurvaABCPorValor() {
   // Função para calcular o valor total do consumo
   const calcularValorTotalConsumo = (dadosEstoqueGeral) => {
     let totalConsumo = 0;
-
+    
     // Percorre os dados do estoque
+    
     dadosEstoqueGeral.forEach(item => {
-      console.log(dadosCurvaABC)
-      // Obtém os dados relevantes da Curva ABC para o item, ou um objeto vazio caso não houver
-      const dadosCabiveisAbc = dadosCurvaABC[item.id] || {};
+      if (Array.isArray(dadosCurvaABC)) {
+        
       
-      console.log("Muita coisa" + item.data.Custo_Unitario);
+      
+      // Obtém os dados relevantes da Curva ABC para o item, ou um objeto vazio caso não houver
+      
+      const dadosCabiveisAbc = dadosCurvaABC.find(obj => obj.id === item.id) || {};
+     
+
       // Obtém a quantidade de consumo do item ou assume 0 se não houver
-      const qtdConsumo = dadosCabiveisAbc.QtdeConsumo || 0;
+      const qtdConsumo = dadosCabiveisAbc.data.QtdeConsumo || 0;
       
       // Obtém o custo unitário do item ou assume 0 se não houver
       const custoUnitario = parseFloat(item.data.Custo_Unitario) || 0;
 
       // Calcula o valor total de consumo para este item e o adiciona ao "totalConsumo"
       totalConsumo += (qtdConsumo * custoUnitario);
-    });
+  }});
 
     return totalConsumo;
   };
@@ -98,22 +73,25 @@ function PagCurvaABCPorValor() {
 
     // Percorre os dados do estoque
     dadosEstoqueGeral.forEach(item => {
-
+if (Array.isArray(dadosCurvaABC)) {
       // Obtém os dados relevantes da Curva ABC para o item, ou um objeto vazio se não houver
-      const dadosCabiveisAbc = dadosCurvaABC[item.id] || {};
+      const dadosCabiveisAbc = dadosCurvaABC.find(obj => obj.id === item.id);
+
+
+
 
       // Obtém a quantidade de consumo do item ou assume 0 se não houver
-      const qtdConsumo = dadosCabiveisAbc.QtdeConsumo || 0;
+      const qtdConsumo = dadosCabiveisAbc.data.QtdeConsumo || 0;
 
       // Obtém o custo unitário do item ou assume 0 se não houver
-      const custoUnitario = parseFloat(item.Custo_Unitario) || 0;
+      const custoUnitario = parseFloat(item.data.Custo_Unitario) || 0;
 
       // Calcula o valor total de consumo para este item e o adiciona ao "totalConsumo"
       const valorConsumo = qtdConsumo * custoUnitario;
 
       // Calcula a porcentagem de consumo deste item em relação ao "valor total de consumo"
       porcentagens[item.id] = ((valorConsumo / valorTotalConsumo) * 100).toFixed(2);
-    });
+  }});
 
     return porcentagens;
   };
@@ -171,30 +149,36 @@ function PagCurvaABCPorValor() {
   };
 
   const pegaDadosComunsEmAbc = (item) => {
-    const dadosCabiveisAbc = dadosCurvaABC[item.id] || "nn tem valor";
-    console.log("mapeamento:" + JSON.stringify(dadosCurvaABC));
-    return;
-    console.log("teste: " + dadosCabiveisAbc)
+    if (Array.isArray(dadosCurvaABC)) {
+    const infoComumEmABC = dadosCurvaABC.find(obj => obj.id === item.id);
+    
+    
+
+
+
+  
     const estiloClassificacao = {
       backgroundColor: pegaCorClassificacao(classificacao[item.id])
     };
 
-    const valorConsumo = (dadosCabiveisAbc.QtdeConsumo || 0) * parseFloat(item.Custo_Unitario || 0);
-    const custoTotal = parseFloat(item.Custo_Unitario || 0) * (dadosCabiveisAbc.QtdeConsumo || 0);
+    const valorConsumo = (infoComumEmABC.data.QtdeConsumo || 0) * parseFloat(item.data.Custo_Unitario || 0);
+   
+    const custoTotal = parseFloat(item.data.Custo_Unitario || 0) * (infoComumEmABC.data.QtdeConsumo || 0);
+
 
     return (
       <tr key={item.id}>
         <td>{item.id}</td>
         <td>{item.data.Nome}</td>
-        <td>R$: {valorConsumo.toFixed(2 )}</td>
-        <td>R$: {parseFloat(item.Custo_Unitario).toFixed(2)}</td>
+        <td>R$: {valorConsumo.toFixed(2 )}</td> {/*QTD de consumo*/}
+        <td>R$: {parseFloat(item.data.Custo_Unitario).toFixed(2)}</td>
         <td>R$: {custoTotal.toFixed(2)}</td>
         <td>{porcentagens[item.id]}%</td>
         <td>{parseFloat(porcentagensA[item.id]).toFixed(2)}%</td>
         <td style={estiloClassificacao}>{classificacao[item.id]}</td>
       </tr>
     );
-  };
+ } };
 
   dadosEstoqueGeral.sort((a, b) => {
     const valorConsumoA = (dadosCurvaABC[a.id]?.QtdeConsumo || 0) * parseFloat(a.Custo_Unitario || 0);
@@ -205,10 +189,10 @@ function PagCurvaABCPorValor() {
   const preparaDadosParaGrafico = (porcentagensA, dadosEstoqueGeral) => {
     const dadosPreparados = dadosEstoqueGeral.map((item) => {
       return {
-        name: item.Nome,
+        name: item.data.Nome,
         id: item.id,
-        acumulado: 100,
-        acumuladoBarra: 100
+        acumulado: parseFloat(porcentagensA[item.id]) || 0,
+        acumuladoBarra: parseFloat(porcentagensA[item.id]) || 0
       };
     });
     return dadosPreparados;
@@ -298,7 +282,7 @@ function PagCurvaABCPorValor() {
             <tr>
               <th>Id</th>
               <th>Nome</th>
-              <th>Valor Con.</th>
+              <th>QTD.Consumo</th>
               <th>Custo Unitário</th>
               <th>Custo Total</th>
               <th>%</th>
