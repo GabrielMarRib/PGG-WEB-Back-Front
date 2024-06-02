@@ -39,6 +39,17 @@ export const PegaDadosGeralDB = async (setDadoOBJ) => {  // Função de pegar os
     }
 };
 
+export const PegadadosVALOR = async (setDadoOBJ) => {  // Função de pegar os dados... Recebe um Obj de UseState, mas especificamente um SET
+    try {
+        const response = await axios.get('http://localhost:4000/PegadadosCurvaABC'); //espera a resposta do axios na url...
+        const estoqueData = response.data.map(item => ({ id: item.id, ...item })); // mapeia os itens
+        setDadoOBJ(estoqueData); // seta os dados no setState solicidado (o q foi passado por parametro)
+        console.log(estoqueData)
+    } catch (error) {
+        console.error('erro pegando os dados mlk doido: ', error);
+    }
+};
+
 export const pegaDadosPP = async (setDadoOBJ) => {
     try {
         const response = await axios.get('http://localhost:4000/pegaPontoDePedido')

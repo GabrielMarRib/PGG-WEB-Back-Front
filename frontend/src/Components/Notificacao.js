@@ -44,11 +44,12 @@ const Notificacao = () => {
                         </button>
                         <h2>Notificações</h2>
                         {notificacoes.map(item => (
-                            <>
-                                <p key={item.id}>{` ${item.data?.msg}`}</p>
-                                ---------------------------------------------
-                            </>
-                            
+                            item && (
+                                <React.Fragment key={item.id}>
+                                    <p>{item.data?.msg}</p>
+                                    <hr />
+                                </React.Fragment>
+                            )
                         ))}
 
                         {console.log(notificacoes)}
