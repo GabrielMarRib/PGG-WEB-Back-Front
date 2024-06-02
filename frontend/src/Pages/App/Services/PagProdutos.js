@@ -217,9 +217,6 @@ function PagProdutos() {
                             placeholder="Pesquisar produto..."
                             onChange={(e) => pesquisaProduto(e.target.value)}
                         />
-                        <button className="botao-pesquisa">
-                            <img src={lupa} alt="Descrição da imagem" className="imagem-botao" />
-                        </button>
                     </div>
                     <ProdutoList produtos={dadosEstoqueGeral} pegaProdutos={pegaProdutos} />
                 </div>

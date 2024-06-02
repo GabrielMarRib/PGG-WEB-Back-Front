@@ -1,9 +1,8 @@
 .PagRelatorios {
     display: flex;
     flex-direction: column;
-    font-family: 'JetBrains Mono', sans-serif;
     align-items: center;
-    justify-content: center; 
+    font-family: 'JetBrains Mono', sans-serif;
 }
 
 .PagRelatorios .Cabecalho {
@@ -12,54 +11,58 @@
 
 .PagRelatorios .Conteudo {
     display: flex;
-    flex-grow: 1;
-    width: 80%; 
-    max-width: 1200px; 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
-    margin-top: 8ch; 
-    height: 750px;
-    overflow: scroll;
+    width: 80%;
+    max-width: 1200px;
+    margin-top: 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
 }
 
 .PagRelatorios .BarraLateral {
     width: 50%;
+    padding: 20px;
+    background-color: #fff;
     border-right: 1px solid #ccc;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
-.PagRelatorios .ItemRelatorio {
-    width: 80%; 
+.PagRelatorios .BarraLateral input[type="text"] {
+    width: 90%;
     padding: 10px;
-    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    border: 2px solid #000000;
     border-radius: 5px;
-    margin-bottom: 10px;
+    background-color: #ffffff;
+}
+
+.PagRelatorios .ItemFuncionario {
+    width: -40px;
+    padding: 10px;
+    margin: 5px 20px;
+    
+    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
     text-align: center;
 }
 
-.PagRelatorios .ItemRelatorio:hover {
+.PagRelatorios .ItemFuncionario:hover {
     background-color: #f0f0f0;
 }
 
 .PagRelatorios .ConteudoPrincipal {
     flex-grow: 1;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 20px;
     text-align: center;
-    align-self: center; 
 }
 
-.PagRelatorios .InfoRelatorio {
-    font-size: 16px;
+.PagRelatorios .InfoFuncionario {
+    font-size: 18px;
 }
 
-.PagRelatorios .EspacoReservado {
-    font-size: 16px;
-    color: #aaa;
+.PagRelatorios .InfoFuncionario h2 {
+    margin-bottom: 10px;
+}
+
+.PagRelatorios .InfoFuncionario p {
+    margin: 0;
 }
