@@ -29,12 +29,12 @@
     color: white;
 }
 
-codegPontoPedido .lblTotal {
+.PagPontoPedido .lblTotal {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-codegPontoPedido .h1PontoDePedido {
+.PagPontoPedido .h1PontoDePedido {
     display: flex;
     justify-content: center;
     align-items: center;
