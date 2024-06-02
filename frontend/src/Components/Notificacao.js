@@ -32,6 +32,66 @@ const Notificacao = () => {
         PegaNotificacoes();
     }, [showPopup]);
 
+    const handleClick = (item) => {
+        if (item?.data) {
+            if (item.data.PP) {
+                navigate('/PagPontoPedido')
+            } else if (item.data.Vendas) {
+                navigate('/PagVenderProdutos')
+            }
+        }
+    }
+
+    const traduzData = (item) => {
+        if (item?.data?.Data_Venda) {
+            const data = item.data.Data_Venda;
+            const segundos = data._seconds
+            const nanoseg = data._nanoseconds
+            return segundos * 1000 + nanoseg / 1000000;
+        }
+    }
+
+    const exibeData = (item) => {
+        if (item?.data?.Data_Venda) {
+            const dataCrua = traduzData(item)
+            const dataOK = new Date(dataCrua).toLocaleString('pt-BR')
+            return dataOK
+        }
+    }
+
+
+    notificacoes.sort((a, b) => {
+        const dataA = traduzData(a);
+        const dataB = traduzData(b);
+
+        return dataB - dataA;
+    });
+
+    const constroiMsg = (msg) => {
+        const ChaveMsg = msg.split(' ')[0];
+        const msgFinal = msg.replace(ChaveMsg, '')
+        let styleCustom = {}
+        switch(ChaveMsg){
+            case "URGENTE!!":
+                styleCustom = {
+                    display: 'inline-block',
+                    backgroundColor: 'red',
+                    minWidth: '7vw',
+                    borderRadius: '5px',
+                    color: 'white',
+                    fontSize: 'large'
+                }
+                break;
+        }
+
+        return (
+            <h3>
+                <span style={styleCustom}>{ChaveMsg}</span>
+                {msgFinal}
+            </h3>
+        );
+    }
+
     return (
         <div className="Notificacao">
             <div className="DivPrincipalzinha">
@@ -48,24 +108,24 @@ const Notificacao = () => {
                         <button onClick={togglePopup} className="close-popup">
                             X
                         </button>
-                        <h2>Notificações</h2>
+                        <h2 className="notificacaoH2">Notificações</h2>
                         {carregando ? (
                             <p>Carregando...</p>
                         ) : (
-                            notificacoes.map(item => item.data?.msg && (
-                                <div key={item.id}>
-                                    {console.log(item.data.terste)}
-                                    <p>{item.data?.msg}</p>
-                                    <button className="BotaoAcao" onClick={() => {
-                                        if (item.data.PP) {
-                                            navigate('/PagPontoPedido')
-                                        } else if (item.data.Vendas) {
-                                            navigate('/PagVenderProdutos')
-                                        }
-                                    }}>Ver situação</button>
-                                    <hr />
-                                </div>
-                            ))
+                            notificacoes.length > 1 ? ( //
+                                notificacoes.map(item => (
+                                    item.data?.msg ? (
+                                        <div key={item.id}>
+                                            <h2>{exibeData(item)}</h2>
+                                            {constroiMsg(item.data?.msg)} 
+                                            <button className="BotaoAcao" onClick={() => { handleClick(item) }}>Ver situação</button>
+                                            <hr style={{marginTop: "2vh",marginBottom: "2vh"}}/>
+                                        </div>
+                                    ) : null
+                                ))
+                            ) : (
+                                <p>não há notificações</p>
+                            )
                         )}
 
                         {console.log(notificacoes)}
