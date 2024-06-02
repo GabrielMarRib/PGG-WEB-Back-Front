@@ -155,7 +155,7 @@ try{
 
       if (respostaPesquisa[item.id]?.RespostaExiste === true) {
         RespostaExiste = true;
-        CP = JSON.parse(produtoLoteEconomico)["CalculoLoteEconomico"];
+        CP = JSON.parse(produtoLoteEconomico)["CustoPedido"];
         CA = JSON.parse(produtoLoteEconomico)["CustoArmazem"];
         LE = JSON.parse(produtoLoteEconomico)["CalculoLoteEconomico"];
       }
