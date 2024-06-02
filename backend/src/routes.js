@@ -192,8 +192,7 @@ routes.get('/pegaPontoDePedido', async (req,res) =>{
 });
 
 routes.post('/insereVendas', async (req, res) => {
-    const { pessoa, quantidadeVenda, itemId, receita, quantidadeAtual } = req.body;
-    const data = new Date();
+    const { quantidadeVenda, itemId, receita, quantidadeAtual } = req.body;
 
     try {
         const VendasRef = db.collection('Vendas');
@@ -215,8 +214,6 @@ routes.post('/insereVendas', async (req, res) => {
         receitatotal += receita;
 
         await VendaProdutoRef.set({
-            Data_Entrada: data,
-            Pessoa_Responsavel: pessoa,
             Ultimos_Vendidos: quantidadeVenda,
             Ultima_Receita_Gerada: receita,
             Totais_Vendidos: vendidostotal,
@@ -238,6 +235,27 @@ const atualizaProdutosQtde = async (EstoqueProdutoRef,valor) =>{
         Quantidade: valor
     });
 }
+
+routes.post('/geraRelatorioVendas', async (req,res) =>{
+    try {
+        const { produtoVendidoId,QtdeVendida,pessoaId,PessoaNome,produtoVendidoNome } = req.body;
+        const data = new Date();
+
+        const relatoriosVendaRef = db.collection('Relatorios').doc('Vendas').collection('ListaRelatorios');
+        await relatoriosVendaRef.add({
+            Data_Venda: data,
+            Produto_Vendido_Id: produtoVendidoId,
+            Produto_Vendido_Nome: produtoVendidoNome,
+            Quantidade_Vendida: QtdeVendida,
+            Responsavel_Id: pessoaId,
+            Responsavel_Nome: PessoaNome
+        });
+        res.status(200).json({ message: "inserção OK" });
+    }catch(error){
+        console.error('Error handling route: ', error);
+        res.status(500).json({ error: 'Internal Server Error', details: error.message });
+    }
+});
 
 
 module.exports = routes;

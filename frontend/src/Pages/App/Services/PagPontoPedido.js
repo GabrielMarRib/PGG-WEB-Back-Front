@@ -72,7 +72,7 @@ function PagPontoPedido() {
                         </tr>
                     </thead>
                     <tbody>
-                        {dadosEstoqueGeral.map(pegaDadosComunsEmPP)}
+                        {dadosEstoqueGeral.map(pegaDadosComunsEmPP)} 
                     </tbody>
                 </table>
             </div>
