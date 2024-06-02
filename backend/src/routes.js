@@ -30,7 +30,7 @@ routes.post('/Login', async (req, res) => { // Adicionando 'async' aqui
 
         const userData = userDoc.data();
 
-        // Retorne os dados do usuário salve
+        // Retorne os dados do usuário
         return res.status(200).json({
             id: user.uid,
             userData: userData,
@@ -111,14 +111,31 @@ routes.get('/PegaProdutos', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error', details: error.message });
     }
 });
+routes.get('/PegadadosCurvaABC', async (req, res) => {
+    try {
+        const snapshot = await db.collection('CurvaAbc').get(); // pega uma snap de estoque
+
+        const produtos = []; // array de produtos
+        snapshot.forEach(doc => { // pra cada doc na snapshot
+            produtos.push({ id: doc.id, data: doc.data() }); // manda o doc.id e os dados
+        });
+
+        res.json(produtos); // Send the snapshot data as JSON
+
+    } catch (error) {
+        console.error('Error handling route: ', error);
+        res.status(500).json({ error: 'Internal Server Error', details: error.message });
+    }
+});
 
 routes.post('/insereProdutos', async (req, res) => {
 
-    const { nome, custoUnit, quantidade, descricao } = req.body;
+    const { nome, custoUnit, quantidade, descricao, qdeCon } = req.body;
     const data = new Date();
     try {
         const EstoqueRef = db.collection('Estoque');
-        const produtoNew = await EstoqueRef.add({
+        const CurvaAbcRef = db.collection('CurvaAbc');
+        const produtoNovo = await EstoqueRef.add({
             Data_Entrada: data,
             Descricao: descricao,
             Nome: nome,
@@ -127,23 +144,6 @@ routes.post('/insereProdutos', async (req, res) => {
         });
 
         res.status(200).json({ response: produtoNew.id });
-    } catch (error) {
-        console.error('Error handling route: ', error);
-        res.status(500).json({ error: 'Internal Server Error', details: error.message });
-    }
-});
-
-routes.get('/PegadadosCurvaABC', async (req, res) => {
-    try {
-        const snapshot = await db.collection('CurvaAbc').get(); // pega uma snap de estoque
-
-        const produtos = []; // array de produtos
-        snapshot.forEach(doc => { // pra cada doc na snapshot
-            produtos.push({ id: doc.QtdeConsumo, data: doc.data() }); // manda o doc.id e os dados
-        });
-
-        res.json(produtos); // Send the snapshot data as JSON
-
     } catch (error) {
         console.error('Error handling route: ', error);
         res.status(500).json({ error: 'Internal Server Error', details: error.message });
@@ -160,7 +160,6 @@ routes.post('/insereCurvaAbc', async (req, res) => {
         await curvaAbcProdutoRef.set({
             QtdeConsumo: qdeCon
         })
-
         res.status(200).json({ message: "inserção OK" });
     } catch (error) {
         console.error('Error handling route: ', error);
@@ -209,7 +208,8 @@ routes.get('/pegaPontoDePedido', async (req, res) => {
 });
 
 routes.post('/insereVendas', async (req, res) => {
-    const { quantidadeVenda, itemId, receita, quantidadeAtual } = req.body;
+    const { pessoa, quantidadeVenda, itemId, receita, quantidadeAtual } = req.body;
+    const data = new Date();
 
     try {
         const VendasRef = db.collection('Vendas');
@@ -231,6 +231,8 @@ routes.post('/insereVendas', async (req, res) => {
         receitatotal += receita;
 
         await VendaProdutoRef.set({
+            Data_Entrada: data,
+            Pessoa_Responsavel: pessoa,
             Ultimos_Vendidos: quantidadeVenda,
             Ultima_Receita_Gerada: receita,
             Totais_Vendidos: vendidostotal,
@@ -247,7 +249,8 @@ routes.post('/insereVendas', async (req, res) => {
     }
 });
 
-const atualizaProdutosQtde = async (EstoqueProdutoRef, valor) => {
+
+const atualizaProdutosQtde = async (EstoqueProdutoRef,valor) =>{
     await EstoqueProdutoRef.update({
         Quantidade: valor
     });
@@ -354,6 +357,5 @@ routes.get('/pegaRelatorioPP', async (req, res) => {
 
     }
 });
-
 
 module.exports = routes;

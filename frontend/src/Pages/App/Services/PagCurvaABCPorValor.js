@@ -3,7 +3,9 @@ import React, { useState, useEffect } from "react";
 import Cabecalho from "../../../Components/Cabecalho";
 import '../../../Styles/App/Service/PagCurvaABC.css';
 import axios from 'axios';
-import { PegaDadosGeralDB } from '../../../Functions/Functions';
+import { PegaDadosGeralDB, PegadadosVALOR } from '../../../Functions/Functions';
+//import CustomXAxis from './XAxis';
+//import CustomYAxis from './YAxis';
 import { ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 function PagCurvaABCPorValor() {
@@ -50,7 +52,8 @@ function PagCurvaABCPorValor() {
   // }, []);
 
   useEffect(() =>{ 
-    PegaDadosGeralDB(setDadosEstoqueGeral); // arrumei essa merda pra nao mandar 50k de leitura pro bd. USEM USEEFFECT PELO AMOR DE CRISTO
+    PegaDadosGeralDB(setDadosEstoqueGeral);
+    PegadadosVALOR(setDadosCurvaABC); // arrumei essa merda pra nao mandar 50k de leitura pro bd. USEM USEEFFECT PELO AMOR DE CRISTO
   },[])
   
 
@@ -270,7 +273,7 @@ function PagCurvaABCPorValor() {
                     const item = payload[0]?.payload || {};
                     return (
                       <>
-                        {`Produto: ${label}`}
+                        {`Produto: ${item.id}`}
                         <br />
                         {`Id: ${item.id}`}
                         <br />

@@ -129,7 +129,15 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+  
   }
-  
-  
-  
+  .CabecalhoHome #DivNotificação img{
+    background-color: #ffffff00;
+  }
+  .CabecalhoHome #NomeUserId a{
+    text-decoration: none;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #f6f6f6;
+    cursor: default;
+  }

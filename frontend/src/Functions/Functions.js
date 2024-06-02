@@ -38,7 +38,6 @@ export const PegaDadosGeralDB = async (setDadoOBJ) => {  // Função de pegar os
         console.error('erro pegando os dados mlk doido: ', error);
     }
 };
-
 export const PegadadosVALOR = async (setDadoOBJ) => {  // Função de pegar os dados... Recebe um Obj de UseState, mas especificamente um SET
     try {
         const response = await axios.get('http://localhost:4000/PegadadosCurvaABC'); //espera a resposta do axios na url...
@@ -49,6 +48,7 @@ export const PegadadosVALOR = async (setDadoOBJ) => {  // Função de pegar os d
         console.error('erro pegando os dados mlk doido: ', error);
     }
 };
+
 
 export const pegaDadosPP = async (setDadoOBJ) => {
     try {
