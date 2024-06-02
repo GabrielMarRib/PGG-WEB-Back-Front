@@ -39,6 +39,17 @@ export const PegaDadosGeralDB = async (setDadoOBJ) => {  // Função de pegar os
     }
 };
 
+export const pegaDadosPP = async (setDadoOBJ) => {
+    try {
+        const response = await axios.get('http://localhost:4000/pegaPontoDePedido')
+        const PPData = response.data.map(item => ({ id: item.id, ...item }));
+        setDadoOBJ(PPData)
+        console.log(PPData)
+    } catch (erro) {
+        console.error('Error fetching data:', erro);
+    }
+};
+
 export const handleAdicionarUser = async (nome, cpf, email, telefone, acesso, userRequisitado) => {
     if(!userRequisitado)
         return;

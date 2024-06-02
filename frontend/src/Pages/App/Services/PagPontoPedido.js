@@ -7,34 +7,40 @@ import { PegaDadosGeralDB } from '../../../Functions/Functions';
 function PagPontoPedido() {
     const [dadosEstoqueGeral, setDadosEstoqueGeral] = useState([]);
     const [dadosPP, setDadosPP] = useState([]);
+    const [carregando, setCarregando] = useState(true); 
 
     useEffect(() => {
-        PegaDadosGeralDB(setDadosEstoqueGeral);
+        PegaDadosGeralDB((data) => {
+            setDadosEstoqueGeral(data);
+            setCarregando(false); 
+        });
     }, []);
 
     useEffect(() => {
         const pegaDadosPP = async () => {
             try {
-                const response = await axios.get('http://localhost:4000/pegaPontoDePedido')
+                const response = await axios.get('http://localhost:4000/pegaPontoDePedido');
                 const PPData = response.data.map(item => ({ id: item.id, ...item }));
-                setDadosPP(PPData)
-                console.log(PPData)
+                setDadosPP(PPData);
+                setCarregando(false); 
+                console.log(PPData);
             } catch (erro) {
                 console.error('Error fetching data:', erro);
+                setCarregando(false); 
             }
         };
-        pegaDadosPP()
-    }, [])
+        pegaDadosPP();
+    }, []);
 
     const calculaCM = (QV) => {
-        return (parseFloat((QV / 30).toFixed(2)))
+        return parseFloat((QV / 30).toFixed(2));
     }
 
     const pegaDadosComunsEmPP = (item) => {
         if (item && item.data) {
             const infoComumEmPP = dadosPP.find(obj => obj.id === item.id);
             if (infoComumEmPP && infoComumEmPP.data) {
-                const CM = calculaCM(infoComumEmPP.data.QV)
+                const CM = calculaCM(infoComumEmPP.data.QV);
                 return (
                     <tr key={item.id}>
                         <td>{item.id}</td>
@@ -49,6 +55,7 @@ function PagPontoPedido() {
                 );
             }
         }
+        return null; 
     }
 
     return (
@@ -72,7 +79,13 @@ function PagPontoPedido() {
                         </tr>
                     </thead>
                     <tbody>
-                        {dadosEstoqueGeral.map(pegaDadosComunsEmPP)} 
+                        {carregando ? (
+                            <tr>
+                                <td colSpan="8">Carregando...</td>
+                            </tr>
+                        ) : (
+                            dadosEstoqueGeral.map(pegaDadosComunsEmPP)
+                        )}
                     </tbody>
                 </table>
             </div>

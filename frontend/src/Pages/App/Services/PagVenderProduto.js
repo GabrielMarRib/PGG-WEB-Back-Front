@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Cabecalho from "../../../Components/Cabecalho";
 import '../../../Styles/App/Service/PagVenderProduto.css';
 import axios from 'axios';
-import { PegaDadosGeralDB, CheckCamposNulos, apagarCampos } from '../../../Functions/Functions';
+import { PegaDadosGeralDB, CheckCamposNulos, pegaDadosPP } from '../../../Functions/Functions';
 import { camposNaoPreenchidos } from '../../../Messages/Msg';
 import Redirect from '../../../Functions/Redirect';
 import { UserContext } from '../../../Context/UserContext';
@@ -12,6 +12,8 @@ import { useContext } from 'react';
 function PagVenderProduto() {
 
     const [dadosEstoqueGeral, setDadosEstoqueGeral] = useState([]);
+    const [dadosPP, setDadosPP] = useState([]);
+
     const [custoUnitario, setCustoUnitario] = useState(0);
     const [quantidadeDisponivel, setQuantidadeDisponivel] = useState(0);
     const [quantidadeVenda, setQuantidadeVenda] = useState(0);
@@ -32,8 +34,10 @@ function PagVenderProduto() {
         //   return null;
     }
 
+
     useEffect(() => {
         PegaDadosGeralDB(setDadosEstoqueGeral); // Fetch data when the component mounts
+        pegaDadosPP(setDadosPP) // pega os dados de ponto de pedido
     }, []);
 
     const handleChange = (event) => { //codigo do git mt modificado
@@ -77,8 +81,8 @@ function PagVenderProduto() {
                     itemId: produtoSelecionado.id
                 });
 
-                handleGerarRelatorio(produtoSelecionado.id,produtoSelecionado.data.Nome,quantidadeVenda)
-
+                handleGerarRelatorioVenda(produtoSelecionado.id, produtoSelecionado.data.Nome, quantidadeVenda)
+                handleGerarRelatorioPP(produtoSelecionado)
                 alert("inserção OK")
 
                 setReceitaEstimada(0);
@@ -96,7 +100,25 @@ function PagVenderProduto() {
 
     }
 
-    const handleGerarRelatorio = async (produtoId,produtoNome,quantidadeVenda) =>{
+    const handleGerarRelatorioPP = async (produto) => {
+        const infoComumEmPP = dadosPP.find(obj => obj.id === produto.id);
+        const PP = infoComumEmPP.data.PP;
+
+        if (quantidadeDisponivel >= PP)  // se ainda pode vender, manda pra casa do krl
+            return;
+
+        const data = new Date();
+        const msg = `O produto '${produto.data.Nome}' de id: '${produto.id}', atingiu o nível de ponto de pedido!!! Atualmente, no data de: ${data.toLocaleString('pt-BR')}`;
+        await axios.post('http://localhost:4000/geraRelatorioPP', {
+            PP: PP,
+            msg: msg,
+            QtdeAtual: quantidadeDisponivel,
+            produtoID: produto.id,
+            produtoNome: produto.data.Nome
+        });
+    }
+
+    const handleGerarRelatorioVenda = async (produtoId, produtoNome, quantidadeVenda) => {
         if (User && User.userData && User.userData.Nome) {
             try {
                 await axios.post('http://localhost:4000/geraRelatorioVendas', {
@@ -108,7 +130,7 @@ function PagVenderProduto() {
                 });
                 alert("inserção OK")
 
-            }catch(eee){
+            } catch (eee) {
                 console.log("deu merda")
             }
         }
