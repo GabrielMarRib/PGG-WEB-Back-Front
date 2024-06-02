@@ -197,5 +197,118 @@ routes.post('/insereVendas', async (req, res) => {
     }
 });
 
+<<<<<<< HEAD
+=======
+const atualizaProdutosQtde = async (EstoqueProdutoRef,valor) =>{
+    await EstoqueProdutoRef.update({
+        Quantidade: valor
+    });
+}
+
+routes.post('/LoteEconomico', async (req, res) => {
+
+    const { HashProduto } = req.body;
+    try {
+        const EstoqueRef = db.collection('LoteEconomico').doc(HashProduto);
+        const doc = await EstoqueRef.get();
+    
+        if (!doc.exists) {
+            console.log('Documento não encontrado');
+            res.status(200).json({Resposta: 'Documento não encontrado'});
+            return;
+        }
+        res.status(200).json({ Resposta: JSON.stringify(doc.data()) });
+
+    } catch (error) {
+        console.error('Error handling route: ', error);
+        res.status(500).json({ error: 'Internal Server Error', details: error.message });
+    }
+    
+});
+
+
+routes.post('/InsereCalculosLote', async (req, res) => {
+
+    const { Hash, CP, CA, LEC, ExisteBD } = req.body;
+    try {
+        const LoteEconomicoRef = db.collection('LoteEconomico');
+        const LoteEconomicoRefDoc = LoteEconomicoRef.doc(Hash); 
+
+        const NovoCalculoDoc = await LoteEconomicoRefDoc.set({
+                CustoArmazem: CA,
+                CustoPedido: CP,
+                CalculoLoteEconomico: LEC,
+        });
+        
+    
+       
+        res.status(200).json({ message: "Inserção OK" });
+    } catch (error) {
+const atualizaProdutosQtde = async (EstoqueProdutoRef,valor) =>{
+    await EstoqueProdutoRef.update({
+        Quantidade: valor
+    });
+}
+    }
+});
+
+routes.post('/geraRelatorioVendas', async (req,res) =>{
+    try {
+        const { produtoVendidoId,QtdeVendida,pessoaId,PessoaNome,produtoVendidoNome } = req.body;
+        const data = new Date();
+
+        const relatoriosVendaRef = db.collection('Relatorios').doc('Vendas').collection('ListaRelatorios');
+        await relatoriosVendaRef.add({
+            Data_Venda: data,
+            Produto_Vendido_Id: produtoVendidoId,
+            Produto_Vendido_Nome: produtoVendidoNome,
+            Quantidade_Vendida: QtdeVendida,
+            Responsavel_Id: pessoaId,
+            Responsavel_Nome: PessoaNome
+        });
+        res.status(200).json({ message: "inserção OK" });
+    }catch(error){
+        console.error('Error handling route: ', error);
+        res.status(500).json({ error: 'Internal Server Error', details: error.message });
+    }
+});
+
+routes.post('/geraRelatorioPP', async (req,res) =>{
+    try {
+        const { PP,QtdeAtual,msg,produtoID,produtoNome } = req.body;
+        const data = new Date();
+
+        const relatoriosVendaRef = db.collection('Relatorios').doc('PontoDePedido').collection('ListaRelatorios');
+        await relatoriosVendaRef.add({
+            Data_Venda: data,
+            PP: PP,
+            msg: msg,
+            QtdeAtual: QtdeAtual,
+            produtoID: produtoID,
+            produtoNome: produtoNome
+        });
+        res.status(200).json({ message: "inserção OK" });
+    }catch(error){
+        console.error('Error handling route: ', error);
+        res.status(500).json({ error: 'Internal Server Error', details: error.message });
+    }
+});
+
+routes.get('/pegaRelatorioPP', async (req,res) =>{
+    try{
+        const snapshot = await db.collection('Relatorios').doc('PontoDePedido').collection('ListaRelatorios').get(); // pega uma snap de PontoDePedido
+
+        const PP = []; // array de PP
+        snapshot.forEach(doc => { // pra cada doc na snapshot
+            PP.push({ id: doc.id, data: doc.data() }); // manda o doc.id e os dados
+        });
+
+        res.json(PP)
+    }catch(error){
+
+    }
+});
+
+>>>>>>> 1ea177f961f36acdc85daab697a1c83b483d8e22
 
 module.exports = routes;

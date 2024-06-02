@@ -1,15 +1,16 @@
 import React from "react";
 import Cabecalho from "../../../Components/Cabecalho";
-import '../../../Styles/App/Service/PagRelatorios.css';
+import '../../../Styles/App/Service/PagFuncionarios.css';
 
 function PagFuncionarios() {
     const funcionarios = [
         { id: 1, nome: "verme", cargo: "Desenvolvedor" },
-        { id: 2, nome: "verme2", cargo: "Designer" },
-        { id: 3, nome: "verme3", cargo: "Gerente de Projetos" },
+        { id: 2, nome: "Verme2", cargo: "Designer" },
+        { id: 3, nome: "Verme3", cargo: "Gerente de Projetos" },
     ];
+
     return (
-        <div className="PagRelatorios">
+        <div className="PagFuncionarios">
             <div className="Cabecalho">
                 <Cabecalho />
             </div>

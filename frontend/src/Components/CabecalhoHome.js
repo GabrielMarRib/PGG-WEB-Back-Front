@@ -44,9 +44,11 @@ const CabecalhoHome = () => {
 
         <div className="DivInfoUser">
           <ul id="navbar" className={clicked ? "#navbar active" : "#navbar"}>
-            <li>
+            <div>
+            <label id="NomeUserId">
               <a href="">Olá, {handleNomeUltimoNome()}</a>
-            </li>
+            </label>
+            </div>
           </ul>
 
           <div id="DivImg">
@@ -56,16 +58,16 @@ const CabecalhoHome = () => {
               </div>
             </Link>
           </div>
-
+          <div id="DivImg">
           <Notificacao />
-
+          </div>
           <div id="DivImg">
             <a
               onClick={() => {
                 handleLogOut(navigate);
               }}
             >
-              <div id="DivImg">
+              <div id="DivNotificação">
                 <img src={IconLogOut} />
               </div>
             </a>
