@@ -13,28 +13,28 @@
     overflow-x: auto;
     border-collapse: collapse;
     text-align: center;
-    height: 150px;
+    height: 32vh;
 }
 
-tbody {
+.PagPontoPedido tbody {
     padding: 90px;
 }
 
-tr:nth-child(even) {
+.PagPontoPedido tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
-th {
+.PagPontoPedido th {
     background-color: #e04d18;
     color: white;
 }
 
-.PagPontoPedido .lblTotal {
+codegPontoPedido .lblTotal {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.PagPontoPedido .h1PontoDePedido {
+codegPontoPedido .h1PontoDePedido {
     display: flex;
     justify-content: center;
     align-items: center;

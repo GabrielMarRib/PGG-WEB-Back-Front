@@ -208,7 +208,7 @@ routes.get('/pegaPontoDePedido', async (req, res) => {
 });
 
 routes.post('/insereVendas', async (req, res) => {
-    const { pessoa, quantidadeVenda, itemId, receita, quantidadeAtual } = req.body;
+    const { quantidadeVenda, itemId, receita, quantidadeAtual } = req.body;
     const data = new Date();
 
     try {
@@ -232,7 +232,6 @@ routes.post('/insereVendas', async (req, res) => {
 
         await VendaProdutoRef.set({
             Data_Entrada: data,
-            Pessoa_Responsavel: pessoa,
             Ultimos_Vendidos: quantidadeVenda,
             Ultima_Receita_Gerada: receita,
             Totais_Vendidos: vendidostotal,

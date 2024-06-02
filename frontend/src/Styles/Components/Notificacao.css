@@ -25,6 +25,7 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  cursor: default;
   /* Certifique-se de que o popup fique sobre outros elementos */
 }
 
@@ -39,6 +40,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   /* Sombra para o popup */
   max-width: 500px;
+  max-height: 500px;
   /* Largura máxima do popup */
   width: 90%;
   /* Largura do popup em relação à tela */
@@ -47,6 +49,8 @@
   position: relative;
   /* Necessário para posicionar o botão de fechar */
   overflow-y: auto;
+
+  cursor: auto;
 }
 
 .Notificacao .close-popup {
@@ -95,4 +99,19 @@
 .Notificacao .popup p {
   margin: 10px 0;
   /* Margens superior e inferior */
+}
+
+.Notificacao .BotaoAcao{
+  margin-bottom: 2vh;
+  min-width: 8vw;
+  min-height: 3.5vh;
+  background-color: #eb6c3e;
+  border-radius: 5px;
+  box-shadow: 2px 4px 2px rgb(114, 112, 112);
+  cursor: pointer;
+}
+
+.Notificacao .BotaoAcao:hover{
+  background-color: #d6501f;
+
 }

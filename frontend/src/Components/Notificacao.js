@@ -2,10 +2,11 @@ import NotificacaoIcon from "../Assets/SinoWhite.png";
 import React, { useContext, useState, useEffect } from "react";
 import { NotificacaoPontoPedido } from "../Functions/Functions";
 import '../Styles/Components/Notificacao.css'
+import { useNavigate } from "react-router-dom";
 
 const Notificacao = () => {
     const [notificacoes, setNotificacoes] = useState([]);
-
+    const navigate = useNavigate();
     const [showPopup, setShowPopup] = useState(false);
     const togglePopup = () => {
         setShowPopup(!showPopup);
@@ -43,13 +44,19 @@ const Notificacao = () => {
                             X
                         </button>
                         <h2>Notificações</h2>
-                        {notificacoes.map(item => (
-                            item && (
-                                <React.Fragment key={item.id}>
-                                    <p>{item.data?.msg}</p>
-                                    <hr />
-                                </React.Fragment>
-                            )
+                        {notificacoes.map(item => item.data?.msg && (
+                            <div key={item.id}>
+                                {console.log(item.data.terste)}
+                                <p>{item.data?.msg}</p>
+                                <button className="BotaoAcao" onClick={() => {
+                                    if (item.data.PP) {
+                                        navigate('/PagPontoPedido')
+                                    } else if (item.data.Vendas) {
+                                        navigate('/PagVenderProdutos')
+                                    }
+                                }}>Ver situação</button>
+                                <hr />
+                            </div>
                         ))}
 
                         {console.log(notificacoes)}
