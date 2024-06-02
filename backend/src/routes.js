@@ -139,7 +139,7 @@ routes.get('/PegadadosCurvaABC', async (req, res) => {
 
         const produtos = []; // array de produtos
         snapshot.forEach(doc => { // pra cada doc na snapshot
-            produtos.push({ id: doc.QtdeConsumo, data: doc.data() }); // manda o doc.id e os dados
+            produtos.push({ id: doc.id, data: doc.data() }); // manda o doc.id e os dados
         });
 
         res.json(produtos); // Send the snapshot data as JSON
