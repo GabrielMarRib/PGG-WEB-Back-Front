@@ -180,11 +180,16 @@ if (Array.isArray(dadosCurvaABC)) {
     );
  } };
 
+ if (Array.isArray(dadosCurvaABC)) {
   dadosEstoqueGeral.sort((a, b) => {
-    const valorConsumoA = (dadosCurvaABC[a.id]?.QtdeConsumo || 0) * parseFloat(a.Custo_Unitario || 0);
-    const valorConsumoB = (dadosCurvaABC[b.id]?.QtdeConsumo || 0) * parseFloat(b.Custo_Unitario || 0);
+  
+    const A = dadosCurvaABC.find(obj => obj.id === a.id) || {};
+    const B = dadosCurvaABC.find(obj => obj.id === b.id) || {};
+    const valorConsumoA = (A?.data.QtdeConsumo || 0) * parseFloat(a.data.Custo_Unitario || 0);
+    const valorConsumoB = (B?.data.QtdeConsumo || 0) * parseFloat(b.data.Custo_Unitario || 0);
     return valorConsumoB - valorConsumoA;
-  });
+    });
+  }
 
   const preparaDadosParaGrafico = (porcentagensA, dadosEstoqueGeral) => {
     const dadosPreparados = dadosEstoqueGeral.map((item) => {
