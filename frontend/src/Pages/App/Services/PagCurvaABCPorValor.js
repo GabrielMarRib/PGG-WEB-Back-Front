@@ -5,6 +5,11 @@ import '../../../Styles/App/Service/PagCurvaABC.css';
 import axios from 'axios';
 import { PegaDadosGeralDB, PegadadosVALOR } from '../../../Functions/Functions';
 import { ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { useContext } from "react";
+import { UserContext } from "../../../Context/UserContext";
+import Redirect from "../../../Functions/Redirect";
+import RedirectAcesso from "../../../Functions/RedirectAcesso";
+
 
 function PagCurvaABCPorValor() {
 
@@ -15,6 +20,12 @@ function PagCurvaABCPorValor() {
   const [porcentagensA, setPorcentagensA] = useState({});
   const [classificacao, setClassificacao] = useState({});
   const [carregando, setCarregando] = useState(true); // Estado para carregar
+
+  const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
+  const User = UserOBJ.User; //Pega só o User....
+
+  RedirectAcesso(User,1);
+  Redirect(User);
 
   useEffect(() =>{ 
     PegaDadosGeralDB((data) => {

@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useCallback, memo } from 'react';
 import TesteNavBar2 from '../../../Components/Cabecalho';
 import '../../../Styles/PagProdutos.css';
-import lupa from '../../../Assets/lupa.png';
 import axios from 'axios';
 import { apagarCampos, CheckCamposNulos, CheckCamposVazios } from '../../../Functions/Functions';
-import { camposNaoPreenchidos } from '../../../Messages/Msg';
 import { PegaDadosGeralDB } from '../../../Functions/Functions';
 
 import AlertaNotificação from "../../../Components/AlertaNotificação.js";
 import { useAlerta } from "../../../Context/AlertaContext.js";
+import { useContext } from "react";
+import { UserContext } from "../../../Context/UserContext";
+import Redirect from "../../../Functions/Redirect";
 
 const ProdutoItem = memo(({ item }) => ( //evita de rerenderizar essa porra
     <div key={item.id}>
@@ -25,6 +26,12 @@ const ProdutoList = memo(({ produtos, pegaProdutos }) => ( //evita de rerenderiz
 ));
 
 function PagProdutos() {
+
+    const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
+    const User = UserOBJ.User; //Pega só o User....
+
+    Redirect(User);
+
     const { Alerta } = useAlerta();
     const [nome, setNome] = useState('');
     const [dadosEstoqueGeral, setDadosEstoqueGeral] = useState([]);
@@ -108,7 +115,7 @@ function PagProdutos() {
         } catch (erro) {
             console.log(erro);
         } finally {
-            apagarCampos([setNome, setCustoUnit, setQuantidade, setDescricao, setQuantidadeConsumo, setDemandaDiaria, setTempoEntrega,setTempoReposicao,setProdutosMensais ]);
+            apagarCampos([setNome, setCustoUnit, setQuantidade, setDescricao, setQuantidadeConsumo, setDemandaDiaria, setTempoEntrega, setTempoReposicao, setProdutosMensais]);
         }
     };
 

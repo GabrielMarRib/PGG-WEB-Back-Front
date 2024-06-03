@@ -3,7 +3,10 @@ import '../../../Styles/App/Service/PagCurvaABC.css';
 import { ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import Cabecalho from "../../../Components/Cabecalho";
 import { PegaDadosGeralDB, PegadadosVALOR } from '../../../Functions/Functions';
-import { renderToString } from "react-dom/server";
+import { useContext } from "react";
+import { UserContext } from "../../../Context/UserContext";
+import Redirect from "../../../Functions/Redirect";
+import RedirectAcesso from "../../../Functions/RedirectAcesso";
 
 function CurvaABC() {
     const [dadosEstoque, setDadosEstoque] = useState([]);
@@ -13,6 +16,12 @@ function CurvaABC() {
     const [porcentagensA, setPorcentagensA] = useState({});
     const [classificacao, setClassificacao] = useState({});
     const [carregando, setCarregando] = useState(true); // Adiciona um estado de carregamento
+
+    const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
+    const User = UserOBJ.User; //Pega só o User....
+
+    RedirectAcesso(User,1);
+    Redirect(User);
 
     useEffect(() => {
         PegaDadosGeralDB((data) => {
@@ -211,7 +220,7 @@ function CurvaABC() {
                     ) : (
                         Object.keys(porcentagensA).length > 0 && (
                             <ResponsiveContainer>
-                                
+
                                 <ComposedChart
                                     data={preparaDadosParaGrafico(porcentagensA, dadosEstoque)}
                                     margin={{
@@ -258,28 +267,28 @@ function CurvaABC() {
             </div>
             <br /><br /><br /><br />
             <div className="Tabela">
-                    <table border="1">
-                        <thead>
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nome</th>
+                            <th>Qtd Con.</th>
+                            <th>Custo Unitário</th>
+                            <th>%</th>
+                            <th>% Acumulada</th>
+                            <th>Classificação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {carregando ? (
                             <tr>
-                                <th>Id</th>
-                                <th>Nome</th>
-                                <th>Qtd Con.</th>
-                                <th>Custo Unitário</th>
-                                <th>%</th>
-                                <th>% Acumulada</th>
-                                <th>Classificação</th>
+                                <td colSpan="7">Carregando...</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {carregando ? (
-                                <tr>
-                                    <td colSpan="7">Carregando...</td>
-                                </tr>
-                            ) : (
-                                dadosEstoque.map(pegaDadosComunsEmAbc)
-                            )}
-                        </tbody>
-                    </table>
+                        ) : (
+                            dadosEstoque.map(pegaDadosComunsEmAbc)
+                        )}
+                    </tbody>
+                </table>
             </div>
             <center><div>Total Qtde Consumo: {somaQtdConsumo}</div></center>
         </div>

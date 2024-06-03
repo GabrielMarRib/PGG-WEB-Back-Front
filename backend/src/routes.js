@@ -130,11 +130,10 @@ routes.get('/PegadadosCurvaABC', async (req, res) => {
 
 routes.post('/insereProdutos', async (req, res) => {
 
-    const { nome, custoUnit, quantidade, descricao, qdeCon } = req.body;
+    const { nome, custoUnit, quantidade, descricao } = req.body;
     const data = new Date();
     try {
         const EstoqueRef = db.collection('Estoque');
-        const CurvaAbcRef = db.collection('CurvaAbc');
         const produtoNovo = await EstoqueRef.add({
             Data_Entrada: data,
             Descricao: descricao,
@@ -143,7 +142,7 @@ routes.post('/insereProdutos', async (req, res) => {
             Quantidade: quantidade
         });
 
-        res.status(200).json({ response: produtoNew.id });
+        res.status(200).json({ response: produtoNovo.id });
     } catch (error) {
         console.error('Error handling route: ', error);
         res.status(500).json({ error: 'Internal Server Error', details: error.message });

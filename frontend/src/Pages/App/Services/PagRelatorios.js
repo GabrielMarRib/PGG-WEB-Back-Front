@@ -1,10 +1,18 @@
-import { useNavigate } from 'react-router-dom';
 import React, { useState } from "react";
 import Cabecalho from "../../../Components/Cabecalho";
 import '../../../Styles/App/Service/PagRelatorios.css';
+import { useContext } from "react";
+import { UserContext } from "../../../Context/UserContext";
+import Redirect from "../../../Functions/Redirect";
+import RedirectAcesso from '../../../Functions/RedirectAcesso';
 
 function PagRelatorios() {
-    const navigate = useNavigate();
+    const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
+    const User = UserOBJ.User; //Pega só o User....
+
+    RedirectAcesso(User,2);
+    Redirect(User);
+
     const [relatorioSelecionado, setRelatorioSelecionado] = useState(null);
 
     const relatorios = ["Relatório 1", "Relatório 2","Relatório 2","Relatório 2","Relatório 2","Relatório 2","Relatório 2","Relatório 2","Relatório 2","Relatório 2","Relatório 2","Relatório 2","Relatório 2"];

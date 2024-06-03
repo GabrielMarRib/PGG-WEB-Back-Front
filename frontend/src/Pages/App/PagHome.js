@@ -85,7 +85,7 @@ function PagHome() {
               <a onClick={() => { navigate("/pagInicial") }} className="ag-courses-item_link">
                 <div className="ag-courses-item_bg"></div>
                 <div className="ag-courses-item_title">
-
+                  Custo Médio
                 </div>
               </a>
             </div>

@@ -1,12 +1,23 @@
 import React from "react";
 import Cabecalho from "../../../Components/Cabecalho";
 import '../../../Styles/App/Service/PagFuncionarios.css';
+import { useContext } from "react";
+import { UserContext } from "../../../Context/UserContext";
+import Redirect from "../../../Functions/Redirect";
+import RedirectAcesso from "../../../Functions/RedirectAcesso";
 
 function PagFuncionarios() {
+
+    const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
+    const User = UserOBJ.User; //Pega só o User....
+
+    RedirectAcesso(User,2);
+    Redirect(User);
+
     const funcionarios = [
-        { id: 1, nome: "verme", cargo: "Desenvolvedor" },
-        { id: 2, nome: "Verme2", cargo: "Designer" },
-        { id: 3, nome: "Verme3", cargo: "Gerente de Projetos" },
+        { id: 1, nome: "Funcionario 1", cargo: "Desenvolvedor" },
+        { id: 2, nome: "Funcionario 2", cargo: "Designer" },
+        { id: 3, nome: "Funcionario 3", cargo: "Gerente de Projetos" },
     ];
 
     return (

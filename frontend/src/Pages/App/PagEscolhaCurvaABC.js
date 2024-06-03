@@ -1,8 +1,16 @@
 import { useNavigate } from 'react-router-dom';
 import Cabecalho from '../../Components/Cabecalho';
 import "../../Styles/App/PagEscolhaCurvaABC.css"
+import { useContext } from "react";
+import { UserContext } from "../../Context/UserContext";
+import Redirect from "../../Functions/Redirect";
+
 
 function PagEscolhaCurvaABC() {
+    const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
+    const User = UserOBJ.User; //Pega só o User....
+
+    Redirect(User);
     const navigate = useNavigate();
 
     return (

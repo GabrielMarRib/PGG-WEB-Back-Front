@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Cabecalho from "../../../Components/Cabecalho";
 import '../../../Styles/App/Service/PagVenderProduto.css';
 import axios from 'axios';
 import { PegaDadosGeralDB, CheckCamposNulos, pegaDadosPP } from '../../../Functions/Functions';
-import { camposNaoPreenchidos } from '../../../Messages/Msg';
 import Redirect from '../../../Functions/Redirect';
 import { UserContext } from '../../../Context/UserContext';
 import { useContext } from 'react';
-
+import RedirectAcesso from '../../../Functions/RedirectAcesso.js';
 import AlertaNotificação from './../../../Components/AlertaNotificação.js';
 import { useAlerta } from ".././../../Context/AlertaContext.js";
 
@@ -29,7 +27,7 @@ function PagVenderProduto() {
 
 
     Redirect(User)
-
+    RedirectAcesso(User,1)
 
     function pegaDadosUnicosEmVenda(item) {
         return (<option key={item.id} value={JSON.stringify({ id: item.id, data: item.data })}>{item.data.Nome}</option>)
@@ -114,9 +112,7 @@ function PagVenderProduto() {
             const qtdeSobra = (quantidadeDisponivel-quantidadeVenda)
             if (qtdeSobra >= PP)  // se ainda pode vender, manda pra casa do krl
                 return;
-    
-                
-            const data = new Date();
+             
             const msg = `URGENTE!! O Produto '${produto.data.Nome}' de id: '${produto.id}', atingiu o nível de ponto de pedido!!! O produto se encontra com APENAS ${qtdeSobra}/${PP} (PP) UNIDADES`;
             await axios.post('http://localhost:4000/geraRelatorioPP', {
                 PP: PP,

@@ -1,13 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import Cabecalho from "../../../Components/Cabecalho";
 import "../../../Styles/App/Service/PagLoteEconomico.css";
 import lupa from "../../../Assets/lupa.png";
 import axios from "axios";
-import {Alerta} from "../../../Components/AlertaNotificação.js";
-import {CheckCamposNulos, apagarCampos, camposNaoPreenchidos} from './../../../Functions/Functions.js'
+//import {Alerta} from "../../../Components/AlertaNotificação.js";
+import {apagarCampos} from './../../../Functions/Functions.js'
 import AlertaNotificação from "../../../Components/AlertaNotificação.js";
 import { useAlerta } from "../../../Context/AlertaContext.js";
+import { useContext } from "react";
+import { UserContext } from "../../../Context/UserContext";
+import Redirect from "../../../Functions/Redirect";
+
 
 //Funcçoes
 const PesquisaLoteEconomico = async (HashProduto, setRespostaPesqusia) => {
@@ -52,12 +55,14 @@ function PagLoteEconomico() {
   const [numPedidos, setNumPedidos] = useState("");
   const [demandaAnual, setDemandaAnual] = useState("");
 
-  let vezes = 1;
+  const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
+  const User = UserOBJ.User; //Pega só o User....
 
+  Redirect(User);
 
   const CalcularLoteEconomico = async () => {
     console.log("AA" + valorDespezas)
-    if(valorDespezas == ""  || qtdProdutosEstocados == "" || numPedidos == ""  || demandaAnual == ""){
+    if(valorDespezas === ""  || qtdProdutosEstocados === "" || numPedidos === ""  || demandaAnual === ""){
       // alert("Campos não preenchidos");
       Alerta(1, "Campos não preenchidos");
       return;
@@ -105,7 +110,7 @@ try{
   }, []);
 
   const mostrarforms = (item, hashAtual, Existe) => {
-    if (ItemAtual == item) {
+    if (ItemAtual === item) {
       if (isVisibleForms) {
         setisVisibleForms(false);
       } else {

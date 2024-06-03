@@ -3,11 +3,21 @@ import Cabecalho from "../../../Components/Cabecalho";
 import '../../../Styles/App/Service/PagPontoPedido.css';
 import axios from 'axios';
 import { PegaDadosGeralDB } from '../../../Functions/Functions';
+import { useContext } from 'react';
+import { UserContext } from '../../../Context/UserContext';
+import Redirect from '../../../Functions/Redirect';
 
 function PagPontoPedido() {
     const [dadosEstoqueGeral, setDadosEstoqueGeral] = useState([]);
     const [dadosPP, setDadosPP] = useState([]);
     const [carregando, setCarregando] = useState(true);
+
+    const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
+    const User = UserOBJ.User; //Pega só o User....
+
+
+    Redirect(User)
+
 
     useEffect(() => {
         PegaDadosGeralDB((data) => {
