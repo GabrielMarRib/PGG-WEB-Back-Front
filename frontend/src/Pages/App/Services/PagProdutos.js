@@ -211,7 +211,6 @@ function PagProdutos() {
                             <label htmlFor="qtdeConsumo">Quantidade de produtos vendidos no mês (QV):</label>
                             <input
                                 id="qtdeConsumo"
-                                type='number'
                                 rows="3"
                                 value={produtosMensais}
                                 onChange={(e) => setProdutosMensais(parseInt(e.target.value) || 0)
