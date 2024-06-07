@@ -4,7 +4,19 @@
     box-sizing: border-box;
     font-family: 'JetBrains Mono';
   }
-  
+
+@media  screen and (max-width: 1400px) {
+    .CabecalhoHome #NomeEmpresa{
+        display: none;
+    } 
+}
+
+@media  screen and (max-width: 900px) {
+  .CabecalhoHome #logo{
+      display: none;
+  } 
+}
+
   .CabecalhoHome #NomeEmpresa{
     color: #fff;
     font-size: 40px;
@@ -73,7 +85,7 @@
     display: none;
   }
   
-  @media screen and (max-width:769px){
+  @media screen and (max-width:900px){
     .CabecalhoHome #navbar{
       display: flex;
       align-items: flex-start;
@@ -105,6 +117,7 @@
     .CabecalhoHome #mobile i{
       font-size: 24px;
       cursor: pointer;
+      margin-left: 20px;
     }
   
   }
@@ -134,10 +147,17 @@
   .CabecalhoHome #DivNotificação img{
     background-color: #ffffff00;
   }
-  .CabecalhoHome #NomeUserId a{
-    text-decoration: none;
+  
+  .CabecalhoHome .NomeUserIdLabel{
+    text-decoration: none;  
     font-size: 1.3rem;
     font-weight: 600;
     color: #f6f6f6;
     cursor: default;
+  }
+  
+  .CabecalhoHome .NomeUserId{
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }

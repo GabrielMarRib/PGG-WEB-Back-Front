@@ -124,8 +124,10 @@ const Notificacao = () => {
                                 notificacoes.map(item => {
                                     vezes++;
                                     if (!item.data?.msg){ // se nao tiver msg, manda po krl
-                                        if(vezes === 1)
-                                            return <p>não há notificações</p>
+                                        if(vezes === 1){
+                                            //return <p>não há notificações</p>
+                                            return null
+                                        }
                                         else
                                             return null
                                     }

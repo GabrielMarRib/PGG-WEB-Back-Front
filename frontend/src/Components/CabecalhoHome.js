@@ -42,15 +42,16 @@ const CabecalhoHome = () => {
 
         <a id="NomeEmpresa">- Zetta - </a>
 
+
         <div className="DivInfoUser">
           <ul id="navbar" className={clicked ? "#navbar active" : "#navbar"}>
-            <div>
-            <label id="NomeUserId">
-              <a href="">Olá, {handleNomeUltimoNome()}</a>
-            </label>
-            </div>
+
           </ul>
 
+          <div className="NomeUserId">
+            <a className="NomeUserIdLabel">Olá, {handleNomeUltimoNome()}</a>
+        </div>
+        
           <div id="DivImg">
             <Link to="/PagPerfil">
               <div id="DivImg">
@@ -59,7 +60,7 @@ const CabecalhoHome = () => {
             </Link>
           </div>
           <div id="DivImg">
-          <Notificacao />
+            <Notificacao />
           </div>
           <div id="DivImg">
             <a
@@ -79,7 +80,7 @@ const CabecalhoHome = () => {
         </div>
       </nav>
 
-     
+
     </div>
   );
 };
