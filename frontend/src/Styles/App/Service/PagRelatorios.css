@@ -6,6 +6,21 @@
     align-items: center;
     justify-content: center; 
 }
+.PagRelatorios button{
+    background-color: #C53D0F;
+    border-color: transparent;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 18px;
+    padding: 3px;
+    cursor: pointer;
+    margin: 10px auto;
+    font-family: 'JetBrains Mono';
+}
+
+.PagRelatorios div.btn{
+    margin-right: 67%;
+}
 
 .PagRelatorios .Cabecalho {
     width: 100%;

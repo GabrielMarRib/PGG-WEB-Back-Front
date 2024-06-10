@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { UserContext } from "../../../Context/UserContext";
 import Redirect from "../../../Functions/Redirect";
 import RedirectAcesso from "../../../Functions/RedirectAcesso";
+import { useNavigate } from "react-router-dom";
 
 function CurvaABC() {
     const [dadosEstoque, setDadosEstoque] = useState([]);
@@ -19,6 +20,7 @@ function CurvaABC() {
 
     const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
     const User = UserOBJ.User; //Pega só o User....
+    const navigate = useNavigate();
 
     RedirectAcesso(User,1);
     Redirect(User);
@@ -213,7 +215,13 @@ function CurvaABC() {
             <div className="Cabecalho">
                 <Cabecalho />
             </div>
+            <div className="btn">
+                <button className="Voltar" onClick={() => { navigate("/PagEscolhaCurvaABC") }}>
+                    Voltar
+                </button>
+            </div>
             <div id="ParteSuperior">
+                
                 <div className="CurvaABCGrafico">
                     {carregando ? (
                         <div></div>

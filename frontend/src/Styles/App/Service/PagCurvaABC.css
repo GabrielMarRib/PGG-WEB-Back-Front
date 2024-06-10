@@ -2,6 +2,14 @@
     font-family: 'JetBrains Mono';
 }
 
+.CurvaABC .btn button.voltar{
+    width: 80px;
+}
+
+.CurvaABC .btn{
+    margin-left:5%;
+}
+
 .CurvaABC .Nome-produto-input {
     margin-top: 18px;
 
@@ -166,7 +174,7 @@
 /*Grafico*/
 
 .CurvaABC .CurvaABCGrafico {
-    margin-top: 50px;
+    margin-top: 10px;
     margin-left: -10px;
     height: 540px;
     width: 100%;

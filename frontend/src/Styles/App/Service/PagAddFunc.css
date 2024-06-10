@@ -4,7 +4,15 @@
     box-sizing: border-box;
     font-family: 'JetBrains Mono';
   }
-  
+  .PagAddFunc div.btn{
+    margin-left: 25%;
+    margin-top: 10px;
+  }
+
+  .PagAddFunc div.btn:hover{
+    transform: none;
+  }
+
   .PagAddFunc .formAddFunc {
     margin:20px auto;
     border: 1px solid #000;
@@ -34,7 +42,7 @@
     padding: 3px;
     cursor: pointer;
   }
-  .PagAddFunc button:hover{
+  .PagAddFunc button.enviar:hover{
     background-color: #86290a;
     transition: 0.6s;
     transform: scale(1.05);

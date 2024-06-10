@@ -11,6 +11,12 @@
     width: 100%;
 }
 
+.PagVenderProduto #DivForms button.voltar{
+    width: 80px;
+    margin-left: 30%;
+    margin-top: 30px;
+}
+
 .PagVenderProduto .container-tela-produtos {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -20,7 +26,7 @@
     align-items: flex-start;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    padding: 70px 0px;
+    padding: 10px 0px;
 }
 
 .PagVenderProduto .enquadramento{

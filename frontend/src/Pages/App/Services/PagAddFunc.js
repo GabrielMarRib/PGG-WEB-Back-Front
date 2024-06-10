@@ -53,6 +53,12 @@ function PagAddFunc() {
       <div className="Cabecalho">
         <Cabecalho />
       </div>
+
+      <div className="btn">
+        <button className="Voltar" onClick={() => { navigate("/PagPerfil") }}>
+            Voltar
+        </button>
+      </div>
       {User &&
       User.userData &&
       User.userData.Nivel_acesso &&
@@ -138,7 +144,7 @@ function PagAddFunc() {
           </p>
           <br />
 
-          <button>Enviar</button>
+          <button className="enviar">Enviar</button>
         </form>
       ) : (
         <>Sem autorização</>

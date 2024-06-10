@@ -23,6 +23,7 @@ function PagCurvaABCPorValor() {
 
   const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
   const User = UserOBJ.User; //Pega só o User....
+  const navigate = useNavigate();
 
   RedirectAcesso(User,1);
   Redirect(User);
@@ -240,6 +241,12 @@ function PagCurvaABCPorValor() {
       <div className="Cabecalho">
         <Cabecalho />
       </div>
+      
+      <div className="btn">
+                  <button className="Voltar" onClick={() => { navigate("/PagEscolhaCurvaABC") }}>
+                      Voltar
+                  </button>
+              </div>
       <div id="ParteSuperior">
         <div className="CurvaABCGrafico">
           {Object.keys(porcentagensA).length > 0 && (

@@ -5,12 +5,13 @@ import { useContext } from "react";
 import { UserContext } from "../../../Context/UserContext";
 import Redirect from "../../../Functions/Redirect";
 import RedirectAcesso from "../../../Functions/RedirectAcesso";
+import { useNavigate } from "react-router-dom";
 
 function PagFuncionarios() {
 
     const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
     const User = UserOBJ.User; //Pega só o User....
-
+    const navigate = useNavigate()
     RedirectAcesso(User,2);
     Redirect(User);
 
@@ -24,6 +25,11 @@ function PagFuncionarios() {
         <div className="PagFuncionarios">
             <div className="Cabecalho">
                 <Cabecalho />
+            </div>
+            <div className="btn">
+                <button className="Voltar" onClick={() => { navigate("/PagPerfil") }}>
+                    Voltar
+                </button>
             </div>
             <div className="Conteudo">
                 <div className="BarraLateral">

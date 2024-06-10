@@ -4,12 +4,14 @@ import '../../../Styles/PagProdutos.css';
 import axios from 'axios';
 import { apagarCampos, CheckCamposNulos, CheckCamposVazios } from '../../../Functions/Functions';
 import { PegaDadosGeralDB } from '../../../Functions/Functions';
-
+import { useNavigate } from "react-router-dom";
 import AlertaNotificação from "../../../Components/AlertaNotificação.js";
 import { useAlerta } from "../../../Context/AlertaContext.js";
 import { useContext } from "react";
 import { UserContext } from "../../../Context/UserContext";
 import Redirect from "../../../Functions/Redirect";
+
+
 
 const ProdutoItem = memo(({ item }) => ( //evita de rerenderizar essa porra
     <div key={item.id}>
@@ -29,7 +31,7 @@ function PagProdutos() {
 
     const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
     const User = UserOBJ.User; //Pega só o User....
-
+    const navigate = useNavigate();
     Redirect(User);
 
     const { Alerta } = useAlerta();
@@ -126,7 +128,11 @@ function PagProdutos() {
                     <TesteNavBar2 />
                 </div>
                 <AlertaNotificação />
+                <button className='voltar' onClick={() => { navigate("/PagEscolhaProdutos") }}>
+                Voltar
+                </button>
                 <div className="container-tela-produtos">
+                    
                     <div className="grupo-input-produto">
                         <h2>Adicione um produto:</h2>
                         <div className="grupo-input">

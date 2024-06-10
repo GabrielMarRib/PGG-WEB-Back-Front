@@ -9,6 +9,7 @@ import { useContext } from 'react';
 import RedirectAcesso from '../../../Functions/RedirectAcesso.js';
 import AlertaNotificação from './../../../Components/AlertaNotificação.js';
 import { useAlerta } from ".././../../Context/AlertaContext.js";
+import { useNavigate } from 'react-router-dom';
 
 function PagVenderProduto() {
 
@@ -21,6 +22,7 @@ function PagVenderProduto() {
     const [receitaEstimada, setReceitaEstimada] = useState(0);
     const [produtoSelecionado, setProdutoSelecionado] = useState([]);
 
+    const navigate = useNavigate();
     const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
     const User = UserOBJ.User; //Pega só o User....
     const { Alerta } = useAlerta();
@@ -159,6 +161,11 @@ function PagVenderProduto() {
                     <Cabecalho />
                 </div>
                 <AlertaNotificação />
+
+                <button className='voltar' onClick={() => { navigate("/PagEscolhaProdutos") }}>
+                Voltar
+                </button>
+
                 <div className="container-tela-produtos">
                     <div className="enquadramento">
                         <form className="formulario" onSubmit={(e) => handleForm(e)}>

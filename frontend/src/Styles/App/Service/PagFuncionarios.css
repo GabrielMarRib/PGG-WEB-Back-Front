@@ -7,6 +7,24 @@
     justify-content: center; 
 }
 
+.PagFuncionarios button{
+    background-color: #C53D0F;
+    border-color: transparent;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 18px;
+    padding: 3px;
+    cursor: pointer;
+    margin: 10px auto;
+    width: 80px;
+    font-family: 'JetBrains Mono';
+}
+
+.PagFuncionarios div.btn{
+    margin-right: 67%;
+}
+
+
 .PagFuncionarios .Cabecalho {
     width: 100%;
 }
