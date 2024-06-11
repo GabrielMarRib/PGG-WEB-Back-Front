@@ -21,7 +21,7 @@ function PagHome() {
   return (
     <div className="PagHome">
 
-      <div className="Cabecalho">
+      <div className="CabecalhoHome">
         <Cabecalho />
         {/*<NavegacaoHorizontal /> */} {/*Possui navMenu... nao sei qual fica melhor...*/}
       </div>

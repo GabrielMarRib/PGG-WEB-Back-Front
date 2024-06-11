@@ -1,163 +1,164 @@
 .CabecalhoHome *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'JetBrains Mono';
-  }
-
-@media  screen and (max-width: 1400px) {
-    .CabecalhoHome #NomeEmpresa{
-        display: none;
-    } 
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'JetBrains Mono';
 }
 
-@media  screen and (max-width: 900px) {
-  .CabecalhoHome #logo{
+@media  screen and (max-width: 1400px) {
+  .CabecalhoHome #NomeEmpresa{
       display: none;
   } 
 }
 
-  .CabecalhoHome #NomeEmpresa{
-    color: #fff;
-    font-size: 40px;
-  }
-  
-  
-  .CabecalhoHome nav{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #c53d0f;
-    padding: 20px 80px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
-    max-height: 100px;
-  }
-  
-  
-  .CabecalhoHome nav  #logo{
-    text-decoration: none;
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: #f6f6f6;
-    text-align: center;
-  }
-  
-  .CabecalhoHome #navbar{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .CabecalhoHome #navbar li{
-    list-style: none;
-    padding: 0 20px;
-    position: relative;
-  }
-  
-  .CabecalhoHome #navbar li a{
-    text-decoration: none;
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: #f6f6f6;
-    transition: 0.3s ease-in-out;
-  }
-  
-  .CabecalhoHome #navbar li a:hover,.CabecalhoHome #navbar li a.active{
-    color: #6b2108;
-  }
-  
-  .CabecalhoHome #navbar li a:hover::after,.CabecalhoHome #navbar li a.active::after{
-    content: "";
-    width: 30%;
-    height: 2px;
-    background-color: #6d1b00;
-    position: absolute;
-    bottom: -4px;
-    left: 20px;
-  }
-  
-  .CabecalhoHome #mobile i{
-    align-items: center;
-    color:#fff
-  }
-  
-  .CabecalhoHome #mobile{
+@media  screen and (max-width: 900px) {
+.CabecalhoHome #logo{
     display: none;
-  }
-  
-  @media screen and (max-width:900px){
-    .CabecalhoHome #navbar{
-      display: flex;
-      align-items: flex-start;
-      justify-content: flex-start;
-      flex-direction: column;
-      position: fixed;
-      top: 90px;
-      right: -300px;
-      width: 300px;
-      height:100vh;
-      background-color: #992d09;
-      box-shadow: 0 40px 60px rgba(0, 0, 0, 0.1);
-      padding: 40px 0 0 10px;
-      transition: 0.3s ease-in-out;
-    }
-  
-    .CabecalhoHome #navbar.active{
-      right: 0px;
-    }
-  
-    .CabecalhoHome #navbar li{
-      margin-bottom: 25px;
-    }
-  
-    .CabecalhoHome #mobile{
-      display: block;
-    }
-  
-    .CabecalhoHome #mobile i{
-      font-size: 24px;
-      cursor: pointer;
-      margin-left: 20px;
-    }
-  
-  }
-  
-  
-  /* Informações sobre os usuários */
-  .CabecalhoHome .DivInfoUser{
-    display: flex;
-    flex-direction: row;
-    align-self: center;
-    gap: 30px;
-    
-  }
-  .CabecalhoHome img{
-    align-items: center;
-    width: 35px;
-    height: 38px;
+} 
 
-  }
-  .CabecalhoHome #DivImg{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-  
-  }
-  .CabecalhoHome #DivNotificação img{
-    background-color: #ffffff00;
-  }
-  
-  .CabecalhoHome .NomeUserIdLabel{
-    text-decoration: none;  
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: #f6f6f6;
-    cursor: default;
-  }
-  
-  .CabecalhoHome .NomeUserId{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.CabecalhoHome .nav1{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0px 0px !important;
+}
+}
+
+.CabecalhoHome #NomeEmpresa{
+  color: #fff;
+  font-size: 40px;
+}
+
+
+.CabecalhoHome .nav1{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #c53d0f;
+  padding: 10px 80px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+  max-height: 100px;
+}
+
+.CabecalhoHome .nav2 {
+  display: flex;
+  float: left;
+  gap: 20px;
+  background-color: #4e260c;
+  box-shadow: 0 5px 15px rgba(133, 95, 70, 0.06);
+  white-space: nowrap;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.CabecalhoHome .nav2 a{
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+}
+
+.CabecalhoHome .nav2 a:hover {
+  background-color: #f85103;
+  cursor: pointer;
+}
+
+
+
+
+
+.CabecalhoHome nav  #logo{
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #f6f6f6;
+  text-align: center;
+}
+
+.CabecalhoHome #navbar{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.CabecalhoHome #navbar li{
+  list-style: none;
+  padding: 0 20px;
+  position: relative;
+}
+
+
+.CabecalhoHome #navbar li a{
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #f6f6f6;
+  transition: 0.3s ease-in-out;
+}
+
+.CabecalhoHome #navbar li a:hover,.CabecalhoHome #navbar li a.active{
+  color: #6b2108;
+}
+
+.CabecalhoHome #navbar li a:hover::after,.CabecalhoHome #navbar li a.active::after{
+  content: "";
+  width: 30%;
+  height: 2px;
+  background-color: #6d1b00;
+  position: absolute;
+  bottom: -4px;
+  left: 20px;
+}
+
+.CabecalhoHome #mobile i{
+  align-items: center;
+  color:#fff
+}
+
+.CabecalhoHome #mobile{
+  display: none;
+}
+
+
+
+/* Informações sobre os usuários */
+.CabecalhoHome .DivInfoUser{
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  white-space: nowrap;
+  gap: 8px;
+}
+
+.CabecalhoHome img{
+  align-items: center;
+  width: 35px;
+  height: 38px;
+}
+
+.CabecalhoHome #DivImg{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+}
+.CabecalhoHome #DivNotificação img{
+  background-color: #ffffff00;
+}
+
+.CabecalhoHome .NomeUserIdLabel{
+  text-decoration: none;  
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #f6f6f6;
+  cursor: default;
+}
+
+.CabecalhoHome .NomeUserId{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

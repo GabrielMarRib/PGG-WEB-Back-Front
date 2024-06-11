@@ -5,18 +5,6 @@
     font-family: 'JetBrains Mono';
 }
 
-@media  screen and (max-width: 1700px) {
-    .Cabecalho #NomeEmpresa{
-        display: none;
-    } 
-}
-
-@media  screen and (max-width: 1400px) {
-  .Cabecalho #logo{
-      display: none;
-  } 
-}
-
 .Cabecalho #NomeEmpresa {
     color: #fff;
     font-size: 40px;
@@ -83,40 +71,4 @@
 
 .Cabecalho #mobile {
     display: none;
-}
-
-@media screen and (max-width:769px) {
-    .Cabecalho #navbar {
-        display: flex;
-        align-items: flex-start;
-        justify-content: flex-start;
-        flex-direction: column;
-        position: fixed;
-        top: 90px;
-        right: -300px;
-        width: 300px;
-        height: 100vh;
-        background-color: #992d09;
-        box-shadow: 0 40px 60px rgba(0, 0, 0, 0.1);
-        padding: 40px 0 0 10px;
-        transition: 0.3s ease-in-out;
-    }
-
-    .Cabecalho #navbar.active {
-        right: 0px;
-    }
-
-    .Cabecalho #navbar li {
-        margin-bottom: 25px;
-    }
-
-    .Cabecalho #mobile {
-        display: block;
-    }
-
-    .Cabecalho #mobile i {
-        font-size: 24px;
-        cursor: pointer;
-    }
-
 }

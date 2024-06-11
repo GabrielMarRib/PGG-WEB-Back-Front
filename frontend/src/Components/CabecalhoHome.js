@@ -33,7 +33,7 @@ const CabecalhoHome = () => {
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
       ></link>
 
-      <nav>
+      <nav className="nav1">
         <a id="logo">
           PGG
           <br />
@@ -80,6 +80,19 @@ const CabecalhoHome = () => {
         </div>
       </nav>
 
+      <nav className="nav2">  
+          <a onClick={() => { navigate("PagEscolhaProdutos") }}  
+          className="paginas"> Produtos </a> 
+          <a onClick={() => { navigate("/PagEscolhaCurvaABC") }} className="paginas"> Curva ABC </a>
+          <a onClick={() => { navigate("/PagPontoPedido") }}  
+          className="paginas"> Ponto de Pedido </a>
+          <a onClick={() => { navigate("/PEPS") }} 
+          className="paginas"> PEPS </a>
+          <a onClick={() => { navigate("/PagLoteEconomico") }}  
+          className="paginas"> Lote Econômico </a>
+          <a onClick={() => { navigate("/pagInicial") }} 
+          className="paginas"> Custo Médio </a>
+      </nav>
 
     </div>
   );
