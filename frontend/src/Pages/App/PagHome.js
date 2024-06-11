@@ -6,6 +6,13 @@ import { UserContext } from "../../Context/UserContext.js";
 import { handleLogOut } from "../../Functions/Functions.js";
 import Cabecalho from "../../Components/CabecalhoHome.js";
 import Redirect from "../../Functions/Redirect.js";
+import ImageCaixa from '../../Assets/caixa.png';
+import ImageABC from '../../Assets/curvaABC.png';
+import ImageLote from '../../Assets/loteEconomico.png';
+import ImagePEPS from '../../Assets/PEPS.png';
+import ImagePedido from '../../Assets/pontodePedido.png';
+import ImageMedio from '../../Assets/custoMedio.png';
+
 function PagHome() {
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => {
@@ -33,20 +40,19 @@ function PagHome() {
               <a onClick={() => { navigate("/PagEscolhaProdutos") }} className="ag-courses-item_link">
                 <div className="ag-courses-item_bg"></div>
                 <div className="ag-courses-item_title">
-                  Produtos
+                  <span className="title-text">Produtos</span>
+                  <img className="Imagem1" src={ImageCaixa} alt="Caixaimg" />
                 </div>
-
               </a>
             </div>
 
             <div className="ag-courses_item">
               <a onClick={() => { navigate("/PagEscolhaCurvaABC") }} className="ag-courses-item_link">
                 <div className="ag-courses-item_bg"></div>
-
                 <div className="ag-courses-item_title">
-                  Curva ABC
+                  <span className="title-text">Curva ABC</span>
+                  <img className="Imagem1" src={ImageABC} alt="Caixaimg" />
                 </div>
-
               </a>
             </div>
 
@@ -54,38 +60,38 @@ function PagHome() {
               <a onClick={() => { navigate("/PagPontoPedido") }} className="ag-courses-item_link">
                 <div className="ag-courses-item_bg"></div>
                 <div className="ag-courses-item_title">
-                  Ponto de pedido
+                  <span className="title-text">Ponto de pedido</span>
+                  <img className="Imagem1" src={ImagePedido} alt="Caixaimg" />
                 </div>
-
               </a>
             </div>
 
             <div className="ag-courses_item">
               <a onClick={() => { navigate("/PEPS") }} className="ag-courses-item_link">
                 <div className="ag-courses-item_bg"></div>
-
                 <div className="ag-courses-item_title">
-                  PEPS
+                  <span className="title-text">PEPS</span>
+                  <img className="Imagem1" src={ImagePEPS} alt="Caixaimg" />
                 </div>
-
               </a>
             </div>
 
             <div className="ag-courses_item">
               <a onClick={() => { navigate("/PagLoteEconomico") }} className="ag-courses-item_link">
                 <div className="ag-courses-item_bg"></div>
-
                 <div className="ag-courses-item_title">
-                  Lote Econômico
+                  <span className="title-text">Lote Econômico</span>
+                  <img className="Imagem1" src={ImageLote} alt="Caixaimg" />
                 </div>
-
               </a>
             </div>
+
             <div className="ag-courses_item">
               <a onClick={() => { navigate("/pagInicial") }} className="ag-courses-item_link">
                 <div className="ag-courses-item_bg"></div>
                 <div className="ag-courses-item_title">
-                  Custo Médio
+                  <span className="title-text">Custo Médio</span>
+                  <img className="Imagem1" src={ImageMedio} alt="Caixaimg" />
                 </div>
               </a>
             </div>
@@ -95,4 +101,5 @@ function PagHome() {
     </div>
   );
 }
+
 export default PagHome;
