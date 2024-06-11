@@ -369,4 +369,18 @@ routes.post('/deletaRelatorio' , async (req, res) => {
     }
 });
 
+routes.get('/pegaUsers' , async (req, res) => {
+    try{
+        const snapshot = await db.collection('Logins').get(); // pega uma snap de PontoDePedido
+
+        const users = []; // array de PP
+        snapshot.forEach(doc => { // pra cada doc na snapshot
+            users.push({ id: doc.id, data: doc.data() }); // manda o doc.id e os dados
+        });
+        res.json(users)
+        
+    }catch(error){
+        res.json(error)
+    }
+});
 module.exports = routes;

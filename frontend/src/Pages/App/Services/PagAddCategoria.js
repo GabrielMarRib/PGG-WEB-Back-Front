@@ -3,128 +3,74 @@ import Cabecalho from "../../../Components/Cabecalho";
 import '../../../Styles/App/Service/PagAddCategoria.css';
 
 function PagAddCategoria() {
-    
-    const [categoria, setCategoria] = useState('');
-    const [subCategoria, setSubCategoria] = useState('');
-    const [categorias, setCategorias] = useState([]);
-    const [adicionandoSubCategoria, setAdicionandoSubCategoria] = useState(false);
-    const [categoriaExistente, setCategoriaExistente] = useState('');
+    const [addCat, setAddCat] = useState(true);
+    const [addSubCat, setAddSubCat] = useState(false);
 
-    const atualizarCategoria = (e) => {
-        setCategoria(e.target.value);
-        setSubCategoria('');
-    };
+    const handleChange = (e) => {
+        const val = e.target.value;
+        if (val === "Add")
+            setAddCat(true)
+        else
+            setAddCat(false)
+    }
 
-    const atualizarSubCategoria = (e) => {
-        setSubCategoria(e.target.value);
-    };
-
-    const enviarFormulario = () => {
-        if (categoria.trim() !== '') {
-            if (adicionandoSubCategoria && categoriaExistente !== '') {
-                const categoriaExistenteIndice = parseInt(categoriaExistente, 10);
-                const categoriasAtualizadas = [...categorias];
-                const subCategorias = categoriasAtualizadas[categoriaExistenteIndice].subCategorias || [];
-                subCategorias.push(subCategoria);
-                categoriasAtualizadas[categoriaExistenteIndice].subCategorias = subCategorias;
-                setCategorias(categoriasAtualizadas);
-            } else {
-                const novaCategoria = {
-                    numero: categorias.length + 1,
-                    categoria,
-                    subCategorias: []
-                };
-                setCategorias([...categorias, novaCategoria]);
-            }
-
-            setCategoria('');
-            setSubCategoria('');
-            setAdicionandoSubCategoria(false);
-            setCategoriaExistente('');
-            localStorage.removeItem('categoriaExistente');
-        }
-    };
-
-    const adicionarSubCategoria = () => {
-        setAdicionandoSubCategoria(true);
-    };
-
-    const atualizarCategoriaExistente = (e) => {
-        const categoriaSelecionada = e.target.value;
-        if (categoriaSelecionada === 'nova') {
-            setCategoria('');
-            setCategoriaExistente('');
-            setAdicionandoSubCategoria(false);
-        } else {
-            setCategoriaExistente(categoriaSelecionada);
-            setAdicionandoSubCategoria(true);
-            setCategoria(categorias[categoriaSelecionada]?.categoria || '');
-            setSubCategoria('');
-        }
-    };
-
+    const handleSubCat = () => {
+        setAddSubCat(prevState => !prevState)
+    }
     return (
         <div className="PagAddCategoria">
             <Cabecalho />
             <div className="Formulario">
                 <h2>Adicionar Nova Categoria</h2>
                 <div className="FormularioCampo">
-                    <select value={categoriaExistente} onChange={atualizarCategoriaExistente}>
-                        <option value="">Selecione uma categoria</option>
-                        {categorias.map((cat, indice) => (
-                            <option key={indice} value={indice}>{cat.numero}</option>
-                        ))}
-                        <option value="nova">Adicionar nova categoria</option>
+                    <select onChange={handleChange}>
+                        <option value="Add">Adicionar nova categoria</option>
+                        <option value="outroVal">Categoria q ja existe</option>
                     </select>
-                    
-                    {categoriaExistente !== '' && (
-                        <input
-                            type="text"
-                            value={categorias[categoriaExistente]?.categoria || ''}
-                            readOnly
-                        />
+                    {addCat ? ( // se for pra add categoria:
+                        <div className="conteudo1">
+                            <input
+                                className="addCat"
+                                type="text"
+                                placeholder="Nome da categoria"
+                            />
+                            {addSubCat ? (
+                                <input
+                                    className="addSubCat"
+                                    type="text"
+                                    placeholder="Nome da subcategoria"
+                                />
+                            ) : (
+                                null
+                            )}
+                            <button className="BotaoAddSubCategoria" onClick={() => { handleSubCat() }}>
+                                <span>{!addSubCat ? ('+') : ('-')}</span> {!addSubCat ? ("Adicionar Subcategoria") : ("Remover Subcategoria")}
+                            </button>
+                        </div>
+                    ) : (
+                        <div>  {/* input para categoria q ja existe*/}
+                            <input
+                                type="text"
+                                className="addCatProibido"
+                                readOnly
+                            />
+                            <input
+                                type="text"
+                                className="addSubCatProibido"
+                                readOnly
+                            />
+                            <input
+                                type="text"
+                                className="addSubCat"
+                            />
+                        </div>
                     )}
-
-                    {(adicionandoSubCategoria || categoriaExistente === '') && (
-                        <input
-                            type="text"
-                            value={categoria}
-                            onChange={atualizarCategoria}
-                            placeholder="Nome da categoria"
-                        />
-                    )}
-
-                    {(adicionandoSubCategoria || categoriaExistente !== '') && (
-                        <input
-                            type="text"
-                            value={subCategoria}
-                            onChange={atualizarSubCategoria}
-                            placeholder="Nome da subcategoria"
-                        />
-                    )}
-
-                    {!adicionandoSubCategoria && categoriaExistente === '' && (
-                        <button className="BotaoAddSubCategoria" onClick={adicionarSubCategoria}>
-                            <span>+</span> Adicionar subcategoria
-                        </button>
-                    )}
-                    <button onClick={enviarFormulario}>Enviar</button>
+                    <button className="btnEnviar" onClick={() => { }}>Enviar</button>
                 </div>
                 <div className="ListaCategorias">
                     <h3>Lista categorias:</h3>
                     <ul>
-                        {categorias.map((cat, indice) => (
-                            <li key={indice}>
-                                {cat.numero}. {cat.categoria}
-                                {cat.subCategorias && cat.subCategorias.length > 0 && (
-                                    <ul>
-                                        {cat.subCategorias.map((subCat, subIndice) => (
-                                            <li key={subIndice}>{cat.numero}.{subIndice + 1} {subCat}</li>
-                                        ))}
-                                    </ul>
-                                )}
-                            </li>
-                        ))}
+
                     </ul>
                 </div>
             </div>
