@@ -48,7 +48,21 @@ export const PegadadosVALOR = async (setDadoOBJ) => {  // Função de pegar os d
         console.error('erro pegando os dados mlk doido: ', error);
     }
 };
-
+export const traduzData = (item) => {
+    if (item?.data?.Data_Venda) {
+        const data = item.data.Data_Venda;
+        const segundos = data._seconds
+        const nanoseg = data._nanoseconds
+        return segundos * 1000 + nanoseg / 1000000;
+    }
+}
+export const exibeData = (item) => {
+    if (item?.data?.Data_Venda) {
+        const dataCrua = traduzData(item)
+        const dataOK = new Date(dataCrua).toLocaleString('pt-BR')
+        return dataOK
+    }
+}
 
 export const pegaDadosPP = async (setDadoOBJ) => {
     try {
@@ -62,13 +76,13 @@ export const pegaDadosPP = async (setDadoOBJ) => {
 };
 
 export const handleAdicionarUser = async (nome, cpf, email, telefone, acesso, userRequisitado) => {
-    if(!userRequisitado)
+    if (!userRequisitado)
         return;
-    else if(userRequisitado.userData.Nivel_acesso != 2){
+    else if (userRequisitado.userData.Nivel_acesso != 2) {
         alert("irmao vc nao tem permissao pra isso nao kkkkk")
         return;
     }
-        
+
     let msg = "";
     try {
         const response = await axios.post('http://localhost:4000/CriarFuncionario', {
@@ -202,7 +216,7 @@ export const exibeMsg = async (setMsg, conteudo, tempo, erro, SetStyle) => {
     });
 };
 
-export const NotificacaoPontoPedido = async () =>{
+export const RelatorioPP = async () => {
     const response = await axios.get('http://localhost:4000/pegaRelatorioPP')
-    return(response.data)
+    return (response.data)
 }

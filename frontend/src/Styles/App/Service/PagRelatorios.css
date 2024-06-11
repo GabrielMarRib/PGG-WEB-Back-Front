@@ -4,9 +4,10 @@
     height: 100vh;
     font-family: 'JetBrains Mono', sans-serif;
     align-items: center;
-    justify-content: center; 
+    justify-content: center;
 }
-.PagRelatorios button{
+
+.PagRelatorios button {
     background-color: #C53D0F;
     border-color: transparent;
     color: #fff;
@@ -18,8 +19,17 @@
     font-family: 'JetBrains Mono';
 }
 
-.PagRelatorios div.btn{
+.PagRelatorios .listaInfo {
+    background-color: #f0f0f0;
+    border-radius: 5px;
+}
+
+.PagRelatorios div.btn {
     margin-right: 67%;
+}
+
+.PagRelatorios li {
+    margin-top: 10px;
 }
 
 .PagRelatorios .Cabecalho {
@@ -29,9 +39,9 @@
 .PagRelatorios .Conteudo {
     display: flex;
     flex-grow: 1;
-    width: 80%; 
-    max-width: 1200px; 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    width: 80%;
+    max-width: 1200px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
 }
 
@@ -45,7 +55,7 @@
 }
 
 .PagRelatorios .ItemRelatorio {
-    width: 80%; 
+    width: 80%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -59,13 +69,48 @@
     background-color: #f0f0f0;
 }
 
+.PagRelatorios .titulo {
+    text-align: center;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    .PagRelatorios .ConteudoPrincipal,
+    .PagRelatorios .ConteudoPrincipal * {
+        visibility: visible;
+    }
+
+    .PagRelatorios .ConteudoPrincipal {
+        position: fixed;
+        margin-left: -12%;
+        zoom: 170%;
+        min-width: 100% !important; /* Adjust this value to increase or decrease the width */
+    }
+
+    .PagRelatorios .no-print {
+        display: none;
+    }
+}
+
+.PagRelatorios .btnFecharRel{
+    float: right;
+    margin-right: 5%;
+    margin-top: -10%;
+}
+
 .PagRelatorios .ConteudoPrincipal {
     flex-grow: 1;
     padding: 10px;
     display: flex;
     align-items: center;
+    max-width: 50%;
+    min-width: 50%;
+    overflow-x: hidden;
+    overflow-y: auto;
     justify-content: center;
-    text-align: center;
 }
 
 .PagRelatorios .InfoRelatorio {
