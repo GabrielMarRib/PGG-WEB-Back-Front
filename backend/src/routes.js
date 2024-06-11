@@ -248,7 +248,7 @@ routes.post('/insereVendas', async (req, res) => {
 });
 
 
-const atualizaProdutosQtde = async (EstoqueProdutoRef,valor) =>{
+const atualizaProdutosQtde = async (EstoqueProdutoRef, valor) => {
     await EstoqueProdutoRef.update({
         Quantidade: valor
     });
@@ -322,13 +322,16 @@ routes.post('/geraRelatorioVendas', async (req, res) => {
 
 routes.post('/geraRelatorioPP', async (req, res) => {
     try {
-        const { PP, QtdeAtual, msg, produtoID, produtoNome } = req.body;
+        const { PP, QtdeAtual, msg, produtoID, produtoNome, QV, TR, ES } = req.body;
         const data = new Date();
 
         const relatoriosVendaRef = db.collection('Relatorios').doc('PontoDePedido').collection('ListaRelatorios');
         await relatoriosVendaRef.add({
             Data_Venda: data,
             PP: PP,
+            QV: QV,
+            TR: TR,
+            ES: ES,
             msg: msg,
             QtdeAtual: QtdeAtual,
             produtoID: produtoID,

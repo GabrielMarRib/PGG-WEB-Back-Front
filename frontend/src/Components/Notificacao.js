@@ -1,6 +1,6 @@
 import NotificacaoIcon from "../Assets/SinoWhite.png";
 import React, { useState, useEffect } from "react";
-import { NotificacaoPontoPedido } from "../Functions/Functions";
+import { RelatorioPP,exibeData,traduzData } from "../Functions/Functions";
 import '../Styles/Components/Notificacao.css'
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/UserContext";
@@ -27,7 +27,7 @@ const Notificacao = () => {
             if (showPopup) {
                 setCarregando(true);
                 try {
-                    const response = await NotificacaoPontoPedido();
+                    const response = await RelatorioPP();
                     setNotificacoes(response);
                 } catch (error) {
                     console.error('Erro ao buscar notificações:', error);
@@ -49,24 +49,6 @@ const Notificacao = () => {
             }
         }
     }
-
-    const traduzData = (item) => {
-        if (item?.data?.Data_Venda) {
-            const data = item.data.Data_Venda;
-            const segundos = data._seconds
-            const nanoseg = data._nanoseconds
-            return segundos * 1000 + nanoseg / 1000000;
-        }
-    }
-
-    const exibeData = (item) => {
-        if (item?.data?.Data_Venda) {
-            const dataCrua = traduzData(item)
-            const dataOK = new Date(dataCrua).toLocaleString('pt-BR')
-            return dataOK
-        }
-    }
-
 
     notificacoes.sort((a, b) => {
         const dataA = traduzData(a);
@@ -130,9 +112,6 @@ const Notificacao = () => {
                                         else
                                             return null
                                     }
-                                    else if (item.data.msg === "null")
-                                        return <p>não há notificações</p>
-
                                     if (item.data.PP && User.userData.Nivel_acesso!=2){ // se tiver, mas se for relacionada a PP, e vc nao for gestor, manda pro krl
                                         if(vezes === 1)
                                             return <p>não há notificações</p>
