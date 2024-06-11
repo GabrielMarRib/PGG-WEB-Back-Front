@@ -129,7 +129,8 @@
   flex-direction: row;
   align-self: center;
   white-space: nowrap;
-  gap: 8px;
+  width: 500px;
+  gap: 30px;
 }
 
 .CabecalhoHome img{
@@ -154,7 +155,7 @@
   font-size: 1.3rem;
   font-weight: 600;
   color: #f6f6f6;
-  cursor: default;
+  cursor: auto;
 }
 
 .CabecalhoHome .NomeUserId{

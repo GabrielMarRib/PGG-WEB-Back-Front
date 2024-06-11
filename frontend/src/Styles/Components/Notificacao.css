@@ -50,6 +50,7 @@
   /* Necessário para posicionar o botão de fechar */
   overflow-y: auto;
   overflow-x: hidden;
+  text-wrap: wrap;
   cursor: auto;
 }
 .Notificacao .notificacaoH2{

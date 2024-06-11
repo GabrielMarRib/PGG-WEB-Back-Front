@@ -81,8 +81,10 @@ const CabecalhoHome = () => {
       </nav>
 
       <nav className="nav2">  
-          <a onClick={() => { navigate("PagEscolhaProdutos") }}  
-          className="paginas"> Produtos </a> 
+      <a onClick={() => { navigate("/") }}  
+          className="paginas"> Home </a>
+          <a onClick={() => { navigate("/PagEscolhaProdutos") }}  
+          className="paginas"> Estoque </a> 
           <a onClick={() => { navigate("/PagEscolhaCurvaABC") }} className="paginas"> Curva ABC </a>
           <a onClick={() => { navigate("/PagPontoPedido") }}  
           className="paginas"> Ponto de Pedido </a>

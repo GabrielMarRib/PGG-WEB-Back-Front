@@ -40,7 +40,7 @@ function PagHome() {
               <a onClick={() => { navigate("/PagEscolhaProdutos") }} className="ag-courses-item_link">
                 <div className="ag-courses-item_bg"></div>
                 <div className="ag-courses-item_title">
-                  <span className="title-text">Produtos</span>
+                  <span className="title-text">Estoque</span>
                   <img className="Imagem1" src={ImageCaixa} alt="Caixaimg" />
                 </div>
               </a>

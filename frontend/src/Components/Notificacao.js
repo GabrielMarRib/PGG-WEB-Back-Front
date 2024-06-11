@@ -125,12 +125,14 @@ const Notificacao = () => {
                                     vezes++;
                                     if (!item.data?.msg){ // se nao tiver msg, manda po krl
                                         if(vezes === 1){
-                                            //return <p>não há notificações</p>
-                                            return null
+                                            return <p>não há notificações</p>
                                         }
                                         else
                                             return null
                                     }
+                                    else if (item.data.msg === "null")
+                                        return <p>não há notificações</p>
+
                                     if (item.data.PP && User.userData.Nivel_acesso!=2){ // se tiver, mas se for relacionada a PP, e vc nao for gestor, manda pro krl
                                         if(vezes === 1)
                                             return <p>não há notificações</p>
