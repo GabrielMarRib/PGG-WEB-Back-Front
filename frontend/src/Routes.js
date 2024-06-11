@@ -16,7 +16,8 @@ import PagCurvaABC from './Pages/App/Services/PagCurvaABC';
 import PagCurvaABCPorValor from './Pages/App/Services/PagCurvaABCPorValor'; 
 import PagPontoPedido from './Pages/App/Services/PagPontoPedido'; 
 import PagRelatorios from './Pages/App/Services/PagRelatorios';
-import PagFuncionarios from './Pages/App/Services/PagFuncionarios';
+import PagFuncionarios from './Pages/App/Services/PagFuncionarios'; 
+import PagAddCategoria from './Pages/App/Services/PagAddCategoria';
 
 const Mobile = IsMobile();
 
@@ -47,6 +48,7 @@ function AppRoutes() {
             <Route path="/PagPontoPedido" element={<PagPontoPedido />} /> 
             <Route path="/PagRelatorios" element={<PagRelatorios />} />   
             <Route path="/PagFuncionarios" element={<PagFuncionarios />} /> 
+            <Route path="/PagAddCategoria" element={<PagAddCategoria />} />
           </> 
         )}
         {/* Rota padrão para redirecionar qualquer rota desconhecida */}

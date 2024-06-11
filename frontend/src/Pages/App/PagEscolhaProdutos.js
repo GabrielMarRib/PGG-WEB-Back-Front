@@ -37,7 +37,12 @@ function PagEscolhaProdutos() {
                         ): 
                             null
                         }
-                        
+                        <div className="ag-courses_item">
+                            <a onClick={() => { navigate("/PagAddCategoria") }} className="ag-courses-item_link">
+                                <div className="ag-courses-item_bg"></div>
+                                <div className="ag-courses-item_title">Adicionar Categoria</div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

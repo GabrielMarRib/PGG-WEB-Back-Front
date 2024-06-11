@@ -5,6 +5,8 @@
     text-decoration: none;
     list-style: none;
     font-family: 'JetBrains Mono';
+    justify-content: center; 
+    gap: 10px; 
 }
 
 .PagEscolhaProdutos .logo{

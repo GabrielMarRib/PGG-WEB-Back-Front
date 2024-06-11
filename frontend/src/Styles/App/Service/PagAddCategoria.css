@@ -1,0 +1,109 @@
+.PagAddCategoria {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'JetBrains Mono';
+}
+
+.PagAddCategoria .Formulario {
+    border: 1px solid #000;
+    padding: 20px;
+    width: 1850px; 
+    background-color: rgb(228, 228, 228);
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 710px;
+}
+
+.PagAddCategoria .Formulario h2 {
+    margin-bottom: 20px;
+}
+
+.PagAddCategoria .FormularioCampo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.PagAddCategoria .FormularioCampo select {
+    padding: 5px;
+    margin-right: 10px;
+    border: 1px solid #000;
+    height: 36px;
+    font-size: 14px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.PagAddCategoria .FormularioCampo input[type="text"] {
+    padding: 5px;
+    margin-right: 10px;
+    border: 1px solid #000;
+    height: 30px;
+    font-size: 14px;
+}
+
+.PagAddCategoria .FormularioCampo input[type="text"]:first-child {
+    width: 50px;
+    text-align: center;
+}
+
+.PagAddCategoria .FormularioCampo input[type="text"]:nth-child(2) {
+    flex-grow: 1;
+}
+
+.PagAddCategoria .FormularioCampo button {
+    padding: 5px 10px;
+    border: 1px solid #000;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    font-size: 14px;
+    align-self: flex-start;
+    margin-right: 10px;
+}
+
+.PagAddCategoria .BotaoAddSubCategoria {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    border: 1px solid #000;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    font-size: 14px;
+}
+
+.PagAddCategoria .BotaoAddSubCategoria span {
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+.PagAddCategoria .ListaCategorias {
+    border: 1px solid #000;
+    padding: 10px;
+    width: 100%;
+    height: 350px;
+    background-color: #f9f9f9;
+    overflow-y: auto;
+    height: 700px;
+}
+
+.PagAddCategoria .ListaCategorias h3 {
+    margin-top: 0;
+}
+
+.PagAddCategoria .ListaCategorias ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.PagAddCategoria .ListaCategorias li {
+    border: 1px solid #000;
+    padding: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    background-color: #fff;
+}
