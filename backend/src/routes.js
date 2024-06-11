@@ -359,4 +359,14 @@ routes.get('/pegaRelatorioPP', async (req, res) => {
     }
 });
 
+routes.post('/deletaRelatorio' , async (req, res) => {
+    try{
+        const { TipoRelatorio,Id } = req.body;
+        const resp = await db.collection('Relatorios').doc(TipoRelatorio).collection('ListaRelatorios').doc(Id).delete();
+        res.json(resp)
+    }catch(error){
+        res.json(error)
+    }
+});
+
 module.exports = routes;

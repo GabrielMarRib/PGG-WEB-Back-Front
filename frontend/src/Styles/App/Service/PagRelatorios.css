@@ -101,6 +101,20 @@
     margin-top: -10%;
 }
 
+.PagRelatorios .selectRelatorio{
+    margin-top: 2%;
+    margin-bottom: 2%;
+    min-width: 60%;
+    min-height: 4%;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono';
+}
+
+.PagRelatorios .PaiRelatorios{
+    display: flex;
+    justify-content: center;
+}
+
 .PagRelatorios .ConteudoPrincipal {
     flex-grow: 1;
     padding: 10px;
