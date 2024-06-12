@@ -222,6 +222,7 @@ function PagAddCategoria() {
                                 type="text"
                                 value={subCategoriaUpd}
                                 onChange={(e) => setSubCategoriaUpd(e.target.value)}
+                                placeholder="Nome da subcategoria"
                                 className="addSubCat"
                             />
                         </div>
