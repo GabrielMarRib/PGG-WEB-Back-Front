@@ -3,6 +3,7 @@ import Cabecalho from "../../../Components/Cabecalho";
 import '../../../Styles/App/Service/PagAddCategoria.css';
 import axios from "axios";
 import { pegaCategorias } from "../../../Functions/Functions";
+
 function PagAddCategoria() {
 
     // Gerenciamento de tela (mostra se está adicionando, e se está adicionando subCat)
@@ -10,62 +11,67 @@ function PagAddCategoria() {
     const [addSubCat, setAddSubCat] = useState(false);
 
     // GERALZÃO:
-    const [categorias, setCategorias] = useState([])
+    const [categorias, setCategorias] = useState([]);
+    const [carregando, setCarregando] = useState(true); // Estado para carregamento
 
     // Categoria do momento:
     const [categoriaSelecionada, SetCategoriaSelecionada] = useState([]);
 
     // Usado para inserção (addCat true)
-    const [codigoDisponivel, SetCodigoDisponivel] = useState(null)
+    const [codigoDisponivel, SetCodigoDisponivel] = useState(null);
     const [categoriaInput, setCategoriaInput] = useState('');
     const [subCategoriaInput, setSubCategoriaInput] = useState('');
 
     //Usado para update (addCat false)
     const [subCategoriaUpd, setSubCategoriaUpd] = useState('');
+
     const pegaCodigoDisponivel = async () => {
-        const response = await axios.get('http://localhost:4000/pegaCategoriaDisponivel')
-        SetCodigoDisponivel(response.data)
-    }
+        const response = await axios.get('http://localhost:4000/pegaCategoriaDisponivel');
+        SetCodigoDisponivel(response.data);
+    };
 
     useEffect(() => {
-        pegaCodigoDisponivel();
-        pegaCategorias(setCategorias);
-    }, [])
+        const fetchData = async () => {
+            setCarregando(true); // Define carregando como true antes de buscar dados
+            await pegaCodigoDisponivel();
+            await pegaCategorias(setCategorias);
+            setCarregando(false); // Define carregando como false após buscar dados
+        };
+        fetchData();
+    }, []);
 
     const handleChange = (e) => {
         const val = e.target.value;
 
         if (val === "Add") {
-            setAddCat(true)
-            SetCategoriaSelecionada(null)
-        }
-        else {
-            setAddCat(false)
+            setAddCat(true);
+            SetCategoriaSelecionada(null);
+        } else {
+            setAddCat(false);
             const CatSelecJSON = JSON.parse(val);
-            SetCategoriaSelecionada(CatSelecJSON)
+            SetCategoriaSelecionada(CatSelecJSON);
         }
-
-    }
+    };
 
     const handleSubCat = () => {
-        setAddSubCat(prevState => !prevState)
-    }
+        setAddSubCat(prevState => !prevState);
+    };
 
     const pegaDadosSelect = (item) => {
-        const subcategorias = item.subcollections.subCategorias
+        const subcategorias = item.subcollections.subCategorias;
         let max = 1;
         let subsId = [];
-        if(subcategorias){
+        if (subcategorias) {
             for (const sub of subcategorias) {
-                subsId.push(parseInt(sub.id))
+                subsId.push(parseInt(sub.id));
             }
-            max = Math.max(...subsId) + 1
+            max = Math.max(...subsId) + 1;
         }
-        return (<option key={item.id} value={JSON.stringify({ id: item.id, data: item.data, max: max })}>{item.id} - {item.data.CategoriaNome}</option>)
-    }
+        return (<option key={item.id} value={JSON.stringify({ id: item.id, data: item.data, max: max })}>{item.id} - {item.data.CategoriaNome}</option>);
+    };
 
     const pegaDadosLista = (item) => {
-        const subs = item.subcollections.subCategorias
+        const subs = item.subcollections.subCategorias;
         return (
             <li key={item.id} >{item.id} - {item.data.CategoriaNome}
                 <ul>
@@ -75,93 +81,93 @@ function PagAddCategoria() {
                         null
                     )}
                 </ul>
-          </li>
-        )
-    }
+            </li>
+        );
+    };
 
     const pegaDadosSub = (subItem, id) => {
         return (
             <li key={subItem.id}>
                 {id}.{subItem.id} - {subItem.data.subCategoriaNome}
             </li>
-        )
-    }
+        );
+    };
 
-    const adicaoSemSub = async()=>{
-        try{
-            let codigoTraduzido = codigoDisponivel.toString()
-            if(codigoDisponivel < 10){
-                codigoTraduzido = '0' + codigoTraduzido; 
+    const adicaoSemSub = async () => {
+        try {
+            let codigoTraduzido = codigoDisponivel.toString();
+            if (codigoDisponivel < 10) {
+                codigoTraduzido = '0' + codigoTraduzido;
             }
             await axios.post('http://localhost:4000/insereCategoriaSimples', {
                 codigo: codigoTraduzido,
                 nome: categoriaInput
             });
-            alert("deu bom")
+            alert("deu bom");
             setCategoriaInput('');
             pegaCategorias(setCategorias);
-            pegaCodigoDisponivel()
-        }catch(error){
-            console.log("deu ruim, " + error)
-        } 
-    }
+            pegaCodigoDisponivel();
+        } catch (error) {
+            console.log("deu ruim, " + error);
+        }
+    };
 
-    const adicaoComSub = async()=>{
-        try{
-            let codigoTraduzido = codigoDisponivel.toString()
-            if(codigoDisponivel < 10){
-                codigoTraduzido = '0' + codigoTraduzido; 
+    const adicaoComSub = async () => {
+        try {
+            let codigoTraduzido = codigoDisponivel.toString();
+            if (codigoDisponivel < 10) {
+                codigoTraduzido = '0' + codigoTraduzido;
             }
             await axios.post('http://localhost:4000/insereCategoriaCSub', {
                 codigo: codigoTraduzido,
                 nome: categoriaInput,
                 subCatNome: subCategoriaInput
             });
-            alert("deu bom")
-            setCategoriaInput('')
-            setSubCategoriaInput('')
+            alert("deu bom");
+            setCategoriaInput('');
+            setSubCategoriaInput('');
             pegaCategorias(setCategorias);
-            pegaCodigoDisponivel()
-        }catch(error){
-            console.log("deu ruim, " + error)
+            pegaCodigoDisponivel();
+        } catch (error) {
+            console.log("deu ruim, " + error);
         }
-    }
+    };
 
-    const atualizaSub = async() =>{
-        try{
-            let novaSub = categoriaSelecionada.max.toString()
+    const atualizaSub = async () => {
+        try {
+            let novaSub = categoriaSelecionada.max.toString();
             const catAtual = categoriaSelecionada.id;
-            
-            if(categoriaSelecionada.max < 10){
-                novaSub = '0' + novaSub; 
+
+            if (categoriaSelecionada.max < 10) {
+                novaSub = '0' + novaSub;
             }
-    
+
             await axios.post('http://localhost:4000/atualizaSub', {
                 codigoSelecionado: catAtual,
                 subCatNome: subCategoriaUpd,
                 subcatCodigoNEW: novaSub
             });
-            alert("deu bom")
-            setSubCategoriaUpd('')
-            setAddCat(true)
+            alert("deu bom");
+            setSubCategoriaUpd('');
+            setAddCat(true);
             pegaCategorias(setCategorias);
-        }catch(error){
-            console.log("deu mta merda: " + error)
+        } catch (error) {
+            console.log("deu mta merda: " + error);
         }
-    }
+    };
 
-    const handleEnviar = async() =>{
-        if(addCat){
-            if(!addSubCat){ //mais simples primeiro...
-                await adicaoSemSub()
-                
-            }else{ // se tiver subCat...
+    const handleEnviar = async () => {
+        if (addCat) {
+            if (!addSubCat) { //mais simples primeiro...
+                await adicaoSemSub();
+            } else { // se tiver subCat...
                 await adicaoComSub();
             }
-        }else{ // se nao for pra add cat...
+        } else { // se nao for pra add cat...
             await atualizaSub();
         }
-    }
+    };
+
     return (
         <div className="PagAddCategoria">
             <Cabecalho />
@@ -178,7 +184,7 @@ function PagAddCategoria() {
                             <input
                                 className="CodigoCatProibido"
                                 type="text"
-                                value={codigoDisponivel < 10 ? "0" + codigoDisponivel : + codigoDisponivel}
+                                value = {(codigoDisponivel == null) ? null : (codigoDisponivel < 10 ? "0" + codigoDisponivel : codigoDisponivel)}
                                 readOnly
                             />
                             <input
@@ -220,13 +226,17 @@ function PagAddCategoria() {
                             />
                         </div>
                     )}
-                    <button className="btnEnviar" onClick={() => {handleEnviar()}}>Enviar</button>
+                    <button className="btnEnviar" onClick={() => { handleEnviar() }}>Enviar</button>
                 </div>
                 <div className="ListaCategorias">
                     <h3>Lista categorias:</h3>
-                    <ul>
-                        {categorias.map(pegaDadosLista)}
-                    </ul>
+                    {carregando ? ( // Renderização condicional baseada no estado de carregamento
+                        <p>Carregando...</p>
+                    ) : (
+                        <ul>
+                            {categorias.map(pegaDadosLista)}
+                        </ul>
+                    )}
                 </div>
             </div>
         </div>
