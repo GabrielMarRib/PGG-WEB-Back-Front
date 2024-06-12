@@ -7,23 +7,9 @@
     justify-content: center; 
 }
 
-.PagFuncionarios button{
-    background-color: #C53D0F;
-    border-color: transparent;
-    color: #fff;
-    border-radius: 4px;
-    font-size: 18px;
-    padding: 3px;
-    cursor: pointer;
-    margin: 10px auto;
-    width: 80px;
-    font-family: 'JetBrains Mono';
-}
-
-.PagFuncionarios div.btn{
+.PagFuncionarios .btn {
     margin-right: 67%;
 }
-
 
 .PagFuncionarios .Cabecalho {
     width: 100%;
@@ -36,6 +22,19 @@
     max-width: 1200px; 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
     margin-top: 20px;
+}
+
+.PagFuncionarios .btn button {
+    background-color: #C53D0F;
+    border-color: transparent;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 18px;
+    padding: 3px;
+    cursor: pointer;
+    margin: 10px auto;
+    width: 80px;
+    font-family: 'JetBrains Mono';
 }
 
 .PagFuncionarios .BarraLateral {
@@ -73,10 +72,69 @@
 .PagFuncionarios .ConteudoPrincipal {
     flex-grow: 1;
     padding: 20px;
-    text-align: center;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.PagFuncionarios .EspacoReservado {
-    font-size: 16px;
-    color: #aaa;
+.PagFuncionarios .dados-usuario {
+    max-width: 500px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 300px;
 }
+
+.PagFuncionarios .dados-usuario h2 {
+    margin: 10px 0;
+}
+
+.PagFuncionarios .dados-usuario h2:first-child {
+    margin-top: 0;
+}
+
+.PagFuncionarios .dados-usuario h2:last-child {
+    margin-bottom: 0;
+}
+
+.PagFuncionarios .botoes {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.PagFuncionarios .botoes button {
+    background-color: #C53D0F;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 18px;
+    padding: 8px 12px;
+    cursor: pointer;
+    margin: 10px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.PagFuncionarios .botoes button:focus {
+    outline: none;
+}
+
+.PagFuncionarios .botoes button:hover {
+    background-color: #a4310b;
+}
+
+@media print {
+    body * {
+      visibility: hidden;
+    }
+    .PagFuncionarios, .PagFuncionarios * {
+      visibility: visible;
+    }
+    .PagFuncionarios {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
