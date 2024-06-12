@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import Cabecalho from "../../../Components/Cabecalho";
+import React, { useState, useEffect, useContext } from 'react';
+import CabecalhoHome from '../../../Components/CabecalhoHome'; // Use o mesmo componente de cabeçalho
 import '../../../Styles/App/Service/PagPontoPedido.css';
 import axios from 'axios';
 import { PegaDadosGeralDB } from '../../../Functions/Functions';
-import { useContext } from 'react';
 import { UserContext } from '../../../Context/UserContext';
 import Redirect from '../../../Functions/Redirect';
 
@@ -12,12 +11,10 @@ function PagPontoPedido() {
     const [dadosPP, setDadosPP] = useState([]);
     const [carregando, setCarregando] = useState(true);
 
-    const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
-    const User = UserOBJ.User; //Pega só o User....
+    const UserOBJ = useContext(UserContext);
+    const User = UserOBJ.User;
 
-
-    Redirect(User)
-
+    Redirect(User);
 
     useEffect(() => {
         PegaDadosGeralDB((data) => {
@@ -61,15 +58,12 @@ function PagPontoPedido() {
                         <td>{infoComumEmPP.data.TR}</td>
                         <td>{infoComumEmPP.data.ES}</td>
                         <td>{infoComumEmPP.data.PP}</td>
-
                         {item.data.Quantidade <= infoComumEmPP.data.PP ? (
-                            <td style={{backgroundColor: '#fa3d2f'}}>REQUER ATENÇÃO URGENTEMENTE</td>
-                        ) :
-                            <td style={{backgroundColor: '#89ff57', minWidth: '13.5vw'}}>OK</td>
-                        }
-
+                            <td style={{ backgroundColor: '#fa3d2f' }}>REQUER ATENÇÃO URGENTEMENTE</td>
+                        ) : (
+                            <td style={{ backgroundColor: '#89ff57', minWidth: '13.5vw' }}>OK</td>
+                        )}
                     </tr>
-
                 );
             }
         }
@@ -78,35 +72,37 @@ function PagPontoPedido() {
 
     return (
         <div className="PagPontoPedido">
-            <div className="Cabecalho">
-                <Cabecalho />
+            <div className="CabecalhoHome">
+                <CabecalhoHome />
             </div>
-            <h1 className='h1PontoDePedido'>Gestão de Ponto de Pedido</h1>
-            <div className="Tabela">
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Nome</th>
-                            <th>Estoque Atual</th>
-                            <th>Quantia vendida mensal</th>
-                            <th>Consumo Médio</th>
-                            <th>Tempo de Reposição</th>
-                            <th>Estoque de Segurança</th>
-                            <th>Ponto de Pedido</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {carregando ? (
+            <div className="conteudoPaginaMaster">
+                <h1 className='h1PontoDePedido'>Gestão de Ponto de Pedido</h1>
+                <div className="Tabela">
+                    <table border="1">
+                        <thead>
                             <tr>
-                                <td colSpan="8">Carregando...</td>
+                                <th>Id</th>
+                                <th>Nome</th>
+                                <th>Estoque Atual</th>
+                                <th>Quantia vendida mensal</th>
+                                <th>Consumo Médio</th>
+                                <th>Tempo de Reposição</th>
+                                <th>Estoque de Segurança</th>
+                                <th>Ponto de Pedido</th>
+                                <th>Status</th>
                             </tr>
-                        ) : (
-                            dadosEstoqueGeral.map(pegaDadosComunsEmPP)
-                        )}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {carregando ? (
+                                <tr>
+                                    <td colSpan="9">Carregando...</td>
+                                </tr>
+                            ) : (
+                                dadosEstoqueGeral.map(pegaDadosComunsEmPP)
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );

@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 import Cabecalho from "../../../Components/Cabecalho";
+import CabecalhoHome from "../../../Components/CabecalhoHome";
 import '../../../Styles/App/Service/PagCurvaABC.css';
 import axios from 'axios';
 import { PegaDadosGeralDB, PegadadosVALOR } from '../../../Functions/Functions';
@@ -238,8 +239,8 @@ function PagCurvaABCPorValor() {
   return (
     <div className="CurvaABC">
 
-      <div className="Cabecalho">
-        <Cabecalho />
+      <div className="CabecalhoHome">
+        <CabecalhoHome />
       </div>
       
       <div className="btn">

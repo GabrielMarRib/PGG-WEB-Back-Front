@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Cabecalho from "../../../Components/Cabecalho";
+import CabecalhoHome from "../../../Components/CabecalhoHome.js";
 import "../../../Styles/App/Service/PagLoteEconomico.css";
 import lupa from "../../../Assets/lupa.png";
 import axios from "axios";
@@ -228,8 +229,8 @@ try{
 
   return (
     <div className="LoteEconomico">
-      <div className="Cabecalho">
-        <Cabecalho />
+      <div className="CabecalhoHome">
+        <CabecalhoHome />
       </div>
    
       <div className="ConteudoDaPagina">
