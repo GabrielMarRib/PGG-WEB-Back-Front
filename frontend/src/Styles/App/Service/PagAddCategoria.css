@@ -54,6 +54,7 @@
 }
 
 .PagAddCategoria .addCatProibido,
+.PagAddCategoria .CodigoCatProibido,
 .PagAddCategoria .addSubCatProibido{
     width: 100px;
     cursor: not-allowed;

@@ -220,3 +220,8 @@ export const RelatorioPP = async () => {
     const response = await axios.get('http://localhost:4000/pegaRelatorioPP')
     return (response.data)
 }
+
+export const pegaCategorias = async (setOBJ) =>{
+    const response = await axios.get('http://localhost:4000/pegaCategoriasCSub')
+    setOBJ(response.data)
+}
