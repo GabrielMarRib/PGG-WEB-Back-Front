@@ -378,9 +378,58 @@ routes.get('/pegaUsers' , async (req, res) => {
             users.push({ id: doc.id, data: doc.data() }); // manda o doc.id e os dados
         });
         res.json(users)
-        
+
     }catch(error){
         res.json(error)
     }
 });
+
+routes.get('/pegaCategoriaDisponivel', async (req,res) =>{
+    try{
+        const snapshot = await db.collection('Categorias').get(); // pega uma snap de PontoDePedido
+        const categoriasId = [];
+        snapshot.forEach(doc =>{
+            categoriasId.push(doc.id);
+        });
+        const idInt = categoriasId.map(Number);
+        const max = Math.max(...idInt)
+        res.json(max+1)
+    }catch(error){
+        res.json(error)
+    }
+});
+
+
+routes.get('/pegaCategoriasCSub', async (req, res) => {// nem sei oq ta acontecendo de vdd pqp
+    try {
+      const snapshotSubCat = await db.collection('Categorias').get();
+      const categorias = [];
+  
+      for (const doc of snapshotSubCat.docs) {
+        const docData = {
+          id: doc.id,
+          data: doc.data(),
+          subcollections: {}
+        };
+  
+        // Get all subcollections for the current document
+        const subcollections = await doc.ref.listCollections();
+        for (const subcollection of subcollections) {
+          const subcollectionSnapshot = await subcollection.get();
+          docData.subcollections[subcollection.id] = subcollectionSnapshot.docs.map(subDoc => ({
+            id: subDoc.id,
+            data: subDoc.data()
+          }));
+        }
+  
+        categorias.push(docData);
+      }
+  
+      res.json(categorias);
+    } catch (error) {
+      console.error('deu ruim nas subcoleções irmao:', error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
 module.exports = routes;
