@@ -3,6 +3,7 @@ const routes = express.Router();
 const { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } = require('firebase/auth');
 const { app } = require('./Firebase/Firebase.js');
 const { admin, db } = require('./Firebase/FirebaseAdmin.js');
+const { doc } = require('firebase/firestore');
 
 
 routes.get('/teste', async (req, res) => {
@@ -359,18 +360,18 @@ routes.get('/pegaRelatorioPP', async (req, res) => {
     }
 });
 
-routes.post('/deletaRelatorio' , async (req, res) => {
-    try{
-        const { TipoRelatorio,Id } = req.body;
+routes.post('/deletaRelatorio', async (req, res) => {
+    try {
+        const { TipoRelatorio, Id } = req.body;
         const resp = await db.collection('Relatorios').doc(TipoRelatorio).collection('ListaRelatorios').doc(Id).delete();
         res.json(resp)
-    }catch(error){
+    } catch (error) {
         res.json(error)
     }
 });
 
-routes.get('/pegaUsers' , async (req, res) => {
-    try{
+routes.get('/pegaUsers', async (req, res) => {
+    try {
         const snapshot = await db.collection('Logins').get(); // pega uma snap de PontoDePedido
 
         const users = []; // array de PP
@@ -379,22 +380,22 @@ routes.get('/pegaUsers' , async (req, res) => {
         });
         res.json(users)
 
-    }catch(error){
+    } catch (error) {
         res.json(error)
     }
 });
 
-routes.get('/pegaCategoriaDisponivel', async (req,res) =>{
-    try{
+routes.get('/pegaCategoriaDisponivel', async (req, res) => {
+    try {
         const snapshot = await db.collection('Categorias').get(); // pega uma snap de PontoDePedido
         const categoriasId = [];
-        snapshot.forEach(doc =>{
+        snapshot.forEach(doc => {
             categoriasId.push(doc.id);
         });
         const idInt = categoriasId.map(Number);
         const max = Math.max(...idInt)
-        res.json(max+1)
-    }catch(error){
+        res.json(max + 1)
+    } catch (error) {
         res.json(error)
     }
 });
@@ -402,34 +403,93 @@ routes.get('/pegaCategoriaDisponivel', async (req,res) =>{
 
 routes.get('/pegaCategoriasCSub', async (req, res) => {// nem sei oq ta acontecendo de vdd pqp
     try {
-      const snapshotSubCat = await db.collection('Categorias').get();
-      const categorias = [];
-  
-      for (const doc of snapshotSubCat.docs) {
-        const docData = {
-          id: doc.id,
-          data: doc.data(),
-          subcollections: {}
-        };
-  
-        // Get all subcollections for the current document
-        const subcollections = await doc.ref.listCollections();
-        for (const subcollection of subcollections) {
-          const subcollectionSnapshot = await subcollection.get();
-          docData.subcollections[subcollection.id] = subcollectionSnapshot.docs.map(subDoc => ({
-            id: subDoc.id,
-            data: subDoc.data()
-          }));
-        }
-  
-        categorias.push(docData);
-      }
-  
-      res.json(categorias);
-    } catch (error) {
-      console.error('deu ruim nas subcoleções irmao:', error);
-      res.status(500).json({ error: error.message });
-    }
-  });
+        const snapshotSubCat = await db.collection('Categorias').get();
+        const categorias = [];
 
+        for (const doc of snapshotSubCat.docs) {
+            const docData = {
+                id: doc.id,
+                data: doc.data(),
+                subcollections: {}
+            };
+
+            // Get all subcollections for the current document
+            const subcollections = await doc.ref.listCollections();
+            for (const subcollection of subcollections) {
+                const subcollectionSnapshot = await subcollection.get();
+                docData.subcollections[subcollection.id] = subcollectionSnapshot.docs.map(subDoc => ({
+                    id: subDoc.id,
+                    data: subDoc.data()
+                }));
+            }
+
+            categorias.push(docData);
+        }
+
+        res.json(categorias);
+    } catch (error) {
+        console.error('deu ruim nas subcoleções irmao:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+routes.post('/insereCategoriaSimples', async (req, res) => {
+    try {
+        const { codigo, nome } = req.body;
+        const CategoriasRef = db.collection('Categorias');
+        const CategoriasRefDoc = CategoriasRef.doc(codigo);
+
+        await CategoriasRefDoc.set({
+            CategoriaNome: nome,
+        });
+        res.status(200).json({ message: "Inserção OK" });
+    } catch (error) {
+        res.json(error)
+    }
+});
+
+routes.post('/insereCategoriaCSub', async (req, res) => {
+    try {
+        const { codigo, nome, subCatNome } = req.body;
+        const CategoriasRef = db.collection('Categorias');
+        const CategoriasRefDoc = CategoriasRef.doc(codigo);
+
+        //manda pro papai
+        await CategoriasRefDoc.set({
+            CategoriaNome: nome,
+        });
+
+        // cria a ref 'subCategorias'
+        const subCategoriasRef = CategoriasRefDoc.collection('subCategorias').doc('01'); // como é a primeira, sempre vai ser 01...
+        await subCategoriasRef.set({
+            subCategoriaNome: subCatNome
+        });
+
+        res.status(200).json({ message: "Inserção OK" });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+routes.post('/atualizaSub', async (req, res) => {
+    try {
+        const { codigoSelecionado,subCatNome, subcatCodigoNEW } = req.body;
+        const docRef = db.collection('Categorias').doc(codigoSelecionado);
+        const doc = await docRef.get();
+
+        if (!doc.exists) {
+            res.status(404).json({ error: 'documento nao encontrado' });
+            return;
+        }
+
+        const subCategoriasRef = docRef.collection('subCategorias').doc(subcatCodigoNEW); // no código especificado anteriormente
+        await subCategoriasRef.set({
+            subCategoriaNome: subCatNome
+        });
+        res.status(200).json({ message: "Inserção OK" });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
 module.exports = routes;
