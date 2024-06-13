@@ -11,7 +11,25 @@
   } 
 }
 
-@media  screen and (max-width: 900px) {
+@media  screen and (max-width: 1050px) {
+  .CabecalhoHome .nav2{
+      overflow-x: auto !important;
+      height: 75px;
+      align-items: flex-start;
+  } 
+
+  .CabecalhoHome ul li ul.dropdown{
+    display: block !important;
+  }
+
+  .CabecalhoHome li:hover ul.dropdown{
+    display: block;
+  }
+
+}
+
+
+@media  screen and (max-width: 1000px) {
 .CabecalhoHome #logo{
     display: none;
 } 
@@ -43,15 +61,18 @@
 .CabecalhoHome .nav2 {
   display: flex;
   float: left;
-  gap: 20px;
   background-color: #4e260c;
   box-shadow: 0 5px 15px rgba(133, 95, 70, 0.06);
   white-space: nowrap;
   width: 100%;
-  overflow-x: auto;
+
 }
 
-.CabecalhoHome .nav2 a{
+.CabecalhoHome .nav2 .paginas{
+  min-width: 150px;
+}
+
+.CabecalhoHome .nav2 li{
   float: left;
   display: block;
   color: #f2f2f2;
@@ -60,14 +81,41 @@
   width: 100%;
 }
 
-.CabecalhoHome .nav2 a:hover {
+.CabecalhoHome .nav2 li:hover {
   background-color: #f85103;
   cursor: pointer;
+  transition: background-color 0.5s, border-color 0.5s;
+  border-radius: 5px; /* Adiciona bordas arredondadas */
 }
 
+.CabecalhoHome .nav2 ul{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
 
+.CabecalhoHome ul li {
+  display: inline-block;
+  position: relative;
+}
 
+.CabecalhoHome ul li a{
+  display: block;
+}
 
+.CabecalhoHome ul li ul.dropdown{
+  display: none;
+  position: absolute;
+  z-index: 999;
+  background-color: #4e260c;
+}
+
+.CabecalhoHome li:hover ul.dropdown{
+  display: block;
+}
 
 .CabecalhoHome nav  #logo{
   text-decoration: none;
@@ -163,3 +211,5 @@
   justify-content: center;
   align-items: center;
 }
+
+
