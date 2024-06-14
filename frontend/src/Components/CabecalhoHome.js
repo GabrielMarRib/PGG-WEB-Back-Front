@@ -42,46 +42,41 @@ const CabecalhoHome = () => {
 
         <a id="NomeEmpresa">- Zetta - </a>
 
-
         <div className="DivInfoUser">
-          <ul id="navbar" className={clicked ? "#navbar active" : "#navbar"}>
-
-          </ul>
-
           <div className="NomeUserId">
             <a className="NomeUserIdLabel">Olá, {handleNomeUltimoNome()}</a>
-        </div>
-        
-          <div id="DivImg">
-            <Link to="/PagPerfil">
-              <div id="DivImg">
-                <img src={OptionIcon} />
-              </div>
-            </Link>
           </div>
-          <div id="DivImg">
-            <Notificacao />
-          </div>
-          <div id="DivImg">
-            <a
-              onClick={() => {
-                handleLogOut(navigate);
-              }}
-            >
-              <div id="DivNotificação">
-                <img src={IconLogOut} />
-              </div>
-            </a>
+
+          <div className="testando">
+            <div id="DivImg">
+              <Link to="/PagPerfil">
+                <div id="DivImg">
+                  <img src={OptionIcon} />
+                </div>
+              </Link>
+            </div>
+            <div id="DivImg">
+              <Notificacao />
+            </div>
+            <div id="DivImg">
+              <a
+                onClick={() => {
+                  handleLogOut(navigate);
+                }}
+              >
+                <div id="DivNotificação">
+                  <img src={IconLogOut} />
+                </div>
+              </a>
+            </div>
           </div>
         </div>
 
-        <div id="mobile" onClick={handleClick}>
-          <i id="bar" className={clicked ? "fas fa-times" : "fas fa-bars"}></i>
-        </div>
       </nav>
 
       <nav className="nav2">  
-        <ul>
+
+          <ul className="nav2ul">
           <li>
             <a onClick={() => { navigate("/") }}  
             className="paginas"> Home </a>
@@ -104,7 +99,6 @@ const CabecalhoHome = () => {
                   className="paginas"> Por Valor </a> 
                 </li>
               </ul>
-
           </li>
 
           <li>
@@ -129,6 +123,7 @@ const CabecalhoHome = () => {
             
 
         </ul>
+
       </nav>
 
     </div>
