@@ -5,7 +5,7 @@ import "../../../Styles/App/Service/PagLoteEconomico.css";
 import lupa from "../../../Assets/lupa.png";
 import axios from "axios";
 //import {Alerta} from "../../../Components/AlertaNotificação.js";
-import {apagarCampos} from './../../../Functions/Functions.js'
+import { apagarCampos } from './../../../Functions/Functions.js'
 import AlertaNotificação from "../../../Components/AlertaNotificação.js";
 import { useAlerta } from "../../../Context/AlertaContext.js";
 import { useContext } from "react";
@@ -63,7 +63,7 @@ function PagLoteEconomico() {
 
   const CalcularLoteEconomico = async () => {
     console.log("AA" + valorDespezas)
-    if(valorDespezas === ""  || qtdProdutosEstocados === "" || numPedidos === ""  || demandaAnual === ""){
+    if (valorDespezas === "" || qtdProdutosEstocados === "" || numPedidos === "" || demandaAnual === "") {
       // alert("Campos não preenchidos");
       Alerta(1, "Campos não preenchidos");
       return;
@@ -71,42 +71,31 @@ function PagLoteEconomico() {
     const CPCalculo = valorDespezas / numPedidos;
     const CACalculo = valorDespezas / qtdProdutosEstocados;
     const LECCalculo = (2 * CPCalculo * demandaAnual) / CACalculo;
-    
-try{
 
-  await axios.post('http://localhost:4000/InsereCalculosLote', {
-      Hash: HashAtual,
-      CP: CPCalculo,
-      CA: CACalculo,
-      LEC: LECCalculo,
-      Existe: ExisteCalculoBD,
-  });
-  Alerta(2, "Dados Atualizados");
-    
-  PegaDadosGeralDB();
-  PesquisaLoteEconomico(HashAtual, setRespostaPesquisa)
+    try {
 
+      await axios.post('http://localhost:4000/InsereCalculosLote', {
+        Hash: HashAtual,
+        CP: CPCalculo,
+        CA: CACalculo,
+        LEC: LECCalculo,
+        Existe: ExisteCalculoBD,
+      });
+      Alerta(2, "Dados Atualizados");
 
+      PegaDadosGeralDB();
+      PesquisaLoteEconomico(HashAtual, setRespostaPesquisa)
 
-
-} catch (erro) {
-    console.log(erro);
-} finally {
-    apagarCampos([setValorDespezas, setQtdProdutosEstocados, setNumPedidos, setDemandaAnual])
-}
-
-  
-
-
+    } catch (erro) {
+      console.log(erro);
+    } finally {
+      apagarCampos([setValorDespezas, setQtdProdutosEstocados, setNumPedidos, setDemandaAnual])
+    }
 
   }
 
-
-
-
-
   useEffect(() => {
-   
+
     PegaDadosGeralDB(); // Fetch data when the component mounts
   }, []);
 
@@ -124,7 +113,6 @@ try{
   };
 
   useEffect(() => {
-   
     Promise.all(
       dadosEstoqueGeral.map((item) => {
         if (
@@ -135,7 +123,7 @@ try{
           item.data.Nome.toLowerCase().includes(restricao.toLowerCase())
         ) {
           if (!respostaPesquisa[item.id]) {
-     
+
             return PesquisaLoteEconomico(item.id, setRespostaPesquisa);
           }
         }
@@ -172,7 +160,7 @@ try{
       }
 
       return (
-        
+
         <div key={item.id} className="DivsItens">
           <li>{item.data.Nome}</li>
           <div className="DivsResutlados">
@@ -206,9 +194,9 @@ try{
 
   const PegaDadosGeralDB = async () => {
     try {
-    
+
       const response = await axios.get("http://localhost:4000/PegaProdutos");
-     
+
       const estoqueData = response.data.map((item) => ({
         id: item.id,
         ...item,
@@ -223,7 +211,7 @@ try{
     setRestricao(pesquisa);
   };
 
-  
+
 
 
 
@@ -232,7 +220,7 @@ try{
       <div className="CabecalhoHome">
         <CabecalhoHome />
       </div>
-   
+
       <div className="ConteudoDaPagina">
         <div className={isVisibleForms ? "terminalShow" : "terminal"}>
           <div className="barra-pesquisa">
@@ -261,7 +249,7 @@ try{
               : "ContainerFormularioLoteEconomico"
           }
         >
-      
+
 
           <div className="container-tela-produtos">
             <div className="grupo-input-produto">
@@ -316,7 +304,7 @@ try{
           </div>
         </div>
       </div>
-      <AlertaNotificação /> 
+      <AlertaNotificação />
     </div>
   );
 }

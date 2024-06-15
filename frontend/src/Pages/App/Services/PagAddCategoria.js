@@ -1,14 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useCallback  } from "react";
 import Cabecalho from "../../../Components/Cabecalho";
 import CabecalhoHome from '../../../Components/CabecalhoHome';
 import '../../../Styles/App/Service/PagAddCategoria.css';
 import axios from "axios";
-import { pegaCategorias } from "../../../Functions/Functions";
+import { CheckCamposNulos, pegaCategorias, CheckCamposVazios } from "../../../Functions/Functions";
 import { useNavigate } from "react-router-dom";
+import AlertaNotificação from "../../../Components/AlertaNotificação.js";
+import InfoModalCat from "../../../Components/InfoModalCat.js";
+import { useAlerta } from "../../../Context/AlertaContext.js";
+
 
 function PagAddCategoria() {
     const navigate = useNavigate();
-
+    //funções de style:
+    const { Alerta } = useAlerta(); // alertinha...
+    const [mostrarModal, setMostrarModal] = useState(false); // mostra o modal...
+    const [msgModal, setMsgModal] = useState({}); //msg dessa poha
     // Gerenciamento de tela (mostra se está adicionando, e se está adicionando subCat)
     const [addCat, setAddCat] = useState(true);
     const [addSubCat, setAddSubCat] = useState(false);
@@ -33,15 +40,17 @@ function PagAddCategoria() {
         SetCodigoDisponivel(response.data);
     };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            setCarregando(true); // Define carregando como true antes de buscar dados
-            await pegaCodigoDisponivel();
-            await pegaCategorias(setCategorias);
-            setCarregando(false); // Define carregando como false após buscar dados
-        };
-        fetchData();
+    const fetchData = useCallback(async () => {
+        setCarregando(true);
+        console.log("passando por fetchData, q pega MUUUUUUUUUUITA coisa")
+        await pegaCodigoDisponivel();
+        await pegaCategorias(setCategorias);
+        setCarregando(false);
     }, []);
+
+    useEffect(() => {
+        fetchData();
+    }, [fetchData]);
 
     const handleChange = (e) => {
         const val = e.target.value;
@@ -80,9 +89,9 @@ function PagAddCategoria() {
                 <ul>
                     {subs ? (
                         <div>
-                            {subs.map(sub => pegaDadosSub(sub, item.id))}
+                            {subs.map(sub => pegaDadosSub(sub, item))}
                         </div>
-                        
+
                     ) : (
                         null
                     )}
@@ -91,14 +100,35 @@ function PagAddCategoria() {
         );
     };
 
-    const pegaDadosSub = (subItem, id) => {
+    categorias.sort((a, b) => {
+        const dataA = parseInt(a.id);
+        const dataB = parseInt(b.id);
+    
+        return dataA - dataB;
+    });
+    
+
+    const pegaDadosSub = (subItem, itemPai) => {
         return (
             <li key={subItem.id}>
-                {id}.{subItem.id} - {subItem.data.subCategoriaNome}
-                <button className="btnEditar">Editar</button>
+                <span className="SubCatSpan">{itemPai.id}.{subItem.id} - {subItem.data.subCategoriaNome}</span>
+                <span className="btnEditSpan">
+                    <button onClick={() => { handleEditar(itemPai,subItem) }} className="btnEditar">Editar</button>
+                </span>
             </li>
         );
     };
+
+    const handleEditar = (itemPai,subItem) => {
+        setMsgModal({
+            cat: itemPai.data.CategoriaNome,
+            catId: itemPai.id,
+            subCat: subItem.data.subCategoriaNome,
+            subCatId: subItem.id,
+            caminho: itemPai.id + '.' + subItem.id
+        })
+        setMostrarModal(true)
+    }
 
     const adicaoSemSub = async () => {
         try {
@@ -110,7 +140,7 @@ function PagAddCategoria() {
                 codigo: codigoTraduzido,
                 nome: categoriaInput
             });
-            alert("deu bom");
+            Alerta(2, "Adição concluída com sucesso")
             setCategoriaInput('');
             pegaCategorias(setCategorias);
             pegaCodigoDisponivel();
@@ -130,7 +160,7 @@ function PagAddCategoria() {
                 nome: categoriaInput,
                 subCatNome: subCategoriaInput
             });
-            alert("deu bom");
+            Alerta(2, "Adição concluída com sucesso")
             setCategoriaInput('');
             setSubCategoriaInput('');
             pegaCategorias(setCategorias);
@@ -154,7 +184,7 @@ function PagAddCategoria() {
                 subCatNome: subCategoriaUpd,
                 subcatCodigoNEW: novaSub
             });
-            alert("deu bom");
+            Alerta(2, "Adição concluída com sucesso")
             setSubCategoriaUpd('');
             setAddCat(true);
             pegaCategorias(setCategorias);
@@ -166,21 +196,48 @@ function PagAddCategoria() {
     const handleEnviar = async () => {
         if (addCat) {
             if (!addSubCat) { //mais simples primeiro...
+                if (CheckCamposVazios(categoriaInput)) {
+                    Alerta(1, "Preencha todos os campos")
+                    return
+                }
                 await adicaoSemSub();
             } else { // se tiver subCat...
+                if (CheckCamposVazios([categoriaInput, subCategoriaInput])) {
+                    Alerta(1, "Preencha todos os campos")
+                    return
+                }
                 await adicaoComSub();
             }
         } else { // se nao for pra add cat...
+            if (CheckCamposVazios(subCategoriaUpd) || CheckCamposNulos(categoriaSelecionada)) {
+                Alerta(1, "Preencha todos os campos")
+                return
+            }
             await atualizaSub();
         }
     };
 
+    const handleFecharModal = () => {
+        setMostrarModal(false);
+        setMsgModal({});
+    }
+
     return (
         <div className="PagAddCategoria">
             <CabecalhoHome />
+            <AlertaNotificação />
             <button className='voltar' onClick={() => { navigate("/PagEscolhaProdutos") }}>
                 Voltar
-                </button>
+            </button>
+
+            {mostrarModal && (
+                <InfoModalCat
+                    msgObj={msgModal}
+                    fechar={handleFecharModal}
+                    reFetch={fetchData}  // Pass fetchData as a prop
+                />
+            )}
+
             <div className="Formulario">
                 <h2>Adicionar Nova Categoria</h2>
                 <div className="FormularioCampo">
@@ -194,7 +251,7 @@ function PagAddCategoria() {
                             <input
                                 className="CodigoCatProibido"
                                 type="text"
-                                value = {(codigoDisponivel == null) ? null : (codigoDisponivel < 10 ? "0" + codigoDisponivel : codigoDisponivel)}
+                                value={(codigoDisponivel == null) ? null : (codigoDisponivel < 10 ? "0" + codigoDisponivel : codigoDisponivel)}
                                 readOnly
                             />
                             <input
@@ -238,7 +295,7 @@ function PagAddCategoria() {
                         </div>
                     )}
                     <button className="btnEnviar" onClick={() => { handleEnviar() }}>Enviar</button>
-                    
+
                 </div>
                 <div className="ListaCategorias">
                     <h3>Lista categorias:</h3>

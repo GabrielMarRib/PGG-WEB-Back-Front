@@ -1,6 +1,8 @@
+
 .PagAddCategoria {
     margin: 0;
     padding: 0;
+    min-height: 100%;
     box-sizing: border-box;
     font-family: 'JetBrains Mono';
 }
@@ -8,13 +10,13 @@
 .PagAddCategoria .Formulario {
     border: 1px solid #000;
     padding: 20px;
-    width: 1850px; 
+    width: 95%; 
     background-color: rgb(228, 228, 228);
     margin: 50px auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 710px;
+    max-height: 60vh;
 }
 
 .PagAddCategoria .conteudo1{
@@ -27,13 +29,14 @@
 
 .PagAddCategoria .FormularioCampo {
     display: flex;
-    align-items: center;
+    flex-direction: row;
+    align-items: start;
     margin-bottom: 20px;
     width: 100%;
+    height: 40px;
 }
 
 .PagAddCategoria .FormularioCampo select {
-    
     padding: 5px;
     margin-right: 10px;
     border: 1px solid #000;
@@ -52,8 +55,26 @@
     height: 30px;
     font-size: 14px;
 }
+.PagAddCategoria .btnEditSpan{
+    display: flex;
+    margin-left: 1%;
+    justify-content: start;
+}
+
+.PagAddCategoria .SubCatSpan{
+    margin-left: 1%;
+}
+
 .PagAddCategoria .btnEditar{
-    margin-left: 2%;
+    border-radius: 4px;
+    background-color: #e04d18;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
+    font-family: 'JetBrains Mono';
+    padding: 5px;
+    transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
 }
 
 .PagAddCategoria .addCatProibido,
@@ -74,9 +95,18 @@
     margin-right: 10px;
 }
 
+.PagAddCategoria .btnEnviar{
+    height: 100%;
+}
+
 .PagAddCategoria .BotaoAddSubCategoria span {
     font-size: 20px;
     margin-right: 5px;
+    height: 100%;
+    flex: 1;
+}
+.PagAddCategoria .BotaoAddSubCategoria{
+    height: 100% ;
 }
 
 .PagAddCategoria .ListaCategorias {
