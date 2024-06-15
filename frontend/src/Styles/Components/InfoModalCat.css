@@ -102,3 +102,7 @@
     margin-bottom: -6%;
     margin-right: 10%;
 }
+
+.InfoModal li{
+    margin-left: -20% !important;
+}

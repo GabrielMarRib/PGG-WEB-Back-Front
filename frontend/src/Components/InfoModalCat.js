@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import '../Styles/Components/InfoModalCat.css';
 import axios from "axios";
 import { CheckCamposVazios } from '../Functions/Functions';
@@ -6,24 +6,46 @@ import AlertaNotificação from "./AlertaNotificação";
 import { useAlerta } from "../Context/AlertaContext.js";
 
 const InfoModalCat = ({ msgObj, fechar, reFetch }) => {
+  const { Alerta } = useAlerta();
 
-  const { Alerta } = useAlerta(); // alertinha...
-
-  //referentes à edição de subCats...
   const [novoNome, setNovoNome] = useState('');
   const [modoEdit, setModoEdit] = useState(false);
-
-  //referentes à visualização de produtos...
   const [modoVisProdutos, setModoVisProdutos] = useState(false);
-  const handleEditarNome = () => {
-    setNovoNome('')
-    setModoVisProdutos(false)
-    setModoEdit(prevState => !prevState)
+  const [carregando, setCarregando] = useState(false);
+  const [produtos, setProdutos] = useState(null);
+
+  const handleEditarNome = useCallback(() => {
+    setNovoNome('');
+    setModoVisProdutos(false);
+    setModoEdit(prevState => !prevState);
+  }, []);
+
+  const fetchProdutos = useCallback(async () => {
+    setCarregando(true);
+    console.log("passando por fetchProdutos...")
+    await pegaProdutos();
+    setCarregando(false);
+  }, []);
+
+  useEffect(() => {
+    fetchProdutos();
+  }, [fetchProdutos]);
+
+  const pegaProdutos = async () => {
+    try {
+      const response = await axios.post('http://localhost:4000/pegaProdutosDeSubInformado', {
+        codigoSelecionado: msgObj.catId,
+        subcatCodigoNEW: msgObj.subCatId
+      });
+      setProdutos(response.data)
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  const handleEditarCat = async (catAtual, subCategoriaUpd, subCatAtual) => { // depois fazer ele gerar um relatório aqui...
+  const handleEditarCat = useCallback(async (catAtual, subCategoriaUpd, subCatAtual) => {
     if (CheckCamposVazios(subCategoriaUpd)) {
-      Alerta(1, "Preencha todos os campos")
+      Alerta(1, "Preencha todos os campos");
       return;
     }
     try {
@@ -32,19 +54,18 @@ const InfoModalCat = ({ msgObj, fechar, reFetch }) => {
         subCatNome: subCategoriaUpd,
         subcatCodigoNEW: subCatAtual
       });
-      Alerta(2, "Alteração concluída com êxito")
+      Alerta(2, "Alteração concluída com êxito");
       fechar();
       reFetch();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  }, [Alerta, fechar, reFetch]);
 
-  const handleVisualizarProdutos = () => {
-    setModoEdit(false)
-    setModoVisProdutos(prevState => !prevState)
-
-  }
+  const handleVisualizarProdutos = useCallback(() => {
+    setModoEdit(false);
+    setModoVisProdutos(prevState => !prevState);
+  }, []);
 
   return (
     <div className="InfoModal">
@@ -66,11 +87,10 @@ const InfoModalCat = ({ msgObj, fechar, reFetch }) => {
             <br />
             Caminho completo: {msgObj.caminho}
           </h3>
-          {/*Modo de edição de Subcategorias*/}
-          {modoEdit ? (
+          {modoEdit && (
             <div className='InfoChild'>
               <div className='btnFecharInfoDiv'>
-                <button className="btnFecharInfo" onClick={() => { setModoEdit(false) }} >X</button>
+                <button className="btnFecharInfo" onClick={() => setModoEdit(false)} >X</button>
               </div>
               <input
                 className="novoNomeSub"
@@ -79,29 +99,30 @@ const InfoModalCat = ({ msgObj, fechar, reFetch }) => {
                 type="text"
                 placeholder={msgObj.subCat}
               />
-              <br></br>
-              <button onClick={() => { handleEditarCat(msgObj.catId, novoNome, msgObj.subCatId) }}>Enviar</button>
+              <br />
+              <button onClick={() => handleEditarCat(msgObj.catId, novoNome, msgObj.subCatId)}>Enviar</button>
             </div>
-          ) : (
-            null
           )}
-          {/*Modo de Visualização de produtos*/}
-          {modoVisProdutos ? (
+          {modoVisProdutos && (
             <div className='InfoChild'>
               <div className='btnFecharInfoDiv'>
-                <button className="btnFecharInfo" onClick={() => { setModoVisProdutos(false) }} >X</button>
+                <button className="btnFecharInfo" onClick={() => setModoVisProdutos(false)} >X</button>
               </div>
-              <h3>Listagem de produtos:</h3>
-              <ul>
-                {}
-              </ul>
+              <h3>Listagem de produtos inseridos na Subcategoria {msgObj.subCat}:</h3>
+              {carregando ? (
+                <div>Carregando...</div>
+              ) : (
+                <ul>
+                  {produtos.map(produto => (
+                    <li key={produto.id}>{produto.id}</li>
+                  ))}
+                </ul>
+              )}
             </div>
-          ) : (
-            null
           )}
           <div className='util'>
-            <button onClick={() => { handleEditarNome() }}>Editar Nome</button>
-            <button onClick={() => { handleVisualizarProdutos() }}>Visualizar produtos</button>
+            <button onClick={handleEditarNome}>Editar Nome</button>
+            <button onClick={handleVisualizarProdutos}>Visualizar produtos</button>
           </div>
         </div>
       </div>
@@ -109,4 +130,4 @@ const InfoModalCat = ({ msgObj, fechar, reFetch }) => {
   );
 };
 
-export default InfoModalCat;
+export default React.memo(InfoModalCat);

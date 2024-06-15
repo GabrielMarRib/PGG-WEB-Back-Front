@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useCallback  } from "react";
 import Cabecalho from "../../../Components/Cabecalho";
 import CabecalhoHome from '../../../Components/CabecalhoHome';
 import '../../../Styles/App/Service/PagAddCategoria.css';
@@ -40,15 +40,17 @@ function PagAddCategoria() {
         SetCodigoDisponivel(response.data);
     };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            setCarregando(true); // Define carregando como true antes de buscar dados
-            await pegaCodigoDisponivel();
-            await pegaCategorias(setCategorias);
-            setCarregando(false); // Define carregando como false após buscar dados
-        };
-        fetchData();
+    const fetchData = useCallback(async () => {
+        setCarregando(true);
+        console.log("passando por fetchData, q pega MUUUUUUUUUUITA coisa")
+        await pegaCodigoDisponivel();
+        await pegaCategorias(setCategorias);
+        setCarregando(false);
     }, []);
+
+    useEffect(() => {
+        fetchData();
+    }, [fetchData]);
 
     const handleChange = (e) => {
         const val = e.target.value;
@@ -97,6 +99,14 @@ function PagAddCategoria() {
             </li>
         );
     };
+
+    categorias.sort((a, b) => {
+        const dataA = parseInt(a.id);
+        const dataB = parseInt(b.id);
+    
+        return dataA - dataB;
+    });
+    
 
     const pegaDadosSub = (subItem, itemPai) => {
         return (
@@ -224,7 +234,7 @@ function PagAddCategoria() {
                 <InfoModalCat
                     msgObj={msgModal}
                     fechar={handleFecharModal}
-                    reFetch={pegaCategorias(setCategorias)}
+                    reFetch={fetchData}  // Pass fetchData as a prop
                 />
             )}
 

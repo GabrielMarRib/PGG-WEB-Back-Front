@@ -401,34 +401,36 @@ routes.get('/pegaCategoriaDisponivel', async (req, res) => {
 });
 
 
-routes.get('/pegaCategoriasCSub', async (req, res) => {// nem sei oq ta acontecendo de vdd pqp
+routes.get('/pegaCategoriasCSub', async (req, res) => {
     try {
         const snapshotSubCat = await db.collection('Categorias').get();
         const categorias = [];
 
-        for (const doc of snapshotSubCat.docs) {
+        // Fetch subcollections for all documents concurrently
+        await Promise.all(snapshotSubCat.docs.map(async (doc) => {
             const docData = {
                 id: doc.id,
                 data: doc.data(),
                 subcollections: {}
             };
 
-            // Get all subcollections for the current document
+            // Fetch all subcollections for the current document concurrently
             const subcollections = await doc.ref.listCollections();
-            for (const subcollection of subcollections) {
+            const subcollectionPromises = subcollections.map(async (subcollection) => {
                 const subcollectionSnapshot = await subcollection.get();
                 docData.subcollections[subcollection.id] = subcollectionSnapshot.docs.map(subDoc => ({
                     id: subDoc.id,
                     data: subDoc.data()
                 }));
-            }
+            });
 
+            await Promise.all(subcollectionPromises);
             categorias.push(docData);
-        }
+        }));
 
         res.json(categorias);
     } catch (error) {
-        console.error('deu ruim nas subcoleções irmao:', error);
+        console.error('deu ruim nas subcoleções irmao: ', error);
         res.status(500).json({ error: error.message });
     }
 });
@@ -473,7 +475,7 @@ routes.post('/insereCategoriaCSub', async (req, res) => {
 
 routes.post('/atualizaSub', async (req, res) => {
     try {
-        const { codigoSelecionado,subCatNome, subcatCodigoNEW } = req.body;
+        const { codigoSelecionado, subCatNome, subcatCodigoNEW } = req.body;
         const docRef = db.collection('Categorias').doc(codigoSelecionado);
         const doc = await docRef.get();
 
@@ -493,10 +495,10 @@ routes.post('/atualizaSub', async (req, res) => {
     }
 });
 
-routes.get('/pegaProdutosDeSubInformado', async (req, res) => {
+routes.post('/pegaProdutosDeSubInformado', async (req, res) => {
     try {
-        const { codigoSelecionado,subCatNome, subcatCodigoNEW } = req.body;
-        const docRef = db.collection('Categorias').doc(codigoSelecionado);
+        const { codigoSelecionado, subcatCodigoNEW } = req.body;
+        const docRef = db.collection('Categorias').doc(codigoSelecionado); // codigoSelecionado
         const doc = await docRef.get();
 
         if (!doc.exists) {
@@ -504,14 +506,15 @@ routes.get('/pegaProdutosDeSubInformado', async (req, res) => {
             return;
         }
 
-        const subCategoriasRef = docRef.collection('subCategorias').doc(subcatCodigoNEW); // no código especificado anteriormente
+        const produtosCatRef = await docRef.collection('subCategorias').doc(subcatCodigoNEW).collection('produtos').get(); // no código especificado anteriormente
 
-        res.json(subCategoriasRef)
-        return;
-        const produtos = [];
-        snapshot.forEach(doc => {
-            produtos.push(doc.id);
+        let produtosCat = [];
+        produtosCatRef.forEach(prodDoc => {
+            produtosCat.push({ id: prodDoc.id});
         });
+
+        res.json(produtosCat);
+
     } catch (error) {
         res.json(error)
     }
