@@ -20,6 +20,7 @@ const AlertaNotificação = () => {
         setVisivel(true);
         const timer = setTimeout(() => {
           setVisivel(false);
+          alerta.tipo = 0;
         }, 2000); // Define o tempo para 3 segundos (3000 ms)
         return () => clearTimeout(timer);
       }
