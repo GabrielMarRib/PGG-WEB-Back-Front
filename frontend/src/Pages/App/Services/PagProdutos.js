@@ -24,7 +24,7 @@ const ProdutoItem = memo(
     <div key={item.id}>
       <li>{item.data.Nome}</li>
       <button>Editar item</button>
-      <li>--------------</li>
+      <hr />
     </div>
   )
 );
@@ -89,6 +89,13 @@ function PagProdutos() {
     },
     [restricao]
   );
+
+  categorias.sort((a, b) => {
+    const dataA = parseInt(a.id);
+    const dataB = parseInt(b.id);
+
+    return dataA - dataB;
+});
 
   const pesquisaProduto = async (pesquisa) => {
     setRestricao(pesquisa);
