@@ -5,7 +5,7 @@
   align-items: center;
 }
 
-.Produtos #DivForms button.voltar{
+.Produtos #DivForms button.voltar {
   align-items: center;
   margin-left: 10%;
   margin-top: 20px;
@@ -14,12 +14,11 @@
 .Produtos #DivForms {
   width: 100%;
   justify-content: center;
-
 }
 
 .Produtos .container-tela-produtos {
   background-color: #ffffff;
-  width: 30%;
+  width: 40%;
   font-size: 20px;
   border-radius: 5px;
   border: 2px solid #000000;
@@ -28,14 +27,13 @@
   margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
-  margin-left:10%;
+  margin-left: 10%;
 }
 
 .Produtos .grupo-input-produto {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-
 }
 
 .Produtos .grupo-input {
@@ -48,6 +46,25 @@
 
 .Produtos .grupo-input input,
 .Produtos .grupo-input textarea {
+  width: 100%;
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid #000;
+  border-radius: 3px;
+}
+
+.Produtos .linha-inputs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.Produtos .linha-inputs .grupo-input {
+  flex: 1;
+}
+
+.Produtos .grupo-input select,
+.Produtos .grupo-input input {
   width: 100%;
   padding: 5px;
   font-size: 16px;
@@ -109,9 +126,8 @@
 }
 
 .imagem-botao {
-  width: 20px; 
-  height: 20px; 
-
+  width: 20px;
+  height: 20px;
 }
 
 .Produtos .lista-produtos {
@@ -121,4 +137,40 @@
 
 .Produtos .lista-produtos li {
   margin: 5px 0;
+}
+/* CSS NOVO */
+
+.Produtos .linha-inputs {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 10px; 
+  margin-bottom: 10px;
+}
+
+.Produtos .grupo-input {
+  margin-bottom: 10px;
+  flex: 1; 
+}
+
+.Produtos .grupo-select {
+  flex: 1; 
+  margin-right: 10px; 
+}
+
+.Produtos .grupo-codigo {
+  flex: 1; 
+  display: flex; 
+  align-items: center; 
+}
+
+.Produtos .grupo-codigo label {
+  margin-right: 10px; 
+}
+
+.Produtos .grupo-codigo input {
+  width: 100%;
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid #000;
+  border-radius: 3px;
 }

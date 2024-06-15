@@ -12,8 +12,6 @@ import { useContext } from "react";
 import { UserContext } from "../../../Context/UserContext";
 import Redirect from "../../../Functions/Redirect";
 
-
-
 const ProdutoItem = memo(({ item }) => ( //evita de rerenderizar essa porra
     <div key={item.id}>
         <li>{item.data.Nome}</li>
@@ -130,12 +128,39 @@ function PagProdutos() {
                 </div>
                 <AlertaNotificação />
                 <button className='voltar' onClick={() => { navigate("/PagEscolhaProdutos") }}>
-                Voltar
+                    Voltar
                 </button>
                 <div className="container-tela-produtos">
-                    
+
                     <div className="grupo-input-produto">
                         <h2>Adicione um produto:</h2>
+                        <div className="grupo-input linha-inputs">
+                            <div className="grupo-select">
+                                <label htmlFor="select1">Selecione a Categoria:</label>
+                                <select id="select1">
+                                    <option value="">Selecione uma opção</option>
+                                    <option value="opcao1">Opção 1</option>
+                                    <option value="opcao2">Opção 2</option>
+                                </select>
+                            </div>
+                            <div className="grupo-select">
+                                <label htmlFor="select2">Selecione a subcategoria:</label>
+                                <select id="select2">
+                                    <option value="">Selecione uma opção</option>
+                                    <option value="opcao1">Opção 1</option>
+                                    <option value="opcao2">Opção 2</option>
+                                </select>
+                            </div>
+                            <div className="grupo-codigo">
+                                <label htmlFor="novoInput">Código:</label>
+                                <input
+                                    type="text"
+                                    id="novoInput"
+                                    placeholder="Código"
+                                />
+                            </div>
+                        </div>
+
                         <div className="grupo-input">
                             <label htmlFor="nomeProduto">Nome:</label>
                             <input

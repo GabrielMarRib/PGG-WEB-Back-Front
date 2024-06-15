@@ -87,11 +87,30 @@ const CabecalhoHome = () => {
             className="paginas"> Home </a>
           </li>
             
+          
+
           <li>
-            <a onClick={() => { navigate("/PagEscolhaProdutos") }}  
-            className="paginas"> Estoque 
-            </a> 
+            <a onClick={() => { navigate("/PagEscolhaProdutos") }} className="paginas">   Estoque  </a>
+
+            
+            <ul className="dropdown"> 
+                <li> <a onClick={() => { navigate("/PagProdutos") }}    
+                className="paginas"> Adicionar Produto </a> </li>
+                <li> <a onClick={() => { navigate("/PagVenderProduto") }}    
+                  className="paginas"> Vender Produto </a> 
+                </li>
+                <li> <a onClick={() => { navigate("/PagAddCategoria") }}    
+                  className="paginas"> Adicionar Categoria </a> 
+                </li>
+            </ul>
+
           </li>
+
+
+
+
+
+          
 
           <li>
             <a onClick={() => { navigate("/PagEscolhaCurvaABC") }} className="paginas">   Curva ABC </a>
@@ -103,7 +122,7 @@ const CabecalhoHome = () => {
                 <li> <a onClick={() => { navigate("/PagCurvaABCPorValor") }}    
                   className="paginas"> Por Valor </a> 
                 </li>
-              </ul>
+            </ul>
 
           </li>
 
