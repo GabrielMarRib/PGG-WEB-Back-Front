@@ -52,6 +52,9 @@
     height: 30px;
     font-size: 14px;
 }
+.PagAddCategoria .btnEditar{
+    margin-left: 2%;
+}
 
 .PagAddCategoria .addCatProibido,
 .PagAddCategoria .CodigoCatProibido,

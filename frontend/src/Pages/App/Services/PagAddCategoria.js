@@ -79,7 +79,10 @@ function PagAddCategoria() {
             <li key={item.id} >{item.id} - {item.data.CategoriaNome}
                 <ul>
                     {subs ? (
-                        subs.map(sub => pegaDadosSub(sub, item.id))
+                        <div>
+                            {subs.map(sub => pegaDadosSub(sub, item.id))}
+                        </div>
+                        
                     ) : (
                         null
                     )}
@@ -92,6 +95,7 @@ function PagAddCategoria() {
         return (
             <li key={subItem.id}>
                 {id}.{subItem.id} - {subItem.data.subCategoriaNome}
+                <button className="btnEditar">Editar</button>
             </li>
         );
     };

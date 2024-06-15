@@ -5,47 +5,34 @@
   font-family: 'JetBrains Mono';
 }
 
-
-
 @media  screen and (max-width: 1400px) {
   .CabecalhoHome #NomeEmpresa{
       display: none;
   } 
 }
 
-@media  screen and (max-width: 1049px) {
+@media  screen and (max-width: 1050px) {
   .CabecalhoHome .nav2{
       overflow-x: auto !important;
-      overflow-y: hidden !important;
+      height: 75px;
       align-items: flex-start;
   } 
 
-  .CabecalhoHome .nav2 ul li ul.dropdown{
+  .CabecalhoHome ul li ul.dropdown{
     display: block !important;
   }
 
-  .CabecalhoHome .nav2 li:hover ul.dropdown{
+  .CabecalhoHome li:hover ul.dropdown{
     display: block;
   }
-}
-
-@media  screen and (max-width: 400px) {
-.CabecalhoHome .NomeUserIdLabel{
-    display: none;
-} 
-
-.CabecalhoHome .DivInfoUser{
-  gap: 30px;
-  float: left !important;
-}
 
 }
+
 
 @media  screen and (max-width: 1000px) {
 .CabecalhoHome #logo{
     display: none;
 } 
-
 
 .CabecalhoHome .nav1{
   display: flex !important;
@@ -60,6 +47,7 @@
   font-size: 40px;
 }
 
+
 .CabecalhoHome .nav1{
   display: flex;
   align-items: center;
@@ -67,12 +55,8 @@
   background-color: #c53d0f;
   padding: 10px 80px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+  max-height: 100px;
 }
-
-.CabecalhoHome .nav1 ul{
-  overflow: hidden;
-}
-
 
 .CabecalhoHome .nav2 {
   display: flex;
@@ -81,6 +65,7 @@
   box-shadow: 0 5px 15px rgba(133, 95, 70, 0.06);
   white-space: nowrap;
   width: 100%;
+
 }
 
 .CabecalhoHome .nav2 .paginas{
@@ -106,21 +91,22 @@
 .CabecalhoHome .nav2 ul{
     display: flex;
     align-items: center;
+    justify-content: space-around;
     list-style: none;
     padding: 0;
     width: 100%;
 }
 
-.CabecalhoHome .nav2 ul li {
+.CabecalhoHome ul li {
   display: inline-block;
   position: relative;
 }
 
-.CabecalhoHome .nav2 ul li a{
+.CabecalhoHome ul li a{
   display: block;
 }
 
-.CabecalhoHome .nav2 ul li ul.dropdown{
+.CabecalhoHome ul li ul.dropdown{
   display: none;
   position: absolute;
   z-index: 999;
@@ -150,6 +136,7 @@
   padding: 0 20px;
   position: relative;
 }
+
 
 .CabecalhoHome #navbar li a{
   text-decoration: none;
@@ -185,23 +172,13 @@
 
 
 /* Informações sobre os usuários */
-
 .CabecalhoHome .DivInfoUser{
   display: flex;
   flex-direction: row;
   align-self: center;
   white-space: nowrap;
-  justify-content: center;
-}
-
-.CabecalhoHome .testando{
-  display: flex;
-  flex-direction: row;
-  align-self: center;
-  white-space: nowrap;
-  width: 100%;
+  width: 500px;
   gap: 30px;
-  justify-content: space-between;
 }
 
 .CabecalhoHome img{
