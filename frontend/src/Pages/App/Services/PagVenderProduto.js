@@ -180,7 +180,7 @@ function PagVenderProduto() {
                             <div className="grupo-input-produto">
                                 <div className="grupo-input">
                                     <label>Selecione um produto:</label>
-                                    <select className="controle-formulario" value={JSON.stringify(produtoSelecionado)} onChange={handleChange}>
+                                    <select className="Select-Produto" value={JSON.stringify(produtoSelecionado)} onChange={handleChange}>
                                         <option value="">Selecione um produto</option>
                                         {dadosEstoqueGeral.map(pegaDadosUnicosEmVenda)}
                                     </select>

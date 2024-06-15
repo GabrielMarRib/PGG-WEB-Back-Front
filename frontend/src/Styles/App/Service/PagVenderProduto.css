@@ -46,6 +46,7 @@
     flex-direction: column;
     flex-wrap: wrap;
     padding: 0px 0px;
+   
 }
 
 .PagVenderProduto .grupo-input {
@@ -63,6 +64,7 @@
     font-size: 16px;
     border: 1px solid #000;
     border-radius: 3px;
+    
 }
 
 .PagVenderProduto .controle-formulario[readonly] {
@@ -82,4 +84,10 @@
     font-family: 'JetBrains Mono';
     margin-top: 10px;
     width: 100%;
+}
+
+
+.PagVenderProduto .Select-Produto{
+    width: 100%;
+    padding: 5px 5px;
 }
