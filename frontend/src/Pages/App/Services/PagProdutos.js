@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, memo } from 'react';
 import TesteNavBar2 from '../../../Components/Cabecalho';
+import CabecalhoHome from '../../../Components/CabecalhoHome';
 import '../../../Styles/PagProdutos.css';
 import axios from 'axios';
 import { apagarCampos, CheckCamposNulos, CheckCamposVazios } from '../../../Functions/Functions';
@@ -124,8 +125,8 @@ function PagProdutos() {
     return (
         <div className="Produtos">
             <div id="DivForms">
-                <div className="Cabecalho">
-                    <TesteNavBar2 />
+                <div className="CabecalhoHome">
+                    <CabecalhoHome />
                 </div>
                 <AlertaNotificação />
                 <button className='voltar' onClick={() => { navigate("/PagEscolhaProdutos") }}>

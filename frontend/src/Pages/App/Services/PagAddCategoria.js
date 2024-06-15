@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Cabecalho from "../../../Components/Cabecalho";
+import CabecalhoHome from '../../../Components/CabecalhoHome';
 import '../../../Styles/App/Service/PagAddCategoria.css';
 import axios from "axios";
 import { pegaCategorias } from "../../../Functions/Functions";
+import { useNavigate } from "react-router-dom";
 
 function PagAddCategoria() {
+    const navigate = useNavigate();
 
     // Gerenciamento de tela (mostra se está adicionando, e se está adicionando subCat)
     const [addCat, setAddCat] = useState(true);
@@ -170,7 +173,10 @@ function PagAddCategoria() {
 
     return (
         <div className="PagAddCategoria">
-            <Cabecalho />
+            <CabecalhoHome />
+            <button className='voltar' onClick={() => { navigate("/PagEscolhaProdutos") }}>
+                Voltar
+                </button>
             <div className="Formulario">
                 <h2>Adicionar Nova Categoria</h2>
                 <div className="FormularioCampo">
@@ -228,6 +234,7 @@ function PagAddCategoria() {
                         </div>
                     )}
                     <button className="btnEnviar" onClick={() => { handleEnviar() }}>Enviar</button>
+                    
                 </div>
                 <div className="ListaCategorias">
                     <h3>Lista categorias:</h3>

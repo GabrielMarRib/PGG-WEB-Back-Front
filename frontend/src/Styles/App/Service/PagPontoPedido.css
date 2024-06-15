@@ -1,15 +1,14 @@
-.PagPontoPedido *{
+.PagPontoPedido * {
     font-family: 'JetBrains Mono';
 }
 
 .PagPontoPedido .Tabela {
-    margin-top: 200px;
+    margin-top: 50px; /* Ajuste o espaçamento superior da tabela */
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 10px;
     margin-bottom: 10px;
-
 }
 
 .PagPontoPedido .Tabela table {
@@ -38,6 +37,7 @@
     align-items: center;
     justify-content: center;
 }
+
 .PagPontoPedido .h1PontoDePedido {
     display: flex;
     justify-content: center;

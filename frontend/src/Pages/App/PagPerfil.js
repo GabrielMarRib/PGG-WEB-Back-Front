@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import "../../Styles/App/PagPerfil.css";
 import Cabecalho from '../../Components/Cabecalho.js';
+import CabecalhoHome from "../../Components/CabecalhoHome.js";
 import ImageProfile from '../../Assets/userProfile/TESTEUSER.png';
 import ImageEmail from '../../Assets/userProfile/EMAIL.png';
 import NivelAcesso from '../../Assets/userProfile/CHAVE.png';
@@ -43,7 +44,7 @@ function PagPerfil() {
     }
     return (
         <div className="PagPerfil">
-            <Cabecalho />
+            <CabecalhoHome />
                 {/* <button className="Notificacao" onClick={togglePopup}> <img src={SININHO} alt="Sino"></img> </button> */}
             <div className="DivBtnsFuncionarios">
                     {User && User.userData && User.userData.Nivel_acesso && User.userData.Nivel_acesso==2 ? (

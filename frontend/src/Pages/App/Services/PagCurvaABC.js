@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import '../../../Styles/App/Service/PagCurvaABC.css';
 import { ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import Cabecalho from "../../../Components/Cabecalho";
+import CabecalhoHome from "../../../Components/CabecalhoHome";
 import { PegaDadosGeralDB, PegadadosVALOR } from '../../../Functions/Functions';
 import { useContext } from "react";
 import { UserContext } from "../../../Context/UserContext";
@@ -212,8 +213,8 @@ function CurvaABC() {
 
     return (
         <div className="CurvaABC">
-            <div className="Cabecalho">
-                <Cabecalho />
+            <div className="CabecalhoHome">
+                <CabecalhoHome />
             </div>
             <div className="btn">
                 <button className="Voltar" onClick={() => { navigate("/PagEscolhaCurvaABC") }}>

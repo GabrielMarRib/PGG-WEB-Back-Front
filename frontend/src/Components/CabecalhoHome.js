@@ -42,58 +42,88 @@ const CabecalhoHome = () => {
 
         <a id="NomeEmpresa">- Zetta - </a>
 
-
         <div className="DivInfoUser">
-          <ul id="navbar" className={clicked ? "#navbar active" : "#navbar"}>
-
-          </ul>
-
           <div className="NomeUserId">
             <a className="NomeUserIdLabel">Olá, {handleNomeUltimoNome()}</a>
-        </div>
-        
-          <div id="DivImg">
-            <Link to="/PagPerfil">
-              <div id="DivImg">
-                <img src={OptionIcon} />
-              </div>
-            </Link>
           </div>
-          <div id="DivImg">
-            <Notificacao />
-          </div>
-          <div id="DivImg">
-            <a
-              onClick={() => {
-                handleLogOut(navigate);
-              }}
-            >
-              <div id="DivNotificação">
-                <img src={IconLogOut} />
-              </div>
-            </a>
+
+          <div className="testando">
+            <div id="DivImg">
+              <Link to="/PagPerfil">
+                <div id="DivImg">
+                  <img src={OptionIcon} />
+                </div>
+              </Link>
+            </div>
+            <div id="DivImg">
+              <Notificacao />
+            </div>
+            <div id="DivImg">
+              <a
+                onClick={() => {
+                  handleLogOut(navigate);
+                }}
+              >
+                <div id="DivNotificação">
+                  <img src={IconLogOut} />
+                </div>
+              </a>
+            </div>
           </div>
         </div>
 
-        <div id="mobile" onClick={handleClick}>
-          <i id="bar" className={clicked ? "fas fa-times" : "fas fa-bars"}></i>
-        </div>
       </nav>
 
       <nav className="nav2">  
-      <a onClick={() => { navigate("/") }}  
-          className="paginas"> Home </a>
-          <a onClick={() => { navigate("/PagEscolhaProdutos") }}  
-          className="paginas"> Estoque </a> 
-          <a onClick={() => { navigate("/PagEscolhaCurvaABC") }} className="paginas"> Curva ABC </a>
-          <a onClick={() => { navigate("/PagPontoPedido") }}  
-          className="paginas"> Ponto de Pedido </a>
-          <a onClick={() => { navigate("/PEPS") }} 
-          className="paginas"> PEPS </a>
-          <a onClick={() => { navigate("/PagLoteEconomico") }}  
-          className="paginas"> Lote Econômico </a>
-          <a onClick={() => { navigate("/pagInicial") }} 
-          className="paginas"> Custo Médio </a>
+
+          <ul className="nav2ul">
+          <li>
+            <a onClick={() => { navigate("/") }}  
+            className="paginas"> Home </a>
+          </li>
+            
+          <li>
+            <a onClick={() => { navigate("/      PagEscolhaProdutos") }}  
+            className="paginas"> Estoque 
+            </a> 
+          </li>
+
+          <li>
+            <a onClick={() => { navigate("/ PagEscolhaCurvaABC") }} className="paginas">   Curva ABC </a>
+
+            
+            <ul className="dropdown"> 
+                <li> <a onClick={() => { navigate("/PagCurvaABC") }}    
+                className="paginas"> Por Frequencia </a> </li>
+                <li> <a onClick={() => { navigate("/PagCurvaABCPorValor") }}    
+                  className="paginas"> Por Valor </a> 
+                </li>
+              </ul>
+          </li>
+
+          <li>
+            <a onClick={() => { navigate("/PagPontoPedido") }}  
+            className="paginas"> Ponto de Pedido </a>
+          </li>
+
+          <li> 
+            <a onClick={() => { navigate("/PEPS") }} 
+            className="paginas"> PEPS </a>
+          </li>
+
+          <li> 
+            <a onClick={() => { navigate("/PagLoteEconomico") }}  
+            className="paginas"> Lote Econômico </a>
+          </li>
+          
+          <li> 
+            <a onClick={() => { navigate("/pagInicial") }} 
+            className="paginas"> Custo Médio </a>
+          </li>
+            
+
+        </ul>
+
       </nav>
 
     </div>
