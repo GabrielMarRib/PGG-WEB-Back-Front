@@ -225,3 +225,7 @@ export const pegaCategorias = async (setOBJ) =>{
     const response = await axios.get('http://localhost:4000/pegaCategoriasCSub')
     setOBJ(response.data)
 }
+export const pegaSubCategorias = async (setOBJ) =>{
+    const response = await axios.get('http://localhost:4000/pegaCategoriasCSub')
+    setOBJ(response.data)
+}

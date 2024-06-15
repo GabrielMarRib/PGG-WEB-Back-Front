@@ -131,11 +131,12 @@ routes.get('/PegadadosCurvaABC', async (req, res) => {
 
 routes.post('/insereProdutos', async (req, res) => {
 
-    const { nome, custoUnit, quantidade, descricao } = req.body;
+    const { nome, custoUnit, quantidade, descricao, CodigoProduto } = req.body;
     const data = new Date();
     try {
         const EstoqueRef = db.collection('Estoque');
-        const produtoNovo = await EstoqueRef.add({
+        const produtoNovo = EstoqueRef.doc(CodigoProduto)
+        await produtoNovo.set({
             Data_Entrada: data,
             Descricao: descricao,
             Nome: nome,
@@ -143,7 +144,7 @@ routes.post('/insereProdutos', async (req, res) => {
             Quantidade: quantidade
         });
 
-        res.status(200).json({ response: produtoNovo.id });
+        res.status(200).json({ response: CodigoProduto });
     } catch (error) {
         console.error('Error handling route: ', error);
         res.status(500).json({ error: 'Internal Server Error', details: error.message });
@@ -492,4 +493,32 @@ routes.post('/atualizaSub', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
+
+routes.post('/InsereCategorias', async (req, res) => {
+ 
+try{
+    const { Categoria, SubCategoria, CodigoCategoria } = req.body;
+
+    const TabelaCategoriasRef = db.collection('Categorias');
+    
+    const CategoriasDoc = TabelaCategoriasRef.doc(Categoria);
+    const SubCategoriaRef = CategoriasDoc.collection('subCategorias');
+    const SubCategoriaDoc = SubCategoriaRef.doc(SubCategoria);
+    const SubCategoriaDocProdutos = SubCategoriaDoc.collection('produtos');
+    const SubCategoriaDocProdutosRef = SubCategoriaDocProdutos.doc(CodigoCategoria)
+
+    await SubCategoriaDocProdutosRef.set({
+     
+    });
+
+    res.status(200).json({ message: "Inserção OK" });
+
+}catch(error){
+    res.status(500).json({ error: error.message });
+}
+
+});
+
+
 module.exports = routes;
