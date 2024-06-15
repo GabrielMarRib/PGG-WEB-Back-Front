@@ -492,4 +492,29 @@ routes.post('/atualizaSub', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
+routes.get('/pegaProdutosDeSubInformado', async (req, res) => {
+    try {
+        const { codigoSelecionado,subCatNome, subcatCodigoNEW } = req.body;
+        const docRef = db.collection('Categorias').doc(codigoSelecionado);
+        const doc = await docRef.get();
+
+        if (!doc.exists) {
+            res.status(404).json({ error: 'documento nao encontrado' });
+            return;
+        }
+
+        const subCategoriasRef = docRef.collection('subCategorias').doc(subcatCodigoNEW); // no código especificado anteriormente
+
+        res.json(subCategoriasRef)
+        return;
+        const produtos = [];
+        snapshot.forEach(doc => {
+            produtos.push(doc.id);
+        });
+    } catch (error) {
+        res.json(error)
+    }
+});
+
 module.exports = routes;

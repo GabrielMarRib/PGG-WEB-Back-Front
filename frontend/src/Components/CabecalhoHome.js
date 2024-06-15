@@ -88,13 +88,13 @@ const CabecalhoHome = () => {
           </li>
             
           <li>
-            <a onClick={() => { navigate("/      PagEscolhaProdutos") }}  
+            <a onClick={() => { navigate("/PagEscolhaProdutos") }}  
             className="paginas"> Estoque 
             </a> 
           </li>
 
           <li>
-            <a onClick={() => { navigate("/ PagEscolhaCurvaABC") }} className="paginas">   Curva ABC </a>
+            <a onClick={() => { navigate("/PagEscolhaCurvaABC") }} className="paginas">   Curva ABC </a>
 
             
             <ul className="dropdown"> 
