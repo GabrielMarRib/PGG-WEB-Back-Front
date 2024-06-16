@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Cabecalho from "../../../Components/Cabecalho";
+import Cabecalho from "../../../Components/CabecalhoHome";
 import '../../../Styles/App/Service/PagRelatorios.css';
 import { useContext } from "react";
 import { UserContext } from "../../../Context/UserContext";

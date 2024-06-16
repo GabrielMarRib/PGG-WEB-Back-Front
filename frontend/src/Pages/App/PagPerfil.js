@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import "../../Styles/App/PagPerfil.css";
 import Cabecalho from '../../Components/Cabecalho.js';
-import CabecalhoHome from "../../Components/CabecalhoHome.js";
+import CabecalhoHome from "../../Components/CabecalhoHome";
 import ImageProfile from '../../Assets/userProfile/TESTEUSER.png';
 import ImageEmail from '../../Assets/userProfile/EMAIL.png';
 import NivelAcesso from '../../Assets/userProfile/CHAVE.png';
@@ -46,18 +46,22 @@ function PagPerfil() {
         <div className="PagPerfil">
             <CabecalhoHome />
                 {/* <button className="Notificacao" onClick={togglePopup}> <img src={SININHO} alt="Sino"></img> </button> */}
-            <div className="DivBtnsFuncionarios">
-                    {User && User.userData && User.userData.Nivel_acesso && User.userData.Nivel_acesso==2 ? (
-                     <div id="IdBtnAddFunc">
-                        <button className="AddFunc" onClick={() =>{navigate('/PagAddFunc')}}> <img src={AddPerfil} id="IdAddFuncIcon"></img> Adicionar Funcionário</button>
-                        <button className="AddFunc" onClick={() =>{navigate('/PagFuncionarios')}}> <img src={IconListaFunc} id="IdAddFuncIcon"></img> Lista de Funcionarios</button>
-                        <button className="AddFunc" onClick={() => { navigate('/PagRelatorios') }}><img src={IconListaFunc} id="IdAddFuncIcon"></img> Relatórios</button>
+            <div className="PegaTudo">
+                <div className="DivBtnsFuncionarios">
+                        {User && User.userData && User.userData.Nivel_acesso && User.userData.Nivel_acesso==2 ? (
+                        <div id="IdBtnAddFunc">
+                            <button className="AddFunc" onClick={() =>{navigate('/PagAddFunc')}}> <img src={AddPerfil} id="IdAddFuncIcon"></img> Adicionar Funcionário</button>
+                            <button className="AddFunc" onClick={() =>{navigate('/PagFuncionarios')}}> <img src={IconListaFunc} id="IdAddFuncIcon"></img> Lista de Funcionarios</button>
+                            <button className="AddFunc" onClick={() => { navigate('/PagRelatorios') }}><img src={IconListaFunc} id="IdAddFuncIcon"></img> Relatórios</button>
+                        </div>
+                        ):
+                            null
+                        }
+                        <div className="notific"> 
                         <Notificacao />
-                     </div>
-                    ):
-                        null
-                    }
-            </div>
+                        </div>
+                </div>
+            </div>                
             <div className="Corpo">
                 <div className="coluna1">
 
@@ -89,9 +93,6 @@ function PagPerfil() {
                 </div>
 
                 <div className="coluna2">
-             
-                  
-                    
                     {showPopup && (
                         <div className="popup">
                             <div className="popup-content">

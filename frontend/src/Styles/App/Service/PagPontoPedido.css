@@ -45,3 +45,28 @@
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+
+.PagPontoPedido {
+    font-family: 'JetBrains Mono';
+}
+
+.PagPontoPedido .btn button.voltar{
+    width: 80px;
+}
+
+.PagPontoPedido .btn{
+    margin-left:3%;
+}
+
+.PagPontoPedido button {
+    padding: 10px;
+    border-radius: 3px;
+    background-color: #e04d18;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-size: 20px;
+    font-family: 'JetBrains Mono';
+    margin-top: 20px;
+    margin-right: 50px;
+}

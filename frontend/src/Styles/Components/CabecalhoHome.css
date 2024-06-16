@@ -14,7 +14,6 @@
 @media  screen and (max-width: 1050px) {
   .CabecalhoHome .nav2{
       overflow-x: auto !important;
-      height: 75px;
       align-items: flex-start;
   } 
 
@@ -47,12 +46,11 @@
   font-size: 40px;
 }
 
-
 .CabecalhoHome .nav1{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #fca31d;
+  background-color: #c53d0f;
   padding: 10px 80px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
   max-height: 100px;
@@ -65,7 +63,6 @@
   box-shadow: 0 5px 15px rgba(133, 95, 70, 0.06);
   white-space: nowrap;
   width: 100%;
-
 }
 
 .CabecalhoHome .nav2 .paginas{
@@ -178,7 +175,7 @@
   flex-direction: row;
   align-self: center;
   white-space: nowrap;
-  width: 500px;
+  width: 440px;
   gap: 30px;
 }
 

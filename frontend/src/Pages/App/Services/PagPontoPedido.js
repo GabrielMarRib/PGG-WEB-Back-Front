@@ -5,8 +5,13 @@ import axios from 'axios';
 import { PegaDadosGeralDB } from '../../../Functions/Functions';
 import { UserContext } from '../../../Context/UserContext';
 import Redirect from '../../../Functions/Redirect';
+import { useNavigate } from "react-router-dom";
+
+
 
 function PagPontoPedido() {
+
+    const navigate = useNavigate();
     const [dadosEstoqueGeral, setDadosEstoqueGeral] = useState([]);
     const [dadosPP, setDadosPP] = useState([]);
     const [carregando, setCarregando] = useState(true);
@@ -75,6 +80,11 @@ function PagPontoPedido() {
             <div className="CabecalhoHome">
                 <CabecalhoHome />
             </div>
+            <div className="btn">
+                <button className="Voltar" onClick={() => { navigate("/PagHome") }}>
+                    Voltar
+                </button>
+            </div> 
             <div className="conteudoPaginaMaster">
                 <h1 className='h1PontoDePedido'>Gestão de Ponto de Pedido</h1>
                 <div className="Tabela">

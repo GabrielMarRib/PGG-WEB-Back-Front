@@ -4,6 +4,7 @@
     box-sizing: border-box;
     font-family: 'JetBrains Mono';
   }
+  
   .PagAddFunc div.btn{
     margin-left: 25%;
     margin-top: 10px;
@@ -42,6 +43,7 @@
     padding: 3px;
     cursor: pointer;
   }
+  
   .PagAddFunc button.enviar:hover{
     background-color: #86290a;
     transition: 0.6s;

@@ -1,10 +1,9 @@
-import Cabecalho from "../../../Components/Cabecalho";
+import CabecalhoHome from "../../../Components/CabecalhoHome.js";
 import "../../../Styles/App/Service/PagAddFunc.css";
 import { InputMask } from "primereact/inputmask";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
-
 import { UserContext } from "../../../Context/UserContext";
 import Redirect from "../../../Functions/Redirect";
 import RedirectAcesso from "../../../Functions/RedirectAcesso";
@@ -51,7 +50,7 @@ function PagAddFunc() {
   return (
     <div className="PagAddFunc">
       <div className="Cabecalho">
-        <Cabecalho />
+        <CabecalhoHome />
       </div>
 
       <div className="btn">

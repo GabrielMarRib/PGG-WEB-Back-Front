@@ -141,17 +141,30 @@
     overflow-y: scroll;
     background-color: #eceae8;
 }
-.PagPerfil .DivBtnsFuncionarios{
 
-    width: 75vw;
-    margin-top: 30px;
+.PagPerfil .PegaTudo{
+    margin-top: 2vw;
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
+
+.PagPerfil .DivBtnsFuncionarios{
+    display: flex;
+    width: 1100px;
+}
+
+.PagPerfil .notific{
+    display: flex;
+    margin-left: 420px;
+}
+
 .PagPerfil #IdBtnAddFunc{
     display: flex;
     justify-content: center;
     gap: 20px;
-    
 }
+
 .PagPerfil #IdAddFuncIcon{
     margin-top: 5px;
     margin-left: 10px;
@@ -180,32 +193,38 @@
     height: 40px;
 }
 /* Imagens das Informações*/
-.PagPerfil img {
+.PagPerfil .Imagem1 {
     width: 25px;
     height: 25px;
 }
+
+.PagPerfil .Imagem2 {
+    width: 25px;
+    height: 25px;
+}
+.PagPerfil .Imagem3 {
+    width: 25px;
+    height: 25px;
+}
+.PagPerfil .Imagem4 {
+    width: 25px;
+    height: 25px;
+}
+.PagPerfil .Imagem5 {
+    width: 25px;
+    height: 25px;
+}
+
 
 .PagPerfil .Imagem1 {
     margin-top: -10px;
 }
 
-.PagPerfil .Notificacao {
-    position: absolute;
-    height: 85px;
-    width: 70px;
-    right: 18vw;
-    top: 12vh;
-    border-radius: 10px;
+
+.PagPerfil .notific img {
+    height: 35px;
+    width: 35px;
 }
 
-.PagPerfil .Notificacao img {
-    height: 80px;
-    width: 80px;
-}
-
-.PagPerfil .Notificacao img {
-    height: 50px;
-    width: 50px;
-}
 
 

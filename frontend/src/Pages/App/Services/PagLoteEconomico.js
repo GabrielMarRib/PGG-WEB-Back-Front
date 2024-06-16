@@ -11,9 +11,11 @@ import { useAlerta } from "../../../Context/AlertaContext.js";
 import { useContext } from "react";
 import { UserContext } from "../../../Context/UserContext";
 import Redirect from "../../../Functions/Redirect";
+import { useNavigate } from "react-router-dom";
 
 
 //Funcçoes
+
 const PesquisaLoteEconomico = async (HashProduto, setRespostaPesqusia) => {
   try {
     const response = await axios.post("http://localhost:4000/LoteEconomico", {
@@ -42,6 +44,8 @@ const PesquisaLoteEconomico = async (HashProduto, setRespostaPesqusia) => {
 };
 
 function PagLoteEconomico() {
+
+  const navigate = useNavigate();
   const { Alerta } = useAlerta();
   const [dadosEstoqueGeral, setDadosEstoqueGeral] = useState([]);
   const [restricao, setRestricao] = useState("");
@@ -221,6 +225,11 @@ function PagLoteEconomico() {
         <CabecalhoHome />
       </div>
 
+      <div className="btn">
+                <button className="Voltar"  onClick={() => { navigate("/PagHome") }}>
+                    Voltar
+                </button>
+      </div>
       <div className="ConteudoDaPagina">
         <div className={isVisibleForms ? "terminalShow" : "terminal"}>
           <div className="barra-pesquisa">

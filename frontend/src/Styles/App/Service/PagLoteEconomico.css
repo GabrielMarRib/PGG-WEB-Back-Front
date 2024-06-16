@@ -8,7 +8,6 @@
     justify-content: center;
     vertical-align: middle;
     margin-top: 5%;
-
   }
   
   .LoteEconomico button {
@@ -104,12 +103,6 @@
   .LoteEconomico .lista-LoteEconomico {
     list-style-type: none;
     padding: 0;
-  }
-  
-  .LoteEconomico li {
-    font-size: 20px;
-    font-weight: bold;
-    margin: 5px 0;
   }
   
   .LoteEconomico .DivsResutlados {
@@ -243,5 +236,30 @@
     
   }
   
+  .LoteEconomico {
+    font-family: 'JetBrains Mono';
+}
+
+.LoteEconomico .btn .voltar{
+    width: 80px;
+}
+
+.LoteEconomico .btn{
+    margin-left:3%;
+}
+
+.LoteEconomico .Voltar {
+  width: 100px;
+    padding: 10px;
+    border-radius: 3px;
+    background-color: #e04d18;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-size: 20px;
+    font-family: 'JetBrains Mono';
+    margin-top: 20px;
+    margin-left: 300px;
+}
   
   
