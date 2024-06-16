@@ -6,7 +6,7 @@ import { PegaDadosGeralDB } from '../../../Functions/Functions';
 import { UserContext } from '../../../Context/UserContext';
 import Redirect from '../../../Functions/Redirect';
 import { useNavigate } from "react-router-dom";
-
+import BuscarCategoria from '../../../Components/BuscaCategoria';
 
 
 function PagPontoPedido() {
@@ -15,7 +15,8 @@ function PagPontoPedido() {
     const [dadosEstoqueGeral, setDadosEstoqueGeral] = useState([]);
     const [dadosPP, setDadosPP] = useState([]);
     const [carregando, setCarregando] = useState(true);
-
+    const [produtosCats, setProdutosCats] = useState(null);
+    const [produtosCatsTraduzidos, setProdutosCatsTraduzidos] = useState(null);
     const UserOBJ = useContext(UserContext);
     const User = UserOBJ.User;
 
@@ -75,6 +76,11 @@ function PagPontoPedido() {
         return null;
     }
 
+    const pegaProdutosComCat = (obj) =>{
+        setProdutosCats(obj)
+        console.log(obj)
+    }
+ 
     return (
         <div className="PagPontoPedido">
             <div className="CabecalhoHome">
@@ -84,9 +90,14 @@ function PagPontoPedido() {
                 <button className="Voltar" onClick={() => { navigate("/PagHome") }}>
                     Voltar
                 </button>
-            </div> 
+                <BuscarCategoria 
+                    funcaoReturn={pegaProdutosComCat}
+                
+                />
+            </div>
             <div className="conteudoPaginaMaster">
                 <h1 className='h1PontoDePedido'>Gestão de Ponto de Pedido</h1>
+
                 <div className="Tabela">
                     <table border="1">
                         <thead>
@@ -108,7 +119,12 @@ function PagPontoPedido() {
                                     <td colSpan="9">Carregando...</td>
                                 </tr>
                             ) : (
-                                dadosEstoqueGeral.map(pegaDadosComunsEmPP)
+                                produtosCats?.length > 0 ? (
+                                    dadosEstoqueGeral.map(pegaDadosComunsEmPP)
+                                ) : (
+                                    null
+                                )
+
                             )}
                         </tbody>
                     </table>

@@ -125,7 +125,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    max-width: 50%; /* Adjust max-width as needed */
     min-width: 40%; /* Adjust min-width as needed */
     overflow-x: hidden;
     overflow-y: auto;
@@ -133,9 +132,13 @@
 
 .PagRelatorios .InfoRelatorio {
     font-size: 16px;
+    min-width: 100%;
 }
 
 .PagRelatorios .EspacoReservado {
     font-size: 16px;
     color: #aaa;
+}
+.PagRelatorios .infoRelatorioPai{
+    width: 100%;
 }

@@ -45,16 +45,19 @@ function PagHome() {
                 </div>
               </a>
             </div>
-
-            <div className="ag-courses_item">
-              <a onClick={() => { navigate("/PagEscolhaCurvaABC") }} className="ag-courses-item_link">
-                <div className="ag-courses-item_bg"></div>
-                <div className="ag-courses-item_title">
-                  <span className="title-text">Curva ABC</span>
-                  <img className="Imagem1" src={ImageABC} alt="Caixaimg" />
-                </div>
-              </a>
-            </div>
+            {User && User.userData && User.userData.Nivel_acesso && User.userData.Nivel_acesso >= 1 ? (
+              <div className="ag-courses_item">
+                <a onClick={() => { navigate("/PagEscolhaCurvaABC") }} className="ag-courses-item_link">
+                  <div className="ag-courses-item_bg"></div>
+                  <div className="ag-courses-item_title">
+                    <span className="title-text">Curva ABC</span>
+                    <img className="Imagem1" src={ImageABC} alt="Caixaimg" />
+                  </div>
+                </a>
+              </div>
+            ) : (
+              null
+            )}
 
             <div className="ag-courses_item">
               <a onClick={() => { navigate("/PagPontoPedido") }} className="ag-courses-item_link">

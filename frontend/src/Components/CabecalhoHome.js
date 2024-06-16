@@ -50,8 +50,8 @@ const CabecalhoHome = () => {
 
           <div className="NomeUserId">
             <a className="NomeUserIdLabel">Olá, {handleNomeUltimoNome()}</a>
-        </div>
-        
+          </div>
+
           <div id="DivImg">
             <Link to="/PagPerfil">
               <div id="DivImg">
@@ -80,72 +80,74 @@ const CabecalhoHome = () => {
         </div>
       </nav>
 
-      <nav className="nav2">  
+      <nav className="nav2">
         <ul>
           <li>
-            <a onClick={() => { navigate("/") }}  
-            className="paginas"> Home </a>
+            <a onClick={() => { navigate("/") }}
+              className="paginas"> Home </a>
           </li>
-            
-          
+
+
 
           <li>
             <a onClick={() => { navigate("/PagEscolhaProdutos") }} className="paginas">   Estoque  </a>
 
-            
-            <ul className="dropdown"> 
-                <li> <a onClick={() => { navigate("/PagProdutos") }}    
+
+            <ul className="dropdown">
+              <li> <a onClick={() => { navigate("/PagProdutos") }}
                 className="paginas"> Adicionar Produto </a> </li>
-                <li> <a onClick={() => { navigate("/PagVenderProduto") }}    
-                  className="paginas"> Vender Produto </a> 
-                </li>
-                <li> <a onClick={() => { navigate("/PagAddCategoria") }}    
-                  className="paginas"> Adicionar Categoria </a> 
-                </li>
+              <li> <a onClick={() => { navigate("/PagVenderProduto") }}
+                className="paginas"> Vender Produto </a>
+              </li>
+              {User && User.userData && User.userData.Nivel_acesso && User.userData.Nivel_acesso == 2 ? (
+                <li> <a onClick={() => { navigate("/PagAddCategoria") }}
+                  className="paginas"> Gerir Categorias </a>
+                </li>) : (
+                  null
+                )
+              }
             </ul>
 
           </li>
 
 
+          {User && User.userData && User.userData.Nivel_acesso && User.userData.Nivel_acesso >= 1 ? (
+            <li>
+              <a onClick={() => { navigate("/PagEscolhaCurvaABC") }} className="paginas">   Curva ABC </a>
 
 
-
-          
-
-          <li>
-            <a onClick={() => { navigate("/PagEscolhaCurvaABC") }} className="paginas">   Curva ABC </a>
-
-            
-            <ul className="dropdown"> 
-                <li> <a onClick={() => { navigate("/PagCurvaABC") }}    
-                className="paginas"> Por Frequencia </a> </li>
-                <li> <a onClick={() => { navigate("/PagCurvaABCPorValor") }}    
-                  className="paginas"> Por Valor </a> 
+              <ul className="dropdown">
+                <li> <a onClick={() => { navigate("/PagCurvaABC") }}
+                  className="paginas"> Por Frequencia </a> </li>
+                <li> <a onClick={() => { navigate("/PagCurvaABCPorValor") }}
+                  className="paginas"> Por Valor </a>
                 </li>
-            </ul>
+              </ul>
 
+            </li>) : (
+            null
+          )}
+
+          <li>
+            <a onClick={() => { navigate("/PagPontoPedido") }}
+              className="paginas"> Ponto de Pedido </a>
           </li>
 
           <li>
-            <a onClick={() => { navigate("/PagPontoPedido") }}  
-            className="paginas"> Ponto de Pedido </a>
+            <a onClick={() => { navigate("/PEPS") }}
+              className="paginas"> PEPS </a>
           </li>
 
-          <li> 
-            <a onClick={() => { navigate("/PEPS") }} 
-            className="paginas"> PEPS </a>
+          <li>
+            <a onClick={() => { navigate("/PagLoteEconomico") }}
+              className="paginas"> Lote Econômico </a>
           </li>
 
-          <li> 
-            <a onClick={() => { navigate("/PagLoteEconomico") }}  
-            className="paginas"> Lote Econômico </a>
+          <li>
+            <a onClick={() => { navigate("/pagInicial") }}
+              className="paginas"> Custo Médio </a>
           </li>
-          
-          <li> 
-            <a onClick={() => { navigate("/pagInicial") }} 
-            className="paginas"> Custo Médio </a>
-          </li>
-            
+
 
         </ul>
       </nav>

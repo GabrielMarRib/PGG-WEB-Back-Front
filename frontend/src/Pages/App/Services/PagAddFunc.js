@@ -8,7 +8,11 @@ import { UserContext } from "../../../Context/UserContext";
 import Redirect from "../../../Functions/Redirect";
 import RedirectAcesso from "../../../Functions/RedirectAcesso";
 import { handleAdicionarUser } from "../../../Functions/Functions";
+import { useAlerta } from "../../../Context/AlertaContext.js";
+import AlertaNotificação from "../../../Components/AlertaNotificação.js";
+
 function PagAddFunc() {
+  const { Alerta } = useAlerta(); // alertinha...
   const [nome, setNome] = useState("");
   const [cpf, setCpf] = useState("");
   const [email, setEmail] = useState("");
@@ -34,7 +38,7 @@ function PagAddFunc() {
       parseInt(selectedAccess),
       User
     );
-    alert(msg);
+    Alerta(2, msg)
     setSelectedAccess(null);
     setNome('');
     setCpf(null)
@@ -52,7 +56,7 @@ function PagAddFunc() {
       <div className="Cabecalho">
         <CabecalhoHome />
       </div>
-
+      <AlertaNotificação />
       <div className="btn">
         <button className="Voltar" onClick={() => { navigate("/PagPerfil") }}>
             Voltar

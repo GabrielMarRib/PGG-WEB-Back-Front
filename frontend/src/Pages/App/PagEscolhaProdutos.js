@@ -27,22 +27,23 @@ function PagEscolhaProdutos() {
                                 <div className="ag-courses-item_title">Adicionar Produto</div>
                             </a>
                         </div>
-                        {User && User.userData && User.userData.Nivel_acesso && User.userData.Nivel_acesso >=1 ? (
+                       
                             <div className="ag-courses_item">
                             <a onClick={() => { navigate("/PagVenderProduto") }} className="ag-courses-item_link">
                                 <div className="ag-courses-item_bg"></div>
                                 <div className="ag-courses-item_title">Vender Produto</div>
                             </a>
                         </div>
-                        ): 
-                            null
-                        }
+                        {User && User.userData && User.userData.Nivel_acesso && User.userData.Nivel_acesso == 2 ? (
                         <div className="ag-courses_item">
                             <a onClick={() => { navigate("/PagAddCategoria") }} className="ag-courses-item_link">
                                 <div className="ag-courses-item_bg"></div>
-                                <div className="ag-courses-item_title">Adicionar Categoria</div>
+                                <div className="ag-courses-item_title">Gerir Categorias</div>
                             </a>
                         </div>
+                        ): (
+                            null
+                        )}
                     </div>
                 </div>
             </div>

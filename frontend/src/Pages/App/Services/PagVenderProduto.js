@@ -7,7 +7,6 @@ import { PegaDadosGeralDB, CheckCamposNulos, pegaDadosPP } from '../../../Functi
 import Redirect from '../../../Functions/Redirect';
 import { UserContext } from '../../../Context/UserContext';
 import { useContext } from 'react';
-import RedirectAcesso from '../../../Functions/RedirectAcesso.js';
 import AlertaNotificação from './../../../Components/AlertaNotificação.js';
 import { useAlerta } from ".././../../Context/AlertaContext.js";
 import { useNavigate } from 'react-router-dom';
@@ -27,10 +26,7 @@ function PagVenderProduto() {
     const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
     const User = UserOBJ.User; //Pega só o User....
     const { Alerta } = useAlerta();
-
-
     Redirect(User)
-    RedirectAcesso(User,1)
 
     function pegaDadosUnicosEmVenda(item) {
         return (<option key={item.id} value={JSON.stringify({ id: item.id, data: item.data })}>{item.data.Nome}</option>)
@@ -88,7 +84,7 @@ function PagVenderProduto() {
                     itemId: produtoSelecionado.id
                 });
 
-                handleGerarRelatorioVenda(produtoSelecionado.id, produtoSelecionado.data.Nome, quantidadeVenda,receitaEstimada, quantidadeDisponivel)
+                handleGerarRelatorioVenda(produtoSelecionado.id, produtoSelecionado.data.Nome, quantidadeVenda,receitaEstimada, quantidadeDisponivel, custoUnitario)
                 handleGerarRelatorioPP(produtoSelecionado);
                 // alert("inserção OK")
                 Alerta(2, "Venda concluida!");
@@ -117,7 +113,7 @@ function PagVenderProduto() {
             const TR = infoComumEmPP.data.TR;
             const ES = infoComumEmPP.data.ES;
             const qtdeSobra = (quantidadeDisponivel-quantidadeVenda)
-            if (qtdeSobra >= PP)  // se ainda pode vender, manda pra casa do krl
+            if (qtdeSobra > PP)  // se ainda pode vender, manda pra casa do krl
                 return;
 
             const msg = `URGENTE!! O Produto '${produto.data.Nome}' de id: '${produto.id}', atingiu o nível de ponto de pedido!!! O produto se encontra com APENAS ${qtdeSobra}/${PP} (PP) UNIDADES`;
@@ -134,7 +130,7 @@ function PagVenderProduto() {
         }
     }
 
-    const handleGerarRelatorioVenda = async (produtoId, produtoNome, quantidadeVenda,receita, quantidadeOld) => {
+    const handleGerarRelatorioVenda = async (produtoId, produtoNome, quantidadeVenda,receita, quantidadeOld, custoUnit) => {
         if (User && User.userData && User.userData.Nome) {
             const qtdeSobra = (quantidadeOld-quantidadeVenda)
             try {
@@ -146,7 +142,8 @@ function PagVenderProduto() {
                     produtoVendidoNome: produtoNome,
                     ReceitaProd: receita,
                     QtdeDisponivel: qtdeSobra,
-                    QtdeOld: quantidadeOld
+                    QtdeOld: quantidadeOld,
+                    Produtopreco:custoUnit
                 });
             } catch (eee) {
                 console.log("deu merda")

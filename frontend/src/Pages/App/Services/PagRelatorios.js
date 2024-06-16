@@ -207,9 +207,19 @@ function PagRelatorios() {
                         <li>Quantidade Antes da venda: {relatorioSelecionado.data.Quantidade_Antes_Venda} {pegaQtde(relatorioSelecionado.data.Quantidade_Antes_Venda)}</li>
                         <li>Quantidade Vendida: {relatorioSelecionado.data.Quantidade_Vendida} {pegaQtde(relatorioSelecionado.data.Quantidade_Vendida)}</li>
                         <li>Quantidade Atual: {relatorioSelecionado.data.Quantidade_Disponivel} {pegaQtde(relatorioSelecionado.data.Quantidade_Disponivel)}</li>
+                        <li>Custo unitário: R$ {(relatorioSelecionado.data.Produto_Custo_Unit).toFixed(2)}</li>
+                        <li>Receita Total: R$ {(relatorioSelecionado.data.Receita).toFixed(2)}</li>
                     </ul>
                 </div>
-
+                <hr />
+                <h3>Dados sobre o responsável da venda:</h3>
+                <div className="listaInfo">
+                    <ul>
+                        <li>Nome do responsável: {relatorioSelecionado.data.Responsavel_Nome}</li>
+                        <li>Responsavel Id: {relatorioSelecionado.data.Responsavel_Id} </li>
+                    </ul>
+                </div>
+                <hr />
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <button className="no-print" onClick={() => window.print()}>Imprimir Relatório</button>
                     <button className="no-print" onClick={() => setShowConfirmation(true)}>Deletar relatório</button>
@@ -258,7 +268,7 @@ function PagRelatorios() {
                 </div>
                 <div className="ConteudoPrincipal">
                     {relatorioSelecionado ? (
-                        <div>
+                        <div className="infoRelatorioPai">
                             {escolheRelatorio(relatorioSelecionado)}
                         </div>
                     ) : (

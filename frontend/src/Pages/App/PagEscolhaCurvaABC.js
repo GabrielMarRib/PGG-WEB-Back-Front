@@ -4,13 +4,14 @@ import "../../Styles/App/PagEscolhaCurvaABC.css";
 import { useContext, useState } from "react";
 import { UserContext } from "../../Context/UserContext";
 import Redirect from "../../Functions/Redirect";
-
+import RedirectAcesso from '../../Functions/RedirectAcesso';
 
 function PagEscolhaCurvaABC() {
     const UserOBJ = useContext(UserContext);
     const User = UserOBJ.User;
 
     Redirect(User);
+    RedirectAcesso(User,1)
     const navigate = useNavigate();
     const [menuOpen, setMenuOpen] = useState(false);
     const toggleMenu = () => {

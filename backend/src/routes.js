@@ -303,7 +303,7 @@ routes.post('/InsereCalculosLote', async (req, res) => {
 
 routes.post('/geraRelatorioVendas', async (req, res) => {
     try {
-        const { produtoVendidoId, QtdeVendida, pessoaId, PessoaNome, produtoVendidoNome,ReceitaProd,QtdeDisponivel,QtdeOld } = req.body;
+        const { produtoVendidoId, QtdeVendida, pessoaId, PessoaNome, produtoVendidoNome,ReceitaProd,QtdeDisponivel,QtdeOld,Produtopreco } = req.body;
         const data = new Date();
 
         const relatoriosVendaRef = db.collection('Relatorios').doc('Vendas').collection('ListaRelatorios');
@@ -316,7 +316,8 @@ routes.post('/geraRelatorioVendas', async (req, res) => {
             Responsavel_Nome: PessoaNome,
             Receita: ReceitaProd,
             Quantidade_Disponivel: QtdeDisponivel,
-            Quantidade_Antes_Venda: QtdeOld
+            Quantidade_Antes_Venda: QtdeOld,
+            Produto_Custo_Unit: Produtopreco
         });
         res.status(200).json({ message: "inserção OK" });
     } catch (error) {

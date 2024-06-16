@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/UserContext";
 import { useContext } from "react";
 import Redirect from "../Functions/Redirect";
+import userEvent from "@testing-library/user-event";
 const Notificacao = () => {
 
     const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
@@ -26,16 +27,20 @@ const Notificacao = () => {
 
     useEffect(() => {
         const PegaNotificacoes = async () => {
-            setCarregando(true);
-            try {
-                const response = await RelatorioPP();
-                setNotificacoes(response);
-                console.log(response.length)
-                setQtdeNot(response.length)
-            } catch (error) {
-                console.error('Erro ao buscar notificações:', error);
-            } finally {
-                setCarregando(false);
+            if (User && User.userData) {
+                setCarregando(true);
+                try {
+                    const response = await RelatorioPP();
+                    setNotificacoes(response);
+                    console.log(response.length)
+                    if (User.userData.Nivel_acesso != 2)
+                        return
+                    setQtdeNot(response.length)
+                } catch (error) {
+                    console.error('Erro ao buscar notificações:', error);
+                } finally {
+                    setCarregando(false);
+                }
             }
         };
         PegaNotificacoes();
@@ -117,8 +122,11 @@ const Notificacao = () => {
                                             return null
                                     }
                                     if (item.data.PP && User.userData.Nivel_acesso != 2) { // se tiver, mas se for relacionada a PP, e vc nao for gestor, manda pro krl
-                                        if (vezes === 1)
+                                        if (vezes === 1) {
+
                                             return <p>não há notificações</p>
+                                        }
+
                                         else
                                             return null
                                     }
