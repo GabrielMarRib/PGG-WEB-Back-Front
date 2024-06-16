@@ -94,16 +94,22 @@ function PagProdutos() {
     const dataB = parseInt(b.id);
 
     return dataA - dataB;
-});
+  });
 
   const pesquisaProduto = async (pesquisa) => {
     setRestricao(pesquisa);
   };
 
   const AddProduto = async () => {
-    console.log("Categoria Selecionada: " + JSON.stringify(categoriaSelecionada))
-    console.log("SubCategoria Selecionada: " + JSON.stringify(SubcategoriasSelecionada))
-    console.log("CodigoProdutoCategoria: " + JSON.stringify(CodigoProdoutoCategoria))
+    console.log(
+      "Categoria Selecionada: " + JSON.stringify(categoriaSelecionada)
+    );
+    console.log(
+      "SubCategoria Selecionada: " + JSON.stringify(SubcategoriasSelecionada)
+    );
+    console.log(
+      "CodigoProdutoCategoria: " + JSON.stringify(CodigoProdoutoCategoria)
+    );
     if (
       CheckCamposNulos([
         SubcategoriasSelecionada,
@@ -127,14 +133,11 @@ function PagProdutos() {
 
       //Categorias
 
-    
       await axios.post("http://localhost:4000/InsereCategorias", {
         Categoria: categoriaSelecionada.id,
         SubCategoria: SubcategoriasSelecionada.id,
         CodigoCategoria: CodigoProdoutoCategoria,
       });
-
-
 
       const ProdutoId = await axios.post(
         "http://localhost:4000/insereProdutos",
@@ -143,7 +146,7 @@ function PagProdutos() {
           nome: nome,
           custoUnit: custoUnit,
           quantidade: quantidade,
-          CodigoProduto: CodigoProdoutoCategoria
+          CodigoProduto: CodigoProdoutoCategoria,
         }
       );
 
@@ -190,7 +193,6 @@ function PagProdutos() {
       setSubcategoriaSelecionada(null);
       SetSubCategoria(null);
       SetCategoriaSelecionada(null);
-      
     }
   };
 
@@ -436,7 +438,9 @@ function PagProdutos() {
               />
             </div>
 
-            <button className="btnInserir" onClick={() => AddProduto()}>Inserir Produto</button>
+            <button className="btnInserir" onClick={() => AddProduto()}>
+              Inserir Produto
+            </button>
           </div>
         </div>
         <div className="terminal">

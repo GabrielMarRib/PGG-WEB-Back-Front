@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { pegaCategorias } from "../Functions/Functions";
+import '../Styles/Components/BuscaCategorias.css';
 import axios from 'axios';
 
 function BuscarCategoria({ funcaoReturn }) {
@@ -86,7 +87,8 @@ function BuscarCategoria({ funcaoReturn }) {
     };
 
     return (
-        <div className="grupo-select">
+        <div className='BuscarCategoria'>
+            <div className="grupo-select">
             <select
                 value={categoriaSelecionada ? JSON.stringify(categoriaSelecionada) : "Vazio"}
                 onChange={handleChange}
@@ -95,6 +97,7 @@ function BuscarCategoria({ funcaoReturn }) {
                 {categorias.map(pegaDadosSelect)}
             </select>
             {carregando && <p>Carregando...</p>}
+            </div>
         </div>
     );
 }
