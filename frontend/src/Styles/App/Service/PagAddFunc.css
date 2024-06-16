@@ -7,7 +7,7 @@
   
   .PagAddFunc div.btn{
     margin-left: 25%;
-    margin-top: 10px;
+    margin-top: 40px;
   }
 
   .PagAddFunc div.btn:hover{
@@ -34,7 +34,7 @@
     text-align: center;
   }
   
-  .PagAddFunc button{
+  .PagAddFunc .btn button, .PagAddFunc .formAddFunc button{
     background-color: #C53D0F;
     border-color: transparent;
     color: #fff;

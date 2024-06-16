@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import CabecalhoHome from '../../Components/CabecalhoHome';
+import Cabecalho from "../../Components/CabecalhoHome.js";
 import "../../Styles/App/PagEscolhaProdutos.css"
 import { useContext } from "react";
 import { UserContext } from "../../Context/UserContext";
@@ -13,8 +13,8 @@ function PagEscolhaProdutos() {
     Redirect(User);
     return (
         <div className="PagEscolhaProdutos">
-            <div >
-                <CabecalhoHome />
+            <div>
+                <Cabecalho/>
             </div>
 
             <div className="conteudoPaginaMaster">

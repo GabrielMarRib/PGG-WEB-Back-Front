@@ -1,10 +1,9 @@
 .PagFuncionarios {
     display: flex;
     flex-direction: column;
-    height: 100vh;
     font-family: 'JetBrains Mono', sans-serif;
     align-items: center;
-    justify-content: center; 
+    justify-content: center;
 }
 
 .PagFuncionarios .btn {
@@ -17,11 +16,11 @@
 
 .PagFuncionarios .Conteudo {
     display: flex;
-    flex-grow: 1;
-    width: 80%; 
+    width: 100%; 
     max-width: 1200px; 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
     margin-top: 20px;
+    height: 600px;
 }
 
 .PagFuncionarios .btn button {
@@ -38,7 +37,7 @@
 }
 
 .PagFuncionarios .BarraLateral {
-    width: 50%;
+    width: 100%;
     border-right: 1px solid #ccc;
     padding: 10px;
     display: flex;
@@ -70,16 +69,13 @@
 }
 
 .PagFuncionarios .ConteudoPrincipal {
-    flex-grow: 1;
+    width: 100%;
     padding: 20px;
-    text-align: left;
     display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .PagFuncionarios .dados-usuario {
-    max-width: 500px;
+    width: 500px;
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 20px;

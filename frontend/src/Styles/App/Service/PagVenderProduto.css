@@ -73,7 +73,7 @@
     cursor: not-allowed; /* Change the cursor to indicate the field is not editable */
 }
 
-.PagVenderProduto button {
+.PagVenderProduto .DivForms button {
     padding: 10px;
     border-radius: 3px;
     background-color: #e04d18;

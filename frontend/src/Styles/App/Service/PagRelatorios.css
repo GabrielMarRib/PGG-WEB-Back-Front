@@ -8,7 +8,7 @@
     overflow: hidden; /* Prevent unnecessary scrollbars */
 }
 
-.PagRelatorios button {
+.PagRelatorios .btn button {
     background-color: #C53D0F;
     border-color: transparent;
     color: #fff;
