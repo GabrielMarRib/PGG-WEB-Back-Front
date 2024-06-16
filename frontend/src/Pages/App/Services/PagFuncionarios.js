@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import Cabecalho from "../../../Components/Cabecalho";
+import Cabecalho from "../../../Components/CabecalhoHome.js";
 import '../../../Styles/App/Service/PagFuncionarios.css';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";

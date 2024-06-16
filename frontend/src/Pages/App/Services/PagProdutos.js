@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback, memo } from "react";
-import TesteNavBar2 from "../../../Components/Cabecalho";
 import CabecalhoHome from "../../../Components/CabecalhoHome";
 import "../../../Styles/PagProdutos.css";
 import axios from "axios";
@@ -437,7 +436,7 @@ function PagProdutos() {
               />
             </div>
 
-            <button onClick={() => AddProduto()}>Inserir Produto</button>
+            <button className="btnInserir" onClick={() => AddProduto()}>Inserir Produto</button>
           </div>
         </div>
         <div className="terminal">

@@ -46,7 +46,7 @@
     justify-content: center;
 }
 
-.CurvaABC button {
+.CurvaABC .btn button {
     padding: 10px;
     border-radius: 3px;
     background-color: #e04d18;

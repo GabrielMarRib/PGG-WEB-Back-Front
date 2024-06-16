@@ -72,7 +72,19 @@
   border-radius: 3px;
 }
 
-.Produtos button {
+.Produtos .container-tela-produtos button {
+  padding: 10px;
+  border-radius: 3px;
+  background-color: #e04d18;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  font-size: 16px;
+  font-family: 'JetBrains Mono';
+  margin-top: 10px;
+}
+
+.Produtos .terminal button {
   padding: 10px;
   border-radius: 3px;
   background-color: #e04d18;
