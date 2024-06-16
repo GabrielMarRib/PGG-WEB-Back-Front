@@ -9,7 +9,10 @@
   }
 
 .Notificacao #DivImg{
+    height: 100%;
+    width: 100%;
     cursor: pointer;
+    display: flex;
 }
 
 /* Estilos para o popup */
@@ -121,4 +124,12 @@
 .Notificacao .BotaoAcao:hover{
   background-color: #d6501f;
 
+}
+
+.Notificacao .qtdNot{
+  height: 100%;
+  width: auto;
+  border-radius: 3px;
+  background-color: red;
+  margin-bottom: 20px;
 }

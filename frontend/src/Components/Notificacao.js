@@ -1,6 +1,6 @@
 import NotificacaoIcon from "../Assets/SinoWhite.png";
 import React, { useState, useEffect } from "react";
-import { RelatorioPP,exibeData,traduzData } from "../Functions/Functions";
+import { RelatorioPP, exibeData, traduzData } from "../Functions/Functions";
 import '../Styles/Components/Notificacao.css'
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/UserContext";
@@ -12,33 +12,34 @@ const Notificacao = () => {
     const User = UserOBJ.User; //Pega só o User....
 
     Redirect(User)
-    let vezes=0;
+    let vezes = 0;
     const [notificacoes, setNotificacoes] = useState([]);
     const [carregando, setCarregando] = useState(true);
     const navigate = useNavigate();
     const [showPopup, setShowPopup] = useState(false);
-
+    const [qtdeNot, setQtdeNot] = useState(null);
     const togglePopup = () => {
         setShowPopup(!showPopup);
     };
 
+
+
     useEffect(() => {
         const PegaNotificacoes = async () => {
-            if (showPopup) {
-                setCarregando(true);
-                try {
-                    const response = await RelatorioPP();
-                    setNotificacoes(response);
-                } catch (error) {
-                    console.error('Erro ao buscar notificações:', error);
-                } finally {
-                    setCarregando(false);
-                }
+            setCarregando(true);
+            try {
+                const response = await RelatorioPP();
+                setNotificacoes(response);
+                console.log(response.length)
+                setQtdeNot(response.length)
+            } catch (error) {
+                console.error('Erro ao buscar notificações:', error);
+            } finally {
+                setCarregando(false);
             }
         };
-
         PegaNotificacoes();
-    }, [showPopup]);
+    }, []);
 
     const handleClick = (item) => {
         if (item?.data) {
@@ -88,6 +89,9 @@ const Notificacao = () => {
                 <a onClick={togglePopup}>
                     <div id="DivImg">
                         <img src={NotificacaoIcon} />
+                        {!carregando && qtdeNot > 0 && (
+                            <span className="qtdNot">{qtdeNot < 10 ? qtdeNot : '9+'}</span>
+                        )}
                     </div>
                 </a>
             </div>
@@ -105,19 +109,19 @@ const Notificacao = () => {
                             notificacoes.length > 0 ? (
                                 notificacoes.map(item => {
                                     vezes++;
-                                    if (!item.data?.msg){ // se nao tiver msg, manda po krl
-                                        if(vezes === 1){
+                                    if (!item.data?.msg) { // se nao tiver msg, manda po krl
+                                        if (vezes === 1) {
                                             return <p>não há notificações</p>
                                         }
                                         else
                                             return null
                                     }
-                                    if (item.data.PP && User.userData.Nivel_acesso!=2){ // se tiver, mas se for relacionada a PP, e vc nao for gestor, manda pro krl
-                                        if(vezes === 1)
+                                    if (item.data.PP && User.userData.Nivel_acesso != 2) { // se tiver, mas se for relacionada a PP, e vc nao for gestor, manda pro krl
+                                        if (vezes === 1)
                                             return <p>não há notificações</p>
                                         else
                                             return null
-                                    } 
+                                    }
                                     return (
                                         <div key={item.id}>
                                             <h2>{exibeData(item)}</h2>

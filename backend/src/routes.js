@@ -361,6 +361,21 @@ routes.get('/pegaRelatorioPP', async (req, res) => {
     }
 });
 
+routes.get('/pegaRelatorioVendas', async (req, res) => {
+    try {
+        const snapshot = await db.collection('Relatorios').doc('Vendas').collection('ListaRelatorios').get(); // pega uma snap de PontoDePedido
+
+        const PP = []; // array de PP
+        snapshot.forEach(doc => { // pra cada doc na snapshot
+            PP.push({ id: doc.id, data: doc.data() }); // manda o doc.id e os dados
+        });
+
+        res.json(PP)
+    } catch (error) {
+
+    }
+});
+
 routes.post('/deletaRelatorio', async (req, res) => {
     try {
         const { TipoRelatorio, Id } = req.body;

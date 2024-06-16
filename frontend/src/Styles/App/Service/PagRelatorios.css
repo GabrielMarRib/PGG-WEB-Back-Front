@@ -4,7 +4,8 @@
     height: 100vh;
     font-family: 'JetBrains Mono', sans-serif;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start; /* Align items to the top */
+    overflow: hidden; /* Prevent unnecessary scrollbars */
 }
 
 .PagRelatorios button {
@@ -24,28 +25,30 @@
     border-radius: 5px;
 }
 
-.PagRelatorios div.btn {
+.PagRelatorios .btn {
     margin-right: 67%;
 }
 
-
-
 .PagRelatorios .Cabecalho {
+    flex: 0 0 auto; /* Prevent header from growing */
     width: 100%;
+    max-height: 80%; /* Limit header height if necessary */
 }
 
 .PagRelatorios .Conteudo {
     display: flex;
-    flex-grow: 1;
-    width: 80%;
-    max-width: 1200px;
+    flex-grow: 1; /* Allow content to grow */
+    width: 80%; /* Adjust width as needed */
+    max-width: 1200px; /* Limit maximum width */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
+    overflow: hidden; /* Prevent unnecessary scrollbars */
 }
 
 .PagRelatorios .BarraLateral {
-    width: 50%;
+    flex: 0 0 50%; /* Fixed width for the sidebar */
     border-right: 1px solid #ccc;
+    overflow-y: auto;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -93,13 +96,13 @@
     }
 }
 
-.PagRelatorios .btnFecharRel{
+.PagRelatorios .btnFecharRel {
     float: right;
     margin-right: 5%;
     margin-top: -10%;
 }
 
-.PagRelatorios .selectRelatorio{
+.PagRelatorios .selectRelatorio {
     margin-top: 2%;
     margin-bottom: 2%;
     min-width: 60%;
@@ -108,7 +111,7 @@
     font-family: 'JetBrains Mono';
 }
 
-.PagRelatorios .PaiRelatorios{
+.PagRelatorios .PaiRelatorios {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -116,15 +119,15 @@
 }
 
 .PagRelatorios .ConteudoPrincipal {
-    flex-grow: 1;
+    flex-grow: 1; /* Allow main content to grow */
     padding: 10px;
     display: flex;
     align-items: center;
-    max-width: 50%;
-    min-width: 50%;
+    justify-content: center;
+    max-width: 50%; /* Adjust max-width as needed */
+    min-width: 50%; /* Adjust min-width as needed */
     overflow-x: hidden;
     overflow-y: auto;
-    justify-content: center;
 }
 
 .PagRelatorios .InfoRelatorio {
