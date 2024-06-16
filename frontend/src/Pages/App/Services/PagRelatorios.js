@@ -5,7 +5,7 @@ import { UserContext } from "../../../Context/UserContext";
 import Redirect from "../../../Functions/Redirect";
 import RedirectAcesso from '../../../Functions/RedirectAcesso';
 import { useNavigate } from "react-router-dom";
-import { RelatorioPP, exibeData, RelatorioVendas,traduzData } from "../../../Functions/Functions";
+import { RelatorioPP, exibeData, RelatorioVendas, traduzData } from "../../../Functions/Functions";
 import axios from "axios";
 import ConfirmaModal from "../../../Components/ConfirmaModal";
 import AlertaNotificação from "../../../Components/AlertaNotificação.js";
@@ -70,44 +70,49 @@ function PagRelatorios() {
     };
 
     const mapeiaRelatorios = () => {
-        if (tipoRelatorio && tipoRelatorio !== 'nulo') {
-            let relatorioParaMapear = null;
-            switch (tipoRelatorio) {
-                case 'PP':
-                    relatorioParaMapear = relatorioPP;
-                    break;
-                case 'Vendas':
-                    relatorioParaMapear = relatorioVendas;
-                    break;
-                case 'Todos':
-                    relatorioParaMapear = relatorioPP;
-                    break;
-                default:
-                    return null;
-            }
-
-            return (
-                <div className="PaiRelatorios">
-                    {relatorioParaMapear.map((item) => { // específicos...
-                        if (item.data?.PP) {
-                            return (
-                                <div key={item.id} className="ItemRelatorio" onClick={() => handleRelatorioClick(item)}>
-                                    Relatório PP de {exibeData(item)} sobre o item '{item.data.produtoNome}' de id {item.data.produtoID}
-                                </div>
-                            )
-                        }
-                        else if (item.data?.Data_Venda) {
-                            return (
-                                <div key={item.id} className="ItemRelatorio" onClick={() => handleRelatorioClick(item)}>
-                                    Relatório de vendas de {exibeData(item)} sobre o item '{item.data.Produto_Vendido_Nome}' de id {item.data.Produto_Vendido_Id}
-                                </div>
-                            )
-                        }
-                    })}
-                </div>
-            );
+        if (!tipoRelatorio || tipoRelatorio === 'nulo') {
+            return null;
         }
+    
+        let relatorios = [];
+        if (tipoRelatorio === 'PP') {
+            relatorios = relatorioPP.map(item => ({
+                tipo: 'PP',
+                item
+            }));
+        } else if (tipoRelatorio === 'Vendas') {
+            relatorios = relatorioVendas.map(item => ({
+                tipo: 'Vendas',
+                item
+            }));
+        } else if (tipoRelatorio === 'Todos') {
+            relatorios = [
+                ...relatorioPP.map(item => ({
+                    tipo: 'PP',
+                    item
+                })),
+                ...relatorioVendas.map(item => ({
+                    tipo: 'Vendas',
+                    item
+                }))
+            ];
+        }
+    
+        return (
+            <div className="PaiRelatorios">
+                {relatorios.map(({ tipo, item }) => (
+                    <div key={item.id} className="ItemRelatorio" onClick={() => handleRelatorioClick(item)}>
+                        {tipo === 'PP' ? (
+                            `Relatório PP de ${exibeData(item)} sobre o item '${item.data.produtoNome}' de id ${item.data.produtoID}`
+                        ) : (
+                            `Relatório de vendas de ${exibeData(item)} sobre o item '${item.data.Produto_Vendido_Nome}' de id ${item.data.Produto_Vendido_Id}`
+                        )}
+                    </div>
+                ))}
+            </div>
+        );
     };
+    
 
     const deletaRelatorio = async (tipo, id) => {
         try {
@@ -124,8 +129,14 @@ function PagRelatorios() {
     };
 
     const handleConfirm = () => {
+        let colecao = '';
+        if (relatorioSelecionado.data?.PP)
+            colecao = 'PontoDePedido'
+        else if (relatorioSelecionado.data?.Produto_Vendido_Id)
+            colecao = 'Vendas'
+
         setShowConfirmation(false);
-        deletaRelatorio('PontoDePedido', relatorioSelecionado.id);
+        deletaRelatorio(colecao, relatorioSelecionado.id);
         setRelatorioSelecionado(null);
         setTipoRelatorio('nulo');
         pegaRelatorios();
@@ -149,8 +160,8 @@ function PagRelatorios() {
                 <div className="listaInfo">
                     <ul>
                         <li>Código do produto: {relatorioSelecionado.data.produtoID}</li>
-                        <li>Estoque atual: {relatorioSelecionado.data.QtdeAtual} unidades</li>
-                        <li>Ponto de pedido calculado (PP): {relatorioSelecionado.data.PP} unidades</li>
+                        <li>Estoque atual: {relatorioSelecionado.data.QtdeAtual} {pegaQtde(relatorioSelecionado.data.QtdeAtual)}</li>
+                        <li>Ponto de pedido calculado (PP): {relatorioSelecionado.data.PP} {pegaQtde(relatorioSelecionado.data.PP)}</li>
                     </ul>
                 </div>
                 <hr />
@@ -160,7 +171,7 @@ function PagRelatorios() {
                     <ul>
                         <li>Consumo Médio: {(relatorioSelecionado.data.QV / 30).toFixed(2)} itens</li>
                         <li>Tempo de Reposição: {relatorioSelecionado.data.TR} dias</li>
-                        <li>Estoque de segurança: {relatorioSelecionado.data.ES} unidades</li>
+                        <li>Estoque de segurança: {relatorioSelecionado.data.ES} {pegaQtde(relatorioSelecionado.data.ES)}</li>
                         <li>Cálculo executado: ({(relatorioSelecionado.data.QV / 30).toFixed(2)} * {relatorioSelecionado.data.TR}) + {relatorioSelecionado.data.ES} = {relatorioSelecionado.data.PP} (arredondado)</li>
                     </ul>
                 </div>
@@ -173,9 +184,46 @@ function PagRelatorios() {
         </div>
     );
 
+    const pegaQtde = (qtde) =>{
+        if(qtde == 1){
+            return "unidade"
+        }else
+            return "unidades"
+    }
+
+    const montaRelatorioVendas = () => (
+        <div className="InfoRelaorio">
+            <div className="btnFecharRel">
+                <button onClick={() => setRelatorioSelecionado(null)} className="no-print">Fechar relatório</button>
+            </div>
+            <h2 className="titulo">Relatório de Vendas</h2>
+            <h3>Data: {exibeData(relatorioSelecionado)}</h3>
+            <hr />
+            <h4>
+                Item: {relatorioSelecionado.data.Produto_Vendido_Nome}
+                <div className="listaInfo">
+                    <ul>
+                        <li>Código do produto: {relatorioSelecionado.data.Produto_Vendido_Id}</li>
+                        <li>Quantidade Antes da venda: {relatorioSelecionado.data.Quantidade_Antes_Venda} {pegaQtde(relatorioSelecionado.data.Quantidade_Antes_Venda)}</li>
+                        <li>Quantidade Vendida: {relatorioSelecionado.data.Quantidade_Vendida} {pegaQtde(relatorioSelecionado.data.Quantidade_Vendida)}</li>
+                        <li>Quantidade Atual: {relatorioSelecionado.data.Quantidade_Disponivel} {pegaQtde(relatorioSelecionado.data.Quantidade_Disponivel)}</li>
+                    </ul>
+                </div>
+
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <button className="no-print" onClick={() => window.print()}>Imprimir Relatório</button>
+                    <button className="no-print" onClick={() => setShowConfirmation(true)}>Deletar relatório</button>
+                </div>
+            </h4>
+        </div>
+    );
+
+
     const escolheRelatorio = (relatorioAtual) => {
-        if (tipoRelatorio === "Todos" || relatorioAtual.data?.PP) {
+        if (relatorioAtual.data.PP) {
             return montaRelatorioPP();
+        } else if (relatorioAtual.data.Produto_Vendido_Id) {
+            return montaRelatorioVendas();
         }
     };
 

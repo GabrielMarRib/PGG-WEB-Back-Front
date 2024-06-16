@@ -125,7 +125,7 @@
     align-items: center;
     justify-content: center;
     max-width: 50%; /* Adjust max-width as needed */
-    min-width: 50%; /* Adjust min-width as needed */
+    min-width: 40%; /* Adjust min-width as needed */
     overflow-x: hidden;
     overflow-y: auto;
 }

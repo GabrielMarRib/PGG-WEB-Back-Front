@@ -88,7 +88,7 @@ function PagVenderProduto() {
                     itemId: produtoSelecionado.id
                 });
 
-                handleGerarRelatorioVenda(produtoSelecionado.id, produtoSelecionado.data.Nome, quantidadeVenda)
+                handleGerarRelatorioVenda(produtoSelecionado.id, produtoSelecionado.data.Nome, quantidadeVenda,receitaEstimada, quantidadeDisponivel)
                 handleGerarRelatorioPP(produtoSelecionado);
                 // alert("inserção OK")
                 Alerta(2, "Venda concluida!");
@@ -134,18 +134,20 @@ function PagVenderProduto() {
         }
     }
 
-    const handleGerarRelatorioVenda = async (produtoId, produtoNome, quantidadeVenda) => {
+    const handleGerarRelatorioVenda = async (produtoId, produtoNome, quantidadeVenda,receita, quantidadeOld) => {
         if (User && User.userData && User.userData.Nome) {
+            const qtdeSobra = (quantidadeOld-quantidadeVenda)
             try {
                 await axios.post('http://localhost:4000/geraRelatorioVendas', {
                     produtoVendidoId: produtoId,
                     QtdeVendida: quantidadeVenda,
                     pessoaId: User.id,
                     PessoaNome: User.userData.Nome,
-                    produtoVendidoNome: produtoNome
+                    produtoVendidoNome: produtoNome,
+                    ReceitaProd: receita,
+                    QtdeDisponivel: qtdeSobra,
+                    QtdeOld: quantidadeOld
                 });
-                
-
             } catch (eee) {
                 console.log("deu merda")
             }
