@@ -73,7 +73,7 @@
     cursor: not-allowed; /* Change the cursor to indicate the field is not editable */
 }
 
-.PagVenderProduto .DivForms button {
+.PagVenderProduto .container-tela-produtos button {
     padding: 10px;
     border-radius: 3px;
     background-color: #e04d18;
