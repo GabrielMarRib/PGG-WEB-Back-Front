@@ -148,7 +148,7 @@ function CurvaABC() {
 
                 return (
                     <tr key={item.id}>
-                        <td>{item.subCatId} - {item.subCatNome}</td> {/* Display subcategory ID */}
+                        <td>{item.subCatId} - {item.subCatNome}</td> 
                         <td>{item.id}</td>
                         <td>{item.data.Nome}</td>
                         <td>{infoComumEmABC.data.QtdeConsumo}</td>

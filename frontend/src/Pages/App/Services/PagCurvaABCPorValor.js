@@ -143,8 +143,7 @@ function PagCurvaABCPorValor() {
 
       return (
         <tr key={item.id}>
-          <td>{item.subCatId}</td> {/* Display subcategory ID */}
-          <td>{item.subCatNome}</td> {/* Display subcategory name */}
+          <td>{item.subCatId} - {item.subCatNome}</td> 
           <td>{item.id}</td>
           <td>{item.data.Nome}</td>
           <td>{infoComumEmABC.data.QtdeConsumo}</td>
@@ -304,8 +303,7 @@ function PagCurvaABCPorValor() {
         <table border="1">
           <thead>
             <tr>
-              <th>SubCat ID</th>
-              <th>SubCat Nome</th>
+              <th>SubCat</th>
               <th>Id</th>
               <th>Nome</th>
               <th>QTD.Consumo</th>
