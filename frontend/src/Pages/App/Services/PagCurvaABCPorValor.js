@@ -209,7 +209,11 @@ function PagCurvaABCPorValor() {
     return null;
   };
 
-  const pegaProdutosComCat = async (obj) => {
+  const pegaProdutosComCat = async (obj) => {      
+    if (obj === "Vazio"){
+      setCategoriaSelecionada(null)
+      return
+    }
     setCategoriaSelecionada(obj);
     filtraProdutosPorCategoria(obj);
   };
@@ -227,8 +231,11 @@ function PagCurvaABCPorValor() {
       });
       setFilteredItems(filtered);
       return filtered;
-    }
-    return [];
+    }else {
+      setFilteredItems([]); // Ensure filtered items array is cleared if no category is selected
+      setValorTotalConsumo(0)
+      return [];
+  }
   };
 
   return (

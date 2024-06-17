@@ -215,11 +215,16 @@ function CurvaABC() {
     };
 
     const pegaProdutosComCat = async (obj) => {
+        if (obj === "Vazio") {
+            setProdutosCats(null);
+            setCategoriaSelecionada(null);
+            return;
+        }
         setProdutosCats(obj);
-        setCategoriaSelecionada(obj); // Set the selected category
+        setCategoriaSelecionada(obj);
         filtraProdutosPorCategoria();
     }
-
+    
     const filtraProdutosPorCategoria = () => {
         if (categoriaSelecionada && produtosCats?.length > 0) {
             const produtoIds = categoriaSelecionada.flatMap(cat => cat.produtos.map(prod => prod.id));
@@ -233,9 +238,13 @@ function CurvaABC() {
             });
             setFilteredItems(filtered); // Update state with filtered items
             return filtered;
+        } else {
+            setFilteredItems([]); // Ensure filtered items array is cleared if no category is selected
+            setSomaQtdConsumo(0)
+            return [];
         }
-        return [];
     }
+    
 
     return (
         <div className="CurvaABC">

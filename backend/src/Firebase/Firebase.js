@@ -2,12 +2,13 @@
 const { initializeApp } = require('firebase/app');
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB9XXpI3RY21CJ0cjW8b0Yx6uNHo3j1_ps",
-  authDomain: "zetta4-3b4d5.firebaseapp.com",
-  projectId: "zetta4-3b4d5",
-  storageBucket: "zetta4-3b4d5.appspot.com",
-  messagingSenderId: "544845649921",
-  appId: "1:544845649921:web:cbd9e34c44ddcbe2dac800"
+  apiKey: "AIzaSyBZsNU9pHjwpQO0PAtGk1-os58Rfha7phU",
+  authDomain: "zetta3-2f008.firebaseapp.com",
+  projectId: "zetta3-2f008",
+  storageBucket: "zetta3-2f008.appspot.com",
+  messagingSenderId: "938225031192",
+  appId: "1:938225031192:web:ae090ac74072b9541ccb6d",
+  measurementId: "G-W4GHQM8C3Z"
 };
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
