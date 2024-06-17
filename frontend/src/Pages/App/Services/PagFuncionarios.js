@@ -153,10 +153,12 @@ function PagFuncionarios() {
                                         <p><strong>Telefone:</strong> {funcionarioSelecionado.Celular}</p>
                                         <p><strong>CPF:</strong> {funcionarioSelecionado.CPF}</p>
                                     </div>
+                                    <hr />
                                     <div className="info-section">
                                         <h1 className="centralizar">Informações de Acesso</h1>
                                         <p><strong>Nível de Acesso:</strong> {funcionarioSelecionado.Nivel_acesso} {mostrarNivelAcesso()}</p>
                                     </div>
+                                    <hr />
                                     <div className="botoes nao-imprimir">
                                         <button onClick={() => setFuncionarioSelecionado(null)}>Fechar</button>
                                         <button className="no-print" onClick={imprimirInformacoes}>Imprimir</button>
