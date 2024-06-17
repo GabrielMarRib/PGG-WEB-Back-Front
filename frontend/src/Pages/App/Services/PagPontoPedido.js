@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import CabecalhoHome from '../../../Components/CabecalhoHome'; // Use o mesmo componente de cabeçalho
+import CabecalhoHome from '../../../Components/CabecalhoHome';
 import '../../../Styles/App/Service/PagPontoPedido.css';
 import axios from 'axios';
 import { PegaDadosGeralDB } from '../../../Functions/Functions';
@@ -8,15 +8,12 @@ import Redirect from '../../../Functions/Redirect';
 import { useNavigate } from "react-router-dom";
 import BuscarCategoria from '../../../Components/BuscaCategoria';
 
-
 function PagPontoPedido() {
-
     const navigate = useNavigate();
     const [dadosEstoqueGeral, setDadosEstoqueGeral] = useState([]);
     const [dadosPP, setDadosPP] = useState([]);
     const [carregando, setCarregando] = useState(true);
     const [produtosCats, setProdutosCats] = useState(null);
-    const [produtosCatsTraduzidos, setProdutosCatsTraduzidos] = useState(null);
     const UserOBJ = useContext(UserContext);
     const User = UserOBJ.User;
 
@@ -36,7 +33,6 @@ function PagPontoPedido() {
                 const PPData = response.data.map(item => ({ id: item.id, ...item }));
                 setDadosPP(PPData);
                 setCarregando(false);
-                console.log(PPData);
             } catch (erro) {
                 console.error('Error fetching data:', erro);
                 setCarregando(false);
@@ -49,38 +45,62 @@ function PagPontoPedido() {
         return parseFloat((QV / 30).toFixed(2));
     }
 
-    const pegaDadosComunsEmPP = (item) => {
-        if (item && item.data) {
-            const infoComumEmPP = dadosPP.find(obj => obj.id === item.id);
-            if (infoComumEmPP && infoComumEmPP.data) {
-                const CM = calculaCM(infoComumEmPP.data.QV);
-                return (
-                    <tr key={item.id}>
-                        <td>{item.id}</td>
-                        <td>{item.data.Nome}</td>
-                        <td>{item.data.Quantidade}</td>
-                        <td>{infoComumEmPP.data.QV}</td>
-                        <td>{CM}</td>
-                        <td>{infoComumEmPP.data.TR}</td>
-                        <td>{infoComumEmPP.data.ES}</td>
-                        <td>{infoComumEmPP.data.PP}</td>
-                        {item.data.Quantidade <= infoComumEmPP.data.PP ? (
-                            <td style={{ backgroundColor: '#fa3d2f' }}>REQUER ATENÇÃO URGENTEMENTE</td>
-                        ) : (
-                            <td style={{ backgroundColor: '#89ff57', minWidth: '13.5vw' }}>OK</td>
-                        )}
-                    </tr>
-                );
-            }
+    const pegaProdutosDisponiveis = () => {
+        if (produtosCats?.length > 0) {
+            return produtosCats;
         }
-        return null;
     }
 
-    const pegaProdutosComCat = (obj) =>{
-        setProdutosCats(obj)
-        console.log(obj)
+    const pegaDadosComunsEmPP = (itemESTOQUE) => {
+        if (itemESTOQUE && itemESTOQUE.data && produtosCats && produtosCats.length > 0) {
+            const produtoToCatMap = new Map();
+            produtosCats.forEach(cat => {
+                cat.produtos.forEach(prod => {
+                    produtoToCatMap.set(prod.id, { id: cat.id, subCatNome: cat.subCatNome });
+                });
+            });
+
+            const infoComum = dadosPP.filter(obj => produtoToCatMap.has(obj.id))
+                .map(obj => {
+                    const matchingCat = produtoToCatMap.get(obj.id);
+                    return {
+                        ...obj, // Spread the obj to include data from dadosPP
+                        catId: matchingCat.id,
+                        subCatNome: matchingCat.subCatNome
+                    };
+                });
+
+            return infoComum.map(objCOMUM => {
+                console.log(itemESTOQUE)
+                if (objCOMUM.id === itemESTOQUE.id) {
+                    return (
+                        <tr key={itemESTOQUE.id}>
+                            <td>{objCOMUM.catId} - {objCOMUM.subCatNome}</td>
+                            <td>{itemESTOQUE.id}</td>
+                            <td>{itemESTOQUE.data.Nome}</td>
+                            <td>{itemESTOQUE.data.Quantidade}</td>
+                            <td>{objCOMUM.data.QV}</td>
+                            <td>{calculaCM(objCOMUM.data.QV)}</td>
+                            <td>{objCOMUM.data.TR}</td>
+                            <td>{objCOMUM.data.ES}</td>
+                            <td>{objCOMUM.data.PP}</td>
+                            <td style={{ backgroundColor: itemESTOQUE.data.Quantidade <= objCOMUM.data.PP ? '#fa3d2f' : '#89ff57', minWidth: '13.5vw' }}>
+                                {itemESTOQUE.data.Quantidade <= objCOMUM.data.PP ? 'REQUER ATENÇÃO URGENTEMENTE' : 'OK'}
+                            </td>
+                        </tr>
+                    );
+                }
+                return null;
+            });
+        }
+        return null;
+    };
+
+    const pegaProdutosComCat = async (obj) => {
+        setProdutosCats(obj);
+        pegaProdutosDisponiveis();
     }
- 
+
     return (
         <div className="PagPontoPedido">
             <div className="CabecalhoHome">
@@ -90,18 +110,19 @@ function PagPontoPedido() {
                 <button className="Voltar" onClick={() => { navigate("/PagHome") }}>
                     Voltar
                 </button>
-                <BuscarCategoria 
-                    funcaoReturn={pegaProdutosComCat}
-                
-                />
             </div>
             <div className="conteudoPaginaMaster">
                 <h1 className='h1PontoDePedido'>Gestão de Ponto de Pedido</h1>
 
+            <div className='BuscarCategoria'>
+                <h3>Selecione a Categoria</h3>
+                <BuscarCategoria funcaoReturn={pegaProdutosComCat} />
+            </div>
                 <div className="Tabela">
                     <table border="1">
                         <thead>
                             <tr>
+                                <th>SubCat</th>
                                 <th>Id</th>
                                 <th>Nome</th>
                                 <th>Estoque Atual</th>
@@ -121,10 +142,7 @@ function PagPontoPedido() {
                             ) : (
                                 produtosCats?.length > 0 ? (
                                     dadosEstoqueGeral.map(pegaDadosComunsEmPP)
-                                ) : (
-                                    null
-                                )
-
+                                ) : null
                             )}
                         </tbody>
                     </table>

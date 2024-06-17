@@ -1,4 +1,3 @@
-/* Importar as fontes */
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
 
 .PagEscolhaCurvaABC * {
@@ -7,47 +6,7 @@
     box-sizing: border-box;
     text-decoration: none;
     list-style: none;
-    font-family: 'JetBrains Mono';
-}
-
-.PagEscolhaCurvaABC .logo {
-    display: flex;
-    font-size: 30px;
-    font-weight: bold;
-    color: white;
-}
-
-.PagEscolhaCurvaABC .ul {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    text-shadow: 10px 10px 12px rgba(0, 0, 0, 0.5);
-    transition: color 0.3s ease;
-}
-
-.PagEscolhaCurvaABC .conteudoPagina {
-    width: 90%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.PagEscolhaCurvaABC .ul li {
-    color: white;
-    margin: 0 35px;
-    font-size: 15px;
-    transition: color 0.3s ease;
-    white-space: nowrap;
-}
-
-.PagEscolhaCurvaABC .ul li:hover {
-    color: rgb(0, 0, 0);
-}
-
-.PagEscolhaCurvaABC .clicavel {
-    cursor: pointer !important;
+    font-family: 'JetBrains Mono', monospace; 
 }
 
 .PagEscolhaCurvaABC .conteudoPaginaMaster {
@@ -63,7 +22,7 @@
     background-color: #ffffff;
     border: 1px solid #000;
     min-width: 100px;
-    width: calc(96%);
+    width: 96%;
     border-radius: 10px;
     text-align: center; 
     display: flex; 
@@ -71,7 +30,6 @@
     justify-content: center; 
 }
 
-/* Cards */
 .PagEscolhaCurvaABC .ag-format-container {
     width: 1000px;
     margin: 0 auto;
@@ -82,75 +40,61 @@
     align-items: flex-start;
     flex-wrap: wrap;
     padding: 100px 0;
+    justify-content: center;
 }
 
 .PagEscolhaCurvaABC .ag-courses_item {
-    flex-basis: calc(50% - 50px);
+    flex-basis: calc(33.33% - 30px);
     cursor: pointer;
     margin: 0 15px 30px;
     overflow: hidden;
-    border-radius: 28px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.PagEscolhaCurvaABC .ag-courses_item:hover {
+    transform: translateY(-10px);
 }
 
 .PagEscolhaCurvaABC .ag-courses-item_link {
     display: block;
-    padding: 30px 20px;
-    background-color: #000000;
+    padding: 20px;
+    background-color: #f8f9fa;
     overflow: hidden;
     position: relative;
-}
-
-.PagEscolhaCurvaABC .ag-courses-item_link:hover,
-.PagEscolhaCurvaABC .ag-courses-item_link:hover .ag-courses-item_date {
-    text-decoration: none;
-    color: #FFF;
-}
-
-.PagEscolhaCurvaABC .ag-courses-item_link:hover .ag-courses-item_bg {
-    transform: scale(10);
+    text-align: center;
 }
 
 .PagEscolhaCurvaABC .ag-courses-item_title {
-    min-height: 87px;
-    margin: 0 0 25px;
-    overflow: hidden;
+    min-height: 50px;
+    margin: 0 0 15px;
     font-weight: bold;
-    font-size: 30px;
-    color: #FFF;
+    font-size: 20px;
+    color: #333;
     z-index: 2;
     position: relative;
-}
-
-.PagEscolhaCurvaABC .ag-courses-item_date-box {
-    font-size: 18px;
-    color: #FFF;
-    z-index: 2;
-    position: relative;
-}
-
-.PagEscolhaCurvaABC .ag-courses-item_date {
-    font-weight: bold;
-    color: #f9b234;
-    transition: color .5s ease;
 }
 
 .PagEscolhaCurvaABC .ag-courses-item_bg {
-    height: 128px;
-    width: 128px;
-    background-color: #03b5fc;
+    height: 50px;
+    width: 50px;
     z-index: 1;
     position: absolute;
-    top: -75px;
-    right: -75px;
+    top: 10px;
+    right: 10px;
     border-radius: 50%;
-    transition: all .5s ease;
 }
 
-.PagEscolhaCurvaABC .ag-courses_item:nth-child(2n) .ag-courses-item_bg {
+.PagEscolhaCurvaABC .ag-courses_item:nth-child(1) .ag-courses-item_bg {
+    background-color: #03b5fc;
+}
+
+.PagEscolhaCurvaABC .ag-courses_item:nth-child(2) .ag-courses-item_bg {
     background-color: #ff0000;
 }
 
-.PagEscolhaCurvaABC .ag-courses_item:nth-child(3n) .ag-courses-item_bg {
+.PagEscolhaCurvaABC .ag-courses_item:nth-child(3) .ag-courses-item_bg {
     background-color: #8a02e4;
 }
 

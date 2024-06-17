@@ -1,24 +1,13 @@
-.PagEscolhaProdutos *{
+.PagEscolhaProdutos * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     text-decoration: none;
     list-style: none;
-    font-family: 'JetBrains Mono';
+    font-family: 'JetBrains Mono', monospace; 
 }
 
-.PagEscolhaProdutos .logo{
-    display: flex;
-    font-size: 30px;
-    font-weight: bold;
-    color: white;
-}
-
-.PagEscolhaProdutos .clicavel{
-    cursor: pointer !important;
-}
-
-.PagEscolhaProdutos .conteudoPaginaMaster{
+.PagEscolhaProdutos .conteudoPaginaMaster {
     width: 100%;
     background-color: #ffffff;
     height: 89.5%;
@@ -36,136 +25,103 @@
     justify-content: center; 
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
-
-    /*Cards*/
-
 .PagEscolhaProdutos .ag-format-container {
     width: 1000px;
     margin: 0 auto;
-    }
+}
 
 .PagEscolhaProdutos .ag-courses_box {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: start;
-    -ms-flex-align: start;
     align-items: flex-start;
-    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     padding: 100px 0;
-    display: flex;
     justify-content: center;
 }
+
 .PagEscolhaProdutos .ag-courses_item {
-    -ms-flex-preferred-size: calc(50% - 50px);
-    flex-basis: calc(50% - 50px);
+    flex-basis: calc(33.33% - 30px);
     cursor: pointer;
     margin: 0 15px 30px;
     overflow: hidden;
-    border-radius: 28px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
 }
+
+.PagEscolhaProdutos .ag-courses_item:hover {
+    transform: translateY(-10px);
+}
+
 .PagEscolhaProdutos .ag-courses-item_link {
     display: block;
-    padding: 30px 20px;
-    background-color: #000000;
+    padding: 20px;
+    background-color: #f8f9fa;
     overflow: hidden;
     position: relative;
+    text-align: center;
 }
-.PagEscolhaProdutos .ag-courses-item_link:hover,
-.PagEscolhaProdutos .ag-courses-item_link:hover .ag-courses-item_date {
-    text-decoration: none;
-    color: #FFF;
-}
-.PagEscolhaProdutos .ag-courses-item_link:hover .ag-courses-item_bg {
-    -webkit-transform: scale(10);
-    -ms-transform: scale(10);
-    transform: scale(10);
-}
+
 .PagEscolhaProdutos .ag-courses-item_title {
-    min-height: 87px;
-    margin: 0 0 25px;
-
-    overflow: hidden;
-
+    min-height: 50px;
+    margin: 0 0 15px;
     font-weight: bold;
-    font-size: 30px;
-    color: #FFF;
-
+    font-size: 20px;
+    color: #333;
     z-index: 2;
     position: relative;
 }
-.PagEscolhaProdutos .ag-courses-item_date-box {
-    font-size: 18px;
-    color: #FFF;
 
-    z-index: 2;
-    position: relative;
-}
-.PagEscolhaProdutos .ag-courses-item_date {
-    font-weight: bold;
-    color: #f9b234;
-
-    -webkit-transition: color .5s ease;
-    -o-transition: color .5s ease;
-    transition: color .5s ease
-}
 .PagEscolhaProdutos .ag-courses-item_bg {
-    height: 128px;
-    width: 128px;
-    background-color: #03fcbe;
-
+    height: 50px;
+    width: 50px;
     z-index: 1;
     position: absolute;
-    top: -75px;
-    right: -75px;
-
+    top: 10px;
+    right: 10px;
     border-radius: 50%;
+}
 
-    -webkit-transition: all .5s ease;
-    -o-transition: all .5s ease;
-    transition: all .5s ease;
+.PagEscolhaProdutos .ag-courses_item:nth-child(1) .ag-courses-item_bg {
+    background-color: #f39c12;
 }
-.PagEscolhaProdutos .ag-courses_item:nth-child(2n) .ag-courses-item_bg {
-    background-color: #ff00c8;
+
+.PagEscolhaProdutos .ag-courses_item:nth-child(2) .ag-courses-item_bg {
+    background-color: #27ae60;
 }
-.PagEscolhaProdutos .ag-courses_item:nth-child(3n) .ag-courses-item_bg {
-    background-color: #e44002;
+
+.PagEscolhaProdutos .ag-courses_item:nth-child(3) .ag-courses-item_bg {
+    background-color: #e74c3c;
+}
+
+.PagEscolhaProdutos .ag-courses_item:nth-child(4) .ag-courses-item_bg {
+    background-color: #9b59b6;
+}
+
+.PagEscolhaProdutos .ag-courses_item:nth-child(5) .ag-courses-item_bg {
+    background-color: #e67e22;
+}
+
+.PagEscolhaProdutos .ag-courses_item:nth-child(6) .ag-courses-item_bg {
+    background-color: #2980b9;
 }
 
 @media only screen and (max-width: 979px) {
-.PagEscolhaProdutos .ag-courses_item {
--ms-flex-preferred-size: calc(50% - 30px);
-flex-basis: calc(50% - 30px);
-}
-.PagEscolhaProdutos .ag-courses-item_title {
-font-size: 24px;
-}
+    .PagEscolhaProdutos .ag-courses_item {
+        flex-basis: calc(50% - 30px);
+    }
 }
 
 @media only screen and (max-width: 767px) {
-.PagEscolhaProdutos .ag-format-container {
-width: 96%;
+    .PagEscolhaProdutos .ag-format-container {
+        width: 96%;
+    }
 }
 
-}
 @media only screen and (max-width: 639px) {
-.PagEscolhaProdutos .ag-courses_item {
--ms-flex-preferred-size: 100%;
-flex-basis: 100%;
+    .PagEscolhaProdutos .ag-courses_item {
+        flex-basis: 100%;
+    }
+    .PagEscolhaProdutos .ag-courses-item_title {
+        font-size: 18px;
+    }
 }
-.PagEscolhaProdutos .ag-courses-item_title {
-min-height: 72px;
-line-height: 1;
-
-font-size: 24px;
-}
-.PagEscolhaProdutos.ag-courses-item_link {
-padding: 22px 40px;
-}
-.PagEscolhaProdutos.ag-courses-item_date-box {
-font-size: 16px;
-}
-}
- 
