@@ -7,6 +7,7 @@
     height: 100px;
     background-color: #e04d1800;
     padding: 10px;
+    pointer-events: none;  
 }
 .AlertaNotificação label{
     font-family:Quicksand;
@@ -19,6 +20,7 @@
 .AlertaNotificação .Hidden{
     opacity: 0;
     transition: opacity 1s ease-in-out; /* Transição de 0.5 segundos */
+    pointer-events: none;  
 }
 .AlertaNotificação .Show{
     opacity: 1;
