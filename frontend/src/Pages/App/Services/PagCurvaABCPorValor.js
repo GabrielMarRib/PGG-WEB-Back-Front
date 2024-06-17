@@ -242,7 +242,10 @@ function PagCurvaABCPorValor() {
           Voltar
         </button>
       </div>
-      <BuscarCategoria funcaoReturn={pegaProdutosComCat} />
+      <div className="BuscarCategoriaCurvaABC">
+                <h3>Selecione a Categoria</h3>
+                <BuscarCategoria funcaoReturn={pegaProdutosComCat} />
+            </div>
       <div id="ParteSuperior">
         <div className="CurvaABCGrafico">
           {Object.keys(porcentagensA).length > 0 && (

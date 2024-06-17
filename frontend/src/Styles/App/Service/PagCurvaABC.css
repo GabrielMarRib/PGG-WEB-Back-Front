@@ -1,13 +1,15 @@
 .CurvaABC {
     font-family: 'JetBrains Mono';
+    text-align: center; 
 }
 
 .CurvaABC .btn button.voltar{
     width: 80px;
+    
 }
 
 .CurvaABC .btn{
-    margin-left:5%;
+    margin-right: 1500px; 
 }
 
 .CurvaABC .Nome-produto-input {
@@ -284,6 +286,23 @@ th {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* DIV Selecione a Categoria */
+
+.CurvaABC .BuscarCategoriaCurvaABC{
+    margin: 20px auto; 
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-width: 400px;
+    width: 60%;
+}
+
+.PagPontoPedido .BuscarCategoriaCurvaABC h3 {
+    margin-bottom: 10px;
+    font-size: 20px;
+    
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");

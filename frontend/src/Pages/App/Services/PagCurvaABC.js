@@ -246,6 +246,9 @@ function CurvaABC() {
                 <button className="Voltar" onClick={() => { navigate("/PagEscolhaCurvaABC") }}>
                     Voltar
                 </button>
+            </div>
+            <div className="BuscarCategoriaCurvaABC">
+                <h3>Selecione a Categoria</h3>
                 <BuscarCategoria funcaoReturn={pegaProdutosComCat} />
             </div>
             <div id="ParteSuperior">
