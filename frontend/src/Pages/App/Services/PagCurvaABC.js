@@ -1,92 +1,94 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import '../../../Styles/App/Service/PagCurvaABC.css';
 import { ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import Cabecalho from "../../../Components/Cabecalho";
 import CabecalhoHome from "../../../Components/CabecalhoHome";
+import BuscarCategoria from '../../../Components/BuscaCategoria';
 import { PegaDadosGeralDB, PegadadosVALOR } from '../../../Functions/Functions';
-import { useContext } from "react";
 import { UserContext } from "../../../Context/UserContext";
 import Redirect from "../../../Functions/Redirect";
 import RedirectAcesso from "../../../Functions/RedirectAcesso";
-import { useNavigate } from "react-router-dom";
 
 function CurvaABC() {
     const [dadosEstoque, setDadosEstoque] = useState([]);
     const [dadosCurvaABC, setDadosCurvaABC] = useState({});
     const [somaQtdConsumo, setSomaQtdConsumo] = useState(0);
-    const [porcentagens, setPorcentagens] = useState({});
-    const [porcentagensA, setPorcentagensA] = useState({});
+    const [porcentagens, setPorcentagens] = useState([]);
+    const [porcentagensA, setPorcentagensA] = useState([]);
     const [classificacao, setClassificacao] = useState({});
-    const [carregando, setCarregando] = useState(true); // Adiciona um estado de carregamento
+    const [carregando, setCarregando] = useState(true);
+    const [produtosCats, setProdutosCats] = useState(null);
+    const [categoriaSelecionada, setCategoriaSelecionada] = useState(null);
+    const [filteredItems, setFilteredItems] = useState([]); // New state for filtered items
 
-    const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
-    const User = UserOBJ.User; //Pega só o User....
+    const UserOBJ = useContext(UserContext);
+    const User = UserOBJ.User;
     const navigate = useNavigate();
 
-    RedirectAcesso(User,1);
+    RedirectAcesso(User, 1);
     Redirect(User);
 
     useEffect(() => {
         PegaDadosGeralDB((data) => {
             setDadosEstoque(data);
-            setCarregando(false); // Define como falso após os dados serem carregados
+            setCarregando(false);
         });
-        PegadadosVALOR(setDadosCurvaABC); // arrumei essa merda pra nao mandar 50k de leitura pro bd. USEM USEEFFECT PELO AMOR DE CRISTO
-    }, [])
+        PegadadosVALOR(setDadosCurvaABC);
+    }, []);
 
-    useEffect(() => { // a cada alteração basicamente, faz isso aqui, mermao isso é uma tremenda duma putaria to fazendo isso há 3 horas
-        if (dadosEstoque.length > 0) {
-            const somaQtdConsumo = calcularSomaQtdeConsumo(dadosEstoque);
+    useEffect(() => {
+        if (filteredItems.length > 0) {
+            const somaQtdConsumo = calcularSomaQtdeConsumo(filteredItems);
             setSomaQtdConsumo(somaQtdConsumo);
 
-            const porcentagens = calcularPorcentagemSimples(dadosEstoque, somaQtdConsumo);
-            const [porcentagensA, classificacao] = calcularPorcentagemAcumulada(dadosEstoque, porcentagens); // retorno da função filha da puta de calcular a porcentagem
+            const porcentagens = calcularPorcentagemSimples(filteredItems, somaQtdConsumo);
+            const [porcentagensA, classificacao] = calcularPorcentagemAcumulada(filteredItems, porcentagens);
 
             setPorcentagens(porcentagens);
             setPorcentagensA(porcentagensA);
             setClassificacao(classificacao);
         }
-    }, [dadosEstoque, dadosCurvaABC]); // falta arrumar esse useEffect... calcularPorcentagemSimples calcularPorcentagemAcumulada e calcularSomaQtdeConsumo precisam de callback e tbm serem listadas na dependency array
+    }, [filteredItems]);
 
-    const calcularSomaQtdeConsumo = (dadosEstoque) => {
+    const calcularSomaQtdeConsumo = (items) => {
         let totalConsumo = 0;
 
-        dadosEstoque.forEach(item => { // pra cada item no estoque...
+        items.forEach(item => {
             if (Array.isArray(dadosCurvaABC)) {
                 const dadosCabiveisAbc = dadosCurvaABC.find(obj => obj.id === item.id);
-                totalConsumo += (dadosCabiveisAbc.data.QtdeConsumo || 0); // se dadosCabiveisAbc.QtdeConsumo existir, soma com total consumo
+                totalConsumo += (dadosCabiveisAbc?.data.QtdeConsumo || 0);
             }
         });
 
-        return totalConsumo; //devolve
+        return totalConsumo;
     };
 
-    const calcularPorcentagemSimples = (dadosEstoque, somaQtdConsumo) => {
-        const porcentagens = []; //array/obj pq é pra cada item...
+    const calcularPorcentagemSimples = (items, somaQtdConsumo) => {
+        const porcentagens = [];
 
-        dadosEstoque.forEach(item => { //pra cada item do estoque
+        items.forEach(item => {
             if (Array.isArray(dadosCurvaABC)) {
                 const dadosCabiveisAbc = dadosCurvaABC.find(obj => obj.id === item.id);
-                const qtdConsumo = dadosCabiveisAbc.data.QtdeConsumo || 0;  // pega qtdConsumo se existir (em teoria sempre existe, mas é pra nao dar exceção caso dê merda)
+                const qtdConsumo = dadosCabiveisAbc?.data.QtdeConsumo || 0;
                 porcentagens.push({ id: item.id, data: (qtdConsumo / somaQtdConsumo) * 100 });
             }
         });
-        console.log(porcentagens)
-        return porcentagens; // devolve
+        return porcentagens;
     };
 
-    const calcularPorcentagemAcumulada = (dadosEstoque, porcentagens) => {
-        const acumulada = [];      // acumulo de porcentagem
-        const classificacao = {};  // classficação da porcentagem
+    const calcularPorcentagemAcumulada = (items, porcentagens) => {
+        const acumulada = [];
+        const classificacao = {};
 
         if (Array.isArray(porcentagens)) {
-            dadosEstoque.forEach((item, i) => {
+            items.forEach((item, i) => {
                 const dadosCabiveisPorc = porcentagens.find(obj => obj.id === item.id);
                 if (dadosCabiveisPorc && dadosCabiveisPorc.data) {
                     if (i === 0) {
                         acumulada.push({ id: item.id, data: parseFloat(dadosCabiveisPorc.data) });
                     } else {
-                        const itemAnteriorID = dadosEstoque[i - 1].id;
+                        const itemAnteriorID = items[i - 1].id;
                         const acumuladaAnterior = acumulada.find(obj => obj.id === itemAnteriorID);
                         const novaAcumulada = parseFloat(dadosCabiveisPorc.data) + parseFloat(acumuladaAnterior.data);
                         acumulada.push({ id: item.id, data: parseFloat(novaAcumulada.toFixed(2)) });
@@ -104,10 +106,10 @@ function CurvaABC() {
             });
             return [acumulada, classificacao];
         }
-        return [[], {}]; // Return empty arrays if porcentagens is not an array
+        return [[], {}];
     };
 
-    const pegaCorClassificacao = (classificacao) => { // Aqui Criei  uma funcão pra retornar a cor de fundo com base na classificação ('A', 'B', 'C')
+    const pegaCorClassificacao = (classificacao) => {
         switch (classificacao) {
             case 'A':
                 return '#CCFFCC';
@@ -120,7 +122,7 @@ function CurvaABC() {
         }
     };
 
-    const pegaCorClassificacaoVibrante = (classificacao) => { // Aqui Criei  uma funcão pra retornar a cor de fundo com base na classificação ('A', 'B', 'C')
+    const pegaCorClassificacaoVibrante = (classificacao) => {
         switch (classificacao) {
             case 'A':
                 return '#228b22';
@@ -146,6 +148,7 @@ function CurvaABC() {
 
                 return (
                     <tr key={item.id}>
+                        <td>{item.subCatId} - {item.subCatNome}</td> {/* Display subcategory ID */}
                         <td>{item.id}</td>
                         <td>{item.data.Nome}</td>
                         <td>{infoComumEmABC.data.QtdeConsumo}</td>
@@ -170,8 +173,8 @@ function CurvaABC() {
         }
     });
 
-    const preparaDadosParaGrafico = (porcentagensA, dadosEstoque) => {
-        const dadosPreparados = dadosEstoque.map((item) => {
+    const preparaDadosParaGrafico = (porcentagensA, items) => {
+        const dadosPreparados = items.map((item) => {
             if (Array.isArray(porcentagens) && Array.isArray(porcentagensA)) {
                 const infoComumEmPorcA = porcentagensA.find(obj => obj.id === item.id);
                 const infoComumEmPorc = porcentagens.find(obj => obj.id === item.id);
@@ -202,7 +205,7 @@ function CurvaABC() {
                     <p className="intro">{`Id: ${item.id}`}</p>
                     <p className="intro">
                         {`Classificação: `}
-                        {mudaCorClassGrafico(classificacao[item.id])}  {/* Applying color to Classificação value */}
+                        {mudaCorClassGrafico(classificacao[item.id])}
                     </p>
                     <p className="intro" style={{ color: '#1e58ff' }}>{`Acumulado: ${item.acumulado}%`}</p>
                 </div>
@@ -210,6 +213,29 @@ function CurvaABC() {
         }
         return null;
     };
+
+    const pegaProdutosComCat = async (obj) => {
+        setProdutosCats(obj);
+        setCategoriaSelecionada(obj); // Set the selected category
+        filtraProdutosPorCategoria();
+    }
+
+    const filtraProdutosPorCategoria = () => {
+        if (categoriaSelecionada && produtosCats?.length > 0) {
+            const produtoIds = categoriaSelecionada.flatMap(cat => cat.produtos.map(prod => prod.id));
+            const filtered = dadosEstoque.filter(item => produtoIds.includes(item.id)).map(item => {
+                const categoria = categoriaSelecionada.find(cat => cat.produtos.some(prod => prod.id === item.id));
+                return {
+                    ...item,
+                    subCatId: categoria.id,
+                    subCatNome: categoria.subCatNome
+                };
+            });
+            setFilteredItems(filtered); // Update state with filtered items
+            return filtered;
+        }
+        return [];
+    }
 
     return (
         <div className="CurvaABC">
@@ -220,18 +246,17 @@ function CurvaABC() {
                 <button className="Voltar" onClick={() => { navigate("/PagEscolhaCurvaABC") }}>
                     Voltar
                 </button>
+                <BuscarCategoria funcaoReturn={pegaProdutosComCat} />
             </div>
             <div id="ParteSuperior">
-                
                 <div className="CurvaABCGrafico">
                     {carregando ? (
                         <div></div>
                     ) : (
                         Object.keys(porcentagensA).length > 0 && (
                             <ResponsiveContainer>
-
                                 <ComposedChart
-                                    data={preparaDadosParaGrafico(porcentagensA, dadosEstoque)}
+                                    data={preparaDadosParaGrafico(porcentagensA, filteredItems)}
                                     margin={{
                                         top: 40,
                                         right: 20,
@@ -245,7 +270,6 @@ function CurvaABC() {
                                         tick={{ fontSize: 15 }}
                                         tickFormatter={(value) => value}
                                     />
-
                                     <YAxis dataKey="acumulado" domain={[0, 120]} tickCount={7} />
                                     <Tooltip content={<CustomTooltip />}
                                         labelFormatter={(label, payload) => {
@@ -279,6 +303,7 @@ function CurvaABC() {
                 <table border="1">
                     <thead>
                         <tr>
+                            <th>SubCat</th>
                             <th>Id</th>
                             <th>Nome</th>
                             <th>Qtd Con.</th>
@@ -291,10 +316,10 @@ function CurvaABC() {
                     <tbody>
                         {carregando ? (
                             <tr>
-                                <td colSpan="7">Carregando...</td>
+                                <td colSpan="9">Carregando...</td>
                             </tr>
                         ) : (
-                            dadosEstoque.map(pegaDadosComunsEmAbc)
+                            filteredItems.map(pegaDadosComunsEmAbc)
                         )}
                     </tbody>
                 </table>
