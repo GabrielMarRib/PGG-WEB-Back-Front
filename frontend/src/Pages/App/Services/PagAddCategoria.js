@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useCallback  } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import CabecalhoHome from '../../../Components/CabecalhoHome';
 import '../../../Styles/App/Service/PagAddCategoria.css';
 import axios from "axios";
@@ -21,7 +21,7 @@ function PagAddCategoria() {
     //Redireciona sem user
     Redirect(User);
     //Redireciona se user nn for 2
-    RedirectAcesso(User,2)
+    RedirectAcesso(User, 2)
 
     //funções de style:
     const { Alerta } = useAlerta(); // alertinha...
@@ -102,7 +102,6 @@ function PagAddCategoria() {
                         <div>
                             {subs.map(sub => pegaDadosSub(sub, item))}
                         </div>
-
                     ) : (
                         null
                     )}
@@ -114,23 +113,23 @@ function PagAddCategoria() {
     categorias.sort((a, b) => {
         const dataA = parseInt(a.id);
         const dataB = parseInt(b.id);
-    
+
         return dataA - dataB;
     });
-    
+
 
     const pegaDadosSub = (subItem, itemPai) => {
         return (
             <li key={subItem.id}>
                 <span className="SubCatSpan">{itemPai.id}.{subItem.id} - {subItem.data.subCategoriaNome}</span>
                 <span className="btnEditSpan">
-                    <button onClick={() => { handleEditar(itemPai,subItem) }} className="btnEditar">Editar</button>
+                    <button onClick={() => { handleEditar(itemPai, subItem) }} className="btnEditar">Editar</button>
                 </span>
             </li>
         );
     };
 
-    const handleEditar = (itemPai,subItem) => {
+    const handleEditar = (itemPai, subItem) => {
         setMsgModal({
             cat: itemPai.data.CategoriaNome,
             catId: itemPai.id,

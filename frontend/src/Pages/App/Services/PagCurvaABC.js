@@ -20,7 +20,7 @@ function CurvaABC() {
     const [carregando, setCarregando] = useState(true);
     const [produtosCats, setProdutosCats] = useState(null);
     const [categoriaSelecionada, setCategoriaSelecionada] = useState(null);
-    const [filteredItems, setFilteredItems] = useState([]); // New state for filtered items
+    const [filteredItems, setFilteredItems] = useState([]); 
 
     const UserOBJ = useContext(UserContext);
     const User = UserOBJ.User;
@@ -86,7 +86,7 @@ function CurvaABC() {
                 const dadosCabiveisPorc = porcentagens.find(obj => obj.id === item.id);
                 if (dadosCabiveisPorc && dadosCabiveisPorc.data) {
                     if (i === 0) {
-                        acumulada.push({ id: item.id, data: parseFloat(dadosCabiveisPorc.data) });
+                        acumulada.push({ id: item.id, data: parseFloat(dadosCabiveisPorc.data.toFixed(2)) });
                     } else {
                         const itemAnteriorID = items[i - 1].id;
                         const acumuladaAnterior = acumulada.find(obj => obj.id === itemAnteriorID);
@@ -148,7 +148,7 @@ function CurvaABC() {
 
                 return (
                     <tr key={item.id}>
-                        <td>{item.subCatId} - {item.subCatNome}</td> 
+                        <td>{item.subCatId} - {item.subCatNome}</td>
                         <td>{item.id}</td>
                         <td>{item.data.Nome}</td>
                         <td>{infoComumEmABC.data.QtdeConsumo}</td>
@@ -224,7 +224,7 @@ function CurvaABC() {
         setCategoriaSelecionada(obj);
         filtraProdutosPorCategoria();
     }
-    
+
     const filtraProdutosPorCategoria = () => {
         if (categoriaSelecionada && produtosCats?.length > 0) {
             const produtoIds = categoriaSelecionada.flatMap(cat => cat.produtos.map(prod => prod.id));
@@ -236,15 +236,15 @@ function CurvaABC() {
                     subCatNome: categoria.subCatNome
                 };
             });
-            setFilteredItems(filtered); // Update state with filtered items
+            setFilteredItems(filtered);
             return filtered;
         } else {
-            setFilteredItems([]); // Ensure filtered items array is cleared if no category is selected
+            setFilteredItems([]);
             setSomaQtdConsumo(0)
             return [];
         }
     }
-    
+
 
     return (
         <div className="CurvaABC">
