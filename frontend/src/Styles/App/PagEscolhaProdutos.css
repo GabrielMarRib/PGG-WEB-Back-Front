@@ -10,11 +10,11 @@
 .PagEscolhaProdutos .conteudoPaginaMaster {
     width: 100%;
     background-color: #ffffff;
-    height: 89.5%;
+    margin-top: 100px;
 }
 
 .PagEscolhaProdutos h1 {
-    margin-top: 10%;
+    margin-top: 10%;    
     background-color: #ffffff;
     border: 1px solid #000;
     min-width: 100px;
@@ -26,7 +26,7 @@
 }
 
 .PagEscolhaProdutos .ag-format-container {
-    width: 1000px;
+    max-width: 1440px;
     margin: 0 auto;
 }
 

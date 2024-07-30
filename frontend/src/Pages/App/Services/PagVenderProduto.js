@@ -256,6 +256,8 @@ function PagVenderProduto() {
         </div>
         <AlertaNotificação />
 
+        
+        
         <button
           className="voltar"
           onClick={() => {
@@ -355,9 +357,10 @@ function PagVenderProduto() {
             </form>
           </div>
         </div>
+        </div>
         <div className="terminal">{/* Porra pra pesquisa aqui */}</div>
       </div>
-    </div>
+  
   );
 }
 
