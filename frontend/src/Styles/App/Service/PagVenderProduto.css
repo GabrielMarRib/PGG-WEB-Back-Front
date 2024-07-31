@@ -7,11 +7,15 @@
     font-family: 'JetBrains Mono';
 }
 
-.PagVenderProduto #DivForms button.voltar{
-    margin-top: 100px;
-    width: 80px;
-    background-color: #333;
+.PagVenderProduto .DivForms {
+    width: 100%;
+    justify-content: center;
 }
+
+.PagVenderProduto .DivForms button.voltar {
+    align-items: center;
+    margin-top: 50px;
+}  
 
 .PagVenderProduto .container-tela-produtos {
     display: -webkit-box;
@@ -26,7 +30,7 @@
 }
 
 .PagVenderProduto .enquadramento{
-    width: 1440px;
+    max-width: 1440px;
     margin: 0 auto;
 }
 
@@ -34,13 +38,14 @@
     border: 2px solid #000;
     border-radius: 10px;
     padding: 50px;
+    width: 100%;
 }
 
 .PagVenderProduto .EnquadramentoGlobal{
     display: flex; 
     align-items: center; 
     justify-content: center; 
-     flex-wrap: wrap;
+    flex-wrap: wrap;
 }
 
 .PagVenderProduto .grupo-input-produto {
@@ -93,7 +98,8 @@
     padding: 5px 5px;
 
 }
+
 .PagVenderProduto .SelectCategorias{
     height: 30px;
-    
+    max-width: 1325px;
 }

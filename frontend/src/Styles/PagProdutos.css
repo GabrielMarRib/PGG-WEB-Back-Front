@@ -5,16 +5,16 @@
   align-items: center;
 }
 
+.Produtos .DivForms {
+  width: 100%;
+  justify-content: center;
+}
+
 .Produtos #DivForms button.voltar {
   align-items: center;
   margin-left: 10%;
   margin-top: 20px;
-}
-
-.Produtos #DivForms {
-  width: 100%;
-  justify-content: center;
-}
+}  
 
 .Produtos .container-tela-produtos {
   background-color: #ffffff;

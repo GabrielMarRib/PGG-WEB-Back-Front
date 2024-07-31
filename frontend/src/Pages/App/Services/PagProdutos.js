@@ -273,7 +273,7 @@ function PagProdutos() {
 
   return (
     <div className="Produtos">
-      <div id="DivForms">
+      <div className="DivForms">
         <div className="CabecalhoHome">
           <CabecalhoHome />
         </div>
