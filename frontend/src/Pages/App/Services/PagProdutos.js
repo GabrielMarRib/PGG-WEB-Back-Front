@@ -273,7 +273,7 @@ function PagProdutos() {
 
   return (
     <div className="Produtos">
-      <div id="DivForms">
+      <div className="DivForms">
         <div className="CabecalhoHome">
           <CabecalhoHome />
         </div>
@@ -286,6 +286,7 @@ function PagProdutos() {
         >
           Voltar
         </button>
+      <div className="telaInteira">
         <div className="container-tela-produtos">
           <div className="grupo-input-produto">
             <h2>Adicione um produto:</h2>
@@ -457,6 +458,7 @@ function PagProdutos() {
           />
         </div>
       </div>
+    </div>
     </div>
   );
 }

@@ -250,12 +250,13 @@ function PagVenderProduto() {
     
   return (
     <div className="PagVenderProduto">
-      <div id="DivForms">
+      <div className="DivForms">
         <div className="CabecalhoHome">
           <CabecalhoHome />
         </div>
         <AlertaNotificação />
-
+        
+        <div className="enquadramento">
         <button
           className="voltar"
           onClick={() => {
@@ -266,7 +267,6 @@ function PagVenderProduto() {
         </button>
 
         <div className="container-tela-produtos">
-          <div className="enquadramento">
             <form className="formulario" onSubmit={(e) => handleForm(e)}>
               <div className="grupo-input-produto">
                 <div className="grupo-input">
@@ -355,9 +355,10 @@ function PagVenderProduto() {
             </form>
           </div>
         </div>
+        </div>
         <div className="terminal">{/* Porra pra pesquisa aqui */}</div>
       </div>
-    </div>
+  
   );
 }
 
