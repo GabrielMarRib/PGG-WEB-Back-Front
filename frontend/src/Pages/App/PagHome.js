@@ -10,6 +10,7 @@ import ImageLote from '../../Assets/loteEconomico.png';
 import ImagePEPS from '../../Assets/PEPS.png';
 import ImagePedido from '../../Assets/pontodePedido.png';
 import ImageMedio from '../../Assets/custoMedio.png';
+//import Dashboard from "./Services/TesteDashboard.js";  // Importando o novo componente
 
 function PagHome() {
   
@@ -32,6 +33,9 @@ function PagHome() {
     <div className="PagHome">
       <div className="CabecalhoHome">
         <Cabecalho />
+      </div>
+      <div className="DashBoardCss">
+       {/*  <Dashboard />   Adicionando o Dashboard aqui */}
       </div>
       <div className="conteudoPaginaMaster">
         <div className="button-grid">

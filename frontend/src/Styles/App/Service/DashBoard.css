@@ -1,0 +1,125 @@
+.dashboard {
+    margin-top: 40px;
+    display: flex;
+    font-family: 'JetBrains Mono', sans-serif;
+  }
+  
+  .sidebar {
+    width: 400px;
+    background-color: #e04d18;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+  }
+  
+  .user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .user-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    margin-bottom: 10px;
+  }
+  
+  .user-details h2,
+  .user-details p {
+    margin: 5px 0;
+  }
+  
+  .nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 40px 0 0;
+    width: 100%;
+  }
+  
+  .nav-links li {
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .nav-links li:hover {
+    background-color: #802a0a;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .stats-overview {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .stat-item {
+    background-color: #ecf0f1;
+    padding: 140px;
+    flex: 1;
+    margin-right: 10px;
+    text-align: center;
+  }
+  
+  .stat-item:last-child {
+    margin-right: 0;
+  }
+  
+  .charts {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .bar-chart,
+  .line-chart {
+    width: 48%;
+    background-color: #ecf0f1;
+    padding: 20px;
+    height: 200px;
+  }
+  
+  .progress {
+    margin-top: 20px;
+    background-color: #ecf0f1;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .progress-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  
+  .progress-circle .circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 10px solid #3498db;
+    border-right-color: transparent;
+    animation: rotate 2s linear infinite;
+    --value: 0;
+    transform: rotate(calc(3.6deg * var(--value)));
+  }
+  
+  .progress-circle p {
+    position: absolute;
+    font-size: 20px;
+  }
+  
+  @keyframes rotate {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  

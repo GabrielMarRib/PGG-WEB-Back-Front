@@ -287,6 +287,7 @@ function PagProdutos() {
           Voltar
         </button>
       <div className="telaInteira">
+        <div className="TelaConteudo">
         <div className="container-tela-produtos">
           <div className="grupo-input-produto">
             <h2>Adicione um produto:</h2>
@@ -457,6 +458,7 @@ function PagProdutos() {
             pegaProdutos={pegaProdutos}
           />
         </div>
+      </div>
       </div>
     </div>
     </div>

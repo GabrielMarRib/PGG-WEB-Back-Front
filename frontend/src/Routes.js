@@ -19,6 +19,8 @@ import PagRelatorios from './Pages/App/Services/PagRelatorios';
 import PagFuncionarios from './Pages/App/Services/PagFuncionarios'; 
 import PagAddCategoria from './Pages/App/Services/PagAddCategoria';
 import PagTeste from './Pages/App/Services/PagTeste';
+import TesteDashboard from './Pages/App/Services/TesteDashboard';
+
 const Mobile = IsMobile();
 
 function AppRoutes() {
@@ -50,6 +52,7 @@ function AppRoutes() {
             <Route path="/PagFuncionarios" element={<PagFuncionarios />} /> 
             <Route path="/PagAddCategoria" element={<PagAddCategoria />} />
             <Route path="/PagTeste" element={<PagTeste />} />
+            <Route path="/TesteDashboard" element={<TesteDashboard />} />
           </> 
         )}
         {/* Rota padrão para redirecionar qualquer rota desconhecida */}
