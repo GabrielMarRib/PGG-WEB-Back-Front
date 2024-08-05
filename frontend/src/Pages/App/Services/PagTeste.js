@@ -1,4 +1,6 @@
-// como acessar essa página?? acesse em seu navegador: http://localhost:3000/PagTeste
+// Como acessar essa página? Acesse em seu navegador: http://localhost:3000/PagTeste
+
+// Leu e não entendeu porra nenhuma? Fala com a gente
 
 import React, { useEffect, useState } from 'react'
 
@@ -10,7 +12,7 @@ import React, { useEffect, useState } from 'react'
 // useState guarda o estado de objetos dentro do componente (página), fuciona como uma variável
 
 
-import axios from 'axios'; // axios é utilizado para acessar a internet.
+import axios from 'axios'; // axios é utilizado para acessar a internet. (lugar onde tá a nossa api)
 
 function PagTeste() {
 
@@ -19,13 +21,14 @@ function PagTeste() {
     useEffect(() => { // useEffect...
 
         const pegaDados = async () => { // criamos uma função para separar a lógica do useEffect em si. damos async para a função, pois o "await" está presente.
-                                        // isso acontece pois o axios terá que acesar a internet para fazer a operação, e isso demanda tempo, e se não esperarmos,
-                                        // o programa "pula" a vez do axios e ele não consegue voltar com a operação...
+            // isso acontece pois o axios terá que acesar a internet para fazer a operação, e isso demanda tempo, e se não esperarmos,
+            // o programa "pula" a vez do axios e ele não consegue voltar com a operação...
 
             try { //tente...
                 const response = await axios.get('http://pggzettav3.mooo.com/api/index.php', {  // acessa via get (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
-                    params: {
-                        funcao: 'pegadados' // dita qual função deve ser utilizada da api.
+                    params: { //parâmetros da consulta... SÃO necessários.
+                        funcao: 'pegadados', // dita qual função deve ser utilizada da api. (a gente te fala o nome)
+                        senha: '@7h$Pz!q2X^vR1&K' // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
                     }
                 });
                 setDados(response.data) // coloca as informações que acabou de pegar da api na variável useState
@@ -38,8 +41,8 @@ function PagTeste() {
         pegaDados(); //chama a função (até o momento só criamos ela, por isso temos q chamar aqui)
 
     }, []) // [] = dependency array, ela vazia  significa que o useEffect vai ser executado uma vez só, apenas quando o componente "montar" ou carregar.
-           // caso aqui estivesse a variável useState de dados, caso o valor dela mude, o useEffect é chamado de novo.
-    
+    // caso aqui estivesse a variável useState de dados, caso o valor dela mude, o useEffect é chamado de novo.
+
     return ( //html...
         <div>PagTeste
             <table border="1">
@@ -57,7 +60,9 @@ function PagTeste() {
                             <td>{item.id_produtos}</td>
                             <td>{item.descricao}</td>
                             <td>{item.nome}</td>
-                            <td>{item.codigodebarras}</td>      
+                            <td>{
+                                item.codigodebarras === null ? "Não possui" : item.codigodebarras
+                            }</td>
                         </tr>
                     ))}
                     {/* e fim, é assim que é feito uma busca de api... dúvidas, me chamem bbs. */}
@@ -67,4 +72,4 @@ function PagTeste() {
     )
 }
 
-export default PagTeste
+export default PagTeste // exporta a página, até o momento ela só existia
