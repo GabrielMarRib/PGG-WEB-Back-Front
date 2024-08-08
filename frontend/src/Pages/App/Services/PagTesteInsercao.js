@@ -1,4 +1,4 @@
-// Como acessar essa página? Acesse em seu navegador: http://localhost:3000/PagTeste
+// Como acessar essa página? Acesse em seu navegador: http://localhost:3000/PagTesteInsercao
 
 // Leu e não entendeu porra nenhuma? Fala com a gente
 
@@ -14,10 +14,10 @@ import React, { useEffect, useState } from 'react'
 
 import axios from 'axios'; // axios é utilizado para acessar a internet. (lugar onde tá a nossa api)
 
-function PagTeste() {
+function PagTesteInsercao() {
 
     const [dados, setDados] = useState([]); // variável useState, iniciando como uma array vazia, pois o que esperamos da api é uma array (sempre será).
-
+    const [CodigoProdoutoCategoria, setCodigoProdoutoCategoria] = useState([]);
     useEffect(() => { // useEffect...
 
         const pegaDados = async () => { // criamos uma função para separar a lógica do useEffect em si. damos async para a função, pois o "await" está presente.
@@ -70,8 +70,47 @@ function PagTeste() {
                     {/* e fim, é assim que é feito uma busca de api... dúvidas, me chamem bbs. */}
                 </tbody>
             </table>
+
+            <div className='input'>
+                <input
+                    type="number"
+                    id="novoInput"
+                    value={CodigoProdoutoCategoria}
+                    onChange={(e) => setCodigoProdoutoCategoria(e.target.value)}
+                    placeholder="Código"
+                />
+                 <input
+                    type="number"
+                    id="novoInput"
+                    value={CodigoProdoutoCategoria}
+                    onChange={(e) => setCodigoProdoutoCategoria(e.target.value)}
+                    placeholder="Código"
+                />
+                 <input
+                    type="number"
+                    id="novoInput"
+                    value={CodigoProdoutoCategoria}
+                    onChange={(e) => setCodigoProdoutoCategoria(e.target.value)}
+                    placeholder="Código"
+                />
+                 <input
+                    type="number"
+                    id="novoInput"
+                    value={CodigoProdoutoCategoria}
+                    onChange={(e) => setCodigoProdoutoCategoria(e.target.value)}
+                    placeholder="Código"
+                />
+                 <input
+                    type="number"
+                    id="novoInput"
+                    value={CodigoProdoutoCategoria}
+                    onChange={(e) => setCodigoProdoutoCategoria(e.target.value)}
+                    placeholder="Código"
+                />
+            </div>
+
         </div>
     )
 }
 
-export default PagTeste // exporta a página, até o momento ela só existia
+export default PagTesteInsercao // exporta a página, até o momento ela só existia
