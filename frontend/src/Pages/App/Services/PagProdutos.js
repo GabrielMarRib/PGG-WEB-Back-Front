@@ -14,7 +14,7 @@ import { useAlerta } from "../../../Context/AlertaContext.js";
 import { useContext } from "react";
 import { UserContext } from "../../../Context/UserContext";
 import Redirect from "../../../Functions/Redirect";
-import { pegaCategorias } from "../../../Functions/Functions";
+import ProdutosModal  from "../../../Components/ProdutosModal.js";
 
 function PagProdutos() {
   const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
@@ -42,6 +42,8 @@ function PagProdutos() {
   //Produtos
   const [produtos, setProdutos] = useState([]);
   const [pesquisaProduto, setPesquisaProduto] = useState("");
+
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const pegaProdutos = async () => {
@@ -162,6 +164,10 @@ const produtosFiltrados = produtos.filter((produto) =>
         >
           Voltar
         </button>
+        {showModal ? (
+         <ProdutosModal />
+        ): null}
+       
         <div className="telaInteira">
           <div className="TelaConteudo">
             <div className="container-tela-produtos">
@@ -302,7 +308,7 @@ const produtosFiltrados = produtos.filter((produto) =>
                 <ul key={produto.id_produtos}>
                   <hr />
                   <li>{produto.nome}</li>
-                  <button>Editar produto</button>
+                  <button onClick={() => setShowModal(true)}>Editar produto</button>
                 </ul>
               ))}
             </div>
