@@ -40,7 +40,7 @@ function PagTesteInsercao() {
                     senha: '@7h$Pz!q2X^vR1&K' // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
                 });
                 setCategorias(response.data); // coloca a LISTA de categorias em uma useState
-                console.log(response.data) // log para sabermos o que foi pego.
+                console.log(`dados do bd (Categorias) ${response}`) // log para sabermos o que foi pego.
             } catch (error) {
                 console.log("deu ruim: " + error) // log para sabermos qual foi o erro
             }
@@ -58,8 +58,14 @@ function PagTesteInsercao() {
                     funcao: 'pegadadoscomcat', // dita qual função deve ser utilizada da api. (a gente te fala o nome)
                     senha: '@7h$Pz!q2X^vR1&K' // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
                 });
-                setDados(response.data) // coloca as informações que acabou de pegar da api na variável useState
-                console.log(response.data) // log para sabermos o que foi pego.
+                if(response.status === 200){
+                    // outra consulta q depende da anterior
+                    setDados(response.data) // coloca as informações que acabou de pegar da api na variável useState
+                    console.log(response) // log para sabermos o que foi pego.
+                }else{
+                    console.log("irmao, erro 500, deu ruim")
+                    return;
+                }
             } catch (error) { //caso erro;
                 console.log("deu ruim: " + error) // log para sabermos qual foi o erro
             }
@@ -77,6 +83,7 @@ function PagTesteInsercao() {
             setCategoriaSelecionada(null)   // se o valor pouco importa para o bd, manda null
         else                                // caso contrário
             setCategoriaSelecionada(valor)  // manda o valor pra variável de categoria selecionada
+
     }
     const handleForm = async (e) => { // e = evento, basicamente algumas informações/propriedades que o formulário tem
         e.preventDefault(); // não deixa a página recarregar (Sim, por default ele faz isso...)
@@ -94,6 +101,7 @@ function PagTesteInsercao() {
                 codigoBarras: codigoDeBarras, // na api, referenciamos como 'codigoBarras' não 'codigoDeBarras'... Regra: o da esquerda é oq vc manda pra gente do backend
                 categoria: categoriaSelecionada //categoria q é selecionada pelo usuario no select...
             });
+
             
             // se a inserção deu OK, ele vai executar os códigos abaixo... (Se deu ruim, vai pro catch direto... Sim, existe uma linha de continuídade, só é bem tênue)
             console.log("resposta da inserção> "+response) // manda a resposta pro console.log pra gente saber o que ta acontecendo...

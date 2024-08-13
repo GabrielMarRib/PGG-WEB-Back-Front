@@ -38,7 +38,7 @@ const InfoModalCat = ({ msgObj, fechar, reFetch }) => {
       const response = await axios.post(
         "http://pggzettav3.mooo.com/api/index.php",
         {
-          funcao: "pegaProdutopelaCategoria",
+          funcao: "pegaprodutosporcategoria",
           senha: "@7h$Pz!q2X^vR1&K",
           codcategoria: msgObj.subCatId,
         }
