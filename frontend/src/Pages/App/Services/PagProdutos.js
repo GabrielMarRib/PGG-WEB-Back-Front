@@ -41,6 +41,7 @@ function PagProdutos() {
 
   //Produtos
   const [produtos, setProdutos] = useState([]);
+  const [pesquisaProduto, setPesquisaProduto] = useState("");
 
   useEffect(() => {
     const pegaProdutos = async () => {
@@ -57,7 +58,7 @@ function PagProdutos() {
     }; pegaProdutos();
   }, [])
 
-  const handleForm = async (e) => { // e = evento, basicamente algumas informações/propriedades que o formulário tem
+  const insertDados = async (e) => { // e = evento, basicamente algumas informações/propriedades que o formulário tem
     e.preventDefault(); // não deixa a página recarregar (Sim, por default ele faz isso...)
     console.log(categoriaSelecionada, codigo, nome, descricao, codigoDeBarras, dataCompra, dataValidade, quantidade, valorCompra, valorVenda)
     if(CheckCamposVazios([ codigo, nome, dataCompra, quantidade, valorCompra, valorVenda]))
@@ -142,6 +143,10 @@ useEffect(() => { // useEffect para pegar informações da LISTA de categorias..
   pegaCategorias(); //chama a função
 }, [])
 
+const produtosFiltrados = produtos.filter((produto) =>
+  produto.nome.toLowerCase().includes(pesquisaProduto.toLowerCase())
+);
+
   return (
     <div className="Produtos">
       <div className="DivForms">
@@ -162,7 +167,7 @@ useEffect(() => { // useEffect para pegar informações da LISTA de categorias..
             <div className="container-tela-produtos">
               <div className="grupo-input-produto">
                 <h2>Adicione um produto:</h2>
-               <form onSubmit={(e) => handleForm(e)}> {/* IMPORTANTE!! quando o botão é acionado, o onSubmit é ativado, por isso que não tem onClick no botao...  */}
+               <form onSubmit={(e) => insertDados(e)}> {/* IMPORTANTE!! quando o botão é acionado, o onSubmit é ativado, por isso que não tem onClick no botao...  */}
                 
                   <div className="grupo-select">
                     <select value={categoriaSelecionada} onChange={handleChangeCategoria}>
@@ -289,10 +294,11 @@ useEffect(() => { // useEffect para pegar informações da LISTA de categorias..
                 <input
                   type="text"
                   placeholder="Pesquisar produto..."
-                //onChange={(e) => pesquisaProduto(e.target.value)}
+                  value={pesquisaProduto}
+                  onChange={(e) => setPesquisaProduto(e.target.value)}
                 />
               </div>
-              {produtos?.map((produto) => (
+              {produtosFiltrados.map((produto) => (
                 <ul key={produto.id_produtos}>
                   <hr />
                   <li>{produto.nome}</li>
