@@ -1,28 +1,28 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import '../Styles/Components/InfoModalCat.css';
+import React, { useState, useCallback, useEffect } from "react";
+import "../Styles/Components/InfoModalCat.css";
 import axios from "axios";
-import { CheckCamposVazios } from '../Functions/Functions';
+import { CheckCamposVazios } from "../Functions/Functions";
 import AlertaNotificação from "./AlertaNotificação";
 import { useAlerta } from "../Context/AlertaContext.js";
 
 const InfoModalCat = ({ msgObj, fechar, reFetch }) => {
   const { Alerta } = useAlerta();
 
-  const [novoNome, setNovoNome] = useState('');
+  const [novoNome, setNovoNome] = useState("");
   const [modoEdit, setModoEdit] = useState(false);
   const [modoVisProdutos, setModoVisProdutos] = useState(false);
   const [carregando, setCarregando] = useState(false);
   const [produtos, setProdutos] = useState(null);
 
   const handleEditarNome = useCallback(() => {
-    setNovoNome('');
+    setNovoNome("");
     setModoVisProdutos(false);
-    setModoEdit(prevState => !prevState);
+    setModoEdit((prevState) => !prevState);
   }, []);
 
   const fetchProdutos = useCallback(async () => {
     setCarregando(true);
-    console.log("passando por fetchProdutos...")
+    console.log("passando por fetchProdutos...");
     await pegaProdutos();
     setCarregando(false);
   }, []);
@@ -31,55 +31,75 @@ const InfoModalCat = ({ msgObj, fechar, reFetch }) => {
     fetchProdutos();
   }, [fetchProdutos]);
 
+
+
   const pegaProdutos = async () => {
     try {
-      const response = await axios.post('http://localhost:4000/pegaProdutosDeSubInformado', {
-        codigoSelecionado: msgObj.catId,
-        subcatCodigoNEW: msgObj.subCatId
-      });
-      setProdutos(response.data)
+      const response = await axios.post(
+        "http://pggzettav3.mooo.com/api/index.php",
+        {
+          funcao: "pegaProdutopelaCategoria",
+          senha: "@7h$Pz!q2X^vR1&K",
+          codcategoria: msgObj.subCatId,
+        }
+      );
+      setProdutos(response.data);
+      console.log(response.data);
     } catch (error) {
-      console.log(error);
+      console.log("deu ruim: " + error);
     }
-  }
+  };
 
-  const handleEditarCat = useCallback(async (catAtual, subCategoriaUpd, subCatAtual) => {
-    if (CheckCamposVazios(subCategoriaUpd)) {
-      Alerta(1, "Preencha todos os campos");
-      return;
-    }
-    try {
-      await axios.post('http://localhost:4000/atualizaSub', {
-        codigoSelecionado: catAtual,
-        subCatNome: subCategoriaUpd,
-        subcatCodigoNEW: subCatAtual
-      });
+  ///Função para atualizar a categoria //Revisar essa função e atualizar ela
+  const handleEditarCat = useCallback( async (CategoriaAtualizada, CodCatFilhoAtual) => {
+      if (CheckCamposVazios(CategoriaAtualizada)) {
+        Alerta(1, "Preencha todos os campos");
+        return;
+      }
+      //Mudar o nome da categoria
+      try{
+      const response = await axios.post(
+        "http://pggzettav3.mooo.com/api/index.php",
+        {
+          funcao: "UpdNomeCategoria",
+          senha: "@7h$Pz!q2X^vR1&K",
+          codcategoria: CodCatFilhoAtual,
+          newname: CategoriaAtualizada
+        }
+      );
       Alerta(2, "Alteração concluída com êxito");
       fechar();
       reFetch();
+      console.log(response.data);
     } catch (error) {
-      console.log(error);
+      console.log("deu ruim: " + error);
     }
-  }, [Alerta, fechar, reFetch]);
+
+
+});
 
   const handleVisualizarProdutos = useCallback(() => {
     setModoEdit(false);
-    setModoVisProdutos(prevState => !prevState);
+    setModoVisProdutos((prevState) => !prevState);
   }, []);
 
   return (
     <div className="InfoModal">
       <AlertaNotificação />
       <div className="modal-content">
-        <div className='btnFecharDiv'>
-          <button className="btnFechar" onClick={fechar} >X</button>
+        <div className="btnFecharDiv">
+          <button className="btnFechar" onClick={fechar}>
+            X
+          </button>
         </div>
-        <div className='tituloDiv'>
+        <div className="tituloDiv">
           <h2>Editando Subcategoria</h2>
-          <div className='subTit'><h4>{msgObj.subCat}</h4></div>
+          <div className="subTit">
+            <h4>{msgObj.subCat}</h4>
+          </div>
         </div>
         <hr />
-        <div className='Info'>
+        <div className="Info">
           <h3>
             Categoria: {msgObj.cat} ({msgObj.catId})
             <br />
@@ -88,9 +108,14 @@ const InfoModalCat = ({ msgObj, fechar, reFetch }) => {
             Caminho completo: {msgObj.caminho}
           </h3>
           {modoEdit && (
-            <div className='InfoChild'>
-              <div className='btnFecharInfoDiv'>
-                <button className="btnFecharInfo" onClick={() => setModoEdit(false)} >X</button>
+            <div className="InfoChild">
+              <div className="btnFecharInfoDiv">
+                <button
+                  className="btnFecharInfo"
+                  onClick={() => setModoEdit(false)}
+                >
+                  X
+                </button>
               </div>
               <input
                 className="novoNomeSub"
@@ -100,29 +125,45 @@ const InfoModalCat = ({ msgObj, fechar, reFetch }) => {
                 placeholder={msgObj.subCat}
               />
               <br />
-              <button onClick={() => handleEditarCat(msgObj.catId, novoNome, msgObj.subCatId)}>Enviar</button>
+              {console.log("msgObj.catId: " + JSON.stringify(msgObj) + " msgObj.subCatId: " +  msgObj.subCatId)}
+              <button
+                onClick={() =>
+                  handleEditarCat(novoNome, msgObj.subCatId)
+                }
+              >
+                Enviar
+              </button>
             </div>
           )}
           {modoVisProdutos && (
-            <div className='InfoChild'>
-              <div className='btnFecharInfoDiv'>
-                <button className="btnFecharInfo" onClick={() => setModoVisProdutos(false)} >X</button>
+            <div className="InfoChild">
+              <div className="btnFecharInfoDiv">
+                <button
+                  className="btnFecharInfo"
+                  onClick={() => setModoVisProdutos(false)}
+                >
+                  X
+                </button>
               </div>
-              <h3>Listagem de produtos inseridos na Subcategoria {msgObj.subCat}:</h3>
+              <h3>
+                Listagem de produtos inseridos na Subcategoria {msgObj.subCat}:
+              </h3>
               {carregando ? (
                 <div>Carregando...</div>
               ) : (
                 <ul>
-                  {produtos.map(produto => (
+                  {produtos.map((produto) => (
                     <li key={produto.id}>{produto.id}</li>
                   ))}
                 </ul>
               )}
             </div>
           )}
-          <div className='util'>
+          <div className="util">
             <button onClick={handleEditarNome}>Editar Nome</button>
-            <button onClick={handleVisualizarProdutos}>Visualizar produtos</button>
+            <button onClick={handleVisualizarProdutos}>
+              Visualizar produtos
+            </button>
           </div>
         </div>
       </div>

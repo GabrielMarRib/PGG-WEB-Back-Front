@@ -17,9 +17,9 @@ import PagCurvaABCPorValor from './Pages/App/Services/PagCurvaABCPorValor';
 import PagPontoPedido from './Pages/App/Services/PagPontoPedido'; 
 import PagRelatorios from './Pages/App/Services/PagRelatorios';
 import PagFuncionarios from './Pages/App/Services/PagFuncionarios'; 
-import PagAddCategoria from './Pages/App/Services/PagAddCategoria';
 import PagTeste from './Pages/App/Services/PagTeste';
 import TesteDashboard from './Pages/App/Services/TesteDashboard';
+import GerirCategoria from './Pages/App/Services/PagAddCategoriaNew';
 
 const Mobile = IsMobile();
 
@@ -50,9 +50,11 @@ function AppRoutes() {
             <Route path="/PagPontoPedido" element={<PagPontoPedido />} /> 
             <Route path="/PagRelatorios" element={<PagRelatorios />} />   
             <Route path="/PagFuncionarios" element={<PagFuncionarios />} /> 
-            <Route path="/PagAddCategoria" element={<PagAddCategoria />} />
             <Route path="/PagTeste" element={<PagTeste />} />
             <Route path="/TesteDashboard" element={<TesteDashboard />} />
+            <Route path="/GerirCategoria" element={<GerirCategoria />} />
+            
+    
           </> 
         )}
         {/* Rota padrão para redirecionar qualquer rota desconhecida */}

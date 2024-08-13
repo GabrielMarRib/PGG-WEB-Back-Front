@@ -25,11 +25,10 @@ function PagTeste() {
             // o programa "pula" a vez do axios e ele não consegue voltar com a operação...
 
             try { //tente...
-                const response = await axios.get('http://pggzettav3.mooo.com/api/index.php', {  // acessa via get (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
-                    params: { //parâmetros da consulta... SÃO necessários.
+                const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {  // acessa via post (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
+                  //parâmetros da consulta... SÃO necessários.
                         funcao: 'pegadados', // dita qual função deve ser utilizada da api. (a gente te fala o nome)
                         senha: '@7h$Pz!q2X^vR1&K' // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
-                    }
                 });
                 setDados(response.data) // coloca as informações que acabou de pegar da api na variável useState
                 console.log(response.data) // log para sabermos o que foi pego.
@@ -37,6 +36,7 @@ function PagTeste() {
                 console.log("deu ruim: " + error) // log para sabermos qual foi o erro
             }
         };
+
 
         pegaDados(); //chama a função (até o momento só criamos ela, por isso temos q chamar aqui)
 
