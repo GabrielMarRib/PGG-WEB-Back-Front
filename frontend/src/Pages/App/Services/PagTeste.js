@@ -25,10 +25,10 @@ function PagTeste() {
             // o programa "pula" a vez do axios e ele não consegue voltar com a operação...
 
             try { //tente...
-                const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {  // acessa via post (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
-                  //parâmetros da consulta... SÃO necessários.
-                        funcao: 'pegadados', // dita qual função deve ser utilizada da api. (a gente te fala o nome)
-                        senha: '@7h$Pz!q2X^vR1&K' // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
+                const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {  // acessa via post (SEMPRE SERÁ POST)
+                    funcao: 'pegadados', // dita qual função deve ser utilizada da api. (a gente te fala o nome)
+                    senha: '@7h$Pz!q2X^vR1&K' // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
+
                 });
                 setDados(response.data) // coloca as informações que acabou de pegar da api na variável useState
                 console.log(response.data) // log para sabermos o que foi pego.
@@ -48,21 +48,23 @@ function PagTeste() {
             <table border="1">
                 <thead>
                     <tr>
-                        <th>id</th>         {/*informaçõs fixas, e as chaves definem elementos jsx (código) que conseguimos implantar diretamente no html*/}
-                        <th>descricao</th>
+                        <th>Código</th>         {/*informaçõs fixas, e as chaves definem elementos jsx (código) que conseguimos implantar diretamente no html*/}
                         <th>Nome</th>
+                        <th>descricao</th>
                         <th>codigo de barras</th>
+                        <th>categoria</th>
                     </tr>
                 </thead>
                 <tbody>
                     {dados?.map((item) => (    // mapeia cada item...
                         <tr key={item.id_produtos}> {/* a key é sempre o id, você descobre o nome que demos utilizando o console.log e vendo a estrutura. nesse caso foi id_produtos */}
                             <td>{item.id_produtos}</td>
-                            <td>{item.descricao}</td>
                             <td>{item.nome}</td>
+                            <td>{item.descricao}</td>
                             <td>{
                                 item.codigodebarras === null ? "Não possui" : item.codigodebarras
                             }</td>
+                            <td>{item.categoria}</td>
                         </tr>
                     ))}
                     {/* e fim, é assim que é feito uma busca de api... dúvidas, me chamem bbs. */}

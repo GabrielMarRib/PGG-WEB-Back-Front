@@ -20,7 +20,8 @@ import PagFuncionarios from './Pages/App/Services/PagFuncionarios';
 import PagTeste from './Pages/App/Services/PagTeste';
 import TesteDashboard from './Pages/App/Services/TesteDashboard';
 import GerirCategoria from './Pages/App/Services/PagAddCategoriaNew';
-
+import PagTesteInsercao from './Pages/App/Services/PagTesteInsercao'; 
+import PagTesteInsercaoDD from './Pages/App/Services/PagTesteInsercaoDD';
 const Mobile = IsMobile();
 
 function AppRoutes() {
@@ -36,7 +37,6 @@ function AppRoutes() {
           <>
             <Route path="/" element={<Navigate to="/PagLogin" />} />
             <Route path="/PagLogin" element={<PagLogin />} />
-
             <Route path="/PagHome" element={<PagHome />} />
             <Route path="/PagPerfil" element={<PagPerfil />} />
             <Route path="/PagAddFunc" element={<PagAddFunc />} />
@@ -51,8 +51,10 @@ function AppRoutes() {
             <Route path="/PagRelatorios" element={<PagRelatorios />} />   
             <Route path="/PagFuncionarios" element={<PagFuncionarios />} /> 
             <Route path="/PagTeste" element={<PagTeste />} />
+            <Route path="/PagTesteInsercao" element={<PagTesteInsercao />} />
+            <Route path="/PagTesteInsercaoDD" element={<PagTesteInsercaoDD />} />
             <Route path="/TesteDashboard" element={<TesteDashboard />} />
-            <Route path="/GerirCategoria" element={<GerirCategoria />} />
+            <Route path="/PagGerirCategoria" element={<GerirCategoria />} />
             
     
           </> 

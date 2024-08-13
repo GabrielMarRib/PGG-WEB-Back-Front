@@ -100,7 +100,7 @@ const CabecalhoHome = () => {
                 className="paginas"> Vender Produto </a>
               </li>
               {User && User.userData && User.userData.Nivel_acesso && User.userData.Nivel_acesso == 2 ? (
-                <li> <a onClick={() => { navigate("/PagAddCategoria") }}
+                <li> <a onClick={() => { navigate("/PagGerirCategoria") }}
                   className="paginas"> Gerir Categorias </a>
                 </li>) : (
                   null
