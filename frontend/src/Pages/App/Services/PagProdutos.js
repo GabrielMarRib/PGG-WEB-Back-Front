@@ -308,7 +308,7 @@ const produtosFiltrados = produtos.filter((produto) =>
                 <ul key={produto.id_produtos}>
                   <hr />
                   <li>{produto.nome}</li>
-                  <button onClick={() => setShowModal(true)}>Editar produto</button>
+                  <button onClick={() => setShowModal(true)}>Editar produto</button> {/* inferno */}
                 </ul>
               ))}
             </div>
@@ -320,4 +320,4 @@ const produtosFiltrados = produtos.filter((produto) =>
   );
 }
 
-export default PagProdutos;
+export default PagProdutos
