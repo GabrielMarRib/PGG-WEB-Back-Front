@@ -11,7 +11,7 @@
     align-items: center;
 }
 
-.conteudo-modal {
+.ProdutosModal .conteudo-modal {
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
@@ -22,7 +22,7 @@
     flex-direction: column;
 }
 
-.cabecalho-modal {
+.ProdutosModal .cabecalho-modal {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -31,7 +31,7 @@
     margin-bottom: 20px;
 }
 
-.botao-aba {
+.ProdutosModal .botao-aba {
     background-color: #f1f1f1;   
     border: 1px solid #ccc;
     padding: 10px 20px;
@@ -42,14 +42,22 @@
     font-size: 16px;
     font-weight: bold; 
 }
+.ProdutosModal .Titulo{
+    width: 100%;
+    text-align: center;
+}
 
-.botao-aba:hover {
+.ProdutosModal .subTitulo{
+    width: 100%;
+    text-align: center;
+}
+.ProdutosModal .botao-aba:hover {
     background-color: #ddd;
     border-color: #bbb;
     transform: translateY(-2px); 
 }
 
-.botao-aba.ativa {
+.ProdutosModal .botao-aba.ativa {
     background-color: #fff; 
     border-color: #fff;
     color: #333; 
@@ -60,20 +68,19 @@
     transform: translateY(0); 
 }
 
-.botao-aba.ativa:hover {
+.ProdutosModal .botao-aba.ativa:hover {
     background-color: #fff;
     border-color: #fff;
     transform: none;
 }
-
-.botao-fechar {
-    background-color: transparent;
+.ProdutosModal .botao-fechar {
     border: none;
     font-size: 30px;
+    border-radius: 10px;
     cursor: pointer;
-    color: red;
-    transition: color 0.3s;
-    margin-left: auto; 
+    color: rgb(252, 58, 58);
+    transition: color 0.3s, background-color 0.3s;
+    margin-left: auto;
     padding: 0;
     width: 40px;
     height: 40px;
@@ -82,28 +89,70 @@
     align-items: center;
 }
 
-.botao-fechar:hover {
+.ProdutosModal .botao-fechar:hover {
     color: darkred;
+    background-color: red;
 }
 
-.corpo-modal {
+.ProdutosModal .corpo-modal {
     flex-grow: 1;
     overflow-y: auto;
     padding-top: 10px;
+    overflow-x: hidden;
 }
 
-ul {
+.ProdutosModal ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-li {
+.ProdutosModal li {
     padding: 10px 0;
     border-bottom: 1px solid #ddd;
     transition: background-color 0.3s;
 }
 
-li:hover {
+.ProdutosModal li:hover {
     background-color: #f9f9f9;
+}
+
+.ProdutosModal .divConteudo {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+}
+
+/* Form Labels and Inputs */
+.ProdutosModal .divConteudo label {
+    font-size: 1rem;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    
+}
+
+.ProdutosModal .divConteudo input {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    min-width: 80%;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.ProdutosModal .divConteudo input:focus {
+    border-color: #e04d18;
+    box-shadow: 0 0 5px rgba(38, 143, 255, 0.2);
+}
+
+/* Horizontal Rule */
+.ProdutosModal hr {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 15px 0;
 }
