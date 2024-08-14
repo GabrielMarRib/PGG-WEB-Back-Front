@@ -1,9 +1,9 @@
 import React from 'react'
-
+import '../Styles/Components/ProdutosModal.css'
 function ProdutosModal() {
   return (
-    <div>
-        
+    <div className='ProdutosModal'>
+      <div className='modal-content'>
         Produtos
         ATUALIZARa
         ATUALIZARa
@@ -17,19 +17,21 @@ function ProdutosModal() {
         A
         A
         <ul>
-            <li>sexo</li>
-            <li>sexo</li>
-            <li>sexo</li>
-            <li>sexo</li>
-            <li>sexo</li>
-            <li>sexo</li>
-            <li>sexo</li>
-            <li>sexo</li>
-            <li>sexo</li>
-            <li>sexo</li>
-            <li>sexo</li>
+          <li>sexo</li>
+          <li>sexo</li>
+          <li>sexo</li>
+          <li>sexo</li>
+          <li>sexo</li>
+          <li>sexo</li>
+          <li>sexo</li>
+          <li>sexo</li>
+          <li>sexo</li>
+          <li>sexo</li>
+          <li>sexo</li>
         </ul>
-        </div>
+      </div>
+    </div>
+
   )
 }
 
