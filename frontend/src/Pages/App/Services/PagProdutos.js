@@ -198,7 +198,7 @@ function PagProdutos() {
           <ProdutosModal
             fechar={() => handleModal(false)}
             produtoOBJ={produtoSelecionado}
-            opcao={'Produto'}
+            opcao={'Gerais'}
             atualiza={() => atualizaProd()}
           />
         }

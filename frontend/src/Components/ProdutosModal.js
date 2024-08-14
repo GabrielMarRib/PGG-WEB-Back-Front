@@ -1,11 +1,18 @@
 import React, { useState, memo, useEffect } from 'react';
 import '../Styles/Components/ProdutosModal.css';
 import axios from 'axios';
+import { useAlerta } from "../Context/AlertaContext.js";
+import AlertaNotificação from "./AlertaNotificação.js";
+import ConfirmaModal from './ConfirmaModal.js';
+import { Link } from 'react-router-dom';
 const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atualiza }) { // teoricamente faria não ter reRender, mas ta tendo, ou seja, fds
+
+
 
   // Genérico
   const [abaAtiva, setAbaAtiva] = useState(opcao);
-
+  const { Alerta } = useAlerta();
+  const [showConfirma, setShowConfirma] = useState(false);
   // Categoria
   const [cat, setCat] = useState('')
   const [produtosEmCat, setProdutosEmCat] = useState([]);
@@ -34,21 +41,26 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
     setAbaAtiva(nomeAba);
   };
 
+  const InfoCatPertencentes = () => {
 
-  const escolhaCat = () => {
-    return (
-      <div className='botoes-container'>
-      <button onClick={() => handleClickAba('CategoriaMUDAR')} className='botao-SEXO'>SEXO</button>
-      <button onClick={() => handleClickAba('Curva ABC')} className='botao-ANAL'>ANAL</button>
-    </div>
-    )
-    
-  }
+    if (produtoOBJ.categoria === null) {
+      const a = <u>sexo</u>;
+      return (
+        <div className='erro'>
+          Produto não possui categoria. Veja a próxima aba <u onClick={() => setAbaAtiva('InfoCatProduto')} style={{ cursor: 'pointer', color: 'blue' }}>Alterar Categoria do Produto</u> para referenciar o produto à uma categoria existente
+          <br />
+          <br />
+          Não achou a categoria que queria? Clique <Link to="/PagGerirCategoria">AQUI</Link> para criar uma nova categoria
+        </div>
+      );
+    }
 
-
-  const CategoriaMUDAR = () => {
     const handleForm = async (e) => {
       e.preventDefault();
+      setShowConfirma(true);
+    }
+
+    const atualizaDados = async () => {
       try {
         const response = await axios.post(
           "http://pggzettav3.mooo.com/api/index.php",
@@ -59,33 +71,55 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
             newname: cat
           }
         );
-        setCat('');
-        atualiza();
+        if (response.status === 200) {
+          Alerta(2, "Alteração OK");
+          setCat('');
+          atualiza();
+          setShowConfirma(false)
+        }
       } catch (error) {
         console.log(error)
       }
     }
 
     return (
-      <div style={{ height: '100%' }}>
-        <button onClick={() => handleClickAba('Categoria')} className='botao-fechar'>X</button>
-        <h2 className='Titulo'> Editando <u>Categoria</u> (GERAL)</h2>
+      <div className="divSub" style={{ height: '95%' }}>
+        {showConfirma &&
+          <ConfirmaModal
+            message="Esta ação irá alterar o nome da CATEGORIA, que afetará TODOS os produtos incluídos nela. Deseja continuar?"
+            onConfirm={() => atualizaDados()}
+            onCancel={() => setShowConfirma(false)}
+          />
+        }
+
+        <h2 className='Titulo'> Alterando Categoria <u>{produtoOBJ.nomeCat}</u> pertencente à (entre outros):</h2>
         <div className='subTitulo'>
           <h3>'{produtoOBJ.nome}'</h3>
           <hr />
         </div>
         <div className='divConteudo'>
-          Produtos pertencentes a categoria:
+          <span>Produtos pertencentes a categoria <u>{produtoOBJ.nomeCat}</u>:</span>
           <ul>
             {produtosEmCat.map((produto) => (
-              <li>{produto.nome}</li>
+              <li
+                key={produto.id_produtos}
+                style={{
+                  color: produto.id_produtos === produtoOBJ.id_produtos ? '#e04d18' : 'inherit'
+                }}
+              >
+                {produto.id_produtos === produtoOBJ.id_produtos ? produto.nome + " (produto selecionado)" : produto.nome}
+              </li>
             ))}
           </ul>
-          <form onSubmit={(e) => handleForm(e)}>
+          <form className="formCat" onSubmit={(e) => handleForm(e)}>
             <label>
               Código da Categoria:
               <input
-                style={{ cursor: 'not-allowed' }}
+                style={{
+                  cursor: 'not-allowed',
+                  opacity: 0.5,
+                  filter: 'grayscale(100%)',
+                }}
                 placeholder={produtoOBJ.categoria}
                 readOnly
               />
@@ -100,18 +134,62 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
               />
             </label>
 
-            <button className='botao-testar'>testar</button>
+            <button className='botao-testar'>Alterar</button>
           </form>
-
         </div>
       </div>
     )
   }
 
-  const infoPP = () => {
+  const InfoCatProduto = () => {
+    return (
+      <div className="divSub" style={{ height: '95%' }}>
+        <h2 className='Titulo'> Alterando <u>Categoria</u> do item:</h2>
+        <div className='subTitulo'>
+          <h3>'{produtoOBJ.nome}'</h3>
+          <hr />
+        </div>
+        <div className='divConteudo'>
+          Quando o Gabriel fizer o select separado, eu coloco aqui, ASS. thiago
+        </div>
+      </div>
+    )
+  }
+
+
+  const InfoProduto = () => {
+    return (
+      <div className='divSub'>
+        <h2 className='Titulo'> Editando informações <u>Gerais</u> do item</h2>
+        <div className='subTitulo'>
+          <h3>'{produtoOBJ.nome}'</h3>
+          <hr />
+          <div className='divConteudo'>
+            <form className='formCat'>
+            <label>
+              Código:
+              <input placeholder={produtoOBJ.id_produtos} />
+            </label>
+            <label>
+              Nome:
+              <input placeholder={produtoOBJ.nome} />
+            </label>
+            <label>
+              Descrição:
+              <input placeholder={produtoOBJ.descricao} />
+            </label>
+
+            <button>sexooo</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    )
+  }
+  const infoLote = () => {
     return (
       <div>
-        <h2 className='Titulo'> Editando <u>Ponto de Pedido</u> do item</h2>
+        <h2 className='Titulo'> Editando <u>Lote</u> do item</h2>
         <div className='subTitulo'>
           <h3>'{produtoOBJ.nome}'</h3>
           <hr />
@@ -119,7 +197,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
       </div>
     )
   }
-  const InfoProduto = () => {
+  const infoPP = () => {
     return (
       <div>
         <h2 className='Titulo'> Editando <u>Ponto de Pedido</u> do item</h2>
@@ -152,27 +230,23 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
       </div>
     )
   }
-  const infoLote = () => {
-    return (
-      <div>
-        <h2 className='Titulo'> Editando <u>Lote</u> do item</h2>
-        <div className='subTitulo'>
-          <h3>'{produtoOBJ.nome}'</h3>
-          <hr />
-        </div>
-      </div>
-    )
-  }
 
   return (
     <div className='ProdutosModal'>
+      <AlertaNotificação />
       <div className='conteudo-modal'>
         <div className='cabecalho-modal'>
           <button
-            className={`botao-aba ${abaAtiva === 'Produto' ? 'ativa' : ''}`}
-            onClick={() => handleClickAba('Produto')}
+            className={`botao-aba ${abaAtiva === 'Gerais' ? 'ativa' : ''}`}
+            onClick={() => handleClickAba('Gerais')}
           >
-            Produto
+            Info Gerais
+          </button>
+          <button
+            className={`botao-aba ${abaAtiva === 'Lote' ? 'ativa' : ''}`}
+            onClick={() => handleClickAba('Lote')}
+          >
+            Lote
           </button>
           <button
             className={`botao-aba ${abaAtiva === 'Ponto De Pedido' ? 'ativa' : ''}`}
@@ -194,16 +268,16 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
           </button>
 
           <button
-            className={`botao-aba ${abaAtiva === 'Lote' ? 'ativa' : ''}`}
-            onClick={() => handleClickAba('Lote')}
+            className={`botao-aba ${abaAtiva === 'InfoCatPertencentes' ? 'ativa' : ''}`}
+            onClick={() => handleClickAba('InfoCatPertencentes')}
           >
-            Lote
+            Alterar Categoria Pertencentes
           </button>
           <button
-            className={`botao-aba ${abaAtiva === 'Categoria' ? 'ativa' : ''}`}
-            onClick={() => handleClickAba('Categoria')}
+            className={`botao-aba ${abaAtiva === 'InfoCatProduto' ? 'ativa' : ''}`}
+            onClick={() => handleClickAba('InfoCatProduto')}
           >
-            Categoria
+            Alterar Categoria do Produto
           </button>
 
           <button onClick={fechar} className='botao-fechar'>X</button>
@@ -212,21 +286,17 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
 
           {(() => {
             switch (abaAtiva) {
-              case 'Produto': return InfoProduto();
+              case 'Gerais': return InfoProduto();
               case 'Ponto De Pedido': return infoPP();
               case 'Curva ABC': return infoCurva();
               case 'Lote Econômico': return infoLoteEco();
               case 'Lote': return infoLote();
-              case 'Categoria': return escolhaCat(); 
-              case 'CategoriaMUDAR': return CategoriaMUDAR(); 
+              case 'InfoCatPertencentes': return InfoCatPertencentes();
+              case 'InfoCatProduto': return InfoCatProduto();
               default: return "erro nos props... veja se o parametro opcao está correto";
             }
           }
           )()}
-
-
-          {/**/}
-
         </div>
       </div>
     </div>
