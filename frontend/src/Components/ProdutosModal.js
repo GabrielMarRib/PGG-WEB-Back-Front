@@ -37,9 +37,9 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
 
   const escolhaCat = () => {
     return (
-      <div>
-      <button onClick={() => handleClickAba('CategoriaMUDAR')}>SEXO</button>
-      <button onClick={() => handleClickAba('Curva ABC')}>ANAL</button>
+      <div className='botoes-container'>
+      <button onClick={() => handleClickAba('CategoriaMUDAR')} className='botao-SEXO'>SEXO</button>
+      <button onClick={() => handleClickAba('Curva ABC')} className='botao-ANAL'>ANAL</button>
     </div>
     )
     
@@ -68,7 +68,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
 
     return (
       <div style={{ height: '100%' }}>
-        <button onClick={() => handleClickAba('Categoria')}>X</button>
+        <button onClick={() => handleClickAba('Categoria')} className='botao-fechar'>X</button>
         <h2 className='Titulo'> Editando <u>Categoria</u> (GERAL)</h2>
         <div className='subTitulo'>
           <h3>'{produtoOBJ.nome}'</h3>
@@ -100,7 +100,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
               />
             </label>
 
-            <button>testar</button>
+            <button className='botao-testar'>testar</button>
           </form>
 
         </div>

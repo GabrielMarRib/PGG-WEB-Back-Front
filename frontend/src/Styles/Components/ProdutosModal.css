@@ -125,7 +125,7 @@
     padding: 20px;
 }
 
-/* Form Labels and Inputs */
+
 .ProdutosModal .divConteudo label {
     font-size: 1rem;
     color: #333;
@@ -150,9 +150,58 @@
     box-shadow: 0 0 5px rgba(38, 143, 255, 0.2);
 }
 
-/* Horizontal Rule */
+
 .ProdutosModal hr {
     border: 0;
     border-top: 1px solid #eee;
     margin: 15px 0;
+}
+
+.ProdutosModal .botao-testar {
+    padding: 10px;
+    border-radius: 3px;
+    background-color: #e04d18;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-right: 1500px; 
+}
+
+.ProdutosModal .botao-ANAL {
+    padding: 25px;
+    border-radius: 3px;
+    background-color: #ccc;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-right: 1500px;
+}
+
+.ProdutosModal .botao-SEXO {
+    padding: 25px;
+    border-radius: 3px;
+    background-color: #ccc;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-right: 1500px; 
+}
+
+.ProdutosModal .botoes-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 250px; 
+}
+
+.ProdutosModal .botoes-container .botao-ANAL,
+.ProdutosModal .botoes-container .botao-SEXO {
+    margin: 0 20px; 
+    margin-right: 0; 
 }
