@@ -19,7 +19,7 @@ import PagRelatorios from './Pages/App/Services/PagRelatorios';
 import PagFuncionarios from './Pages/App/Services/PagFuncionarios'; 
 import PagTeste from './Pages/App/Services/PagTeste';
 import TesteDashboard from './Pages/App/Services/TesteDashboard';
-import GerirCategoria from './Pages/App/Services/PagAddCategoriaNew';
+import GerirCategoria from './Pages/App/Services/GerirCategoria';
 import PagTesteInsercao from './Pages/App/Services/PagTesteInsercao'; 
 import PagTesteInsercaoDD from './Pages/App/Services/PagTesteInsercaoDD';
 const Mobile = IsMobile();

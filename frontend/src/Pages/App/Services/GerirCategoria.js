@@ -1,13 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
 import CabecalhoHome from "../../../Components/CabecalhoHome.js";
 import "../../../Styles/App/Service/PagAddCategoria.css";
-import "./SelectsInfinitos.js";
 import axios from "axios";
 import {
-  CheckCamposNulos,
-  pegaCategorias,
   CheckCamposVazios,
-  VerificaCategorias,
 } from "../../../Functions/Functions.js";
 
 import { useNavigate } from "react-router-dom";
@@ -22,13 +18,13 @@ import { UserContext } from "../../../Context/UserContext.js";
 function GerirCategoria() {
   const navigate = useNavigate();
 
-  // //Página protegida...
-  // const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
-  // const User = UserOBJ.User; //Pega só o User....
-  // //Redireciona sem user
-  // Redirect(User);
-  // //Redireciona se user nn for 2
-  // RedirectAcesso(User, 2)
+  //Página protegida...
+  const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
+  const User = UserOBJ.User; //Pega só o User....
+  //Redireciona sem user
+  Redirect(User);
+  //Redireciona se user nn for 2
+  RedirectAcesso(User, 2)
 
   //funções de style:
   const { Alerta } = useAlerta(); // alertinha...
@@ -43,6 +39,7 @@ function GerirCategoria() {
   // GERALZÃO:
   const [categorias, setCategorias] = useState([]);
   const [carregando, setCarregando] = useState(true); // Estado para carregamento
+  const [Render2Select, setRender2Select] = useState(false);
 
   // Categoria do momento:
   const [MapearOptions, setMapearOptions] = useState([null]);
@@ -59,22 +56,52 @@ function GerirCategoria() {
 
 
  
+  const pegaCategorias = async (setOBJ, LetRender2Select) =>{
+
+    try { //tente...
+        const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {  // acessa via get (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
+                funcao: 'pegacategorias', 
+                senha: '@7h$Pz!q2X^vR1&K' 
+        });
+        console.log(response.data) 
+        setOBJ(response.data)
+        
+        if(LetRender2Select == true){
+          console.log("Entrou aqui")
+          console.log("CategoriaSelecionada" + JSON.stringify(categoriaSelecionada))
+          const categoriasFiltradas = response.data.filter((cat) => cat.subcategoria === categoriaSelecionada.id);
+          setCategoriaFiltrada(categoriasFiltradas);
+          setShowSelect2(true);
+          LetRender2Select = false;  //DESGRAÇA DE RENDER DE SELECT TOMANO CU PORRA
+        }
+    } catch (error) { 
+        console.log("deu ruim: " + error) 
+    }
   
+   
+}
 
 
-  const fetchData = useCallback(async () => {
+
+  const fetchData = useCallback(async (LetRender2Select) => {
     setCarregando(true);
+   
     console.log("Pegando as infos do Banco");
-    await pegaCategorias(setCategorias);
+    await pegaCategorias(setCategorias, LetRender2Select);
+
     setCarregando(false);
+
+
   }, []);
   useEffect(() => {
     SetCodigoDisponivel(categorias.length + 2);
   }, [categorias]);
 
   useEffect(() => {
-    fetchData();
+    fetchData(false);
   }, [fetchData]);
+
+
 
   const handleChange = async (e) => {
     const val = e.target.value;
@@ -82,7 +109,6 @@ function GerirCategoria() {
     if (val === "Add") {
       
       if(HistoricoSelecoes.length > 0){
-    
         setHistoricoSelecoes((prevItens) => {
   
           if (prevItens.length > 0) {
@@ -153,7 +179,6 @@ function GerirCategoria() {
         setCategoriaFiltrada(categoriasFiltradas);
       }else{
         setRemapear(false);
-        
       }
       setMapearOptions(categorias.filter(cat => cat.subcategoria === categoriaSelecionada.subcategoria))
     }
@@ -201,7 +226,7 @@ function GerirCategoria() {
 
   const MapearCategorias = (item) => {
     const categoriasFiltradas = categorias.filter((cat) => cat.subcategoria === item.id_categorias);
-    // console.log(item.id_categorias + "Categoriasfiltradas>" + JSON.stringify(categoriasFiltradas))
+   
     let EnderecoProduto = item.id_categorias;
     if (item.subcategoria == null) {
       return (
@@ -265,13 +290,12 @@ function GerirCategoria() {
     setMostrarModal(true);
   };
 
-  const AdicaoCategoria = async () => {
+  const AdicaoCategoria = async (LetRender2Select) => {
     console.log("Rodou");
     console.log(categoriaSelecionada)
     if(Array.isArray(categoriaSelecionada)){
     try {
         
-        console.log("ENTROU AQUI A")
       const response = await axios.post(
         "http://pggzettav3.mooo.com/api/index.php",
         {
@@ -281,16 +305,14 @@ function GerirCategoria() {
           subcategoria: null,
         }
       );
-      // setDados(response.data)
       console.log(response.data);
     } catch (error) {
       console.log("Deu ruim: " + error);
     }
-
-
-    }else{
-      try {
-      console.log("ENTROU AQUI B")
+    
+    
+  }else{
+    try {
       const response = await axios.post(
         "http://pggzettav3.mooo.com/api/index.php",
         {
@@ -300,34 +322,35 @@ function GerirCategoria() {
           subcategoria: categoriaSelecionada.id,
         }
       );
-      // setDados(response.data)
+    
       console.log(response.data);
-
     }catch (error) {
-    console.log("Deu ruim: " + error);
-  }
+      console.log("Deu ruim: " + error);
     }
-    
-    
-    Alerta(2, "Categoria Adicionada!");
-    setCategoriaInput("");
-    pegaCategorias(setCategorias);
-   
+  }
+  
 
+  Alerta(2, "Categoria Adicionada!");
+  setCategoriaInput("");
+
+  await fetchData(LetRender2Select)
   
   };
-
+  let LetRender2Select = false; 
   const handleEnviar = async () => {
 
         if (CheckCamposVazios(categoriaInput)) {
           Alerta(1, "Preencha todos os campos");
           return;
         }
+        console.log("Render antes: " + Render2Select)
+        setRender2Select(true);
+        console.log("Render depois: " + Render2Select)
+        LetRender2Select = true; 
+        await AdicaoCategoria(LetRender2Select);
 
-          await AdicaoCategoria();
-        
-     
   };
+
 
   const handleFecharModal = () => {
     setMostrarModal(false);
@@ -423,19 +446,27 @@ const IpersLinks = (item) => {
            
 
           <select value={JSON.stringify(categoriaSelecionada)} onChange={handleChange} >
-            <option value="Add">Adicionar aqui</option>
+            <option value="Add">Adicionar categoria aqui</option>
             {MapearOptions == null || MapearOptions == "" ? categorias.map(MapearCategoria) : MapearOptions.map(MapearCategoriasSub)}
           </select>
           
             {/* {console.log(categoriaSelecionada)} */}
+
+
+
           {ShowSelect2 != false ? (
 
           <select value={categoriaSelecionada2 ? JSON.stringify(categoriaSelecionada2) : "Add"} onChange={handleChange2} >
-            <option value="Add">Adicionar aqui</option>
-            {CategoriaFiltrada.map(MapearCategoriasSub)}
+            <option value="Add">Adicionar categoria aqui</option>
+
+            {CategoriaFiltrada.map((item) => MapearCategoriasSub(item))}
+           
+         
           </select> 
 
           ) : (null)}
+
+   
 
       
              
