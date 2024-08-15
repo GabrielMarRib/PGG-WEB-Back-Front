@@ -10,7 +10,7 @@ import axios from "axios";
 
 function CurvaABCPorValor() {
     const [dadosCurvaABC, setDadosCurvaABC] = useState([]);
-    const [carregando, setCarregando] = useState(true);
+    const [carregando, setCarregando] = useState(false);
     const [categorias, setCategorias] = useState([]);
     const [categoriaSelecionada, setCategoriaSelecionada] = useState(null);
     const [qtdTotalCusto, setQtdTotalCusto] = useState(null);
@@ -47,7 +47,7 @@ function CurvaABCPorValor() {
                         let acumulado = 0;
                         const respostaComAcumulado = respostaComPorcentagem.map((produto) => {
                             acumulado += parseFloat(produto.porcentagem);
-                            
+
                             let classificacao = 'C';
                             if (acumulado <= 80) classificacao = 'A';
                             else if (acumulado <= 95) classificacao = 'B';
@@ -58,12 +58,12 @@ function CurvaABCPorValor() {
                     }
                 } catch (error) {
                     console.log("Erro ao buscar produtos: " + error);
-                    setDadosCurvaABC({msg:"Sem CurvaABC no momento"})
+                    setDadosCurvaABC({msg:`Não há produtos cadastrados em Curva ABC para a categoria => ${categoriaSelecionada} - '${categorias.find((cat => cat.id_categorias === categoriaSelecionada)).nome}'`})
                 } finally {
                     setCarregando(false);
                 }
             } else {
-                setDadosCurvaABC({msg:"Escolha uma categoria para exibir a Curva ABC"})
+                setDadosCurvaABC({ msg: "Escolha uma categoria para exibir a Curva ABC" })
             }
         };
 
@@ -168,29 +168,29 @@ function CurvaABCPorValor() {
                     {carregando ? (
                         <div>Carregando...</div>
                     ) : (
-                        dadosCurvaABC.msg ? (dadosCurvaABC.msg):(
-                        dadosCurvaABC.length > 0 && (
-                            <ResponsiveContainer width="100%" height={400}>
-                                <ComposedChart
-                                    data={dadosCurvaABC}
-                                    margin={{
-                                        top: 40,
-                                        right: 20,
-                                        bottom: 20,
-                                        left: 20,
-                                    }}
-                                >
-                                    <CartesianGrid stroke="#f5f5f5" />
-                                    <XAxis dataKey="nome" tick={{ fontSize: 15 }} />
-                                    <YAxis domain={[0, 120]} tickCount={7} />
-                                    <Tooltip content={<CustomTooltip />} />
-                                    <Legend />
-                                    <Bar dataKey="porcentagemAcumulada" barSize={20} fill='#103CA9' />
-                                    <Line type="monotone" dataKey="porcentagemAcumulada" stroke="#FF4D00" />
-                                </ComposedChart>
-                            </ResponsiveContainer>
-                        )
-                    ))}
+                        dadosCurvaABC.msg ? (dadosCurvaABC.msg) : (
+                            dadosCurvaABC.length > 0 && (
+                                <ResponsiveContainer width="100%" height={400}>
+                                    <ComposedChart
+                                        data={dadosCurvaABC}
+                                        margin={{
+                                            top: 40,
+                                            right: 20,
+                                            bottom: 20,
+                                            left: 20,
+                                        }}
+                                    >
+                                        <CartesianGrid stroke="#f5f5f5" />
+                                        <XAxis dataKey="nome" tick={{ fontSize: 15 }} />
+                                        <YAxis domain={[0, 120]} tickCount={7} />
+                                        <Tooltip content={<CustomTooltip />} />
+                                        <Legend />
+                                        <Bar dataKey="porcentagemAcumulada" barSize={20} fill='#103CA9' />
+                                        <Line type="monotone" dataKey="porcentagemAcumulada" stroke="#FF4D00" />
+                                    </ComposedChart>
+                                </ResponsiveContainer>
+                            )
+                        ))}
                 </div>
             </div>
             <div className="Tabela">
@@ -218,7 +218,7 @@ function CurvaABCPorValor() {
                                     <td>{produto.custoTotal}</td>
                                     <td>{produto.porcentagem}%</td>
                                     <td>{produto.porcentagemAcumulada}%</td>
-                                    <td>{mudaCorClassGrafico(produto.classificacao)}</td>
+                                    <td style={{ backgroundColor: pegaCorClassificacao(produto.classificacao) }}>{mudaCorClassGrafico(produto.classificacao)}</td>
                                 </tr>
                             ))
                         ) : (

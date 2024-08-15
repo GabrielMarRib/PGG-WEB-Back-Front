@@ -10,7 +10,7 @@ import axios from "axios";
 
 function CurvaABC() {
     const [dadosCurvaABC, setDadosCurvaABC] = useState([]);
-    const [carregando, setCarregando] = useState(true);
+    const [carregando, setCarregando] = useState(false);
     const [categorias, setCategorias] = useState([]);
     const [categoriaSelecionada, setCategoriaSelecionada] = useState(null);
     const [qtdTotalConsumo, setQtdTotalConsumo] = useState(null);
@@ -58,7 +58,7 @@ function CurvaABC() {
                     }
                 } catch (error) {
                     console.log("Erro ao buscar produtos: " + error);
-                    setDadosCurvaABC({msg:"Sem CurvaABC no momento"})
+                    setDadosCurvaABC({msg:`Não há produtos cadastrados em Curva ABC para a categoria => ${categoriaSelecionada} - '${categorias.find((cat => cat.id_categorias === categoriaSelecionada)).nome}'`})
                 } finally {
                     setCarregando(false);
                 }
@@ -210,13 +210,13 @@ function CurvaABC() {
                         {dadosCurvaABC.length > 0 ? (
                             dadosCurvaABC.map((produto) => (
                                 <tr key={produto.id_produtos}>
-                                    <td>{produto.id_produtos}</td>
+                                    <td >{produto.id_produtos}</td>
                                     <td>{produto.nome}</td>
                                     <td>{produto.qt_consumo}</td>
                                     <td>{produto.vlr_venda}</td>
                                     <td>{produto.porcentagem}%</td>
                                     <td>{produto.porcentagemAcumulada}%</td>
-                                    <td>{mudaCorClassGrafico(produto.classificacao)}</td>
+                                    <td style={{backgroundColor: pegaCorClassificacao(produto.classificacao)}}>{mudaCorClassGrafico(produto.classificacao)}</td>
                                 </tr>
                             ))
                         ) : (
