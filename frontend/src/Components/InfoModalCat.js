@@ -34,19 +34,18 @@ const InfoModalCat = ({ msgObj, fechar, reFetch }) => {
 
 
   const pegaProdutos = async () => {
+    console.log(msgObj.subCatId)
     try {
-      const response = await axios.post(
-        "http://pggzettav3.mooo.com/api/index.php",
+      const response = await axios.post("http://pggzettav3.mooo.com/api/index.php",
         {
           funcao: "pegaprodutosporcategoria",
           senha: "@7h$Pz!q2X^vR1&K",
-          codcategoria: msgObj.subCatId,
-        }
-      );
+          codcategoria: msgObj.subCatId
+        });
+      console.log("PegaprodutoPorCategoria" + JSON.stringify(response.data));
       setProdutos(response.data);
-      console.log(response.data);
     } catch (error) {
-      console.log("deu ruim: " + error);
+      console.log("Deu ruim: " + error);
     }
   };
 
@@ -146,16 +145,25 @@ const InfoModalCat = ({ msgObj, fechar, reFetch }) => {
                 </button>
               </div>
               <h3>
-                Listagem de produtos inseridos na Subcategoria {msgObj.subCat}:
+                Produtos na categoria {msgObj.subCat}:
               </h3>
               {carregando ? (
                 <div>Carregando...</div>
               ) : (
-                <ul>
-                  {produtos.map((produto) => (
-                    <li key={produto.id}>{produto.id}</li>
-                  ))}
+                produtos ? (
+                  <ul>
+                    {produtos.map((produto) => (
+                      <li key={produto.id_produtos}>{produto.nome}</li>
+                    ))}
+                  </ul>
+                  
+                ) : (
+                  <ul>
+                  
+                    <li key={null}>Não há produtos</li>
+              
                 </ul>
+                )
               )}
             </div>
           )}
