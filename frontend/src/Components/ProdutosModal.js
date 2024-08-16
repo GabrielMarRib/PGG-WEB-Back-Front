@@ -179,7 +179,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
               <input placeholder={produtoOBJ.descricao} />
             </label>
 
-            <button>sexooo</button>
+            <button className='botao-testar'>Atualizar</button>
             </form>
           </div>
         </div>
