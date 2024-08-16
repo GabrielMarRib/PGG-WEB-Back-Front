@@ -7,7 +7,7 @@ import { UserContext } from "../../../Context/UserContext";
 import Redirect from "../../../Functions/Redirect";
 import RedirectAcesso from "../../../Functions/RedirectAcesso";
 import axios from "axios";
-
+import Titulo from "../../../Components/Titulo";
 function CurvaABC() {
     const [dadosCurvaABC, setDadosCurvaABC] = useState([]);
     const [carregando, setCarregando] = useState(false);
@@ -47,7 +47,7 @@ function CurvaABC() {
                         let acumulado = 0;
                         const respostaComAcumulado = respostaComPorcentagem.map((produto) => {
                             acumulado += parseFloat(produto.porcentagem);
-                            
+
                             let classificacao = 'C';
                             if (acumulado <= 80) classificacao = 'A';
                             else if (acumulado <= 95) classificacao = 'B';
@@ -58,12 +58,12 @@ function CurvaABC() {
                     }
                 } catch (error) {
                     console.log("Erro ao buscar produtos: " + error);
-                    setDadosCurvaABC({msg:`Não há produtos cadastrados em Curva ABC para a categoria => ${categoriaSelecionada} - '${categorias.find((cat => cat.id_categorias === categoriaSelecionada)).categoria_nome}'`})
+                    setDadosCurvaABC({ msg: `Não há produtos cadastrados em Curva ABC para a categoria => ${categoriaSelecionada} - '${categorias.find((cat => cat.id_categorias === categoriaSelecionada)).categoria_nome}'` })
                 } finally {
                     setCarregando(false);
                 }
             } else {
-                setDadosCurvaABC({msg:"Escolha uma categoria para exibir a Curva ABC"})
+                setDadosCurvaABC({ msg: "Escolha uma categoria para exibir a Curva ABC" })
             }
         };
 
@@ -147,18 +147,22 @@ function CurvaABC() {
             <div className="CabecalhoHome">
                 <CabecalhoHome />
             </div>
+            <Titulo
+                tituloMsg='Visualização de Curva ABC (Frequência)'
+            />
             <div className="btn">
                 <button className="Voltar" onClick={() => navigate("/PagEscolhaCurvaABC")}>
                     Voltar
                 </button>
             </div>
+            
             <div className="BuscarCategoriaCurvaABC">
                 <h3>Selecione a Categoria</h3>
                 <select value={categoriaSelecionada} onChange={handleChangeCategoria}>
                     <option value="Vazio">Categorias</option>
                     {categorias.map((categoria) => (
                         <option key={categoria.id_categorias} value={categoria.id_categorias}>
-                            {categoria.id_categorias} - {categoria.categoria_nome} {'->'} Produtos: {categoria.produtos_nomes ? categoria.produtos_nomes?.split('§~|§~').length: '0'} {'=>'} Produtos em Curva Abc: {categoria.qt_consumos ? categoria.qt_consumos?.split(',').length: '0'}
+                            {categoria.id_categorias} - {categoria.categoria_nome} {'->'} Produtos: {categoria.produtos_nomes ? categoria.produtos_nomes?.split('§~|§~').length : '0'} {'=>'} Produtos em Curva ABC: {categoria.qt_consumos ? categoria.qt_consumos?.split(',').length : '0'}
                         </option>
                     ))}
                 </select>
@@ -168,29 +172,29 @@ function CurvaABC() {
                     {carregando ? (
                         <div>Carregando...</div>
                     ) : (
-                        dadosCurvaABC.msg ? (dadosCurvaABC.msg):(
-                        dadosCurvaABC.length > 0 && (
-                            <ResponsiveContainer width="100%" height={400}>
-                                <ComposedChart
-                                    data={dadosCurvaABC}
-                                    margin={{
-                                        top: 40,
-                                        right: 20,
-                                        bottom: 20,
-                                        left: 20,
-                                    }}
-                                >
-                                    <CartesianGrid stroke="#f5f5f5" />
-                                    <XAxis dataKey="nome" tick={{ fontSize: 15 }} />
-                                    <YAxis domain={[0, 120]} tickCount={7} />
-                                    <Tooltip content={<CustomTooltip />} />
-                                    <Legend />
-                                    <Bar dataKey="porcentagemAcumulada" barSize={20} fill='#103CA9' />
-                                    <Line type="monotone" dataKey="porcentagemAcumulada" stroke="#FF4D00" />
-                                </ComposedChart>
-                            </ResponsiveContainer>
-                        )
-                    ))}
+                        dadosCurvaABC.msg ? (dadosCurvaABC.msg) : (
+                            dadosCurvaABC.length > 0 && (
+                                <ResponsiveContainer width="100%" height={400}>
+                                    <ComposedChart
+                                        data={dadosCurvaABC}
+                                        margin={{
+                                            top: 40,
+                                            right: 20,
+                                            bottom: 20,
+                                            left: 20,
+                                        }}
+                                    >
+                                        <CartesianGrid stroke="#f5f5f5" />
+                                        <XAxis dataKey="nome" tick={{ fontSize: 15 }} />
+                                        <YAxis domain={[0, 120]} tickCount={7} />
+                                        <Tooltip content={<CustomTooltip />} />
+                                        <Legend />
+                                        <Bar dataKey="porcentagemAcumulada" barSize={20} fill='#103CA9' />
+                                        <Line type="monotone" dataKey="porcentagemAcumulada" stroke="#FF4D00" />
+                                    </ComposedChart>
+                                </ResponsiveContainer>
+                            )
+                        ))}
                 </div>
             </div>
             <div className="Tabela">
@@ -216,7 +220,7 @@ function CurvaABC() {
                                     <td>{produto.vlr_venda}</td>
                                     <td>{produto.porcentagem}%</td>
                                     <td>{produto.porcentagemAcumulada}%</td>
-                                    <td style={{backgroundColor: pegaCorClassificacao(produto.classificacao)}}>{mudaCorClassGrafico(produto.classificacao)}</td>
+                                    <td style={{ backgroundColor: pegaCorClassificacao(produto.classificacao) }}>{mudaCorClassGrafico(produto.classificacao)}</td>
                                 </tr>
                             ))
                         ) : (

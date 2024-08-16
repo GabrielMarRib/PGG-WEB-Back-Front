@@ -7,6 +7,7 @@ import { UserContext } from "../../../Context/UserContext";
 import Redirect from "../../../Functions/Redirect";
 import RedirectAcesso from "../../../Functions/RedirectAcesso";
 import axios from "axios";
+import Titulo from "../../../Components/Titulo.jsx";
 
 function CurvaABCPorValor() {
     const [dadosCurvaABC, setDadosCurvaABC] = useState([]);
@@ -147,6 +148,9 @@ function CurvaABCPorValor() {
             <div className="CabecalhoHome">
                 <CabecalhoHome />
             </div>
+            <Titulo
+                tituloMsg = 'Visualização de Curva ABC (Valor)'
+            />
             <div className="btn">
                 <button className="Voltar" onClick={() => navigate("/PagEscolhaCurvaABC")}>
                     Voltar
@@ -158,7 +162,7 @@ function CurvaABCPorValor() {
                     <option value="Vazio">Categorias</option>
                     {categorias.map((categoria) => (
                         <option key={categoria.id_categorias} value={categoria.id_categorias}>
-                            {categoria.id_categorias} - {categoria.categoria_nome} {'->'} Produtos: {categoria.produtos_nomes ? categoria.produtos_nomes?.split('§~|§~').length: '0'} {'=>'} Produtos em Curva Abc: {categoria.qt_consumos ? categoria.qt_consumos?.split(',').length: '0'}
+                            {categoria.id_categorias} - {categoria.categoria_nome} {'->'} Produtos: {categoria.produtos_nomes ? categoria.produtos_nomes?.split('§~|§~').length: '0'} {'=>'} Produtos em Curva ABC: {categoria.qt_consumos ? categoria.qt_consumos?.split(',').length: '0'}
                         </option>
                     ))}
                 </select>

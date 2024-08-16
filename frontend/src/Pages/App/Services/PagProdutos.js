@@ -2,11 +2,7 @@ import React, { useState, useEffect, useCallback, memo } from "react";
 import CabecalhoHome from "../../../Components/CabecalhoHome";
 import "../../../Styles/PagProdutos.css";
 import axios from "axios";
-import {
-  apagarCampos,
-  CheckCamposNulos,
-  CheckCamposVazios,
-} from "../../../Functions/Functions";
+import {CheckCamposVazios} from "../../../Functions/Functions";
 import { useNavigate } from "react-router-dom";
 import AlertaNotificação from "../../../Components/AlertaNotificação.js";
 import { useAlerta } from "../../../Context/AlertaContext.js";
@@ -14,6 +10,7 @@ import { useContext } from "react";
 import { UserContext } from "../../../Context/UserContext";
 import Redirect from "../../../Functions/Redirect";
 import ProdutosModal from "../../../Components/ProdutosModal.js";
+import Titulo from "../../../Components/Titulo.jsx";
 
 function PagProdutos() {
   const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
@@ -183,6 +180,11 @@ function PagProdutos() {
         <div className="CabecalhoHome">
           <CabecalhoHome />
         </div>
+
+        <Titulo
+          tituloMsg = 'Gerenciamento de Produtos'
+        />
+        
         <AlertaNotificação />
         <button
           className="voltar"
@@ -192,6 +194,7 @@ function PagProdutos() {
         >
           Voltar
         </button>
+        
         {showModal &&
           <ProdutosModal
             fechar={() => handleModal(false)}

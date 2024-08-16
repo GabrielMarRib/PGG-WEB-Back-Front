@@ -15,6 +15,7 @@ import Redirect from "../../../Functions/Redirect.js";
 import RedirectAcesso from "../../../Functions/RedirectAcesso.js";
 import { useContext } from "react";
 import { UserContext } from "../../../Context/UserContext.js";
+import Titulo from "../../../Components/Titulo.jsx";
 
 function GerirCategoria() {
   const navigate = useNavigate();
@@ -392,6 +393,9 @@ const IpersLinks = (item) => {
     <div className="PagAddCategoria">
       <CabecalhoHome />
       <AlertaNotificação />
+      <Titulo
+          tituloMsg = 'Gerenciamento de Categorias'
+        />
       <button
         className="voltar"
         onClick={() => {
