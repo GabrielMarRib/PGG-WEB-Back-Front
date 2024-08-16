@@ -1,15 +1,25 @@
 .CurvaABC {
     font-family: 'JetBrains Mono';
-    text-align: center; 
+    text-align: center;
 }
 
-.CurvaABC .btn button.voltar{
+.CurvaABC select {
+    font-family: 'JetBrains Mono';
+    background-color: #f1f1f1;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 16px;
+    color: #333;
+}
+
+.CurvaABC .btn button.voltar {
     width: 80px;
-    
+
 }
 
-.CurvaABC .btn{
-    margin-right: 1500px; 
+.CurvaABC .btn {
+    margin-right: 1500px;
 }
 
 .CurvaABC .Nome-produto-input {
@@ -24,6 +34,7 @@
 .CurvaABC .quantidade-input {
     margin-top: 18px;
 }
+
 .CurvaABC label {
     justify-content: right;
     margin-left: 2%;
@@ -290,19 +301,19 @@ th {
 
 /* DIV Selecione a Categoria */
 
-.CurvaABC .BuscarCategoriaCurvaABC{
-    margin: 20px auto; 
+.CurvaABC .BuscarCategoriaCurvaABC {
+    margin: 20px auto;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    max-width: 400px;
+    max-width: 40%;
     width: 60%;
 }
 
 .PagPontoPedido .BuscarCategoriaCurvaABC h3 {
     margin-bottom: 10px;
     font-size: 20px;
-    
+
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");

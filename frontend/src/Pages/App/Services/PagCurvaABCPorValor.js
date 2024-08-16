@@ -58,7 +58,7 @@ function CurvaABCPorValor() {
                     }
                 } catch (error) {
                     console.log("Erro ao buscar produtos: " + error);
-                    setDadosCurvaABC({msg:`Não há produtos cadastrados em Curva ABC para a categoria => ${categoriaSelecionada} - '${categorias.find((cat => cat.id_categorias === categoriaSelecionada)).nome}'`})
+                    setDadosCurvaABC({msg:`Não há produtos cadastrados em Curva ABC para a categoria => ${categoriaSelecionada} - '${categorias.find((cat => cat.id_categorias === categoriaSelecionada)).categoria_nome}'`})
                 } finally {
                     setCarregando(false);
                 }
@@ -74,7 +74,7 @@ function CurvaABCPorValor() {
         const pegaCategorias = async () => {
             try {
                 const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
-                    funcao: 'pegacategorias',
+                    funcao: 'pegaCategoriasComConsumo',
                     senha: '@7h$Pz!q2X^vR1&K'
                 });
                 setCategorias(response.data);
@@ -158,7 +158,7 @@ function CurvaABCPorValor() {
                     <option value="Vazio">Categorias</option>
                     {categorias.map((categoria) => (
                         <option key={categoria.id_categorias} value={categoria.id_categorias}>
-                            {categoria.id_categorias} - {categoria.nome}
+                            {categoria.id_categorias} - {categoria.categoria_nome} {'->'} Produtos: {categoria.produtos_nomes ? categoria.produtos_nomes?.split('§~|§~').length: '0'} {'=>'} Produtos em Curva Abc: {categoria.qt_consumos ? categoria.qt_consumos?.split(',').length: '0'}
                         </option>
                     ))}
                 </select>
