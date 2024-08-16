@@ -13,8 +13,9 @@ import React, { useEffect, useState } from 'react'
 
 
 import axios from 'axios'; // axios é utilizado para acessar a internet. (lugar onde tá a nossa api)
-
-function PagTesteInsercao() {
+import { CheckCamposVazios } from '../../../Functions/Functions';
+import { useAlerta } from "../../../Context/AlertaContext.js";
+function PagTesteInsercaoDD() {
 
     // useStates que interagem com a API:
     const [dados, setDados] = useState([]); // variável useState, iniciando como uma array vazia, pois o que esperamos da api é uma array (sempre será).
@@ -22,11 +23,17 @@ function PagTesteInsercao() {
 
 
     // useStates que interagem com o formulário:
+    const { Alerta } = useAlerta();
     const [categoriaSelecionada, setCategoriaSelecionada] = useState(null); // useState sobre a CATEGORIA, apenas uma, a categoria selecionada.... aqui esperamos uma coisa só (o código da categoria), por isso, não inicia como array...
     const [codigo, setCodigo] = useState(null); // mesma coisa, esperamos uma coisa só
     const [nome, setNome] = useState(''); // aqui esperamos texto, mas podia ser null também... tanto faz, mas é melhor prática usar o tipo de variável que esperamos aqui.
     const [descricao, setDescricao] = useState('');
     const [codigoDeBarras, setCodigoDeBarras] = useState('');
+    const [dataCompra, setDataCompra] = useState('');
+    const [dataValidade, setDataValidade] = useState('');
+    const [quantidade, setQuantidade] = useState('');
+    const [valorCompra, setValorCompra] = useState('');
+    const [valorVenda, setValorVenda] = useState('');
 
     //useState que interage com o useEffect de dados gerais
     const [repescarInfo, setRepescarInfo] = useState(false); // inicia como false, e troca de false e true para repescar os dados...
@@ -40,7 +47,7 @@ function PagTesteInsercao() {
                     senha: '@7h$Pz!q2X^vR1&K' // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
                 });
                 setCategorias(response.data); // coloca a LISTA de categorias em uma useState
-                console.log(`dados do bd (Categorias) ${response}`) // log para sabermos o que foi pego.
+                console.log(response.data) // log para sabermos o que foi pego.
             } catch (error) {
                 console.log("deu ruim: " + error) // log para sabermos qual foi o erro
             }
@@ -58,14 +65,8 @@ function PagTesteInsercao() {
                     funcao: 'pegadadoscomcat', // dita qual função deve ser utilizada da api. (a gente te fala o nome)
                     senha: '@7h$Pz!q2X^vR1&K' // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
                 });
-                if(response.status === 200){
-                    // outra consulta q depende da anterior
-                    setDados(response.data) // coloca as informações que acabou de pegar da api na variável useState
-                    console.log(response) // log para sabermos o que foi pego.
-                }else{
-                    console.log("irmao, erro 500, deu ruim")
-                    return;
-                }
+                setDados(response.data) // coloca as informações que acabou de pegar da api na variável useState
+                console.log(response.data) // log para sabermos o que foi pego.
             } catch (error) { //caso erro;
                 console.log("deu ruim: " + error) // log para sabermos qual foi o erro
             }
@@ -83,10 +84,14 @@ function PagTesteInsercao() {
             setCategoriaSelecionada(null)   // se o valor pouco importa para o bd, manda null
         else                                // caso contrário
             setCategoriaSelecionada(valor)  // manda o valor pra variável de categoria selecionada
-
     }
     const handleForm = async (e) => { // e = evento, basicamente algumas informações/propriedades que o formulário tem
         e.preventDefault(); // não deixa a página recarregar (Sim, por default ele faz isso...)
+        if(CheckCamposVazios([codigo, nome, dataCompra, quantidade, valorCompra, valorVenda]))
+        {
+            Alerta(1, "Campos não preenchidos");
+            return;
+        }
 
         //inserção de produtos...
         try {
@@ -101,7 +106,7 @@ function PagTesteInsercao() {
                 codigoBarras: codigoDeBarras, // na api, referenciamos como 'codigoBarras' não 'codigoDeBarras'... Regra: o da esquerda é oq vc manda pra gente do backend
                 categoria: categoriaSelecionada //categoria q é selecionada pelo usuario no select...
             });
-
+            
             
             // se a inserção deu OK, ele vai executar os códigos abaixo... (Se deu ruim, vai pro catch direto... Sim, existe uma linha de continuídade, só é bem tênue)
             console.log("resposta da inserção> "+response) // manda a resposta pro console.log pra gente saber o que ta acontecendo...
@@ -112,6 +117,11 @@ function PagTesteInsercao() {
             setDescricao('');
             setNome('');
             setCodigoDeBarras('');
+            setDataCompra('');
+            setDataValidade('');
+            setQuantidade('');
+            setValorCompra('');
+            setValorVenda('');
             
             //REPESCAR INFORMAÇÕES (ATUALIZAR TABELA)
             setRepescarInfo(prevState => !prevState); // variável fica na dependency array do useEffect que busca as informações da tabela. Quando o valor é mudado,
@@ -133,6 +143,12 @@ function PagTesteInsercao() {
                         <th>categoria</th>
                         <th>categoria Id</th>
                         <th>Subcategoria Id</th>
+                        <th>Nº Lote</th>
+                        <th>Data da compra</th>
+                        <th>Data de validade</th>
+                        <th>Quantidade</th>
+                        <th>Valor de compra</th>
+                        <th>Valor de venda</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -199,6 +215,49 @@ function PagTesteInsercao() {
                         value={codigoDeBarras}
                         onChange={(e) => setCodigoDeBarras(e.target.value)}
                         placeholder="Código de barras"
+                        mask="9999999999999"
+                    />
+
+                    <input
+                        type="date"
+                        id="novoInput"
+                        value={dataCompra}
+                        onChange={(e) => setDataCompra(e.target.value)}
+                        placeholder="Data da Compra"
+                    />
+
+                    <input
+                        type="date"
+                        id="novoInput"
+                        value={dataValidade}
+                        onChange={(e) => setDataValidade(e.target.value)}
+                        placeholder="Data de Validade"
+                    />
+
+                    <input
+                        type="int"
+                        id="novoInput"
+                        value={quantidade}
+                        onChange={(e) => setQuantidade(e.target.value)}
+                        placeholder="Quantidade do Produto"
+                    />
+
+                    <input
+                        type="number"
+                        id="novoInput"
+                        value={valorCompra}
+                        onChange={(e) => setValorCompra(e.target.value)}
+                        placeholder="Valor da Compra"
+                        style={{ width: '120px' }}
+                    />
+
+                    <input
+                        type="number"
+                        id="novoInput"
+                        value={valorVenda}
+                        onChange={(e) => setValorVenda(e.target.value)}
+                        placeholder="Valor da Venda"
+                        style={{ width: '120px' }}
                     />
 
                     <button>
@@ -211,4 +270,4 @@ function PagTesteInsercao() {
     )
 }
 
-export default PagTesteInsercao // exporta a página, até o momento ela só existia
+export default PagTesteInsercaoDD // exporta a página, até o momento ela só existia
