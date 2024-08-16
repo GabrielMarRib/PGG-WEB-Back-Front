@@ -133,11 +133,14 @@
     padding-bottom: 10px;
 }
 
+
+
 .ProdutosModal .formCat{
     margin-top: 30px;
 }
 
 .ProdutosModal .divConteudo label {
+    margin-left: 20px;
     font-size: 1rem;
     color: #333;
     display: flex;
@@ -149,8 +152,8 @@
 .ProdutosModal .divConteudo input {
     border: 1px solid #ddd;
     border-radius: 5px;
-    padding: 10px;
-    min-width: 80%;
+    padding: 12px;
+    min-width: 93%;
     font-size: 1rem;
     outline: none;
     transition: border-color 0.3s;
@@ -170,6 +173,7 @@
 
 .ProdutosModal .botao-testar {
     padding: 10px;
+    margin-left: 20px;
     border-radius: 3px;
     background-color: #e04d18;
     border: none;

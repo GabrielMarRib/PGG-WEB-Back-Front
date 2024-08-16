@@ -13,10 +13,16 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
   const [abaAtiva, setAbaAtiva] = useState(opcao);
   const { Alerta } = useAlerta();
   const [showConfirma, setShowConfirma] = useState(false);
+  const [msg, setMsg] = useState({});
+
   // Categoria
   const [cat, setCat] = useState('')
   const [produtosEmCat, setProdutosEmCat] = useState([]);
 
+  // Gerais
+  const [nomeProd, setNomeProd] = useState('');
+  const [descProd, setDescProd] = useState('');
+  
   useEffect(() => {
     const pegaProdutosCat = async () => {
       try {
@@ -44,7 +50,6 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
   const InfoCatPertencentes = () => {
 
     if (produtoOBJ.categoria === null) {
-      const a = <u>sexo</u>;
       return (
         <div className='erro'>
           Produto não possui categoria. Veja a próxima aba <u onClick={() => setAbaAtiva('InfoCatProduto')} style={{ cursor: 'pointer', color: 'blue' }}>Alterar Categoria do Produto</u> para referenciar o produto à uma categoria existente
@@ -89,6 +94,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
             message="Esta ação irá alterar o nome da CATEGORIA, que afetará TODOS os produtos incluídos nela. Deseja continuar?"
             onConfirm={() => atualizaDados()}
             onCancel={() => setShowConfirma(false)}
+            BoolMultiplaEscolha={true}
           />
         }
 
@@ -158,28 +164,92 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
 
 
   const InfoProduto = () => {
+
+    const handleForm = (e) => {
+      e.preventDefault();
+      if(nomeProd === '' && descProd === '' ){
+        setMsg("Por favor, informe pelo menos um campo para alteração")
+      } else if(nomeProd !== '' && descProd === ''){
+        const msgOBJ = [
+          'Tem certeza que deseja alterar o NOME do produto? Nome anterior:',
+          `'STYLE1${produtoOBJ.nome}' `,
+          'Novo nome:',
+          `'STYLE2${nomeProd}'`,
+        ]
+        setMsg(msgOBJ)
+      } else if(nomeProd === '' && descProd !== ''){
+        const msgOBJ = [
+          'Tem certeza que deseja alterar a DESCRIÇÃO do produto? Descrição anterior:',
+          `'STYLE1${produtoOBJ.descricao}'`,
+          'Nova descrição:',
+          `'STYLE2${descProd}' `,
+        ]
+        setMsg(msgOBJ)
+      }else{
+        const msgOBJ = [
+          'Tem certeza que deseja alterar o NOME e a DESCRIÇÃO do produto? Descrição anterior:',
+          `'STYLE1${produtoOBJ.descricao}'`,
+          'Nova descrição:',
+          `'STYLE2${descProd}' `,
+          'Nome anterior:',
+          `'STYLE1${produtoOBJ.nome}'`,
+          'Novo nome:',
+          `'STYLE2${nomeProd}'`,
+        ]
+        setMsg(msgOBJ)
+      }
+      setShowConfirma(true)
+    }
+
+    const atualizaDados = () =>{
+
+    }
+
     return (
       <div className='divSub'>
         <h2 className='Titulo'> Editando informações <u>Gerais</u> do item</h2>
         <div className='subTitulo'>
+          {showConfirma &&
+            <ConfirmaModal
+              message= {msg}
+              onConfirm={() => atualizaDados()}
+              onCancel={() => setShowConfirma(false)}
+              BoolMultiplaEscolha= {msg == 'Por favor, informe pelo menos um campo para alteração' ? false : true  }
+              styles = {{ 'STYLE1': {color: '#da0f0f'}, 'STYLE2': {color: '#00aef3'}}}
+
+            />
+          }
           <h3>'{produtoOBJ.nome}'</h3>
           <hr />
           <div className='divConteudo'>
-            <form className='formCat'>
-            <label>
-              Código:
-              <input placeholder={produtoOBJ.id_produtos} />
-            </label>
-            <label>
-              Nome:
-              <input placeholder={produtoOBJ.nome} />
-            </label>
-            <label>
-              Descrição:
-              <input placeholder={produtoOBJ.descricao} />
-            </label>
-
-            <button className='botao-testar'>Atualizar</button>
+            <form className='formCat' onSubmit={(e) => handleForm(e)}>
+              <label>
+                Código:
+                <input
+                  style={{
+                    cursor: 'not-allowed',
+                    opacity: 0.5,
+                    filter: 'grayscale(100%)',
+                  }}
+                  placeholder={produtoOBJ.categoria}
+                  readOnly
+                />
+              </label>
+              <label>
+                Nome:
+                <input
+                  placeholder={produtoOBJ.nome}
+                  value={nomeProd}
+                  onChange={(e) => setNomeProd(e.target.value)}
+                />
+              </label>
+              <label>
+                Descrição:
+                <input placeholder={produtoOBJ.descricao}
+                  value={descProd}
+                  onChange={(e) => setDescProd(e.target.value)} />
+              </label>
+              <button className='botao-testar'>Atualizar</button>
             </form>
           </div>
         </div>
@@ -271,7 +341,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
             className={`botao-aba ${abaAtiva === 'InfoCatPertencentes' ? 'ativa' : ''}`}
             onClick={() => handleClickAba('InfoCatPertencentes')}
           >
-            Alterar Categoria Pertencentes
+            Alterar Categoria Pertencente
           </button>
           <button
             className={`botao-aba ${abaAtiva === 'InfoCatProduto' ? 'ativa' : ''}`}
