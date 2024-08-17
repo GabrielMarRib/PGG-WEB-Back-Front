@@ -12,17 +12,23 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
   // Genérico
   const [abaAtiva, setAbaAtiva] = useState(opcao);
   const { Alerta } = useAlerta();
+
+  // modalConfirma
   const [showConfirma, setShowConfirma] = useState(false);
   const [msg, setMsg] = useState({});
+  const [tamanho, setTamanho] = useState('');
 
   // Categoria
   const [cat, setCat] = useState('')
   const [produtosEmCat, setProdutosEmCat] = useState([]);
+  const [refreshProdCat, SetRefreshProdCat] = useState(false);
 
   // Gerais
   const [nomeProd, setNomeProd] = useState('');
   const [descProd, setDescProd] = useState('');
-  const [refreshProdCat, SetRefreshProdCat] = useState(false);
+  const [codBarras, setCodBarras] = useState('');
+
+
   useEffect(() => {
     const pegaProdutosCat = async () => {
       try {
@@ -46,6 +52,46 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
   const handleClickAba = (nomeAba) => {
     setAbaAtiva(nomeAba);
   };
+
+  const formaObj = (array, chaves, chavesBD, NOVA) => {
+    let obj = []
+    array.forEach((valor, index) => {
+      if (valor !== '') {
+        obj.push({ chave: chaves[index], chaveBD: chavesBD[index], novos: NOVA[index], valor });
+      }
+    });
+    return obj;
+  }
+
+  const preparaMSG_ALTERAR = (obj) => {
+    setTamanho('P')
+    if(obj.length === 0)
+      return 'Por favor, informe pelo menos um campo para alteração'
+    let msgFormada = 'Tem certeza que deseja alterar ';
+
+    if (obj.length > 1) {
+      setTamanho('G')
+    }
+    let i = obj.length;
+
+    //formar msg:
+    obj.forEach((element, index) => {
+      msgFormada += (index === 0 ? "" : " E ") + element.chave.toUpperCase() + (index === obj.length - 1 ? " do produto? " : "")
+    });
+    let msgOBJ = []
+
+    msgOBJ.push(msgFormada)
+
+    while (i > 0) {
+      msgOBJ.push(obj[i - 1].chave + " anterior: ");
+      msgOBJ.push("STYLE1'" + produtoOBJ[obj[i - 1].chaveBD] + "'")
+      msgOBJ.push(obj[i - 1].novos + " " + obj[i - 1].chave + ":")
+      msgOBJ.push("STYLE2'" + obj[i - 1].valor + "'")
+      i--
+    }
+
+    return msgOBJ
+  }
 
   const InfoCatPertencentes = () => {
 
@@ -81,7 +127,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
           setCat('');
           atualiza();
           setShowConfirma(false)
-        }else{
+        } else {
           Alerta(3, "Erro na alteração");
           setCat('');
           atualiza();
@@ -169,56 +215,28 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
     )
   }
 
+  
 
   const InfoProduto = () => {
 
     const handleForm = (e) => {
       e.preventDefault();
-      if(nomeProd === '' && descProd === '' ){
-        setMsg("Por favor, informe pelo menos um campo para alteração")
-      } else if(nomeProd !== '' && descProd === ''){
-        const msgOBJ = [
-          'Tem certeza que deseja alterar o NOME do produto? Nome anterior:',
-          `'STYLE1${produtoOBJ.nome}' `,
-          'Novo nome:',
-          `'STYLE2${nomeProd}'`,
-        ]
-        setMsg(msgOBJ)
-      } else if(nomeProd === '' && descProd !== ''){
-        const msgOBJ = [
-          'Tem certeza que deseja alterar a DESCRIÇÃO do produto? Descrição anterior:',
-          `'STYLE1${produtoOBJ.descricao}'`,
-          'Nova descrição:',
-          `'STYLE2${descProd}' `,
-        ]
-        setMsg(msgOBJ)
-      }else{
-        const msgOBJ = [
-          'Tem certeza que deseja alterar o NOME e a DESCRIÇÃO do produto? Descrição anterior:',
-          `'STYLE1${produtoOBJ.descricao}'`,
-          'Nova descrição:',
-          `'STYLE2${descProd}' `,
-          'Nome anterior:',
-          `'STYLE1${produtoOBJ.nome}'`,
-          'Novo nome:',
-          `'STYLE2${nomeProd}'`,
-        ]
-        setMsg(msgOBJ)
-      }
+      const obj = formaObj([nomeProd, descProd, codBarras], ['Nome', 'Descrição', 'Código de Barras'], ['nome', 'descricao', 'codigodebarras'], ['Novo', 'Nova', 'Novo'])
+      const msgOBJ = preparaMSG_ALTERAR(obj)
+
+      console.log(msgOBJ)
+      setMsg(msgOBJ)
       setShowConfirma(true)
     }
-
-    
-
-    const atualizaDados = async () =>{
+    const atualizaDados = async () => {
       try {
         const response = await axios.post(
           "http://pggzettav3.mooo.com/api/index.php",
           {
             funcao: "AtualizarProdutoExistenteNoBancoDeDadosComBaseNoIdFornecidoAlterandoNomeProdutoEDescricaoDoProdutoSeNecessario",
             senha: "@7h$Pz!q2X^vR1&K",
-            nomeProduto: nomeProd === '' ? null: nomeProd,
-            descricao: descProd === '' ? null: descProd,
+            nomeProduto: nomeProd === '' ? null : nomeProd,
+            descricao: descProd === '' ? null : descProd,
             id_produtos: produtoOBJ.id_produtos
           }
         );
@@ -229,7 +247,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
           atualiza();
           SetRefreshProdCat(prevState => !prevState)
           setShowConfirma(false)
-        }else{
+        } else {
           Alerta(3, "Erro na alteração");
           setNomeProd('');
           setDescProd('')
@@ -249,12 +267,12 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
         <div className='subTitulo'>
           {showConfirma &&
             <ConfirmaModal
-              message= {msg}
+              message={msg}
               onConfirm={() => atualizaDados()}
               onCancel={() => setShowConfirma(false)}
-              BoolMultiplaEscolha= {msg == 'Por favor, informe pelo menos um campo para alteração' ? false : true  }
-              styles = {{ 'STYLE1': {color: '#da0f0f'}, 'STYLE2': {color: '#00aef3'}}}
-
+              BoolMultiplaEscolha={msg == 'Por favor, informe pelo menos um campo para alteração' ? false : true}
+              styles={{ 'STYLE1': { color: '#da0f0f' }, 'STYLE2': { color: '#00aef3' } }}
+              tamanho={tamanho}
             />
           }
           <h3>'{produtoOBJ.nome}'</h3>
@@ -287,6 +305,14 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
                   value={descProd}
                   onChange={(e) => setDescProd(e.target.value)} />
               </label>
+
+              <label>
+                Código de Barras:
+                <input placeholder={produtoOBJ.codigodebarras ? produtoOBJ.codigodebarras : "Não possui"}
+                  value={codBarras}
+                  onChange={(e) => setCodBarras(e.target.value)} />
+              </label>
+
               <button className='botao-testar'>Atualizar</button>
             </form>
           </div>
@@ -295,12 +321,127 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
     )
   }
   const infoLote = () => {
+    const handleForm = (e) => {
+      e.preventDefault();
+      if (nomeProd === '' && descProd === '') {
+        setMsg("Por favor, informe pelo menos um campo para alteração")
+      } else if (nomeProd !== '' && descProd === '') {
+        const msgOBJ = [
+          'Tem certeza que deseja alterar o NOME do produto? Nome anterior:',
+          `'STYLE1${produtoOBJ.nome}' `,
+          'Novo nome:',
+          `'STYLE2${nomeProd}'`,
+        ]
+        setMsg(msgOBJ)
+      } else if (nomeProd === '' && descProd !== '') {
+        const msgOBJ = [
+          'Tem certeza que deseja alterar a DESCRIÇÃO do produto? Descrição anterior:',
+          `'STYLE1${produtoOBJ.descricao}'`,
+          'Nova descrição:',
+          `'STYLE2${descProd}' `,
+        ]
+        setMsg(msgOBJ)
+      } else {
+        const msgOBJ = [
+          'Tem certeza que deseja alterar o NOME e a DESCRIÇÃO do produto? Descrição anterior:',
+          `'STYLE1${produtoOBJ.descricao}'`,
+          'Nova descrição:',
+          `'STYLE2${descProd}' `,
+          'Nome anterior:',
+          `'STYLE1${produtoOBJ.nome}'`,
+          'Novo nome:',
+          `'STYLE2${nomeProd}'`,
+        ]
+        setMsg(msgOBJ)
+      }
+      setShowConfirma(true)
+    }
+
+
+
+    const atualizaDados = async () => {
+      try {
+        const response = await axios.post(
+          "http://pggzettav3.mooo.com/api/index.php",
+          {
+            funcao: "AtualizarProdutoExistenteNoBancoDeDadosComBaseNoIdFornecidoAlterandoNomeProdutoEDescricaoDoProdutoSeNecessario",
+            senha: "@7h$Pz!q2X^vR1&K",
+            nomeProduto: nomeProd === '' ? null : nomeProd,
+            descricao: descProd === '' ? null : descProd,
+            id_produtos: produtoOBJ.id_produtos
+          }
+        );
+        if (response.status === 200) {
+          Alerta(2, "Alterado com Sucesso");
+          setNomeProd('');
+          setDescProd('')
+          atualiza();
+          SetRefreshProdCat(prevState => !prevState)
+          setShowConfirma(false)
+        } else {
+          Alerta(3, "Erro na alteração");
+          setNomeProd('');
+          setDescProd('')
+          atualiza();
+          setShowConfirma(false)
+        }
+      } catch (error) {
+        console.log(error)
+        Alerta(1, "Erro Desconhecido");
+        setShowConfirma(false)
+      }
+    }
+
     return (
-      <div>
-        <h2 className='Titulo'> Editando <u>Lote</u> do item</h2>
+      <div className='divSub'>
+        <h2 className='Titulo'> Editando informações de <u>Lote</u> do item</h2>
         <div className='subTitulo'>
+          {showConfirma &&
+            <ConfirmaModal
+              message={msg}
+              onConfirm={() => atualizaDados()}
+              onCancel={() => setShowConfirma(false)}
+              BoolMultiplaEscolha={msg == 'Por favor, informe pelo menos um campo para alteração' ? false : true}
+              styles={{ 'STYLE1': { color: '#da0f0f' }, 'STYLE2': { color: '#00aef3' } }}
+
+            />
+          }
           <h3>'{produtoOBJ.nome}'</h3>
           <hr />
+          <div className='divConteudo'>
+            <form className='formCat' onSubmit={(e) => handleForm(e)}>
+              <label>
+                Código:
+                <input
+                  style={{
+                    cursor: 'not-allowed',
+                    opacity: 0.5,
+                    filter: 'grayscale(100%)',
+                  }}
+                  placeholder={produtoOBJ.categoria}
+                  readOnly
+                />
+              </label>
+
+              <label>
+                Nome:
+                <input
+                  placeholder={produtoOBJ.nome}
+                  value={nomeProd}
+                  onChange={(e) => setNomeProd(e.target.value)}
+                />
+              </label>
+
+              <label>
+                Descrição:
+                <input placeholder={produtoOBJ.descricao}
+                  value={descProd}
+                  onChange={(e) => setDescProd(e.target.value)} />
+              </label>
+
+              <button className='botao-testar'>Atualizar</button>
+            </form>
+          </div>
         </div>
       </div>
     )

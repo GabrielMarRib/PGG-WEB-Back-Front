@@ -1,7 +1,7 @@
 import React from 'react';
 import '../Styles/Components/ConfirmaModal.css';
 
-const ConfirmaModal = ({ message, onConfirm, onCancel, BoolMultiplaEscolha, styles }) => {
+const ConfirmaModal = ({ message, onConfirm, onCancel, BoolMultiplaEscolha, styles, tamanho }) => {
 
   const constroiMsg = (mensagem) => {
     console.log(typeof mensagem)
@@ -31,9 +31,27 @@ const ConfirmaModal = ({ message, onConfirm, onCancel, BoolMultiplaEscolha, styl
     }
   }
 
+  const StyleDiv = () =>{
+    switch(tamanho){
+      case 'G':
+        return{
+          width: '700px'
+        }
+      case 'GG':
+        return{
+          width: '1000px'
+        }
+      default:
+        return {
+          width: '350px',
+          height: 'auto'
+        }
+    }
+  }
+
   return (
     <div className="ConfirmaModal">
-      <div className="modal-content">
+      <div style={StyleDiv()} className="modal-content">
         <p>{constroiMsg(message)}</p>
 
         {BoolMultiplaEscolha ? (
