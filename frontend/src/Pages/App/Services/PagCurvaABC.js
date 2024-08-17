@@ -48,9 +48,11 @@ function CurvaABC() {
                         const respostaComAcumulado = respostaComPorcentagem.map((produto) => {
                             acumulado += parseFloat(produto.porcentagem);
 
-                            let classificacao = 'C';
-                            if (acumulado <= 80) classificacao = 'A';
-                            else if (acumulado <= 95) classificacao = 'B';
+                            let classificacao = '';
+                            if(acumulado <= 50) classificacao = 'A'
+                            else if (acumulado <= 80) classificacao = 'B'
+                            else classificacao = 'C'
+
                             return { ...produto, porcentagemAcumulada: acumulado.toFixed(2), classificacao };
                         });
 

@@ -22,7 +22,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
   // Gerais
   const [nomeProd, setNomeProd] = useState('');
   const [descProd, setDescProd] = useState('');
-  
+  const [refreshProdCat, SetRefreshProdCat] = useState(false);
   useEffect(() => {
     const pegaProdutosCat = async () => {
       try {
@@ -41,7 +41,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
       }
     };
     pegaProdutosCat();
-  }, [])
+  }, [refreshProdCat])
 
   const handleClickAba = (nomeAba) => {
     setAbaAtiva(nomeAba);
@@ -77,13 +77,20 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
           }
         );
         if (response.status === 200) {
-          Alerta(2, "Alteração OK");
+          Alerta(2, "Alterado com Sucesso");
+          setCat('');
+          atualiza();
+          setShowConfirma(false)
+        }else{
+          Alerta(3, "Erro na alteração");
           setCat('');
           atualiza();
           setShowConfirma(false)
         }
       } catch (error) {
         console.log(error)
+        Alerta(1, "Erro Desconhecido");
+        setShowConfirma(false)
       }
     }
 
@@ -201,8 +208,39 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
       setShowConfirma(true)
     }
 
-    const atualizaDados = () =>{
+    
 
+    const atualizaDados = async () =>{
+      try {
+        const response = await axios.post(
+          "http://pggzettav3.mooo.com/api/index.php",
+          {
+            funcao: "AtualizarProdutoExistenteNoBancoDeDadosComBaseNoIdFornecidoAlterandoNomeProdutoEDescricaoDoProdutoSeNecessario",
+            senha: "@7h$Pz!q2X^vR1&K",
+            nomeProduto: nomeProd === '' ? null: nomeProd,
+            descricao: descProd === '' ? null: descProd,
+            id_produtos: produtoOBJ.id_produtos
+          }
+        );
+        if (response.status === 200) {
+          Alerta(2, "Alterado com Sucesso");
+          setNomeProd('');
+          setDescProd('')
+          atualiza();
+          SetRefreshProdCat(prevState => !prevState)
+          setShowConfirma(false)
+        }else{
+          Alerta(3, "Erro na alteração");
+          setNomeProd('');
+          setDescProd('')
+          atualiza();
+          setShowConfirma(false)
+        }
+      } catch (error) {
+        console.log(error)
+        Alerta(1, "Erro Desconhecido");
+        setShowConfirma(false)
+      }
     }
 
     return (
