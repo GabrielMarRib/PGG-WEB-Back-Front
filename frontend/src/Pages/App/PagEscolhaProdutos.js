@@ -24,7 +24,7 @@ function PagEscolhaProdutos() {
                         <div className="ag-courses_item">
                             <a onClick={() => { navigate("/PagProdutos") }} className="ag-courses-item_link">
                                 <div className="ag-courses-item_bg"></div>
-                                <div className="ag-courses-item_title">Adicionar Produto</div>
+                                <div className="ag-courses-item_title">Gerir Produtos</div>
                             </a>
                         </div>
                        

@@ -70,6 +70,7 @@ function PagTeste() {
                     {/* e fim, é assim que é feito uma busca de api... dúvidas, me chamem bbs. */}
                 </tbody>
             </table>
+
         </div>
     )
 }
