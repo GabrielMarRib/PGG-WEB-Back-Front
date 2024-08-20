@@ -9,7 +9,7 @@ import { UserContext } from "../../../Context/UserContext";
 import Redirect from "../../../Functions/Redirect";
 import { useNavigate } from "react-router-dom";
 
-function PagTesteLote() {
+function PagLoteEconomico() {
   const [DadosLoteEconomico, setDadosLoteEconomico] = useState([]);
   const navigate = useNavigate();
   const [pesquisaProduto, setPesquisaProduto] = useState("");
@@ -220,4 +220,4 @@ function PagTesteLote() {
   );
 }
 
-export default PagTesteLote;
+export default PagLoteEconomico;
