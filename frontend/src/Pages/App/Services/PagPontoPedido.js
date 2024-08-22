@@ -7,6 +7,7 @@ import { UserContext } from '../../../Context/UserContext';
 import Redirect from '../../../Functions/Redirect';
 import { useNavigate } from "react-router-dom";
 import BuscarCategoria from '../../../Components/BuscaCategoria';
+import Titulo from '../../../Components/Titulo.jsx';
 
 function PagPontoPedido() {
     const navigate = useNavigate();
@@ -106,13 +107,16 @@ function PagPontoPedido() {
             <div className="CabecalhoHome">
                 <CabecalhoHome />
             </div>
+            <Titulo 
+                tituloMsg = 'Gestão de Ponto de Pedido'
+            />
             <div className="btn">
                 <button className="Voltar" onClick={() => { navigate("/PagHome") }}>
                     Voltar
                 </button>
             </div>
             <div className="conteudoPaginaMaster">
-                <h1 className='h1PontoDePedido'>Gestão de Ponto de Pedido</h1>
+
 
             <div className='BuscarCategoria'>
                 <h3>Selecione a Categoria</h3>

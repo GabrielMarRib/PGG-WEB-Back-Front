@@ -15,6 +15,7 @@ import AlertaNotificação from "./../../../Components/AlertaNotificação.js";
 import { useAlerta } from ".././../../Context/AlertaContext.js";
 import { useNavigate } from "react-router-dom";
 import BuscarCategoria from "../../../Components/BuscaCategoria";
+import Titulo from "../../../Components/Titulo.jsx";
 
 function PagVenderProduto() {
   const [dadosEstoqueGeral, setDadosEstoqueGeral] = useState([]);
@@ -255,7 +256,9 @@ function PagVenderProduto() {
           <CabecalhoHome />
         </div>
         <AlertaNotificação />
-        
+        <Titulo
+          tituloMsg = 'Gerenciamento de Vendas'
+        />
         <div className="enquadramento">
         <button
           className="voltar"

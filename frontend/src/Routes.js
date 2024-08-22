@@ -55,7 +55,6 @@ function AppRoutes() {
             <Route path="/PagTesteInsercaoDD" element={<PagTesteInsercaoDD />} />
             <Route path="/TesteDashboard" element={<TesteDashboard />} />
             <Route path="/PagGerirCategoria" element={<GerirCategoria />} />
-            
     
           </> 
         )}
