@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback, memo } from "react";
 import CabecalhoHome from "../../../Components/CabecalhoHome";
+import BuscaCategoriasComponentes from "../../../Components/BuscaCategoriasComponente";
+
 import "../../../Styles/PagProdutos.css";
 import axios from "axios";
 import {
@@ -31,7 +33,7 @@ function PagProdutos() {
   const [dataValidade, setDataValidade] = useState('');
   const [valorCompra, setValorCompra] = useState(0);
   const [valorVenda, setValorVenda] = useState(0);
-
+  const [inputValue, setInputValue] = useState('');
 
   //Pesquisa
   const [carregando, setCarregando] = useState(true);
@@ -176,7 +178,9 @@ function PagProdutos() {
     setProdutoSelecionado(produto);
   }
 
-
+  useEffect(() => { 
+      console.log("Categoria Selecionada pelo componente" + JSON.stringify(categoriaSelecionada))
+  }, [categoriaSelecionada])
 
 
   return (
@@ -211,13 +215,7 @@ function PagProdutos() {
                 <form onSubmit={(e) => insertDados(e)}> {/* IMPORTANTE!! quando o botão é acionado, o onSubmit é ativado, por isso que não tem onClick no botao...  */}
 
                   <div className="grupo-select">
-                    <select value={categoriaSelecionada} onChange={handleChangeCategoria}>
-                      <option value="Vazio">Categorias</option>
-                      <option value="SemCategoria">Não possui categoria</option> {/* Nova opção */}
-                      {categorias?.map((categoria) => ( // para cada cadegoria no objeto de categorias.... (sim quando você faz variavel.map(item) => ...) você quer dizer um foreach, então imaginem que isso quer dizer: Para cada categoria em categorias, faça:  )
-                        <option key={categoria.id_categorias} value={categoria.id_categorias}> {categoria.id_categorias} - {categoria.nome}</option> // exibe o id e o nome da categoria (de cada uma)
-                      ))}
-                    </select>
+                          <BuscaCategoriasComponentes setCategoriaSelecionada={setCategoriaSelecionada} categoriaSelecionada={categoriaSelecionada} />
                   </div>
 
                   <div className="grupo-input">
@@ -344,6 +342,9 @@ function PagProdutos() {
               {carregando ? (
                 <div>Carregando...</div>
               ) : (
+
+                
+
                 produtosFiltrados.map((produto) => (
                   <ul key={produto.id_produtos} className="produtoGerado">
                     <div className="conteudoProdutoGerado">
