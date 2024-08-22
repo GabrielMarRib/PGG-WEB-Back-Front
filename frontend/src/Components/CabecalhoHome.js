@@ -34,13 +34,14 @@ const CabecalhoHome = () => {
       ></link>
 
       <nav className="nav1">
-        <a id="logo">
+
+        <a id="logo" onClick={() => { navigate("/") }}>
           PGG
           <br />
           Pequeno Grande Gestor
         </a>
 
-        <a id="NomeEmpresa">- Zetta - </a>
+        <a id="NomeEmpresa" onClick={() => { navigate("/") }}>- Zetta - </a>
 
 
         <div className="DivInfoUser">

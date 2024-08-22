@@ -44,6 +44,7 @@
 .CabecalhoHome #NomeEmpresa{
   color: #fff;
   font-size: 40px;
+  cursor: pointer;
 }
 
 .CabecalhoHome .nav1{
@@ -121,6 +122,7 @@
   font-weight: 600;
   color: #f6f6f6;
   text-align: center;
+  cursor: pointer;
 }
 
 .CabecalhoHome #navbar{
