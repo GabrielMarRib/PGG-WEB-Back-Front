@@ -5,9 +5,12 @@ import { TrocarloginEsquecerSenha, CheckCamposVazios, exibeMsg, apagarCampos, ha
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/UserContext.js";
 import { camposNaoPreenchidos } from "../Messages/Msg.js"
+import { useAlerta } from "../Context/AlertaContext.js";
+import AlertaNotificação from "../Components/AlertaNotificação.js";
 
 function Home() {
   const [email, setEmail] = useState("");
+  const { Alerta } = useAlerta();
   const [password, setPassword] = useState("");
   const [mostrarLogin, setMostrarLogin] = useState(true);
   const [Style, SetStyle] = useState("");
@@ -31,6 +34,7 @@ function Home() {
   return (
     <div className="PagLogin">
       <div className="container">
+      <AlertaNotificação />
         <div className="container-imagem">
           <img src={Logo} alt="Imagem Tela" className="img-bg" />
         </div>
@@ -89,10 +93,11 @@ function Home() {
                           return;
                         }
                         const [userData, erro, msg] = await handleLogin(email, password);
-                          await exibeMsg(setMensagem, msg, 2000, erro, SetStyle);
-                          console.log("userData NOVO!!! " + JSON.stringify(userData));
-                          setUser(userData);
-                          localStorage.setItem('User', JSON.stringify(userData));
+                        await exibeMsg(setMensagem, msg, 2000, erro, SetStyle);
+                        console.log("userData NOVO!!! " + JSON.stringify(userData));
+                        setUser(userData);
+                        localStorage.setItem('User', JSON.stringify(userData));
+                        
                       })();
                     }}
                   >

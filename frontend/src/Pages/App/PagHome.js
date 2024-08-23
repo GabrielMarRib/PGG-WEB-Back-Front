@@ -10,7 +10,7 @@ import ImageCaixa from '../../Assets/caixa.png';
 import IconLogOut from "../../Assets/LogOutIconWhite.png";
 import Notificacao from "../../Components/Notificacao";
 import {handleLogOut } from "../../../src/Functions/Functions.js";
-
+import GraficoTeste from "../../Components/GraficoTeste.jsx";
 function PagHome() {
   const navigate = useNavigate();
   const currentDate = new Date().toLocaleDateString();
@@ -155,7 +155,7 @@ function PagHome() {
             >
               <h2>{section.title}</h2>
               <p>{section.content}</p>
-              {section.isChart && <div className="chart-placeholder">[Gráfico]</div>}
+              {section.isChart && <div className="chart-placeholder"><GraficoTeste></GraficoTeste></div>}
             </div>
           ))}
         </div>
