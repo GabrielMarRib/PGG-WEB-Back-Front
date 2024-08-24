@@ -10,7 +10,7 @@ import ImageCaixa from '../../Assets/caixa.png';
 import IconLogOut from "../../Assets/LogOutIconWhite.png";
 import Notificacao from "../../Components/Notificacao";
 import {handleLogOut } from "../../../src/Functions/Functions.js";
-
+import GraficoTeste from "../../Components/GraficoTeste.jsx";
 function PagHome() {
   const navigate = useNavigate();
   const currentDate = new Date().toLocaleDateString();
@@ -18,6 +18,9 @@ function PagHome() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 1000);
   const [showEstoqueOptions, setShowEstoqueOptions] = useState(false);
   const [showABCOptions, setShowABCOptions] = useState(false);
+  const [isSelectEstoque, setisSelectEstoque] = useState(false);
+  const [isSelectCurvaAbc, setisSelectCurvaAbc] = useState(false);
+
 
   const sections = [
     { title: "Faturamento", content: "Informação sobre faturamento" },
@@ -56,10 +59,12 @@ function PagHome() {
   };
 
   const handleEstoqueClick = () => {
+    setisSelectEstoque(prevState => !prevState)
     setShowEstoqueOptions(!showEstoqueOptions);
   };
 
   const handleABCClick = () => {
+    setisSelectCurvaAbc(prevState => !prevState)
     setShowABCOptions(!showABCOptions);
   };
 
@@ -99,7 +104,7 @@ function PagHome() {
           <span className="user-name">Marcos Vinicius</span>
         </div>
         <div className="menu">
-          <button className="menu-button" onClick={handleEstoqueClick}>
+          <button className={isSelectEstoque ? "menu-button-Select" : "menu-button"} onClick={handleEstoqueClick}>
             <img src={buttons[0].img} alt={buttons[0].title} className="button-image" />
             <span className="button-title">{buttons[0].title}</span>
           </button>
@@ -111,7 +116,7 @@ function PagHome() {
             </div>
           )}
 
-          <button className="menu-button" onClick={handleABCClick}>
+          <button className={isSelectCurvaAbc ? "menu-button-Select" : "menu-button"} onClick={handleABCClick}>
             <img src={buttons[1].img} alt={buttons[1].title} className="button-image" />
             <span className="button-title">{buttons[1].title}</span>
           </button>
@@ -150,7 +155,7 @@ function PagHome() {
             >
               <h2>{section.title}</h2>
               <p>{section.content}</p>
-              {section.isChart && <div className="chart-placeholder">[Gráfico]</div>}
+              {section.isChart && <div className="chart-placeholder"><GraficoTeste></GraficoTeste></div>}
             </div>
           ))}
         </div>

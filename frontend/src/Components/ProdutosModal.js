@@ -312,7 +312,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
                     opacity: 0.5,
                     filter: 'grayscale(100%)',
                   }}
-                  placeholder={produtoOBJ.categoria}
+                  placeholder={produtoOBJ.id_produtos}
                   readOnly
                 />
               </label>
