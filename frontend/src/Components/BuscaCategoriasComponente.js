@@ -7,6 +7,7 @@ function BuscaCategoriasComponente({ setCategoriaSelecionada, CategoriaSeleciona
 
   const [inputValue, setInputValue] = useState("");
   const [categorias, setCategorias] = useState([]);
+  const [foco, setFoco] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
   const [CategoriasFiltradas, setCategoriasFiltradas] = useState(false);
   const [I, setI] = useState(true);
@@ -22,10 +23,11 @@ function BuscaCategoriasComponente({ setCategoriaSelecionada, CategoriaSeleciona
       });
 
       setOBJ(response.data)
-      const FiltroCategoria = response.data.filter((categoria) =>
-        categoria.nome.toLowerCase().includes(inputValue.toLowerCase())
-      )
-      setCategoriasFiltradas(FiltroCategoria)
+      console.log(response.data)
+      // const FiltroCategoria = response.data.filter((categoria) =>
+      //   categoria.nome.toLowerCase().includes(inputValue.toLowerCase())
+      // )
+      // setCategoriasFiltradas(FiltroCategoria)
     } catch (error) {
       console.log("Falha na coleta: " + error)
     }
@@ -35,30 +37,19 @@ function BuscaCategoriasComponente({ setCategoriaSelecionada, CategoriaSeleciona
 
   const pegacategoria = async () => {
     await ColhendoCategoria(setCategorias);
-
+    console.log(categorias)
   };
 
   useEffect(() => {
     pegacategoria();
   }, [])
 
-  // const CategoriasFiltradas = categorias.filter((categoria) =>{
-  //   if(inputValue === 'todas'){
-  //     return true
-  //   }else{
-  //     return categoria.nome.toLowerCase().includes(inputValue.toLowerCase())
-  //   }
-  // }
-
-    
-  // );
-
 
   const handleOptionClick = async (categoria) => {
     setI(false)
 
     setCategoriaSelecionada(categoria)
-    setInputValue(categoria.nome);
+    setInputValue(`${categoria.id_categorias} - ${categoria.nome}`);
     setShowOptions(false);
 
   };
@@ -70,24 +61,37 @@ function BuscaCategoriasComponente({ setCategoriaSelecionada, CategoriaSeleciona
     }
 
     if (I == true) {
-      if (inputValue == "") {
-        setShowOptions(false);
-      } else {
+      if (foco) { // mudei kkkkk foi mal gabriel
         setShowOptions(true);
+      } else {
+        setShowOptions(false);
       }
     } else {
       setI(true)
     }
 
-    const FiltroCategoria = categorias.filter((categoria) => {
-      if (inputValue.toLowerCase() === 'todas') { // vou mudar isso dps... ass Thiago
-        return true
-      } else
-        return categoria.nome.toLowerCase().includes(inputValue.toLowerCase())
+    if(inputValue === ''){
+      setCategoriasFiltradas(categorias) // kkkkkk
+      return
     }
-    )
+    
+    const FiltroCategoria = categorias.filter((categoria) => {
+      if(isNaN(inputValue)){
+        return categoria.nome.toLowerCase().includes(inputValue.toLowerCase()) //não é num; vê o nome
+      }else{
+        return categoria.id_categorias.includes(inputValue) // é num, vê o código
+      }
+      
+    })
     setCategoriasFiltradas(FiltroCategoria)
-  }, [inputValue]);
+  }, [inputValue, foco]); // tasquei foco aq tbm
+
+  const handleFocus = () =>{
+    if(typeof parseInt(inputValue.charAt(0)) === 'number'){ // achei q ia ficar mais bonito assim
+      setInputValue('')
+    }
+    setFoco(true)
+  }
 
 
   return (
@@ -95,6 +99,8 @@ function BuscaCategoriasComponente({ setCategoriaSelecionada, CategoriaSeleciona
       <div className="barra-pesquisa">
         <input
           value={inputValue}
+          onFocus={() => handleFocus()} // kkkkkkk
+          onBlur={() => setFoco(false)}
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="Pesquisar categoria..."
 
@@ -108,7 +114,7 @@ function BuscaCategoriasComponente({ setCategoriaSelecionada, CategoriaSeleciona
                   className="option"
                   onMouseDown={() => handleOptionClick(categoria)} // Use onMouseDown para capturar o clique antes do onBlur
                 >
-                  {categoria.nome}
+                  {categoria.id_categorias} - {categoria.nome}
                 </div>
               ))
 
