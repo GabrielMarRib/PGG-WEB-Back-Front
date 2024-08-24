@@ -21,8 +21,15 @@ function BuscaCategoriasComponente({ setCategoriaSelecionada, CategoriaSeleciona
   }, [])
 
  
-  const CategoriasFiltradas = categorias.filter((categoria) =>
-    categoria.nome.toLowerCase().includes(inputValue.toLowerCase())
+  const CategoriasFiltradas = categorias.filter((categoria) =>{
+    if(inputValue === 'todas'){
+      return true
+    }else{
+      return categoria.nome.toLowerCase().includes(inputValue.toLowerCase())
+    }
+  }
+
+    
   );
 
  

@@ -229,7 +229,10 @@ export const RelatorioVendas = async () => {
 export const pegaCategorias = async (setOBJ) =>{
 
     try { //tente...
-        const response = await axios.get('http://localhost:4000/pegaCategoriasCSub')
+        const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {  // acessa via get (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
+            funcao: 'pegacategorias', 
+            senha: '@7h$Pz!q2X^vR1&K',
+        });
         console.log(response.data) 
         setOBJ(response.data) 
     } catch (error) { 
