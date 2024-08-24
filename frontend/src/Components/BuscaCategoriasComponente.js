@@ -42,21 +42,16 @@ function BuscaCategoriasComponente({ setCategoriaSelecionada, CategoriaSeleciona
     pegacategoria();
   }, [])
 
-<<<<<<< HEAD
- 
-  const CategoriasFiltradas = categorias.filter((categoria) =>{
-    if(inputValue === 'todas'){
-      return true
-    }else{
-      return categoria.nome.toLowerCase().includes(inputValue.toLowerCase())
-    }
-  }
+  // const CategoriasFiltradas = categorias.filter((categoria) =>{
+  //   if(inputValue === 'todas'){
+  //     return true
+  //   }else{
+  //     return categoria.nome.toLowerCase().includes(inputValue.toLowerCase())
+  //   }
+  // }
 
     
-  );
-=======
->>>>>>> f318d87691eae775f5e96d06bf9d40468e934d90
-
+  // );
 
 
   const handleOptionClick = async (categoria) => {
