@@ -31,6 +31,9 @@ function PagPontoPedido() {
                     funcao: 'pegaDadosPP', 
                     senha: '@7h$Pz!q2X^vR1&K' 
                 });
+                const PPData = response.data.map(item => ({ id: item.id, ...item }));
+                setDadosPP(PPData);
+                setCarregando(false);
             } catch (erro) {
                 console.error('Error fetching data:', erro);
                 setCarregando(false);
