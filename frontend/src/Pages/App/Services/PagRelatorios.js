@@ -10,7 +10,7 @@ import axios from "axios";
 import ConfirmaModal from "../../../Components/ConfirmaModal";
 import AlertaNotificação from "../../../Components/AlertaNotificação.js";
 import { useAlerta } from "../../../Context/AlertaContext.js";
-
+import Titulo from "../../../Components/Titulo.jsx";
 function PagRelatorios() {
     const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
     const User = UserOBJ.User; //Pega só o User....
@@ -242,6 +242,9 @@ function PagRelatorios() {
             <div className="Cabecalho">
                 <Cabecalho />
             </div>
+            <Titulo
+                tituloMsg='Visualização de relatórios'
+            />
             <AlertaNotificação />
             {showConfirmation && (
                 <ConfirmaModal
