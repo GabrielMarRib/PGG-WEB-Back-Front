@@ -39,7 +39,7 @@ function PagPontoPedido() {
                     setDadosPP([])
                     setMsg(`Nenhum produto cadastrado em Ponto de Pedido na categoria '${categoriaSelecionada.id_categorias} - ${categoriaSelecionada.nome}'`)
                 }
-            }else{
+            } else {
                 setCarregando(false)
                 setDadosPP([])
                 setMsg("Selecione uma categoria para visualizar o ponto de pedido")
@@ -47,9 +47,6 @@ function PagPontoPedido() {
         };
         pegaDadosPP();
     }, [categoriaSelecionada]);
-
-
-
 
     return (
         <div className="PagPontoPedido">
@@ -65,8 +62,6 @@ function PagPontoPedido() {
                 </button>
             </div>
             <div className="conteudoPaginaMaster">
-
-
                 <div className='BuscarCategoria'>
                     <h3>Selecione a Categoria</h3>
                     <BuscaCategoriasComponentes setCategoriaSelecionada={setCategoriaSelecionada} categoriaSelecionada={categoriaSelecionada} />
