@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import CabecalhoHome from '../../../Components/CabecalhoHome';
 import '../../../Styles/App/Service/PagPontoPedido.css';
 import axios from 'axios';
-import { PegaDadosGeralDB } from '../../../Functions/Functions';
 import { UserContext } from '../../../Context/UserContext';
 import Redirect from '../../../Functions/Redirect';
 import { useNavigate } from "react-router-dom";
@@ -24,6 +23,8 @@ function PagPontoPedido() {
         const pegaDadosPP = async () => {
             if (categoriaSelecionada) {
                 try {
+                    setCarregando(true)
+                    setMsg("...carregando")
                     const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {  // acessa via post (SEMPRE SERÁ POST)                
                         funcao: 'pegaDadosPP', // dita qual função deve ser utilizada da api. (a gente te fala o nome) // ---> parâmetros da consulta... SÃO necessários.
                         senha: '@7h$Pz!q2X^vR1&K', // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
@@ -87,7 +88,7 @@ function PagPontoPedido() {
                             </tr>
                         </thead>
                         <tbody>
-                            {dadosPP.length < 1 ? (
+                            {dadosPP?.length < 1 || carregando ? (
                                 <tr>
                                     <td colSpan="9">{msg}</td>
                                 </tr>
