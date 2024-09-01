@@ -408,7 +408,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
                   readOnly
                 />
               </label>
-
+              Deseja alterar a quantidade do produto? Clique <Link to="/PagGerirCategoria">AQUI</Link> e vá para a página de gereciamento de LOTE para um controle mais detalhado
               <label>
                 Valor de compra:
                 <input placeholder={tudoOLD.vlr_compra ? tudoOLD.vlr_compra : "Não possui"}

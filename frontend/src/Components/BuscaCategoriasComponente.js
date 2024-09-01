@@ -54,6 +54,11 @@ function BuscaCategoriasComponente({ setCategoriaSelecionada, CategoriaSeleciona
 
   };
 
+  const handleOptionClickFixo = (msg) =>{
+    setCategoriaSelecionada(null)
+    setInputValue(msg)
+  }
+
   useEffect(() => {
     if (Montador == true) {
       pegacategoria();
@@ -107,6 +112,14 @@ function BuscaCategoriasComponente({ setCategoriaSelecionada, CategoriaSeleciona
         />
         {showOptions && (
           <div className="options-container">
+            <div
+             key="opcaoFixa"
+             className="option"
+             onMouseDown={() => handleOptionClickFixo('Não há categoria')}
+            >
+            Não há categoria
+            </div>
+            
             {showOptions && (
               CategoriasFiltradas.map((categoria, index) => (
                 <div
