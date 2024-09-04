@@ -17,6 +17,7 @@ function PagVenderProduto() {
   const [quantidadeVenda, setQuantidadeVenda] = useState(0);
   const [receitaEstimada, setReceitaEstimada] = useState(0);
   const [produtoSelecionado, setProdutoSelecionado] = useState([]);
+  const [cliente, setcliete] = useState([]);
   const [produtosCats, setProdutosCats] = useState([]);
   const [categoriaSelecionada, setCategoriaSelecionada] = useState(null);
   const [categorias, setCategorias] = useState([]);
@@ -77,18 +78,18 @@ function PagVenderProduto() {
 
   const handleChangeProduto = (event) => {
     try {
-        const produtoParse = JSON.parse(event.target.value);
-        console.log(produtoParse);
-        //setProdutoSelecionado([])
-        setProdutoSelecionado(null);
-        setQuantidadeDisponivel(0);
-        setCustoUnitario(0);
-        if (produtoParse?.data?.qtde === 0) {
+        const produtoId = event.target.value;
+
+        const produto = produtosCats.find((prod) => prod.id == produtoId)
+        setProdutoSelecionado(produto);
+        setQuantidadeDisponivel(produto.qtde);
+        setCustoUnitario(produto.custoUnitario);
+        if (produto?.qtde === 0) {
             Alerta(3, "Produto esgotado");
         } else {
-            setProdutoSelecionado(produtoParse);
-            setQuantidadeDisponivel(produtoParse.qtde);
-            setCustoUnitario(produtoParse.custoUnitario);
+            setProdutoSelecionado(produto);
+            setQuantidadeDisponivel(produto.qtde);
+            setCustoUnitario(produto.custoUnitario);
         }
     } catch (error) {
         console.log("Erro ao selecionar produto: " + error);
@@ -124,6 +125,9 @@ function PagVenderProduto() {
     "Receita Estimada:"+receitaEstimada,
     "PRoduto Selecionado"+ produtoSelecionado
     )
+    const caralho = (e) => {
+        setcliete(e.target.value)
+    }
 
   const handleInsercaoVendas = async () => {
     console.log(User.userData.Nivel_acesso,User.id,User.userData.Nome,produtoSelecionado,quantidadeVenda,receitaEstimada,11)
@@ -140,11 +144,11 @@ function PagVenderProduto() {
           produto: produtoSelecionado.id,
           qtde: quantidadeVenda,
           valor: receitaEstimada,
-          mov: "E",
+          mov: "S",
           Autor: User.userData.Nome,
           Autor_id: User.id,
           Autor_Acesso: User.userData.Nivel_acesso,
-          cliente: "Sergio",
+          cliente: cliente,
         });
         console.log(response)
         // INSERT INTO `movimento`(`produto`, `qtde`, `valor`, `mov`, `cliente`, `Autor`, `Autor_id`, `Autor_Acesso`) 
@@ -268,10 +272,10 @@ const handleGerarRelatorioPP = async (produto) => {
                   {produtosCats.length > 0 && (
                     <>
                       <label>Selecione um produto:</label>
-                      <select className="Select-Produto" value={produtoSelecionado.nome} onChange={handleChangeProduto}>
+                      <select className="Select-Produto" value={produtoSelecionado.id} onChange={handleChangeProduto}>
                         <option value="">Selecione um produto</option>
                         {produtosCats?.map((produtos) => (
-                          <option key={produtos.id} value={JSON.stringify(produtos)}>
+                          <option key={produtos.id} value={produtos.id}>
                             {produtos.nome || "Produto não existe"}
                           </option>
                         ))}
@@ -290,6 +294,15 @@ const handleGerarRelatorioPP = async (produto) => {
                 </div>
                 {produtosCats.length > 0 && (
                   <>
+                  <div className="grupo-input">
+                  <label>Cliente:</label>
+                  <input
+                    className="controle-formulario"
+                    type="text"
+                    value={cliente}
+                    onChange={caralho}
+                  />
+                </div>
                 <div className="grupo-input">
                   <label>Custo unitário</label>
                   <input
