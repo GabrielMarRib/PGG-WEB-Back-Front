@@ -125,7 +125,7 @@ function PagVenderProduto() {
     "Receita Estimada:"+receitaEstimada,
     "PRoduto Selecionado"+ produtoSelecionado
     )
-    const caralho = (e) => {
+    const teste = (e) => {
         setcliete(e.target.value)
     }
 
@@ -300,7 +300,7 @@ const handleGerarRelatorioPP = async (produto) => {
                     className="controle-formulario"
                     type="text"
                     value={cliente}
-                    onChange={caralho}
+                    onChange={teste}
                   />
                 </div>
                 <div className="grupo-input">
