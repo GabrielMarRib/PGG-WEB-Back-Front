@@ -259,7 +259,7 @@ const handleGerarRelatorioPP = async (produto) => {
                 <div className="grupo-input">
                   <label>Selecione a Categoria:</label>
                   <div className="grupo-select">
-                    <select value={categoriaSelecionada} onChange={handleChangeCategoria}>
+                    <select className="Select-Produto" value={categoriaSelecionada} onChange={handleChangeCategoria}>
                       <option value="salve">Categorias</option>
                       {categorias?.map((categoria) => (
                         <option key={categoria.id_categorias} value={categoria.id_categorias}>
