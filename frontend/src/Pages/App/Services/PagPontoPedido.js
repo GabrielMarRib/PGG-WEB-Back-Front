@@ -75,6 +75,7 @@ function PagPontoPedido() {
                                 <th>Nome</th>
                                 <th>Estoque Atual</th>
                                 <th>Quantia vendida mensal</th>
+                                <th>Demanda de vendas diárias</th>
                                 <th>Consumo Médio</th>
                                 <th>Tempo de Reposição</th>
                                 <th>Estoque de Segurança</th>
@@ -85,7 +86,7 @@ function PagPontoPedido() {
                         <tbody>
                             {dadosPP?.length < 1 || carregando ? (
                                 <tr>
-                                    <td colSpan="9">{msg}</td>
+                                    <td colSpan="11">{msg}</td>
                                 </tr>
                             ) : (
                                 dadosPP.map(dado => {
@@ -97,6 +98,7 @@ function PagPontoPedido() {
                                             <td>{dado.qtde}</td>
                                             <td>{dado.quantidade_vendida}</td>
                                             <td>{dado.demanda_media}</td>
+                                            <td>{dado.consumo_medio}</td>
                                             <td>{dado.tempo_reposicao}</td>
                                             <td>{dado.estoque_seguranca}</td>
                                             <td>{dado.ponto_pedido}</td>

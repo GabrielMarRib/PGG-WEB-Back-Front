@@ -61,9 +61,9 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
     pegaProdutosCat();
   }, [refreshProdCat])
 
-  useEffect(() =>{
-    const pegaTUDO_old = async () =>{
-      try{
+  useEffect(() => {
+    const pegaTUDO_old = async () => {
+      try {
         const response = await axios.post(
           "http://pggzettav3.mooo.com/api/index.php",
           {
@@ -74,12 +74,13 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
         );
         setTudoOLD(response.data)
         console.log("TUDO:" + JSON.stringify(tudoOLD))
-      }catch(error){
+        console.log(response.data)
+      } catch (error) {
         console.log("deu PÉSSIMO: " + error)
       }
     };
     pegaTUDO_old();
-  },[refreshTUDO])
+  }, [refreshTUDO])
 
   const handleClickAba = (nomeAba) => {
     setAbaAtiva(nomeAba);
@@ -278,7 +279,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
         codigodebarras: codBarras === '' ? null : codBarras,
         id_produtos: produtoOBJ.id_produtos
       }
-      await atualizaDadosUniversal(funcao,SetRefreshProdCat)
+      await atualizaDadosUniversal(funcao, SetRefreshProdCat)
       setNomeProd('');
       setDescProd('')
       setCodBarras('');
@@ -349,7 +350,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
   const infoLote = () => {
     const handleForm = (e) => {
       e.preventDefault();
-      const obj = formaObj([dataCompra, dataValidade, valorCompra, valorVenda], ['Data de Compra', 'Data de Validade', 'Valor de Compra','Valor de Venda'], ['dt_compra', 'dt_validade', 'vlr_compra','vlr_venda'], ['Nova', 'Nova', 'Novo','Novo'])
+      const obj = formaObj([dataCompra, dataValidade, valorCompra, valorVenda], ['Data de Compra', 'Data de Validade', 'Valor de Compra', 'Valor de Venda'], ['dt_compra', 'dt_validade', 'vlr_compra', 'vlr_venda'], ['Nova', 'Nova', 'Novo', 'Novo'])
       const msgOBJ = preparaMSG_ALTERAR(obj)
 
       setMsg(msgOBJ)
@@ -399,11 +400,11 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
               <label>
                 Quantidade:
                 <input
-                style={{
-                  cursor: 'not-allowed',
-                  opacity: 0.5,
-                  filter: 'grayscale(100%)',
-                }}
+                  style={{
+                    cursor: 'not-allowed',
+                    opacity: 0.5,
+                    filter: 'grayscale(100%)',
+                  }}
                   placeholder={tudoOLD.qtde ? tudoOLD.qtde : "0"}
                   readOnly
                 />
@@ -433,17 +434,96 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
   }
   const infoPP = () => {
     return (
-      <div>
+      <div className='divSub'>
         <h2 className='Titulo'> Editando <u>Ponto de Pedido</u> do item</h2>
         <div className='subTitulo'>
+          {showConfirma &&
+            <ConfirmaModal
+              message={msg}
+              onConfirm={null/*() => atualizaDados() */}
+              onCancel={() => setShowConfirma(false)}
+              BoolMultiplaEscolha={msg == 'Por favor, informe pelo menos um campo para alteração' ? false : true}
+              styles={{ 'STYLE1': { color: '#da0f0f' }, 'STYLE2': { color: '#00aef3' } }}
+              tamanho={tamanho}
+            />
+          }
           <h3>'{produtoOBJ.nome}'</h3>
           <hr />
+          <div className='divConteudo'>
+            <form className='formCat' /*onSubmit={(e) => handleForm(e)   }*/>
+              <label>
+                Demanda média de vendas diárias:
+                <input placeholder={tudoOLD.demanda_media ? tudoOLD.demanda_media : "Não possui"}
+                  value={valorVenda}
+                  onChange={(e) => setValorVenda(e.target.value)} />
+              </label>
+
+              <label>
+                Tempo de Reposição:
+                <input placeholder={tudoOLD.tempo_reposicao ? tudoOLD.tempo_reposicao : "Não possui"}
+                  value={valorVenda}
+                  onChange={(e) => setValorVenda(e.target.value)} />
+              </label>
+
+              <label>
+                Tempo Estimado de Entrega:
+                <input placeholder={tudoOLD.tempo_entrega ? tudoOLD.tempo_entrega : "Não possui"}
+                  value={valorCompra}
+                  onChange={(e) => setValorCompra(e.target.value)} />
+              </label>
+
+              <label>
+                Quantidade de produtos vendidos no mês:
+                <input placeholder={tudoOLD.quantidade_vendida ? tudoOLD.quantidade_vendida : "Não possui"}
+                  value={valorVenda}
+                  onChange={(e) => setValorVenda(e.target.value)} />
+              </label>
+
+              <label>
+                Consumo Médio:
+                <input
+                  style={{
+                    cursor: 'not-allowed',
+                    opacity: 0.5,
+                    filter: 'grayscale(100%)',
+                  }}
+                  placeholder={tudoOLD.consumo_medio ? tudoOLD.consumo_medio : "0"}
+                  readOnly
+                />
+              </label>
+              <label>
+                Estoque de Segurança:
+                <input
+                  style={{
+                    cursor: 'not-allowed',
+                    opacity: 0.5,
+                    filter: 'grayscale(100%)',
+                  }}
+                  placeholder={tudoOLD.estoque_seguranca ? tudoOLD.estoque_seguranca : "0"}
+                  readOnly
+                />
+              </label>
+              <label>
+                Ponto de Pedido:
+                <input
+                  style={{
+                    cursor: 'not-allowed',
+                    opacity: 0.5,
+                    filter: 'grayscale(100%)',
+                  }}
+                  placeholder={tudoOLD.ponto_pedido ? tudoOLD.ponto_pedido : "0"}
+                  readOnly
+                />
+              </label>
+              <button className='botao-testar'>Atualizar</button>
+            </form>
+          </div>
         </div>
       </div>
     )
   }
   const infoCurva = () => {
-    
+
     const handleForm = (e) => {
       e.preventDefault();
       const obj = formaObj([qtConsumo], ['Quantidade de Consumo'], ['qt_consumo'], ['Nova'])
@@ -461,7 +541,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
         idProduto: produtoOBJ.id_produtos,
         qtConsumo: qtConsumo
       }
-      await atualizaDadosUniversal(funcao,setRefreshTudo)
+      await atualizaDadosUniversal(funcao, setRefreshTudo)
       setQtConsumo('');
       atualiza();
       setShowConfirma(false)

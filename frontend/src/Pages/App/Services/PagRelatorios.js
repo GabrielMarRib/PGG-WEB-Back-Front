@@ -207,8 +207,8 @@ function PagRelatorios() {
                         <li>Quantidade Antes da venda: {relatorioSelecionado.data.Quantidade_Antes_Venda} {pegaQtde(relatorioSelecionado.data.Quantidade_Antes_Venda)}</li>
                         <li>Quantidade Vendida: {relatorioSelecionado.data.Quantidade_Vendida} {pegaQtde(relatorioSelecionado.data.Quantidade_Vendida)}</li>
                         <li>Quantidade Atual: {relatorioSelecionado.data.Quantidade_Disponivel} {pegaQtde(relatorioSelecionado.data.Quantidade_Disponivel)}</li>
-                        <li>Custo unitário: R$ {(relatorioSelecionado.data.Produto_Custo_Unit).toFixed(2)}</li>
-                        <li>Receita Total: R$ {(relatorioSelecionado.data.Receita).toFixed(2)}</li>
+                        <li>Custo unitário: R$ {Number(relatorioSelecionado.data.Produto_Custo_Unit).toFixed(2)}</li>
+                        <li>Receita Total: R$ {Number(relatorioSelecionado.data.Receita).toFixed(2)}</li>
                     </ul>
                 </div>
                 <hr />
