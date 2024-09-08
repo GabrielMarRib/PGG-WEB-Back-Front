@@ -102,8 +102,8 @@ function PagPontoPedido() {
                                             <td>{dado.tempo_reposicao}</td>
                                             <td>{dado.estoque_seguranca}</td>
                                             <td>{dado.ponto_pedido}</td>
-                                            <td style={{ backgroundColor: dado.qtde <= dado.ponto_pedido ? '#fa3d2f' : '#89ff57', minWidth: '13.5vw' }}>
-                                                {dado.qtde <= dado.ponto_pedido ? 'REQUER ATENÇÃO URGENTEMENTE' : 'OK'}
+                                            <td style={{ backgroundColor: dado.qtde <= Number(dado.ponto_pedido) ? '#fa3d2f' : '#89ff57', minWidth: '13.5vw' }}>
+                                                {dado.qtde <= Number(dado.ponto_pedido) ? 'REQUER ATENÇÃO URGENTEMENTE' : 'OK'}
                                             </td>
                                         </tr>
                                     );
