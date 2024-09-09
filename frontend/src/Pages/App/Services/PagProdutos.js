@@ -23,13 +23,13 @@ function PagProdutos() {
   const { Alerta } = useAlerta();
   const [codigo, setCodigo] = useState(null);
   const [nome, setNome] = useState("");
-  const [quantidade, setQuantidade] = useState(0);
+  const [quantidade, setQuantidade] = useState('');
   const [descricao, setDescricao] = useState("");
   const [codigoDeBarras, setCodigoDeBarras] = useState('');
   const [dataCompra, setDataCompra] = useState('');
   const [dataValidade, setDataValidade] = useState('');
-  const [valorCompra, setValorCompra] = useState(0);
-  const [valorVenda, setValorVenda] = useState(0);
+  const [valorCompra, setValorCompra] = useState('');
+  const [valorVenda, setValorVenda] = useState('');
 
 
   //Pesquisa
@@ -281,7 +281,7 @@ function PagProdutos() {
                       type="int"
                       id="quantidadeProduto"
                       required value={quantidade}
-                      onChange={(e) => setQuantidade(parseInt(e.target.value) || 0)}
+                      onChange={(e) => setQuantidade(parseInt(e.target.value))}
                     />
                   </div>
 
@@ -289,13 +289,15 @@ function PagProdutos() {
                   <div className="grupo-input">
                     <label htmlFor="valorCompra">Valor da Compra: <span style={{ color: "red" }}> *</span></label>
                     <input
-                      type="number"
                       id="valorCompra"
                       required value={valorCompra}
-                      onChange={(e) =>
-                        setValorCompra(parseInt(e.target.value) || 0)
-                      }
-                    />
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (/^\d*\.?\d*$/.test(value)) {
+                            setValorCompra(value);
+                        }
+                      }}
+                      />
                   </div>
 
                   <div className="grupo-input">
@@ -306,9 +308,12 @@ function PagProdutos() {
                       type="number"
                       id="valorVenda"
                       required value={valorVenda}
-                      onChange={(e) =>
-                        setValorVenda(parseInt(e.target.value) || 0)
-                      }
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (/^\d*\.?\d*$/.test(value)) {
+                            setValorVenda(value);
+                        }
+                      }}
                     />
                   </div>
 

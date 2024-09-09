@@ -177,7 +177,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
           />
         }
 
-        <h2 className='Titulo'> Alterando Categoria <u>{produtoOBJ.nomeCat}</u> pertencente à (entre outros):</h2>
+        <h2 className='Titulo'> Alterando Categoria <u>{produtoOBJ.nomeCat}</u> pertencente à{produtosEmCat?.length > 1 ? " (entre outros)" : null}:</h2>
         <div className='subTitulo'>
           <h3>'{produtoOBJ.nome}'</h3>
           <hr />
@@ -680,13 +680,13 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
             className={`botao-aba ${abaAtiva === 'InfoCatPertencentes' ? 'ativa' : ''}`}
             onClick={() => handleClickAba('InfoCatPertencentes')}
           >
-            Alterar Categoria Pertencente
+            Alterar Categoria para Todos os Produtos Associados
           </button>
           <button
             className={`botao-aba ${abaAtiva === 'InfoCatProduto' ? 'ativa' : ''}`}
             onClick={() => handleClickAba('InfoCatProduto')}
           >
-            Alterar Categoria do Produto
+            Mover <u>Produto</u> para Outra Categoria
           </button>
 
           <button onClick={fechar} className='botao-fechar'>X</button>
