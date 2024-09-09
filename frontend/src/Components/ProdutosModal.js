@@ -5,6 +5,8 @@ import { useAlerta } from "../Context/AlertaContext.js";
 import AlertaNotificação from "./AlertaNotificação.js";
 import ConfirmaModal from './ConfirmaModal.js';
 import { Link } from 'react-router-dom';
+import BuscaCategoriasComponentes from "../Components/BuscaCategoriasComponente.js";
+
 const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atualiza }) { // teoricamente faria não ter reRender, mas ta tendo, ou seja, fds
 
 
@@ -40,6 +42,9 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
 
   //Curva ABC
   const [qtConsumo, setQtConsumo] = useState('');
+
+  //Categoria select
+  const [categoriaSelecionada, setCategoriaSelecionada] = useState([]);
 
   useEffect(() => {
     const pegaProdutosCat = async () => {
@@ -80,7 +85,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
       }
     };
     pegaTUDO_old();
-  }, [refreshTUDO])
+  }, [refreshTUDO]) // false MUDOU pra true, como MUDOU, chama esse useEffect dnv
 
   const handleClickAba = (nomeAba) => {
     setAbaAtiva(nomeAba);
@@ -235,7 +240,13 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
           <hr />
         </div>
         <div className='divConteudo'>
-          Quando o Gabriel fizer o select separado, eu coloco aqui, ASS. thiago
+          SELECT do gabriel
+
+        
+          <div className="grupo-select">
+                    <BuscaCategoriasComponentes setCategoriaSelecionada={setCategoriaSelecionada} categoriaSelecionada={categoriaSelecionada} />
+                  </div>
+          <button onClick={() => console.log(categoriaSelecionada)}>atualizar</button>
         </div>
       </div>
     )
