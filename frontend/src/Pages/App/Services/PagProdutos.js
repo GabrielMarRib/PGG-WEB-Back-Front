@@ -95,7 +95,7 @@ function PagProdutos() {
         nome: nome,
         descricao: descricao,
         codigoBarras: codigoDeBarras, // na api, referenciamos como 'codigoBarras' não 'codigoDeBarras'... Regra: o da esquerda é oq vc manda pra gente do backend
-        categoria: categoriaSelecionada.id_categorias, //categoria q é selecionada pelo usuario no select...
+        categoria: categoriaSelecionada?.id_categorias ? categoriaSelecionada.id_categorias : null, //categoria q é selecionada pelo usuario no select...
         dt_compra: dataCompra,
         dt_validade: dataValidade, // na api, referenciamos como 'codigoBarras' não 'codigoDeBarras'... Regra: o da esquerda é oq vc manda pra gente do backend
         quantidade: quantidade, //categoria q é selecionada pelo usuario no select...
@@ -321,7 +321,7 @@ function PagProdutos() {
                       type="int"
                       id="quantidadeProduto"
                       required value={quantidade}
-                      onChange={(e) => setQuantidade(parseInt(e.target.value) || 0)}
+                      onChange={(e) => setQuantidade(parseInt(e.target.value))}
                     />
                   </div>
 
@@ -332,10 +332,13 @@ function PagProdutos() {
                       type="number"
                       id="valorCompra"
                       required value={valorCompra}
-                      onChange={(e) =>
-                        setValorCompra(parseInt(e.target.value) || 0)
-                      }
-                    />
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (/^\d*\.?\d*$/.test(value)) {
+                            setValorCompra(value);
+                        }
+                      }}
+                      />
                   </div>
 
                   <div className="grupo-input">
@@ -346,10 +349,13 @@ function PagProdutos() {
                       type="number"
                       id="valorVenda"
                       required value={valorVenda}
-                      onChange={(e) =>
-                        setValorVenda(parseInt(e.target.value) || 0)
-                      }
-                    />
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (/^\d*\.?\d*$/.test(value)) {
+                            setValorCompra(value);
+                        }
+                      }}
+                      />
                   </div>
 
                   <button className="btnInserir">
