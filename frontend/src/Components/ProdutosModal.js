@@ -43,6 +43,8 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
   //Curva ABC
   const [qtConsumo, setQtConsumo] = useState('');
 
+
+
   //Categoria select
   const [categoriaSelecionada, setCategoriaSelecionada] = useState([]);
 
@@ -241,11 +243,15 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
         </div>
         <div className='divConteudo'>
           SELECT do gabriel
-
         
           <div className="grupo-select">
                     <BuscaCategoriasComponentes setCategoriaSelecionada={setCategoriaSelecionada} categoriaSelecionada={categoriaSelecionada} />
                   </div>
+
+          Atualiza o nome da categoria
+          
+          <input  />
+
           <button onClick={() => console.log(categoriaSelecionada)}>atualizar</button>
         </div>
       </div>
@@ -578,6 +584,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
   const infoCurva = () => {
 
     const handleForm = (e) => {
+      
       e.preventDefault();
       const obj = formaObj([qtConsumo], ['Quantidade de Consumo'], ['qt_consumo'], ['Nova'])
       const msgOBJ = preparaMSG_ALTERAR(obj)
@@ -628,6 +635,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
                     if (/^\d*$/.test(value)) {
                       setQtConsumo(value);
                     }
+                   
                   }}
                   numeric
                 />
