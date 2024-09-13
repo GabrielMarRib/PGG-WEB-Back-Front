@@ -23,7 +23,6 @@ import TesteDashboard from './Pages/App/Services/TesteDashboard';
 import GerirCategoria from './Pages/App/Services/GerirCategoria';
 import PagTesteInsercao from './Pages/App/Services/PagTesteInsercao'; 
 import PagTesteInsercaoDD from './Pages/App/Services/PagTesteInsercaoDD';
-import PagTesteProdutos from './Pages/App/Services/PagTesteProdutos';
 const Mobile = IsMobile();
 
 function AppRoutes() {
@@ -58,7 +57,6 @@ function AppRoutes() {
             <Route path="/PagTesteInsercaoDD" element={<PagTesteInsercaoDD />} />
             <Route path="/TesteDashboard" element={<TesteDashboard />} />
             <Route path="/PagGerirCategoria" element={<GerirCategoria />} />
-            <Route path="/PagTesteProdutos" element={<PagTesteProdutos />} />
     
           </> 
         )}

@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useCallback, memo } from "react";
-import CabecalhoHome from "../../../Components/CabecalhoHome";
-import BuscaCategoriasComponentes from "../../../Components/BuscaCategoriasComponente";
-
+import CabecalhoHome from "../../../Components/CabecalhoHome.js";
+import BuscaCategoriasComponentes from "../../../Components/BuscaCategoriasComponente.js";
+import FiltragemComponente from "../../../Components/FiltragemComponente.js";
 import "../../../Styles/PagProdutos.css";
 import axios from "axios";
-import { CheckCamposVazios } from "../../../Functions/Functions";
+import { CheckCamposVazios } from "../../../Functions/Functions.js";
 import { useNavigate } from "react-router-dom";
 import AlertaNotificação from "../../../Components/AlertaNotificação.js";
 import { useAlerta } from "../../../Context/AlertaContext.js";
 import { useContext } from "react";
-import { UserContext } from "../../../Context/UserContext";
-import Redirect from "../../../Functions/Redirect";
+import { UserContext } from "../../../Context/UserContext.js";
+import Redirect from "../../../Functions/Redirect.js";
 import ProdutosModal from "../../../Components/ProdutosModal.js";
 import Titulo from "../../../Components/Titulo.jsx";
 
@@ -23,13 +23,13 @@ function PagProdutos() {
   const { Alerta } = useAlerta();
   const [codigo, setCodigo] = useState(null);
   const [nome, setNome] = useState("");
-  const [quantidade, setQuantidade] = useState('');
+  const [quantidade, setQuantidade] = useState(0);
   const [descricao, setDescricao] = useState("");
   const [codigoDeBarras, setCodigoDeBarras] = useState('');
   const [dataCompra, setDataCompra] = useState('');
   const [dataValidade, setDataValidade] = useState('');
-  const [valorCompra, setValorCompra] = useState('');
-  const [valorVenda, setValorVenda] = useState('');
+  const [valorCompra, setValorCompra] = useState(0);
+  const [valorVenda, setValorVenda] = useState(0);
 
 
   //Pesquisa
@@ -41,8 +41,12 @@ function PagProdutos() {
   const [produtoSelecionado, setProdutoSelecionado] = useState([]);
   const [repescarInfo, setRepescarInfo] = useState(false);
   const [produtoSelecId, setProdutoSelecId] = useState(null);
+
   //Categoria:
   const [categoriaSelecionada, setCategoriaSelecionada] = useState(null);
+  const [FiltroSelecionado, setFiltroSelecionado] = useState(null);
+  const [filtragem, setFiltragem] = useState("");
+  const [mensagemVazia, setMensagemVazia] = useState(false); // Estado para controlar a mensagem
 
   //Fornecedor:
   const [fornecedor, setFornecedor] = useState("");
@@ -68,6 +72,7 @@ function PagProdutos() {
     pegaProdutos(false);
   }, [repescarInfo])
 
+
   const insertDados = async (e) => { // e = evento, basicamente algumas informações/propriedades que o formulário tem
     e.preventDefault(); // não deixa a página recarregar (Sim, por default ele faz isso...)
     console.log(categoriaSelecionada, codigo, nome, descricao, codigoDeBarras, dataCompra, dataValidade, quantidade, valorCompra, valorVenda)
@@ -90,7 +95,7 @@ function PagProdutos() {
         nome: nome,
         descricao: descricao,
         codigoBarras: codigoDeBarras, // na api, referenciamos como 'codigoBarras' não 'codigoDeBarras'... Regra: o da esquerda é oq vc manda pra gente do backend
-        categoria: categoriaSelecionada?.id_categorias ? categoriaSelecionada.id_categorias : null, //categoria q é selecionada pelo usuario no select...
+        categoria: categoriaSelecionada.id_categorias, //categoria q é selecionada pelo usuario no select...
         dt_compra: dataCompra,
         dt_validade: dataValidade, // na api, referenciamos como 'codigoBarras' não 'codigoDeBarras'... Regra: o da esquerda é oq vc manda pra gente do backend
         quantidade: quantidade, //categoria q é selecionada pelo usuario no select...
@@ -143,6 +148,40 @@ function PagProdutos() {
     setShowModal(bool);
   }
 
+  
+  
+  const buscarProdutosPorCategoria = async () => {
+    try {
+      setCarregando(true);
+      const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
+        funcao: 'pegaprodutosporcategoria',
+        codcategoria: FiltroSelecionado?.id_categorias, 
+        senha: '@7h$Pz!q2X^vR1&K'
+      });
+      setProdutos(response.data);
+      setCarregando(false);
+  
+      // Exibe a mensagem se não houver produtos na categoria
+      if (response.data.length === 0) {
+        setMensagemVazia(true);
+      } else {
+        setMensagemVazia(false);
+      }
+    } catch (error) {
+      console.log("Erro ao buscar produtos por categoria: " + error);
+      setCarregando(false); // Adiciona aqui também para evitar carregamento infinito em caso de erro
+    }
+  };
+
+  useEffect(() => {
+    if (FiltroSelecionado) {
+      buscarProdutosPorCategoria();
+    } else {
+      pegaProdutos(false); // Carregar todos os produtos quando nenhuma categoria estiver selecionada
+    }
+  }, [FiltroSelecionado]);
+  
+
   const handleSelecionarProd = (produto) => {
     setProdutoSelecId(produto.id_produtos);
     setProdutoSelecionado(produto);
@@ -152,6 +191,7 @@ function PagProdutos() {
   useEffect(() => {
     console.log("Categoria Selecionada pelo componente" + JSON.stringify(categoriaSelecionada))
   }, [categoriaSelecionada])
+
 
 
   return (
@@ -281,7 +321,7 @@ function PagProdutos() {
                       type="int"
                       id="quantidadeProduto"
                       required value={quantidade}
-                      onChange={(e) => setQuantidade(parseInt(e.target.value))}
+                      onChange={(e) => setQuantidade(parseInt(e.target.value) || 0)}
                     />
                   </div>
 
@@ -289,15 +329,13 @@ function PagProdutos() {
                   <div className="grupo-input">
                     <label htmlFor="valorCompra">Valor da Compra: <span style={{ color: "red" }}> *</span></label>
                     <input
+                      type="number"
                       id="valorCompra"
                       required value={valorCompra}
-                      onChange={(e) => {
-                        const value = e.target.value;
-                        if (/^\d*\.?\d*$/.test(value)) {
-                            setValorCompra(value);
-                        }
-                      }}
-                      />
+                      onChange={(e) =>
+                        setValorCompra(parseInt(e.target.value) || 0)
+                      }
+                    />
                   </div>
 
                   <div className="grupo-input">
@@ -308,12 +346,9 @@ function PagProdutos() {
                       type="number"
                       id="valorVenda"
                       required value={valorVenda}
-                      onChange={(e) => {
-                        const value = e.target.value;
-                        if (/^\d*\.?\d*$/.test(value)) {
-                            setValorVenda(value);
-                        }
-                      }}
+                      onChange={(e) =>
+                        setValorVenda(parseInt(e.target.value) || 0)
+                      }
                     />
                   </div>
 
@@ -324,33 +359,44 @@ function PagProdutos() {
 
               </div>
             </div>
+           
+          
             <div className="terminal">
               <div className="barra-pesquisa">
+              <div className="teste">
+                    <FiltragemComponente setFiltroSelecionado={setFiltroSelecionado} FiltroSelecionado={FiltroSelecionado} />
+                  </div>
                 <input
                   type="text"
                   placeholder="Pesquisar produto..."
                   value={pesquisaProduto}
                   onChange={(e) => setPesquisaProduto(e.target.value)}
                 />
-              </div>
-              {carregando ? (
-                <div>Carregando...</div>
-              ) : (
-                  //ficha de estoque
-                produtosFiltrados.map((produto) => (
-                  <ul key={produto.id_produtos} className="produtoGerado">
-                    <div className="conteudoProdutoGerado">
-                      <li className="liGerado">{produto.nome}</li>
-                      <button onClick={() => {
-                        handleSelecionarProd(produto);
-                        handleModal(true);
-                      }}>Editar produto
-                      </button> {/* inferno */}
-                    </div>
+                 </div>
 
-                  </ul>
-                ))
-              )}
+                 {carregando ? (
+                  <div>Carregando...</div>
+                ) : (
+                  mensagemVazia ? (
+                    <div>Nenhum produto encontrado na categoria selecionada.</div>
+                  ) : (
+                    produtosFiltrados.length > 0 ? (
+                      produtosFiltrados.map((produto) => (
+                        <ul key={produto.id_produtos} className="produtoGerado">
+                          <div className="conteudoProdutoGerado">
+                            <li className="liGerado">{produto.nome}</li>
+                            <button onClick={() => {
+                              setProdutoSelecionado(produto);
+                              setShowModal(true);
+                            }}>Editar produto</button>
+                          </div>
+                        </ul>
+                      ))
+                    ) : (
+                      <div>Nenhum produto encontrado com o termo pesquisado.</div>
+                    )
+                  )
+                )}
             </div>
           </div>
         </div>

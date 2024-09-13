@@ -102,6 +102,8 @@ function BuscaCategoriasComponente({ setCategoriaSelecionada, CategoriaSeleciona
     setFoco(true)
   }
 
+  
+
 
   return (
     <div className="BuscaCategoriasComponente">
