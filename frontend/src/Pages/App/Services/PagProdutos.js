@@ -392,8 +392,8 @@ function PagProdutos() {
                           <div className="conteudoProdutoGerado">
                             <li className="liGerado">{produto.nome}</li>
                             <button onClick={() => {
-                              setProdutoSelecionado(produto);
-                              setShowModal(true);
+                              handleSelecionarProd(produto);
+                              handleModal(true);
                             }}>Editar produto</button>
                           </div>
                         </ul>

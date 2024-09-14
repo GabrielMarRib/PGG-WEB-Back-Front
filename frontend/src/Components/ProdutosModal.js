@@ -482,7 +482,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
               tamanho={tamanho}
             />
           }
-          <h3>'{produtoOBJ.nome}'</h3>
+          <h3>'{produtoOBJ?.nome}'</h3>
           <hr />
           <div className='divConteudo'>
             <form className='formCat' onSubmit={(e) => handleForm(e)}>
