@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect , useContext} from "react";
 import "../../Styles/App/PagHome.css";
 import { useNavigate } from "react-router-dom";
 import ImageABC from '../../Assets/curvaABC.png';
@@ -9,18 +9,22 @@ import ImageMedio from '../../Assets/custoMedio.png';
 import ImageCaixa from '../../Assets/caixa.png';
 import IconLogOut from "../../Assets/LogOutIconWhite.png";
 import Notificacao from "../../Components/Notificacao";
-import {handleLogOut } from "../../../src/Functions/Functions.js";
+import { handleLogOut } from "../../../src/Functions/Functions.js";
 import GraficoTeste from "../../Components/GraficoTeste.jsx";
+import { UserContext } from "../../Context/UserContext";
+
 function PagHome() {
+
+  const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
+  const User = UserOBJ.User; //Pega só o User....
   const navigate = useNavigate();
-  const currentDate = new Date().toLocaleDateString();
   const [sidebarVisible, setSidebarVisible] = useState(true);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 1000);
   const [showEstoqueOptions, setShowEstoqueOptions] = useState(false);
   const [showABCOptions, setShowABCOptions] = useState(false);
   const [isSelectEstoque, setisSelectEstoque] = useState(false);
   const [isSelectCurvaAbc, setisSelectCurvaAbc] = useState(false);
-
+  const [userAvatar, setUserAvatar] = useState(null); 
 
   const sections = [
     { title: "Faturamento", content: "Informação sobre faturamento" },
@@ -29,7 +33,7 @@ function PagHome() {
     { title: "Ticket Médio por Produto", content: "Informação sobre ticket médio por produto" },
     { title: "Positividade por Produto", content: "Informação sobre positividade por produto" },
     { title: "Gerente Faturamento Sei Lá O Que", content: "Informação gerencial" },
-    { title: "Evolução de Vendas", content: "Gráfico de vendas vai aqui", isChart: true },
+    { title: "Evolução de Vendas", content: "Análise Mensal da Evolução de Vendas", isChart: true },
     { title: "Linha de Produto", content: "Informação sobre linha de produto", isSameHeight: true },
   ];
 
@@ -54,6 +58,13 @@ function PagHome() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    const savedAvatar = localStorage.getItem('userAvatar');
+    if (savedAvatar) {
+      setUserAvatar(savedAvatar);
+    }
+  }, []);
+
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
   };
@@ -75,6 +86,19 @@ function PagHome() {
       document.body.classList.remove('overlay');
     }
   }, [sidebarVisible, isMobile]);
+
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const imageUrl = reader.result;
+        setUserAvatar(imageUrl);
+        localStorage.setItem('userAvatar', imageUrl); 
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
     <div className="PagHome">
@@ -100,8 +124,21 @@ function PagHome() {
           </div>
         </div>
         <div className="user-info">
-          <div className="user-avatar"></div>
-          <span className="user-name">Marcos Vinicius</span>
+          <div className="user-avatar" onClick={() => document.getElementById('avatarUpload').click()}>
+            {userAvatar ? (
+              <img src={userAvatar} alt="User Avatar" className="avatar-image" />
+            ) : (
+              <div className="default-avatar">Upload</div>
+            )}
+          </div>
+          <input
+            type="file"
+            id="avatarUpload"
+            style={{ display: "none" }}
+            accept="image/*"
+            onChange={handleAvatarChange}
+          />
+          <span className="user-name">{User?.userData.Nome}</span>
         </div>
         <div className="menu">
           <button className={isSelectEstoque ? "menu-button-Select" : "menu-button"} onClick={handleEstoqueClick}>
@@ -125,7 +162,6 @@ function PagHome() {
             <div className="abc-options">
               <button className="option-button" onClick={() => navigate("/PagCurvaABC")}>Por Frequência</button>
               <button className="option-button" onClick={() => navigate("/PagCurvaABCPorValor")}>Por Valor</button>
-              {/* Adicione mais opções conforme necessário */}
             </div>
           )}
 

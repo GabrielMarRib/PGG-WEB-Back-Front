@@ -41,6 +41,10 @@ const ConfirmaModal = ({ message, onConfirm, onCancel, BoolMultiplaEscolha, styl
         return{
           width: '1000px'
         }
+      case 'XGG':
+        return{
+          width: '1300px'
+        }
       default:
         return {
           width: '350px',

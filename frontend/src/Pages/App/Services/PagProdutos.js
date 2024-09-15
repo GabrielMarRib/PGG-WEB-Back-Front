@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useCallback, memo } from "react";
-import CabecalhoHome from "../../../Components/CabecalhoHome";
-import BuscaCategoriasComponentes from "../../../Components/BuscaCategoriasComponente";
-
+import CabecalhoHome from "../../../Components/CabecalhoHome.js";
+import BuscaCategoriasComponentes from "../../../Components/BuscaCategoriasComponente.js";
+import FiltragemComponente from "../../../Components/FiltragemComponente.js";
 import "../../../Styles/PagProdutos.css";
 import axios from "axios";
-import {CheckCamposVazios} from "../../../Functions/Functions";
+import { CheckCamposVazios } from "../../../Functions/Functions.js";
 import { useNavigate } from "react-router-dom";
 import AlertaNotificação from "../../../Components/AlertaNotificação.js";
 import { useAlerta } from "../../../Context/AlertaContext.js";
 import { useContext } from "react";
-import { UserContext } from "../../../Context/UserContext";
-import Redirect from "../../../Functions/Redirect";
+import { UserContext } from "../../../Context/UserContext.js";
+import Redirect from "../../../Functions/Redirect.js";
 import ProdutosModal from "../../../Components/ProdutosModal.js";
 import Titulo from "../../../Components/Titulo.jsx";
 
@@ -30,7 +30,7 @@ function PagProdutos() {
   const [dataValidade, setDataValidade] = useState('');
   const [valorCompra, setValorCompra] = useState(0);
   const [valorVenda, setValorVenda] = useState(0);
-  const [inputValue, setInputValue] = useState('');
+
 
   //Pesquisa
   const [carregando, setCarregando] = useState(true);
@@ -41,11 +41,15 @@ function PagProdutos() {
   const [produtoSelecionado, setProdutoSelecionado] = useState([]);
   const [repescarInfo, setRepescarInfo] = useState(false);
   const [produtoSelecId, setProdutoSelecId] = useState(null);
-  //Categoria:
-  const [categorias, setCategorias] = useState([]);
-  const [categoriaSelecionada, setCategoriaSelecionada] = useState(null);
-  const [repescarInfoCat, setRepescarInfoCat] = useState(false);
 
+  //Categoria:
+  const [categoriaSelecionada, setCategoriaSelecionada] = useState(null);
+  const [FiltroSelecionado, setFiltroSelecionado] = useState(null);
+  const [filtragem, setFiltragem] = useState("");
+  const [mensagemVazia, setMensagemVazia] = useState(false); // Estado para controlar a mensagem
+
+  //Fornecedor:
+  const [fornecedor, setFornecedor] = useState("");
   const [showModal, setShowModal] = useState(false);
 
   const pegaProdutos = async (dataFRESH) => {
@@ -57,7 +61,7 @@ function PagProdutos() {
       setProdutos(response.data); // coloca a LISTA de categorias em uma useState
       console.log(response.data) // log para sabermos o que foi pego.
       setCarregando(false);
-      if(dataFRESH)
+      if (dataFRESH)
         return response.data
     } catch (error) {
       console.log("deu ruim: " + error) // log para sabermos qual foi o erro
@@ -65,8 +69,9 @@ function PagProdutos() {
   };
 
   useEffect(() => {
-     pegaProdutos(false);
+    pegaProdutos(false);
   }, [repescarInfo])
+
 
   const insertDados = async (e) => { // e = evento, basicamente algumas informações/propriedades que o formulário tem
     e.preventDefault(); // não deixa a página recarregar (Sim, por default ele faz isso...)
@@ -76,36 +81,35 @@ function PagProdutos() {
       return;
     }
 
-    //inserção de produtos...
+    //inserção de produtos com mtas procedures...
     try {
+      const diaDeHj = new Date();
+      const diaOK = diaDeHj.toLocaleString('sv-SE').replace('T', ' ');
+
       const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {  // acessa via get (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
         //parâmetros da consulta... SÃO necessários.
-        funcao: 'insereProduto', // dita qual função deve ser utilizada da api. (a gente te fala o nome)
+        funcao: 'inserirProdutoLoteEMovimento', // dita qual função deve ser utilizada da api. (a gente te fala o nome)
         senha: '@7h$Pz!q2X^vR1&K', // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
 
         id: codigo, //nome da esquerda (id), nome que você está mandando pro backend. Nome da direita (codigo), o código q o usuario digitou (o valor)
         nome: nome,
         descricao: descricao,
         codigoBarras: codigoDeBarras, // na api, referenciamos como 'codigoBarras' não 'codigoDeBarras'... Regra: o da esquerda é oq vc manda pra gente do backend
-        categoria: categoriaSelecionada //categoria q é selecionada pelo usuario no select...
+        categoria: categoriaSelecionada?.id_categorias ? categoriaSelecionada.id_categorias : null, //categoria q é selecionada pelo usuario no select...
+        dt_compra: dataCompra,
+        dt_validade: dataValidade, // na api, referenciamos como 'codigoBarras' não 'codigoDeBarras'... Regra: o da esquerda é oq vc manda pra gente do backend
+        quantidade: quantidade, //categoria q é selecionada pelo usuario no select...
+        vlr_compra: valorCompra,
+        vlr_venda: valorVenda,
+        id_usuario: User.id,
+        data_movimento: diaOK,
+        Mov: "E",
+        NomeCliente: fornecedor
       });
-      if (response.status === 200) {
-        const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {  // acessa via get (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
-          //parâmetros da consulta... SÃO necessários.
-          funcao: 'inserelote', // dita qual função deve ser utilizada da api. (a gente te fala o nome)
-          senha: '@7h$Pz!q2X^vR1&K', // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
-          dt_compra: dataCompra,
-          dt_validade: dataValidade, // na api, referenciamos como 'codigoBarras' não 'codigoDeBarras'... Regra: o da esquerda é oq vc manda pra gente do backend
-          qtde: quantidade, //categoria q é selecionada pelo usuario no select...
-          vlr_compra: valorCompra,
-          vlr_venda: valorVenda,
-          produto: codigo
-        });
-      }
 
       // se a inserção deu OK, ele vai executar os códigos abaixo... (Se deu ruim, vai pro catch direto... Sim, existe uma linha de continuídade, só é bem tênue)
-      console.log("resposta da inserção> " + response) // manda a resposta pro console.log pra gente saber o que ta acontecendo...
-      Alerta(2, "Campos não preenchidos");
+      console.log(response.data) // manda a resposta pro console.log pra gente saber o que ta acontecendo...
+      Alerta(2, "Inserção realizada");
       //zera os campos
       setCategoriaSelecionada(null);
       setCodigo('');
@@ -127,42 +131,16 @@ function PagProdutos() {
     }
   }
 
-  const handleChangeCategoria = (e) => { // e significa 'evento' que no caso, é o valor de um 'filho' do select, no caso, na ordem de hierarquia, a única coisa abaixo de select é option.
-    const valor = e.target.value; // basicamente o valor do filho do select (option)
-    console.log(valor)
-    if (isNaN(valor)) // aquela jogadinha la embaixo...
-      setCategoriaSelecionada(null)   // se o valor pouco importa para o bd, manda null
-    else                                // caso contrário
-      setCategoriaSelecionada(valor)  // manda o valor pra variável de categoria selecionada
-  }
-
-  useEffect(() => { // useEffect para pegar informações da LISTA de categorias...
-    const pegaCategorias = async () => { // função existe para separar async do useEffect...
-      try {
-        const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {  // acessa via post (SEMPRE SERÁ POST)                
-          funcao: 'pegacategorias', // dita qual função deve ser utilizada da api. (a gente te fala o nome) // ---> parâmetros da consulta... SÃO necessários.
-          senha: '@7h$Pz!q2X^vR1&K' // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
-        });
-        setCategorias(response.data); // coloca a LISTA de categorias em uma useState
-        console.log(response.data) // log para sabermos o que foi pego.
-      } catch (error) {
-        console.log("deu ruim: " + error) // log para sabermos qual foi o erro
-      }
-    };
-    pegaCategorias(); //chama a função
-  }, [repescarInfoCat])
-
   const produtosFiltrados = produtos.filter((produto) =>
     produto.nome.toLowerCase().includes(pesquisaProduto.toLowerCase())
   );
-  
-  const atualizaProd = async () =>{
-      console.log("passou no restrito")
-      const produtosFresh = await pegaProdutos(true);
-      const produtofiltrado = produtosFresh.find((produto) => produto.id_produtos  === produtoSelecId);
-      console.log(produtofiltrado)
-      setProdutoSelecionado(produtofiltrado)
-      setRepescarInfoCat(prevState => !prevState);
+
+  const atualizaProd = async () => {
+    console.log("passou no restrito")
+    const produtosFresh = await pegaProdutos(true);
+    const produtofiltrado = produtosFresh.find((produto) => produto.id_produtos === produtoSelecId);
+    console.log(produtofiltrado)
+    setProdutoSelecionado(produtofiltrado)
   }
 
 
@@ -170,14 +148,50 @@ function PagProdutos() {
     setShowModal(bool);
   }
 
-  const handleSelecionarProd = (produto) =>{
+  
+  
+  const buscarProdutosPorCategoria = async () => {
+    try {
+      setCarregando(true);
+      const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
+        funcao: 'pegaprodutosporcategoria',
+        codcategoria: FiltroSelecionado?.id_categorias, 
+        senha: '@7h$Pz!q2X^vR1&K'
+      });
+      setProdutos(response.data);
+      setCarregando(false);
+  
+      // Exibe a mensagem se não houver produtos na categoria
+      if (response.data.length === 0) {
+        setMensagemVazia(true);
+      } else {
+        setMensagemVazia(false);
+      }
+    } catch (error) {
+      console.log("Erro ao buscar produtos por categoria: " + error);
+      setCarregando(false); // Adiciona aqui também para evitar carregamento infinito em caso de erro
+    }
+  };
+
+  useEffect(() => {
+    if (FiltroSelecionado) {
+      buscarProdutosPorCategoria();
+    } else {
+      pegaProdutos(false); // Carregar todos os produtos quando nenhuma categoria estiver selecionada
+    }
+  }, [FiltroSelecionado]);
+  
+
+  const handleSelecionarProd = (produto) => {
     setProdutoSelecId(produto.id_produtos);
     setProdutoSelecionado(produto);
   }
 
-  useEffect(() => { 
-      console.log("Categoria Selecionada pelo componente" + JSON.stringify(categoriaSelecionada))
+
+  useEffect(() => {
+    console.log("Categoria Selecionada pelo componente" + JSON.stringify(categoriaSelecionada))
   }, [categoriaSelecionada])
+
 
 
   return (
@@ -188,9 +202,9 @@ function PagProdutos() {
         </div>
 
         <Titulo
-          tituloMsg = 'Gerenciamento de Produtos'
+          tituloMsg='Gerenciamento de Produtos'
         />
-        
+
         <AlertaNotificação />
         <button
           className="voltar"
@@ -200,7 +214,7 @@ function PagProdutos() {
         >
           Voltar
         </button>
-        
+
         {showModal &&
           <ProdutosModal
             fechar={() => handleModal(false)}
@@ -218,7 +232,7 @@ function PagProdutos() {
                 <form onSubmit={(e) => insertDados(e)}> {/* IMPORTANTE!! quando o botão é acionado, o onSubmit é ativado, por isso que não tem onClick no botao...  */}
 
                   <div className="grupo-select">
-                          <BuscaCategoriasComponentes setCategoriaSelecionada={setCategoriaSelecionada} categoriaSelecionada={categoriaSelecionada} />
+                    <BuscaCategoriasComponentes setCategoriaSelecionada={setCategoriaSelecionada} categoriaSelecionada={categoriaSelecionada} />
                   </div>
 
                   <div className="grupo-input">
@@ -264,9 +278,21 @@ function PagProdutos() {
                     />
                   </div>
 
-                  <hr/>
+                  <hr />
                   Informações sobre o lote:
-                  <hr/>
+                  <hr />
+
+                  <div className="grupo-input">
+                    <label htmlFor="dataCompra">Fornecedor: </label>
+                    <select
+                      onChange={(e) => setFornecedor(e.target.value)}
+                      value={fornecedor}
+                    >
+                      <option value={"não conhecido"}>Não conhecido</option>
+                      <option value={"zezinho da esquina"}>zezinho da esquina</option>
+                      <option value={"logitech"}>logitech</option>
+                    </select>
+                  </div>
                   <div className="grupo-input">
                     <label htmlFor="dataCompra">Data de Compra: <span style={{ color: "red" }}> *</span></label>
                     <input
@@ -295,7 +321,7 @@ function PagProdutos() {
                       type="int"
                       id="quantidadeProduto"
                       required value={quantidade}
-                      onChange={(e) => setQuantidade(parseInt(e.target.value) || 0)}
+                      onChange={(e) => setQuantidade(parseInt(e.target.value))}
                     />
                   </div>
 
@@ -306,10 +332,13 @@ function PagProdutos() {
                       type="number"
                       id="valorCompra"
                       required value={valorCompra}
-                      onChange={(e) =>
-                        setValorCompra(parseInt(e.target.value) || 0)
-                      }
-                    />
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (/^\d*\.?\d*$/.test(value)) {
+                            setValorCompra(value);
+                        }
+                      }}
+                      />
                   </div>
 
                   <div className="grupo-input">
@@ -320,10 +349,13 @@ function PagProdutos() {
                       type="number"
                       id="valorVenda"
                       required value={valorVenda}
-                      onChange={(e) =>
-                        setValorVenda(parseInt(e.target.value) || 0)
-                      }
-                    />
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (/^\d*\.?\d*$/.test(value)) {
+                            setValorCompra(value);
+                        }
+                      }}
+                      />
                   </div>
 
                   <button className="btnInserir">
@@ -333,35 +365,44 @@ function PagProdutos() {
 
               </div>
             </div>
+           
+          
             <div className="terminal">
               <div className="barra-pesquisa">
+              <div className="teste">
+                    <FiltragemComponente setFiltroSelecionado={setFiltroSelecionado} FiltroSelecionado={FiltroSelecionado} />
+                  </div>
                 <input
                   type="text"
                   placeholder="Pesquisar produto..."
                   value={pesquisaProduto}
                   onChange={(e) => setPesquisaProduto(e.target.value)}
                 />
-              </div>
-              {carregando ? (
-                <div>Carregando...</div>
-              ) : (
+                 </div>
 
-                
-
-                produtosFiltrados.map((produto) => (
-                  <ul key={produto.id_produtos} className="produtoGerado">
-                    <div className="conteudoProdutoGerado">
-                      <li className="liGerado">{produto.nome}</li>
-                      <button onClick={() => {
-                        handleSelecionarProd(produto);
-                        handleModal(true);                        
-                      }}>Editar produto
-                      </button> {/* inferno */}
-                    </div>
-
-                  </ul>
-                ))
-              )}
+                 {carregando ? (
+                  <div>Carregando...</div>
+                ) : (
+                  mensagemVazia ? (
+                    <div>Nenhum produto encontrado na categoria selecionada.</div>
+                  ) : (
+                    produtosFiltrados.length > 0 ? (
+                      produtosFiltrados.map((produto) => (
+                        <ul key={produto.id_produtos} className="produtoGerado">
+                          <div className="conteudoProdutoGerado">
+                            <li className="liGerado">{produto.nome}</li>
+                            <button onClick={() => {
+                              handleSelecionarProd(produto);
+                              handleModal(true);
+                            }}>Editar produto</button>
+                          </div>
+                        </ul>
+                      ))
+                    ) : (
+                      <div>Nenhum produto encontrado com o termo pesquisado.</div>
+                    )
+                  )
+                )}
             </div>
           </div>
         </div>

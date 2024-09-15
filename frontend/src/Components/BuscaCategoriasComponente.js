@@ -6,6 +6,7 @@ import axios from "axios";
 function BuscaCategoriasComponente({ setCategoriaSelecionada, CategoriaSelecionada }) {
 
   const [inputValue, setInputValue] = useState("");
+  const [inputFallBack, setInputFallBack] = useState('');
   const [categorias, setCategorias] = useState([]);
   const [foco, setFoco] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
@@ -50,9 +51,16 @@ function BuscaCategoriasComponente({ setCategoriaSelecionada, CategoriaSeleciona
 
     setCategoriaSelecionada(categoria)
     setInputValue(`${categoria.id_categorias} - ${categoria.nome}`);
+    setInputFallBack('')
     setShowOptions(false);
 
   };
+
+  const handleOptionClickFixo = (msg) =>{
+    setInputFallBack('')
+    setCategoriaSelecionada(null)
+    setInputValue(msg)
+  }
 
   useEffect(() => {
     if (Montador == true) {
@@ -88,10 +96,13 @@ function BuscaCategoriasComponente({ setCategoriaSelecionada, CategoriaSeleciona
 
   const handleFocus = () =>{
     if(typeof parseInt(inputValue.charAt(0)) === 'number'){ // achei q ia ficar mais bonito assim
+      setInputFallBack(inputValue)
       setInputValue('')
     }
     setFoco(true)
   }
+
+  
 
 
   return (
@@ -100,13 +111,28 @@ function BuscaCategoriasComponente({ setCategoriaSelecionada, CategoriaSeleciona
         <input
           value={inputValue}
           onFocus={() => handleFocus()} // kkkkkkk
-          onBlur={() => setFoco(false)}
+          onBlur={() => {
+            setFoco(false);
+            if(inputFallBack){
+              setInputValue(inputFallBack);
+              setInputFallBack('')
+            }
+            //
+          }}
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="Pesquisar categoria..."
 
         />
         {showOptions && (
           <div className="options-container">
+            <div
+             key="opcaoFixa"
+             className="option"
+             onMouseDown={() => handleOptionClickFixo('Não há categoria')}
+            >
+            Não há categoria
+            </div>
+            
             {showOptions && (
               CategoriasFiltradas.map((categoria, index) => (
                 <div
