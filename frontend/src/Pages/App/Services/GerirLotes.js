@@ -15,6 +15,7 @@ import RedirectAcesso from "../../../Functions/RedirectAcesso.js";
 import { useContext } from "react";
 import { UserContext } from "../../../Context/UserContext.js";
 import Titulo from "../../../Components/Titulo.jsx";
+import Box from '../../../Assets/Box.png'
 
 function GerirLotes() {
   const navigate = useNavigate();
@@ -67,8 +68,12 @@ const handleFecharModal = async (bool) =>{
     return (
     
       <div key={item.numerolote} className="DivGerirLotes">
+     
         
-        <center><p className="p" style={{ fontSize: '20px'}}><strong> Id do lote: {item.numerolote}</strong></p></center>
+        <center>
+        <img src={Box} className="IconBoxImg" alt="Imagem Externa" />
+        <p className="p" style={{ fontSize: '20px'}}>
+        <strong> Id do lote: {item.numerolote}</strong></p></center>
         <center><p className="p" style={{ fontSize: '20px', marginTop: '0px'}}> Produto: {item.nome} </p></center>
         <center><p className="p" style={{ fontSize: '20px', marginTop: '0px'}}> Fornecedor: {item.fornecedor ? (item.fornecedor) : "Sem fornecedor"}</p></center>
         <center><p className="p"> Data de compra: {item.dt_compra} /</p>

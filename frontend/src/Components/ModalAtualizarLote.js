@@ -5,6 +5,7 @@ import { useAlerta } from "../Context/AlertaContext.js";
 import AlertaNotificação from "./AlertaNotificação.js";
 import ConfirmaModal from './ConfirmaModal.js';
 import { Link } from 'react-router-dom';
+
 const LoteMemo = memo(function ModalAtualizarLote({ LoteSelecionado, fechar }) { // teoricamente faria não ter reRender, mas ta tendo, ou seja, fds
 
   const { Alerta } = useAlerta();
