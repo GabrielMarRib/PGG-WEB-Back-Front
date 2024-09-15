@@ -15,15 +15,17 @@ import PagEscolhaCurvaABC from './Pages/App/PagEscolhaCurvaABC';
 import PagCurvaABC from './Pages/App/Services/PagCurvaABC';
 import PagCurvaABCPorValor from './Pages/App/Services/PagCurvaABCPorValor'; 
 import PagPontoPedido from './Pages/App/Services/PagPontoPedido'; 
+import PagTestePontoPedido from './Pages/App/Services/PagTestePontoPedido'; 
 import PagRelatorios from './Pages/App/Services/PagRelatorios';
 import PagFuncionarios from './Pages/App/Services/PagFuncionarios'; 
-import PagAddCategoria from './Pages/App/Services/PagAddCategoria';
 import PagTeste from './Pages/App/Services/PagTeste';
 import TesteDashboard from './Pages/App/Services/TesteDashboard';
+import GerirCategoria from './Pages/App/Services/GerirCategoria';
 import PagTesteInsercao from './Pages/App/Services/PagTesteInsercao'; 
 import PagTesteInsercaoDD from './Pages/App/Services/PagTesteInsercaoDD';
 import PrivateRoute from './PrivateRoute';
 
+import GerirLotes from './Pages/App/Services/GerirLotes';
 const Mobile = IsMobile();
 
 function AppRoutes() {

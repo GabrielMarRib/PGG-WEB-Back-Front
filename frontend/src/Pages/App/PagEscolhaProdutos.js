@@ -24,24 +24,34 @@ function PagEscolhaProdutos() {
                         <div className="ag-courses_item">
                             <a onClick={() => { navigate("/PagProdutos") }} className="ag-courses-item_link">
                                 <div className="ag-courses-item_bg"></div>
-                                <div className="ag-courses-item_title">Adicionar Produto</div>
+                                <div className="ag-courses-item_title">Gerir Produtos</div>
                             </a>
                         </div>
                        
-                            <div className="ag-courses_item">
+                        <div className="ag-courses_item">
                             <a onClick={() => { navigate("/PagVenderProduto") }} className="ag-courses-item_link">
                                 <div className="ag-courses-item_bg"></div>
                                 <div className="ag-courses-item_title">Vender Produto</div>
                             </a>
                         </div>
+                        
                         {User && User.userData && User.userData.Nivel_acesso && User.userData.Nivel_acesso == 2 ? (
-                        <div className="ag-courses_item">
-                            <a onClick={() => { navigate("/PagAddCategoria") }} className="ag-courses-item_link">
-                                <div className="ag-courses-item_bg"></div>
-                                <div className="ag-courses-item_title">Gerir Categorias</div>
-                            </a>
-                        </div>
-                        ): (
+                        <>
+                            <div className="ag-courses_item">
+                                <a onClick={() => { navigate("/PagGerirCategoria") }} className="ag-courses-item_link">
+                                    <div className="ag-courses-item_bg"></div>
+                                    <div className="ag-courses-item_title">Gerir Categorias</div>
+                                </a>
+                            </div>
+                            
+                            <div className="ag-courses_item">
+                                <a onClick={() => { navigate("/PagGerirLotes") }} className="ag-courses-item_link">
+                                    <div className="ag-courses-item_bg"></div>
+                                    <div className="ag-courses-item_title">Gerir Lotes</div>
+                                </a>
+                            </div>
+                        </>
+                        ) : (
                             null
                         )}
                     </div>

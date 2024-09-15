@@ -10,6 +10,7 @@ import RedirectAcesso from "../../../Functions/RedirectAcesso";
 import { handleAdicionarUser } from "../../../Functions/Functions";
 import { useAlerta } from "../../../Context/AlertaContext.js";
 import AlertaNotificação from "../../../Components/AlertaNotificação.js";
+import Titulo from "../../../Components/Titulo";
 
 function PagAddFunc() {
   const { Alerta } = useAlerta(); // alertinha...
@@ -57,6 +58,9 @@ function PagAddFunc() {
         <CabecalhoHome />
       </div>
       <AlertaNotificação />
+      <Titulo
+                tituloMsg='Adição de funcionários'
+            />
       <div className="btn">
         <button className="Voltar" onClick={() => { navigate("/PagPerfil") }}>
             Voltar

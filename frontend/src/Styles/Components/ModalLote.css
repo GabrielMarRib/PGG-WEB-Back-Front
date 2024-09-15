@@ -1,0 +1,100 @@
+
+.ModalAtualizarLote{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ModalAtualizarLote .conteudo-modal {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    width: 900px; 
+    height: 600px; 
+    display: flex;
+    flex-direction: column;
+}
+
+.ModalAtualizarLote .cabecalho-modal {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.ModalAtualizarLote .botao-fechar {
+    border: none;
+    font-size: 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: rgb(252, 58, 58);
+    transition: color 0.3s, background-color 0.3s;
+    margin-left: auto;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ModalAtualizarLote input {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 9px;
+    min-width: 93%;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+.ModalAtualizarLote .conteudo-modal label {
+    margin-left: 20px;
+    font-size: 1rem;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: flex-start;
+}
+.ModalAtualizarLote .conteudo-modal h1{
+    margin-top: 0;
+}
+.ModalAtualizarLote .Ps{
+    margin-top: 0;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.ModalAtualizarLote .botao-testar {
+    padding: 10px;
+    margin-left: 20px;
+    border-radius: 3px;
+    background-color: #e04d18;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
+    margin-top: 20px;
+    width: 93%;
+}
+
+/* Tirar as setinhas do input */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Para Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}

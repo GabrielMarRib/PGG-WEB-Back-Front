@@ -10,7 +10,7 @@ import axios from "axios";
 import ConfirmaModal from "../../../Components/ConfirmaModal";
 import AlertaNotificação from "../../../Components/AlertaNotificação.js";
 import { useAlerta } from "../../../Context/AlertaContext.js";
-
+import Titulo from "../../../Components/Titulo.jsx";
 function PagRelatorios() {
     const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
     const User = UserOBJ.User; //Pega só o User....
@@ -207,8 +207,8 @@ function PagRelatorios() {
                         <li>Quantidade Antes da venda: {relatorioSelecionado.data.Quantidade_Antes_Venda} {pegaQtde(relatorioSelecionado.data.Quantidade_Antes_Venda)}</li>
                         <li>Quantidade Vendida: {relatorioSelecionado.data.Quantidade_Vendida} {pegaQtde(relatorioSelecionado.data.Quantidade_Vendida)}</li>
                         <li>Quantidade Atual: {relatorioSelecionado.data.Quantidade_Disponivel} {pegaQtde(relatorioSelecionado.data.Quantidade_Disponivel)}</li>
-                        <li>Custo unitário: R$ {(relatorioSelecionado.data.Produto_Custo_Unit).toFixed(2)}</li>
-                        <li>Receita Total: R$ {(relatorioSelecionado.data.Receita).toFixed(2)}</li>
+                        <li>Custo unitário: R$ {Number(relatorioSelecionado.data.Produto_Custo_Unit).toFixed(2)}</li>
+                        <li>Receita Total: R$ {Number(relatorioSelecionado.data.Receita).toFixed(2)}</li>
                     </ul>
                 </div>
                 <hr />
@@ -242,6 +242,9 @@ function PagRelatorios() {
             <div className="Cabecalho">
                 <Cabecalho />
             </div>
+            <Titulo
+                tituloMsg='Visualização de relatórios'
+            />
             <AlertaNotificação />
             {showConfirmation && (
                 <ConfirmaModal

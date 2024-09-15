@@ -34,13 +34,14 @@ const CabecalhoHome = () => {
       ></link>
 
       <nav className="nav1">
-        <a id="logo">
+
+        <a id="logo" onClick={() => { navigate("/") }}>
           PGG
           <br />
           Pequeno Grande Gestor
         </a>
 
-        <a id="NomeEmpresa">- Zetta - </a>
+        <a id="NomeEmpresa" onClick={() => { navigate("/") }}>- Zetta - </a>
 
 
         <div className="DivInfoUser">
@@ -95,12 +96,12 @@ const CabecalhoHome = () => {
 
             <ul className="dropdown">
               <li> <a onClick={() => { navigate("/PagProdutos") }}
-                className="paginas"> Adicionar Produto </a> </li>
+                className="paginas"> Gerir Produtos </a> </li>
               <li> <a onClick={() => { navigate("/PagVenderProduto") }}
                 className="paginas"> Vender Produto </a>
               </li>
               {User && User.userData && User.userData.Nivel_acesso && User.userData.Nivel_acesso == 2 ? (
-                <li> <a onClick={() => { navigate("/PagAddCategoria") }}
+                <li> <a onClick={() => { navigate("/PagGerirCategoria") }}
                   className="paginas"> Gerir Categorias </a>
                 </li>) : (
                   null

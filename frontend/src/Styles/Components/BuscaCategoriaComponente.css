@@ -1,0 +1,38 @@
+.BuscaCategoriasComponente .barra-pesquisa {
+
+    flex-direction: row;
+    position: relative;
+    display: inline-block;
+    width: 85%;
+  }
+  
+  .BuscaCategoriasComponente .barra-pesquisa input {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #000;
+    border-radius: 3px;
+  }
+  .BuscaCategoriasComponente .option {
+    font-size: 15px;
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  
+  .BuscaCategoriasComponente .option:hover {
+    background-color: #f1f1f1;
+  }
+
+  .BuscaCategoriasComponente .options-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border: 1px solid #000000;
+  border-top: 1px solid #ffffff;
+  z-index: 1000;
+  max-height: 200px; /* Limita a altura */
+  overflow-y: auto; /* Adiciona barra de rolagem */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

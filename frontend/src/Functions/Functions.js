@@ -227,10 +227,36 @@ export const RelatorioVendas = async () => {
 }
 
 export const pegaCategorias = async (setOBJ) =>{
-    const response = await axios.get('http://localhost:4000/pegaCategoriasCSub')
-    setOBJ(response.data)
+
+    try { //tente...
+        const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {  // acessa via get (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
+            funcao: 'pegacategorias', 
+            senha: '@7h$Pz!q2X^vR1&K',
+        });
+        console.log(response.data) 
+        setOBJ(response.data) 
+    } catch (error) { 
+        console.log("deu ruim: " + error) 
+    }
+    //const response = await axios.get('http://localhost:4000/pegaCategoriasCSub')
+   
 }
-export const pegaSubCategorias = async (setOBJ) =>{
-    const response = await axios.get('http://localhost:4000/pegaCategoriasCSub')
-    setOBJ(response.data)
+
+export const VerificaCategorias = async (SubCat, Result) =>{
+
+    try { 
+        const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {  // acessa via get (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
+                funcao: 'verificacategorias', 
+                senha: '@7h$Pz!q2X^vR1&K',
+                subCat: SubCat // ( Exemplo: 1, 2 ) Vou pegar por Id
+        });
+
+        Result(response.data) 
+    } catch (error) { 
+        console.log("Falha: " + error) 
+    }
+    
+   
 }
+
+

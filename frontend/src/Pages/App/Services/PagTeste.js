@@ -37,6 +37,7 @@ function PagTeste() {
             }
         };
 
+
         pegaDados(); //chama a função (até o momento só criamos ela, por isso temos q chamar aqui)
 
     }, []) // [] = dependency array, ela vazia  significa que o useEffect vai ser executado uma vez só, apenas quando o componente "montar" ou carregar.
@@ -69,6 +70,7 @@ function PagTeste() {
                     {/* e fim, é assim que é feito uma busca de api... dúvidas, me chamem bbs. */}
                 </tbody>
             </table>
+
         </div>
     )
 }

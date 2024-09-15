@@ -1,223 +1,131 @@
-import React, { useState, useEffect } from "react";
-import Cabecalho from "../../../Components/Cabecalho";
-import CabecalhoHome from "../../../Components/CabecalhoHome.js";
+import React, { useState, useEffect, useContext } from "react";
+import CabecalhoHome from "../../../Components/CabecalhoHome";
 import "../../../Styles/App/Service/PagLoteEconomico.css";
 import lupa from "../../../Assets/lupa.png";
 import axios from "axios";
-//import {Alerta} from "../../../Components/AlertaNotificação.js";
-import { apagarCampos } from './../../../Functions/Functions.js'
-import AlertaNotificação from "../../../Components/AlertaNotificação.js";
-import { useAlerta } from "../../../Context/AlertaContext.js";
-import { useContext } from "react";
+import AlertaNotificação from "../../../Components/AlertaNotificação";
+import { useAlerta } from "../../../Context/AlertaContext";
 import { UserContext } from "../../../Context/UserContext";
 import Redirect from "../../../Functions/Redirect";
 import { useNavigate } from "react-router-dom";
 
-
-//Funcçoes
-
-const PesquisaLoteEconomico = async (HashProduto, setRespostaPesqusia) => {
-  try {
-    const response = await axios.post("http://localhost:4000/LoteEconomico", {
-      HashProduto: HashProduto,
-    });
-
-    if (response.data.Resposta === "Documento não encontrado") {
-      setRespostaPesqusia((prev) => ({
-        ...prev,
-        [HashProduto]: { RespostaExiste: false, DadosLoteEconomico: null },
-      }));
-    } else {
-
-
-      setRespostaPesqusia((prev) => ({
-        ...prev,
-        [HashProduto]: {
-          RespostaExiste: true,
-          DadosLoteEconomico: response.data.Resposta,
-        },
-      }));
-    }
-  } catch (error) {
-    console.error("Error fetching data: ", error);
-  }
-};
-
 function PagLoteEconomico() {
-
+  const [DadosLoteEconomico, setDadosLoteEconomico] = useState([]);
   const navigate = useNavigate();
+  const [pesquisaProduto, setPesquisaProduto] = useState("");
   const { Alerta } = useAlerta();
-  const [dadosEstoqueGeral, setDadosEstoqueGeral] = useState([]);
-  const [restricao, setRestricao] = useState("");
-  const [respostaPesquisa, setRespostaPesquisa] = useState({}); // Inicializando como objeto vazio
-  const [isVisibleForms, setisVisibleForms] = useState(false);
+
+  const [respostaPesquisa, setRespostaPesquisa] = useState({});
+  const [isVisibleForms, setIsVisibleForms] = useState(false);
   const [ItemAtual, setItemAtual] = useState(null);
-  const [HashAtual, setHashAtual] = useState(null);
-  const [ExisteCalculoBD, setExisteCalculoBD] = useState(null);
+  const [idProduto, setIdProduto] = useState(null);
+  const [repescarInfo, setRepescarInfo] = useState(false);
 
-  const [valorDespezas, setValorDespezas] = useState("");
-  const [qtdProdutosEstocados, setQtdProdutosEstocados] = useState("");
-  const [numPedidos, setNumPedidos] = useState("");
-  const [demandaAnual, setDemandaAnual] = useState("");
+  const [Valor_despesas_Anuais, setValor_despesas_Anuais] = useState("");
+  const [Quantia_Produtos_Estocados, setQuantia_Produtos_Estocados] = useState("");
+  const [Numero_Pedidos_Anuais, setNumero_Pedidos_Anuais] = useState("");
+  const [demanda_anual, setdemanda_anual] = useState("");
 
-  const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
-  const User = UserOBJ.User; //Pega só o User....
+  const UserOBJ = useContext(UserContext);
+  const User = UserOBJ.User;
 
   Redirect(User);
 
   const CalcularLoteEconomico = async () => {
-    console.log("AA" + valorDespezas)
-    if (valorDespezas === "" || qtdProdutosEstocados === "" || numPedidos === "" || demandaAnual === "") {
-      // alert("Campos não preenchidos");
+    if (Valor_despesas_Anuais === "" || Quantia_Produtos_Estocados === "" || Numero_Pedidos_Anuais === "" || demanda_anual === "") {
       Alerta(1, "Campos não preenchidos");
       return;
     }
-    const CPCalculo = valorDespezas / numPedidos;
-    const CACalculo = valorDespezas / qtdProdutosEstocados;
-    const LECCalculo = (2 * CPCalculo * demandaAnual) / CACalculo;
 
     try {
-
-      await axios.post('http://localhost:4000/InsereCalculosLote', {
-        Hash: HashAtual,
-        CP: CPCalculo,
-        CA: CACalculo,
-        LEC: LECCalculo,
-        Existe: ExisteCalculoBD,
+      const response = await axios.post("http://pggzettav3.mooo.com/api/index.php", {
+        funcao: "atualizaLoteEconomico",
+        senha: "@7h$Pz!q2X^vR1&K",
+        Valor_despesas_Anuais,
+        demanda_anual,
+        Quantia_Produtos_Estocados,
+        Numero_Pedidos_Anuais,
+        idProduto,
       });
+
       Alerta(2, "Dados Atualizados");
+      setValor_despesas_Anuais('');
+      setdemanda_anual('');
+      setQuantia_Produtos_Estocados('');
+      setNumero_Pedidos_Anuais('');
+      setIdProduto('');
+      setRepescarInfo(prevState => !prevState);
 
-      PegaDadosGeralDB();
-      PesquisaLoteEconomico(HashAtual, setRespostaPesquisa)
-
-    } catch (erro) {
-      console.log(erro);
-    } finally {
-      apagarCampos([setValorDespezas, setQtdProdutosEstocados, setNumPedidos, setDemandaAnual])
+    } catch (error) {
+      console.log("Erro ao atualizar dados: ", error);
     }
+  };
 
-  }
-
-  useEffect(() => {
-
-    PegaDadosGeralDB(); // Fetch data when the component mounts
-  }, []);
-
-  const mostrarforms = (item, hashAtual, Existe) => {
+  const mostrarForms = (item, hashAtual, Existe) => {
     if (ItemAtual === item) {
-      if (isVisibleForms) {
-        setisVisibleForms(false);
-      } else {
-        setisVisibleForms(true);
-      }
+      setIsVisibleForms(!isVisibleForms);
     }
     setItemAtual(item);
-    setHashAtual(hashAtual);
-    setExisteCalculoBD(Existe);
+    setIdProduto(hashAtual);
+  };
+
+  const pegaProdutos = (item) => {
+    let CP = item.custoPedido === null ? "Nenhum valor ainda" : item.custoPedido;
+    let CA = item.custoArmazem === null ? "Nenhum valor ainda" : item.custoArmazem;
+    let LE = item.calculoLote === null ? "Nenhum valor ainda" : item.calculoLote;
+
+    return (
+      <div key={item.idProduto} className="DivsItens">
+        <li>{item.produtoNome}</li>
+        <div className="DivsResutlados">
+          CP:<label>{CP}</label>
+        </div>
+        <div className="DivsResutlados">
+          CA:<label>{CA}</label>
+        </div>
+        <div className="DivsResutlados">
+          LEC:<label>{LE}</label>
+        </div>
+        <br />
+        {respostaPesquisa[item.idProduto]?.RespostaExiste === true ? (
+          <button onClick={() => mostrarForms(item.produtoNome, item.idProduto)}>
+            Editar item
+          </button>
+        ) : (
+          <button onClick={() => mostrarForms(item.produtoNome, item.idProduto, false)}>
+            Adicionar Valor
+          </button>
+        )}
+        <br />
+        --------------------
+      </div>
+    );
+  };
+
+  const pegaDadosLoteEconomico = async () => {
+    try {
+      const response = await axios.post("http://pggzettav3.mooo.com/api/index.php", {
+        funcao: "pegaDadosLoteEconomico",
+        senha: "@7h$Pz!q2X^vR1&K",
+      });
+      if (response.status === 200) {
+        setDadosLoteEconomico(response.data);
+        console.log(response);
+      } else {
+        console.log("Erro 500: deu ruim");
+      }
+    } catch (error) {
+      console.log("Erro ao buscar dados: ", error);
+    }
   };
 
   useEffect(() => {
-    Promise.all(
-      dadosEstoqueGeral.map((item) => {
-        if (
-          item.data.Nome.toLowerCase()
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")
-            ?.includes(restricao.toLowerCase()) ||
-          item.data.Nome.toLowerCase().includes(restricao.toLowerCase())
-        ) {
-          if (!respostaPesquisa[item.id]) {
+    pegaDadosLoteEconomico();
+  }, [repescarInfo]);
 
-            return PesquisaLoteEconomico(item.id, setRespostaPesquisa);
-          }
-        }
-        return null;
-      })
-    );
-  }, [restricao, dadosEstoqueGeral, respostaPesquisa]);
-
-  const pegaProdutos = (item) => {
-    // sem nenhum acento                                                                                     // com acentos
-    if (
-      restricao === "" ||
-      item.data?.Nome?.toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .includes(restricao.toLowerCase()) ||
-      item.data?.Nome?.toLowerCase().includes(restricao.toLowerCase())
-    ) {
-      let CP = "Nenhum valor ainda";
-      let CA = "Nenhum valor ainda";
-      let LE = "Nenhum valor ainda";
-      let RespostaExiste = false;
-
-
-      const produtoLoteEconomico =
-        respostaPesquisa[item.id]?.DadosLoteEconomico;
-
-
-      if (respostaPesquisa[item.id]?.RespostaExiste === true) {
-        RespostaExiste = true;
-        CP = JSON.parse(produtoLoteEconomico)["CustoPedido"];
-        CA = JSON.parse(produtoLoteEconomico)["CustoArmazem"];
-        LE = JSON.parse(produtoLoteEconomico)["CalculoLoteEconomico"];
-      }
-
-      return (
-
-        <div key={item.id} className="DivsItens">
-          <li>{item.data.Nome}</li>
-          <div className="DivsResutlados">
-            CP:<label>{CP}</label>
-            <div class="tooltip">Custo total de pedidos</div>
-          </div>
-          <div className="DivsResutlados">
-            CA:<label>{CA}</label>
-            <div class="tooltip">Custo de armazenagem</div>
-          </div>
-          <div className="DivsResutlados">
-            LEC:<label>{LE}</label>
-            <div class="tooltip">Lote Economico</div>
-          </div>
-          <br />
-          {respostaPesquisa[item.id]?.RespostaExiste === true ? (
-            <button onClick={() => mostrarforms(item.data.Nome, item.id)}>
-              Editar item
-            </button>
-          ) : (
-            <button onClick={() => mostrarforms(item.data.Nome, item.id, RespostaExiste)}>
-              Adicionar Valor
-            </button>
-          )}
-          <br />
-          --------------------
-        </div>
-      );
-    }
-  };
-
-  const PegaDadosGeralDB = async () => {
-    try {
-
-      const response = await axios.get("http://localhost:4000/PegaProdutos");
-
-      const estoqueData = response.data.map((item) => ({
-        id: item.id,
-        ...item,
-      })); // mapeia os itens
-      setDadosEstoqueGeral(estoqueData);
-    } catch (error) {
-      console.error("Error fetching data: ", error);
-    }
-  };
-
-  const pesquisaProduto = async (pesquisa) => {
-    setRestricao(pesquisa);
-  };
-
-
-
-
+  const produtosFiltrados = DadosLoteEconomico.filter((produto) =>
+    produto.produtoNome.toLowerCase().includes(pesquisaProduto.toLowerCase())
+  );
 
   return (
     <div className="LoteEconomico">
@@ -226,28 +134,26 @@ function PagLoteEconomico() {
       </div>
 
       <div className="btn">
-                <button className="Voltar"  onClick={() => { navigate("/PagHome") }}>
-                    Voltar
-                </button>
+        <button className="Voltar" onClick={() => navigate("/PagHome")}>
+          Voltar
+        </button>
       </div>
       <div className="ConteudoDaPagina">
         <div className={isVisibleForms ? "terminalShow" : "terminal"}>
           <div className="barra-pesquisa">
             <div className="botao-pesquisa">
-              <img
-                src={lupa}
-                alt="Descrição da imagem"
-                className="imagem-botao"
-              />
+              <img src={lupa} alt="Lupa" className="imagem-botao" />
             </div>
             <input
               type="text"
               placeholder="Pesquisar produto..."
-              onChange={(e) => pesquisaProduto(e.target.value)}
-            ></input>
+              value={pesquisaProduto}
+              onChange={(e) => setPesquisaProduto(e.target.value)}
+            />
           </div>
+
           <ul className="lista-produtos">
-            {dadosEstoqueGeral.map(pegaProdutos)}
+            {produtosFiltrados.map(pegaProdutos)}
           </ul>
         </div>
 
@@ -258,12 +164,9 @@ function PagLoteEconomico() {
               : "ContainerFormularioLoteEconomico"
           }
         >
-
-
           <div className="container-tela-produtos">
             <div className="grupo-input-produto">
               <center>
-                {" "}
                 <h2>Lote Economico: {ItemAtual}</h2>
               </center>
               <div className="grupo-input">
@@ -271,8 +174,8 @@ function PagLoteEconomico() {
                 <input
                   type="number"
                   id="InputValorDespeza"
-                  value={valorDespezas}
-                  onChange={(e) => setValorDespezas(e.target.value)}
+                  value={Valor_despesas_Anuais}
+                  onChange={(e) => setValor_despesas_Anuais(e.target.value)}
                 />
               </div>
 
@@ -283,8 +186,8 @@ function PagLoteEconomico() {
                 <input
                   type="number"
                   id="InputQtdProdutoEstocado"
-                  value={qtdProdutosEstocados}
-                  onChange={(e) => setQtdProdutosEstocados(e.target.value)}
+                  value={Quantia_Produtos_Estocados}
+                  onChange={(e) => setQuantia_Produtos_Estocados(e.target.value)}
                 />
               </div>
 
@@ -293,22 +196,21 @@ function PagLoteEconomico() {
                 <input
                   type="number"
                   id="InputNumeroPedidos"
-                  value={numPedidos}
-                  onChange={(e) => setNumPedidos(e.target.value)}
+                  value={Numero_Pedidos_Anuais}
+                  onChange={(e) => setNumero_Pedidos_Anuais(e.target.value)}
                 />
               </div>
 
               <div className="grupo-input">
-                <label htmlFor="DemandaAnual">Demanda Anual</label>
+                <label htmlFor="demanda_anual">Demanda Anual</label>
                 <input
                   type="number"
-                  id="InputDemandaAnual"
-                  value={demandaAnual}
-                  onChange={(e) => setDemandaAnual(e.target.value)}
+                  id="Inputdemanda_anual"
+                  value={demanda_anual}
+                  onChange={(e) => setdemanda_anual(e.target.value)}
                 />
               </div>
-
-              <button onClick={() => CalcularLoteEconomico()}>Atualizar</button>
+              <button onClick={CalcularLoteEconomico}>Atualizar</button>
             </div>
           </div>
         </div>
@@ -317,4 +219,5 @@ function PagLoteEconomico() {
     </div>
   );
 }
+
 export default PagLoteEconomico;

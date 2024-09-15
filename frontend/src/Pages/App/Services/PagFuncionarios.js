@@ -4,7 +4,7 @@ import '../../../Styles/App/Service/PagFuncionarios.css';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../../Context/UserContext"; 
-
+import Titulo from "../../../Components/Titulo.jsx";
 function PagFuncionarios() {
     
     const [funcionarioSelecionado, setFuncionarioSelecionado] = useState(null);
@@ -116,6 +116,9 @@ function PagFuncionarios() {
             <div className="Cabecalho">
                 <Cabecalho />
             </div>
+            <Titulo
+                tituloMsg='Listagem de funcionários'
+            />
             <div className="btn">
                 <button className="Voltar" onClick={() => { navegar("/PagPerfil") }}>
                     Voltar

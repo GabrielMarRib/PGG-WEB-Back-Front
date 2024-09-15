@@ -1,5 +1,5 @@
 .Notificacao .DivPrincipalzinha {
-  background-color: #c53d0f;
+  background-color: #ffffff00;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,6 +15,12 @@
   display: flex;
   position: relative;
 }
+
+.Notificacao #DivImg img{
+  height: 50px;
+  width: 50px;
+}
+
 
 .Notificacao .qtdNot {
   position: absolute;
