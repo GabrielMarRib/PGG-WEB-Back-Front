@@ -33,7 +33,7 @@ function PagHome() {
     { title: "Ticket Médio por Produto", content: "Informação sobre ticket médio por produto" },
     { title: "Positividade por Produto", content: "Informação sobre positividade por produto" },
     { title: "Gerente Faturamento Sei Lá O Que", content: "Informação gerencial" },
-    { title: "Evolução de Vendas", content: "Gráfico de vendas vai aqui", isChart: true },
+    { title: "Evolução de Vendas", content: "Análise Mensal da Evolução de Vendas", isChart: true },
     { title: "Linha de Produto", content: "Informação sobre linha de produto", isSameHeight: true },
   ];
 
