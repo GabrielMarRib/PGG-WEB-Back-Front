@@ -46,7 +46,7 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  max-height: 800px;
+  max-height: 855px;
 }
 
 .Produtos .grupo-input-produto {
@@ -77,6 +77,12 @@
   color: #fff;
   font-size: 16px;
   font-family: 'JetBrains Mono';
+  margin-left: 125px;
+}
+
+.Produtos .container-tela-produtos button:hover {
+  background-color: #da3e00;
+  border-color: #bbb;
 }
 
 .Produtos .Resultado-select {
@@ -96,6 +102,7 @@
   margin-top: 10px;
 }
 
+
 .Produtos .terminal button:hover {
   background-color: #da3e00;
   border-color: #bbb;
@@ -108,7 +115,7 @@
   background-color: #ffffff;
   overflow: auto;
   width: 100%;
-  max-height: 820px;
+  max-height: 875px;
 }
 
 .Produtos .barra-pesquisa {
