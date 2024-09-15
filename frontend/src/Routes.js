@@ -60,6 +60,8 @@ function AppRoutes() {
             <Route path="/PagTesteInsercao" element={<PrivateRoute element={<PagTesteInsercao />} />} />
             <Route path="/PagTesteInsercaoDD" element={<PrivateRoute element={<PagTesteInsercaoDD />} />} />
             <Route path="/TesteDashboard" element={<PrivateRoute element={<TesteDashboard />} />} />
+            <Route path="/PagGerirCategoria" element={<PrivateRoute element={<GerirCategoria />} />} />
+            <Route path="/PagGerirLotes" element={<PrivateRoute element={<GerirLotes />} />} />
           </>
         )}
         {/* Rota padrão para redirecionar qualquer rota desconhecida */}
