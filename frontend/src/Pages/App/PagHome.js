@@ -113,6 +113,7 @@ function PagHome() {
               <button className="option-button" onClick={() => navigate("/PagProdutos")}>Adicionar Produtos</button>
               <button className="option-button" onClick={() => navigate("/PagVenderProduto")}>Vender Produtos</button>
               <button className="option-button" onClick={() => navigate("/PagAddCategoria")}>Gerir Categorias</button>
+              <button className="option-button" onClick={() => navigate("/PagGerirLotes")}>Gerir lotes</button>
             </div>
           )}
 
