@@ -55,7 +55,6 @@ function AppRoutes() {
             <Route path="/PagPontoPedido" element={<PrivateRoute element={<PagPontoPedido />} />} /> 
             <Route path="/PagRelatorios" element={<PrivateRoute element={<PagRelatorios />} />} />   
             <Route path="/PagFuncionarios" element={<PrivateRoute element={<PagFuncionarios />} />} /> 
-            <Route path="/PagAddCategoria" element={<PrivateRoute element={<PagAddCategoria />} />} />
             <Route path="/PagTeste" element={<PrivateRoute element={<PagTeste />} />} />
             <Route path="/PagTesteInsercao" element={<PrivateRoute element={<PagTesteInsercao />} />} />
             <Route path="/PagTesteInsercaoDD" element={<PrivateRoute element={<PagTesteInsercaoDD />} />} />
