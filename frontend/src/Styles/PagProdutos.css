@@ -108,7 +108,7 @@
   background-color: #ffffff;
   overflow: auto;
   width: 100%;
-  max-height: 800px;
+  max-height: 820px;
 }
 
 .Produtos .barra-pesquisa {
@@ -118,15 +118,33 @@
   align-items: center;
   margin-bottom: 10px;
   gap: 10px; /* Adiciona espaçamento entre os elementos */
+  
 }
 
 .Produtos .barra-pesquisa input {
-  width: 70%;
+  width: 39%;
   padding: 8px;
   font-size: 16px;
   border: 1px solid #000;
   border-radius: 3px;
 }
+
+.Produtos .teste input{
+  width: 115%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #000;
+  border-radius: 3px;
+}
+
+.Produtos .grupo-select input{
+  width: 110%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #000;
+  border-radius: 3px;
+}
+
 
 .Produtos .barra-pesquisa .botao-pesquisa {
   width: 10%;
