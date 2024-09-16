@@ -156,10 +156,11 @@ function PagProdutos() {
     try {
       setCarregando(true);
       const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
-        funcao: 'pegaprodutosporcategoria',
+        funcao: 'PegaProdutosECategoriaPorCategoria',
         codcategoria: FiltroSelecionado.id_categorias, 
         senha: '@7h$Pz!q2X^vR1&K'
       });
+
       setProdutos(response.data);
       setCarregando(false);
   
