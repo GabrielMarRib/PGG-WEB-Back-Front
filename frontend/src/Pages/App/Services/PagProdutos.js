@@ -148,8 +148,7 @@ function PagProdutos() {
     setShowModal(bool);
   }
 
-  
-  
+
   const buscarProdutosPorCategoria = async () => {
     try {
       setCarregando(true);
