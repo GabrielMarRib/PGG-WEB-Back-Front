@@ -131,6 +131,7 @@
     overflow-y: auto;
     padding-top: 10px;
     padding-bottom: 10px;
+    min-height: 300px;
 }
 
 

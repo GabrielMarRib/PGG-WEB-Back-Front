@@ -39,7 +39,7 @@
 }
 
 .PagEscolhaProdutos .ag-courses_item {
-    flex-basis: calc(33.33% - 30px);
+    flex-basis: calc(50% - 30px);
     cursor: pointer;
     margin: 0 15px 30px;
     overflow: hidden;
