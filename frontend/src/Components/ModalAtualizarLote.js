@@ -17,17 +17,18 @@ const LoteMemo = memo(function ModalAtualizarLote({ LoteSelecionado, fechar }) {
 
 
 
-  const AtulizarLote = async () => {
+  const AtulizarLote = async (LetVlr_Compra, LetVlr_Venda, LetQtd_Produto) => {
     try {
+      console.log("Valores a ser alterado:" + LetVlr_Compra + "/" + LetVlr_Venda + "/" + LetQtd_Produto + "/" + LoteSelecionado.numerolote)
       const response = await axios.post(
         "http://pggzettav3.mooo.com/api/index.php",
         {
-          funcao: "atulizarLote",
+          funcao: "atualizarLotes",
           senha: "@7h$Pz!q2X^vR1&K",
-          vlr_compra: Vlr_Compra,
-          vlr_venda: Vlr_Venda,
-          qtde: Qtd_Produto,
-          Justificativa: Justificativa
+          vlr_compra: LetVlr_Compra,
+          vlr_venda: LetVlr_Venda,
+          qtde: LetQtd_Produto,
+          numerolote: LoteSelecionado.numerolote
         }
       );
       console.log(response.data);
@@ -35,6 +36,7 @@ const LoteMemo = memo(function ModalAtualizarLote({ LoteSelecionado, fechar }) {
       setVlr_Venda('')
       setQtd_Produto('')
       setJustificativa('')
+      Alerta(2, "Alterado com sucesso");
       fechar()
     } catch (error) {
       console.log("deu ruim: " + error);
@@ -50,17 +52,31 @@ const LoteMemo = memo(function ModalAtualizarLote({ LoteSelecionado, fechar }) {
       Alerta(1, "Preencha algum valor");
       return
     }
+    let LetVlr_Compra = 0;
+    let LetVlr_Venda = 0;
+    let LetQtd_Produto = 0;
+
+
     if(Vlr_Compra == ''){
-      setVlr_Compra(LoteSelecionado.vlr_compra)
+      LetVlr_Compra = LoteSelecionado.vlr_compra
+      console.log("Entrou Vlr_Compra" + LetVlr_Compra)
+    }else{
+      LetVlr_Compra = Vlr_Compra;
     }
     if(Vlr_Venda == ''){
-      setVlr_Venda(LoteSelecionado.vlr_venda)
+      LetVlr_Venda = LoteSelecionado.vlr_venda
+      console.log("Entrou Vlr_Venda" + LetVlr_Venda)
+    }else{
+      LetVlr_Venda = Vlr_Venda;
     }
     if(Qtd_Produto == ''){
-      setQtd_Produto(LoteSelecionado.qtde)
+      LetQtd_Produto = LoteSelecionado.qtde
+      console.log("Entrou Qtd" + LetQtd_Produto)
+    }else{
+      LetQtd_Produto = Qtd_Produto;
     }
 
-   await AtulizarLote()
+   await AtulizarLote(LetVlr_Compra, LetVlr_Venda, LetQtd_Produto)
 
   }
 

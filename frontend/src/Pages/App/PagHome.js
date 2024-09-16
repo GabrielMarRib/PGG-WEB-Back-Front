@@ -1,6 +1,6 @@
 import React, { useState, useEffect , useContext} from "react";
 import "../../Styles/App/PagHome.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link} from "react-router-dom";
 import ImageABC from '../../Assets/curvaABC.png';
 import ImageLote from '../../Assets/loteEconomico.png';
 import ImagePEPS from '../../Assets/PEPS.png';
@@ -12,6 +12,8 @@ import Notificacao from "../../Components/Notificacao";
 import { handleLogOut } from "../../../src/Functions/Functions.js";
 import GraficoTeste from "../../Components/GraficoTeste.jsx";
 import { UserContext } from "../../Context/UserContext";
+import OptionIcon from "../../Assets/OptionsWhite.png";
+
 
 function PagHome() {
 
@@ -44,6 +46,7 @@ function PagHome() {
     { title: "PEPS", img: ImagePEPS, link: "/PEPS" },
     { title: "Lote Econômico", img: ImageLote, link: "/PagLoteEconomico" },
     { title: "Custo Médio", img: ImageMedio, link: "/pagInicial" },
+    { title: "Options", img: OptionIcon, link: "/PagPerfil" }
   ];
 
   const handleResize = () => {
@@ -118,9 +121,16 @@ function PagHome() {
                 handleLogOut(navigate);
               }}
             >
+              <Link to="/PagPerfil">
+              <div id="DivImg">
+                <img src={OptionIcon} />
+              </div>
+            </Link>
               <div id="DivNotificação">
                 <img src={IconLogOut} />
               </div>
+
+
           </div>
         </div>
         <div className="user-info">
