@@ -48,7 +48,29 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
 
 
   //Categoria select
-  const [categoriaSelecionada, setCategoriaSelecionada] = useState([]);
+  const [categoriaSelecionada, setCategoriaSelecionada] = useState();
+  const [mudarCategoria, setMudarCategoria] = useState(null);
+  
+  const btnAtualizarNomeCategoria = async () => {
+
+    try {
+      const response = await axios.post (
+        "http://pggzettav3.mooo.com/api/index.php",
+        {
+          funcao: "",
+          senha: "@7h$Pz!q2X^vR1&K",
+          inputValue: categoriaSelecionada
+        }
+      );
+      console.log(response.data);
+      Alerta(2, "Inserção realizada");
+
+    } catch (error) {
+      console.log("deu ruim: " + error);
+    }
+  
+  };
+
 
   useEffect(() => {
     const pegaProdutosCat = async () => {
@@ -236,25 +258,64 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
   }
 
   const InfoCatProduto = () => {
+
+    const handleForm = (e) => {
+      e.preventDefault();
+      let categoriaSelect = 0;
+      // console.log("Nosso teste:" + JSON.stringify(categoriaSelecionada))
+      if (categoriaSelecionada){
+        categoriaSelect = categoriaSelecionada.nome
+      }
+      else{
+        categoriaSelect = ''
+      }
+      const obj = formaObj([categoriaSelect], ['categoria'], ['nomeCat'], ['Nova'])
+      // console.log(JSON.stringify(categoriaSelecionada))
+      const msgOBJ = preparaMSG_ALTERAR(obj)
+
+      console.log(msgOBJ)
+      setMsg(msgOBJ)
+      setShowConfirma(true)
+    }
+
+    const atualizaDados = async () => {
+      const funcao = {
+        funcao: "atualizarCategoriaProduto",
+        senha: "@7h$Pz!q2X^vR1&K",
+        categoria: categoriaSelecionada.id_categorias,
+        id_produto: produtoOBJ.id_produtos // itens que são necessários enviar para o banco de dados
+      }
+      await atualizaDadosUniversal(funcao, setRefreshTudo)
+      setQtConsumo('');
+      atualiza();
+      setShowConfirma(false)
+    }
+
     return (
-      <div className="divSub" style={{ height: '95%' }}>
-        <h2 className='Titulo'> Alterando <u>Categoria</u> do item:</h2>
+      <div className='divSub'>
+        <h2 className='Titulo'> Mudando o <u>ITEM</u> de categoria</h2>
         <div className='subTitulo'>
+          {showConfirma &&
+            <ConfirmaModal
+              message={msg}
+              onConfirm={() => atualizaDados()}
+              onCancel={() => setShowConfirma(false)}
+              BoolMultiplaEscolha={msg == 'Por favor, informe pelo menos um campo para alteração' ? false : true}
+              styles={{ 'STYLE1': { color: '#da0f0f' }, 'STYLE2': { color: '#00aef3' } }}
+              tamanho={tamanho}
+            />
+          }
           <h3>'{produtoOBJ.nome}'</h3>
           <hr />
-        </div>
-        <div className='divConteudo'>
-          SELECT do gabriel
-        
-          <div className="grupo-select">
-                    <BuscaCategoriasComponentes setCategoriaSelecionada={setCategoriaSelecionada} categoriaSelecionada={categoriaSelecionada} />
-                  </div>
+          <div className='divConteudo' >
+            <form className='formCat' onSubmit={(e) => handleForm(e)}>
 
-          Atualiza o nome da categoria
-          
-          <input  />
-
-          <button onClick={() => console.log(categoriaSelecionada)}>atualizar</button>
+                Escolha a nova categoria do item:
+                  <center> <BuscaCategoriasComponentes setCategoriaSelecionada={setCategoriaSelecionada} categoriaSelecionada={categoriaSelecionada} /> </center>
+                    
+              <button  className='botao-testar' >Atualizar</button>
+            </form>
+          </div>
         </div>
       </div>
     )
