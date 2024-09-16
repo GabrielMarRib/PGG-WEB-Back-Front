@@ -24,8 +24,9 @@ import GerirCategoria from './Pages/App/Services/GerirCategoria';
 import PagTesteInsercao from './Pages/App/Services/PagTesteInsercao'; 
 import PagTesteInsercaoDD from './Pages/App/Services/PagTesteInsercaoDD';
 import PrivateRoute from './PrivateRoute';
-
 import GerirLotes from './Pages/App/Services/GerirLotes';
+import PagMovimentos from './Pages/App/Services/PagMovimentos';
+
 const Mobile = IsMobile();
 
 function AppRoutes() {
@@ -61,6 +62,7 @@ function AppRoutes() {
             <Route path="/TesteDashboard" element={<PrivateRoute element={<TesteDashboard />} />} />
             <Route path="/PagGerirCategoria" element={<PrivateRoute element={<GerirCategoria />} />} />
             <Route path="/PagGerirLotes" element={<PrivateRoute element={<GerirLotes />} />} />
+            <Route path="/PagMovimentos" element={<PrivateRoute element={<PagMovimentos />} />} />
           </>
         )}
         {/* Rota padrão para redirecionar qualquer rota desconhecida */}

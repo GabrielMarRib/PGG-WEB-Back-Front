@@ -69,6 +69,7 @@ function PagProdutos() {
       console.log("deu ruim: " + error) // log para sabermos qual foi o erro
     }
   };
+  
 
   useEffect(() => {
     pegaProdutos(false);
@@ -150,8 +151,7 @@ function PagProdutos() {
     setShowModal(bool);
   }
 
-  
-  
+
   const buscarProdutosPorCategoria = async () => {
     try {
       setCarregando(true);

@@ -1,9 +1,8 @@
 .BuscaCategoriasComponente .barra-pesquisa {
-
     flex-direction: row;
     position: relative;
     display: inline-block;
-    width: 85%;
+    width: 96%;
   }
   
   .BuscaCategoriasComponente .barra-pesquisa input {
