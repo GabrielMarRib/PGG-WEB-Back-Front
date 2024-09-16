@@ -28,7 +28,8 @@ const LoteMemo = memo(function ModalAtualizarLote({ LoteSelecionado, fechar }) {
           vlr_compra: LetVlr_Compra,
           vlr_venda: LetVlr_Venda,
           qtde: LetQtd_Produto,
-          numerolote: LoteSelecionado.numerolote
+          numerolote: LoteSelecionado.numerolote,
+          Justificativa: Justificativa
         }
       );
       console.log(response.data);
