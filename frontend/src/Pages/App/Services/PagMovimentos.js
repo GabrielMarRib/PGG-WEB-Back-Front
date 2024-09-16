@@ -5,6 +5,7 @@ import axios from 'axios';
 import { UserContext } from '../../../Context/UserContext';
 import Redirect from '../../../Functions/Redirect';
 import { useNavigate } from "react-router-dom";
+import Titulo from "../../../Components/Titulo.jsx";
 
 const PagMovimentos = () => {
   const navigate = useNavigate(); // Manja? É pra navegar entre páginas, estilo chefão!
@@ -29,7 +30,7 @@ const PagMovimentos = () => {
       try {
         const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
           funcao: 'pegaDadosMovimentos', // Função que manda os dados, o segredo do sucesso
-          senha: '' // Senha, porque não se revela, né?
+          senha: '@7h$Pz!q2X^vR1&K' // Senha, porque não se revela, né?
         });
 
         const movimentosData = response.data;
@@ -123,7 +124,9 @@ const PagMovimentos = () => {
       <div className="CabecalhoHome">
         <CabecalhoHome />
       </div>
-      <h1>Movimentos</h1>
+      <Titulo
+          tituloMsg='Visualização de Movimentos'
+        />
       {erro && <p style={{ color: 'red' }}>{erro}</p>}
       
       {/* Filtro principal */}

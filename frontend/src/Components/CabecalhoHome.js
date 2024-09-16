@@ -107,6 +107,13 @@ const CabecalhoHome = () => {
                   null
                 )
               }
+              <li> <a onClick={() => { navigate("/PagGerirLotes") }}
+                className="paginas"> Gerir Lotes </a>
+              </li>
+              
+              <li> <a onClick={() => { navigate("/PagMovimentos") }}
+                className="paginas"> Mostrar Movimentos </a>
+              </li>
             </ul>
 
           </li>
