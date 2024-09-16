@@ -24,6 +24,8 @@ import GerirCategoria from './Pages/App/Services/GerirCategoria';
 import PagTesteInsercao from './Pages/App/Services/PagTesteInsercao'; 
 import PagTesteInsercaoDD from './Pages/App/Services/PagTesteInsercaoDD';
 import GerirLotes from './Pages/App/Services/GerirLotes';
+import PagMovimentos from './Pages/App/Services/PagMovimentos';
+
 const Mobile = IsMobile();
 
 function AppRoutes() {
@@ -59,6 +61,7 @@ function AppRoutes() {
             <Route path="/TesteDashboard" element={<TesteDashboard />} />
             <Route path="/PagGerirCategoria" element={<GerirCategoria />} />
             <Route path="/PagGerirLotes" element={<GerirLotes />} />
+            <Route path="/PagMovimentos" element={<PagMovimentos />} />
             
     
           </> 
