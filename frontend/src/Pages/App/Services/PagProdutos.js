@@ -157,7 +157,7 @@ function PagProdutos() {
       setCarregando(true);
       const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
         funcao: 'PegaProdutosECategoriaPorCategoria',
-        codcategoria: FiltroSelecionado.id_categorias, 
+        codcategoria: FiltroSelecionado ? FiltroSelecionado.id_categorias : "todos", //null.id_categorias -> null
         senha: '@7h$Pz!q2X^vR1&K'
       });
 
@@ -179,11 +179,12 @@ function PagProdutos() {
   };
 
   useEffect(() => {
-    if (FiltroSelecionado) {
-      buscarProdutosPorCategoria();
-    } else {
-      setMensagemVazia(true);
-    }
+    // if (FiltroSelecionado) {
+    //   buscarProdutosPorCategoria();
+    // } else {
+    //   setMensagemVazia(true);
+    // }
+    buscarProdutosPorCategoria();
   }, [FiltroSelecionado]);
   
 
@@ -209,7 +210,7 @@ function PagProdutos() {
         <Titulo
           tituloMsg='Gerenciamento de Produtos'
         />
-
+        <button onClick={()=> console.log(FiltroSelecionado.id_categorias)}>teste</button>
         <AlertaNotificação />
         <button
           className="voltar"
