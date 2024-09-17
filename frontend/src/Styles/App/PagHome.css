@@ -1,3 +1,8 @@
+.PagHome *{
+    font-family: 'JetBrains Mono', monospace; 
+    
+}
+
 .PagHome {
     display: flex;
     width: 100%;

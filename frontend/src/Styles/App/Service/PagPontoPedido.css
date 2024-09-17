@@ -1,4 +1,4 @@
-.PagPontoPedido {
+.PagPontoPedido *, .PagMovimentos *  {
     font-family: 'JetBrains Mono', monospace; 
     text-align: center; 
 }
@@ -6,6 +6,15 @@
 .PagPontoPedido .btn {
     margin-left: 3%;
     margin-top: 20px;
+}
+
+.PagMovimentos .Tabela{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 30px;
+    gap: 20px;
 }
 
 .PagPontoPedido .btn button {
