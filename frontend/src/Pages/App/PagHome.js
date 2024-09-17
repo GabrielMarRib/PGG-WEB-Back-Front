@@ -113,25 +113,29 @@ function PagHome() {
 
       <div className={`sidebar ${!sidebarVisible ? "hidden" : isMobile ? "overlay" : ""}`}>
         <div className="sidebar-top-buttons">
-          <div className="btnNotificacao">
-            <Notificacao />
-          </div>
-          <div className="btnSair" 
-              onClick={() => {
-                handleLogOut(navigate);
-              }}
-            >
-              <Link to="/PagPerfil">
-              <div id="DivImg">
-                <img src={OptionIcon} />
-              </div>
-            </Link>
+      
+      
+      
+         
+         
+            <div className="btnSair" onClick={() => navigate("/PagPerfil")}>
+             <img src={OptionIcon} />
+            </div>
+             
+            <div className="btnNotificacao">
+              <Notificacao />
+            </div>
+         
+         
+
+          <div className="btnSair" onClick={() => {handleLogOut(navigate);}}>
               <div id="DivNotificação">
                 <img src={IconLogOut} />
               </div>
-
-
           </div>
+
+          
+       
         </div>
         <div className="user-info">
           <div className="user-avatar" onClick={() => document.getElementById('avatarUpload').click()}>

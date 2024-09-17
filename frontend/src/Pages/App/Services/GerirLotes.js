@@ -18,6 +18,7 @@ import Titulo from "../../../Components/Titulo.jsx";
 import Box from '../../../Assets/Box.png'
 
 function GerirLotes() {
+  const { User } = useContext(UserContext);
   const navigate = useNavigate();
 
   const [TabelaLote, SetTabelaLote] = useState([]); // Inicializa como array vazio
@@ -28,6 +29,8 @@ function GerirLotes() {
 
     try {
       console.log("Pegando lotes");
+      console.log("User" + JSON.stringify(User.id));
+      
       const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
         funcao: 'PegarLotes',
         senha: '@7h$Pz!q2X^vR1&K'
@@ -113,6 +116,7 @@ const handleFecharModal = async (bool) =>{
           <ModalAtualizarLote
             LoteSelecionado={LoteSelecionado}
             fechar={() => handleFecharModal(false)}
+            IdUser = {User.id}
           />
            ) : (
             null

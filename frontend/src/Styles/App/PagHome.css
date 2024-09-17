@@ -305,4 +305,9 @@
         align-items: center;
         margin-right: 150px;
     }
+    .PagHome .btnOption {
+        display: flex;
+        align-items: baseline;
+        margin-right: 150px;
+    }
 }

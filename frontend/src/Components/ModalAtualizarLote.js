@@ -6,7 +6,7 @@ import AlertaNotificação from "./AlertaNotificação.js";
 import ConfirmaModal from './ConfirmaModal.js';
 import { Link } from 'react-router-dom';
 
-const LoteMemo = memo(function ModalAtualizarLote({ LoteSelecionado, fechar }) { // teoricamente faria não ter reRender, mas ta tendo, ou seja, fds
+const LoteMemo = memo(function ModalAtualizarLote({ LoteSelecionado, fechar, IdUser }) { // teoricamente faria não ter reRender, mas ta tendo, ou seja, fds
 
   const { Alerta } = useAlerta();
 
@@ -20,6 +20,8 @@ const LoteMemo = memo(function ModalAtualizarLote({ LoteSelecionado, fechar }) {
   const AtulizarLote = async (LetVlr_Compra, LetVlr_Venda, LetQtd_Produto) => {
     try {
       console.log("Valores a ser alterado:" + LetVlr_Compra + "/" + LetVlr_Venda + "/" + LetQtd_Produto + "/" + LoteSelecionado.numerolote)
+      console.log("Justificativa: " + Justificativa)
+      console.log("Id User: " + IdUser);
       const response = await axios.post(
         "http://pggzettav3.mooo.com/api/index.php",
         {
@@ -29,6 +31,7 @@ const LoteMemo = memo(function ModalAtualizarLote({ LoteSelecionado, fechar }) {
           vlr_venda: LetVlr_Venda,
           qtde: LetQtd_Produto,
           numerolote: LoteSelecionado.numerolote,
+          id_usuario: IdUser, 
           justificativa: Justificativa
         }
       );
@@ -37,6 +40,9 @@ const LoteMemo = memo(function ModalAtualizarLote({ LoteSelecionado, fechar }) {
       setVlr_Venda('')
       setQtd_Produto('')
       setJustificativa('')
+      LetVlr_Compra = 0
+      LetVlr_Venda = 0
+      LetQtd_Produto = 0
       Alerta(2, "Alterado com sucesso");
       fechar()
     } catch (error) {
