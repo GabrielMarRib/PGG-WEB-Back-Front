@@ -210,7 +210,6 @@ function PagProdutos() {
         <Titulo
           tituloMsg='Gerenciamento de Produtos'
         />
-        <button onClick={()=> console.log(FiltroSelecionado.id_categorias)}>teste</button>
         <AlertaNotificação />
         <button
           className="voltar"
