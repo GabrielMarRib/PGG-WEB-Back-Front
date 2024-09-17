@@ -35,6 +35,7 @@ function PagVenderProduto() {
         funcao: 'pegacategorias',
         senha: '@7h$Pz!q2X^vR1&K',
       });
+      
       setCategorias(response.data || []);
       setCarregando(false);
     } catch (error) {
@@ -334,7 +335,7 @@ const handleGerarRelatorioPP = async (produto) => {
                   />
                 </div>
                 <div className="grupo-input">
-                  <label>Receita estimada</label>
+                  <label>Receita desta venda</label>
                   <input
                     className="controle-formulario"
                     type="number"

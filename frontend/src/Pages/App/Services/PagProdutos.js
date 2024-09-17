@@ -357,7 +357,7 @@ function PagProdutos() {
                       onChange={(e) => {
                         const value = e.target.value;
                         if (/^\d*\.?\d*$/.test(value)) {
-                            setValorCompra(value);
+                            setValorVenda(value);
                         }
                       }}
                       />
