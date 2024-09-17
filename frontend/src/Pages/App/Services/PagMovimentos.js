@@ -120,7 +120,7 @@ const PagMovimentos = () => {
   }, [valorFiltro, filtro, ordem, movimentos]);
 
   return (
-    <div>
+    <div className='PagMovimentos'>
       <div className="CabecalhoHome">
         <CabecalhoHome />
       </div>
@@ -130,103 +130,100 @@ const PagMovimentos = () => {
       {erro && <p style={{ color: 'red' }}>{erro}</p>}
       
       {/* Filtro principal */}
-      <div className="filtro-section">
-        <label htmlFor="filtro">Filtrar por: </label>
-        <select id="filtro" value={filtro} onChange={handleFiltroChange}>
-          <option value="">Selecione um filtro</option>
-          <option value="codigo">Código do Produto</option>
-          <option value="data">Data</option>
-          <option value="quantidade">Quantidade</option>
-          <option value="valor">Valor</option>
-          <option value="cliente">Cliente</option>
-          <option value="autor">Autor</option>
-        </select>
-      </div>
-
-      {/* Select ou input de acordo com o filtro selecionado */}
-      {filtro === 'codigo' && (
-        <div className="select-produto-section">
-          <label htmlFor="produto">Selecione um Produto: </label>
-          <select id="produto" value={valorFiltro} onChange={handleValorFiltroChange}>
-            <option value="">Selecione um produto</option>
-            {codigosUnicos.map(codigo => (
-              <option key={codigo} value={codigo}>
-                {codigo} - {movimentos.find(mov => mov.produto === codigo)?.produtosNome || 'Nome não encontrado'}
-              </option>
-            ))}
+      <div className='Tabela'>
+        <div className="filtro-section">
+          <label htmlFor="filtro">Filtrar por: </label>
+          <select id="filtro" value={filtro} onChange={handleFiltroChange}>
+            <option value="">Selecione um filtro</option>
+            <option value="codigo">Código do Produto</option>
+            <option value="data">Data</option>
+            <option value="quantidade">Quantidade</option>
+            <option value="valor">Valor</option>
+            <option value="cliente">Cliente</option>
+            <option value="autor">Autor</option>
           </select>
         </div>
-      )}
-
-      {/* Select para autores */}
-      {filtro === 'autor' && (
-        <div className="select-autor-section">
-          <label htmlFor="autor">Selecione um Autor: </label>
-          <select id="autor" value={valorFiltro} onChange={handleAutorChange}>
-            <option value="">Selecione um autor</option>
-            {autoresUnicos.map(autor => (
-              <option key={autor} value={autor}>
-                {autor}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
-
-      {/* Ordenação de Quantidade ou Valor */}
-      {(filtro === 'quantidade' || filtro === 'valor') && (
-        <div className="ordem-section">
-          <label htmlFor="ordem">Ordenar por: </label>
-          <select id="ordem" value={ordem} onChange={handleOrdemChange}>
-            <option value="maior">Maior para Menor</option>
-            <option value="menor">Menor para Maior</option>
-          </select>
-        </div>
-      )}
-
-      {/* Input para clientes */}
-      {(filtro === 'cliente') && (
-        <div className="input-filtro-section">
-          <label htmlFor="valorFiltro">Nome do Cliente: </label>
-          <input
-            id="valorFiltro"
-            type="text"
-            value={valorFiltro}
-            onChange={handleValorFiltroChange}
-            placeholder="Digite o nome do cliente"
-          />
-        </div>
-      )}
-
-      {/* Renderiza a tabela */}
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Código do Produto</th>
-            <th>Data</th>
-            <th>Quantidade</th>
-            <th>Valor</th>
-            <th>Movimento</th>
-            <th>Cliente</th>
-            <th>Autor</th>
-          </tr>
-        </thead>
-        <tbody>
-          {movimentosFiltrados.map(movimento => (
-            <tr key={movimento.id_mov}>
-              <td>{movimento.id_mov}</td>
-              <td>{movimento.produto}</td>
-              <td>{movimento.data}</td>
-              <td>{movimento.qtde}</td>
-              <td>{movimento.valor}</td>
-              <td>{movimento.mov}</td>
-              <td>{movimento.cliente}</td>
-              <td>{movimento.Autor}</td>
+        {/* Select ou input de acordo com o filtro selecionado */}
+        {filtro === 'codigo' && (
+          <div className="select-produto-section">
+            <label htmlFor="produto">Selecione um Produto: </label>
+            <select id="produto" value={valorFiltro} onChange={handleValorFiltroChange}>
+              <option value="">Selecione um produto</option>
+              {codigosUnicos.map(codigo => (
+                <option key={codigo} value={codigo}>
+                  {codigo} - {movimentos.find(mov => mov.produto === codigo)?.produtosNome || 'Nome não encontrado'}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+        {/* Select para autores */}
+        {filtro === 'autor' && (
+          <div className="select-autor-section">
+            <label htmlFor="autor">Selecione um Autor: </label>
+            <select id="autor" value={valorFiltro} onChange={handleAutorChange}>
+              <option value="">Selecione um autor</option>
+              {autoresUnicos.map(autor => (
+                <option key={autor} value={autor}>
+                  {autor}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+        {/* Ordenação de Quantidade ou Valor */}
+        {(filtro === 'quantidade' || filtro === 'valor') && (
+          <div className="ordem-section">
+            <label htmlFor="ordem">Ordenar por: </label>
+            <select id="ordem" value={ordem} onChange={handleOrdemChange}>
+              <option value="maior">Maior para Menor</option>
+              <option value="menor">Menor para Maior</option>
+            </select>
+          </div>
+        )}
+        {/* Input para clientes */}
+        {(filtro === 'cliente') && (
+          <div className="input-filtro-section">
+            <label htmlFor="valorFiltro">Nome do Cliente: </label>
+            <input
+              id="valorFiltro"
+              type="text"
+              value={valorFiltro}
+              onChange={handleValorFiltroChange}
+              placeholder="Digite o nome do cliente"
+            />
+          </div>
+        )}
+        {/* Renderiza a tabela */}
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Código do Produto</th>
+              <th>Data</th>
+              <th>Quantidade</th>
+              <th>Valor</th>
+              <th>Movimento</th>
+              <th>Cliente</th>
+              <th>Autor</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {movimentosFiltrados.map(movimento => (
+              <tr key={movimento.id_mov}>
+                <td>{movimento.id_mov}</td>
+                <td>{movimento.produto}</td>
+                <td>{movimento.data}</td>
+                <td>{movimento.qtde}</td>
+                <td>{movimento.valor}</td>
+                <td>{movimento.mov}</td>
+                <td>{movimento.cliente}</td>
+                <td>{movimento.Autor}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
