@@ -244,3 +244,8 @@
     color: darkred;
     background-color: red;
 }
+
+.ProdutosModal .instrucao{
+    margin-top: 30px;
+    font-size: 13px;
+}

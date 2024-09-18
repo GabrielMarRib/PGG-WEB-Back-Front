@@ -490,7 +490,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
                     filter: 'grayscale(100%)',
                   }} />
               </label>
-              Deseja alterar as informações de lote? Clique <Link to="/PagGerirCategoria">AQUI</Link> e vá para a página de gereciamento de LOTE para um controle mais detalhado
+              <p className="instrucao">Deseja alterar as informações de lote? Clique <Link to="/PagGerirCategoria">AQUI</Link> e vá para a página de gereciamento de LOTE para um controle mais detalhado</p>
             </form>
           </div>
         </div>

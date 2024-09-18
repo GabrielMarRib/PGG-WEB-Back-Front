@@ -161,7 +161,7 @@ const PagMovimentos = () => {
 
         {/* Outros filtros continuam aqui... */}
 
-        <table>
+        <table border="1" className='estiloTabela'>
   <thead>
     <tr>
       <th>ID</th>

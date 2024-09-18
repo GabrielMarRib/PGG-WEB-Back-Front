@@ -19,12 +19,12 @@ function GraficoTeste() {
 
   return (
     <div>
-      <ComposedChart width={700} height={200} data={data}>
+      <ComposedChart width={625} height={200} data={data}>
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
         <Legend />
-        <CartesianGrid stroke="#f5f5f5" />
+        <CartesianGrid stroke="#ababab" />
         <Area type="monotone" dataKey="custo" fill="#8884d8" stroke="#8884d8" name="Custo" />
         <Bar dataKey="encomendas" barSize={20} fill="#413ea0" name="Encomendas" />
         <Line type="monotone" dataKey="receita" stroke="#ff7300" name="Receita" />

@@ -15,6 +15,15 @@
     flex-direction: column;
     margin: 30px;
     gap: 20px;
+    
+}
+
+.PagMovimentos .estiloTabela{
+    border-collapse: collapse;
+}
+
+.PagMovimentos .Tabela th{
+    padding: 15px;
 }
 
 .PagPontoPedido .btn button {

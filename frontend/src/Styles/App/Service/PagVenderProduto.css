@@ -1,3 +1,7 @@
+.PagVenderProduto *{
+    font-family: 'JetBrains Mono';
+}
+
 .PagVenderProduto {
     margin: 0;
     padding: 0;

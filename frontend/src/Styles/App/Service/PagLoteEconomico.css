@@ -1,6 +1,6 @@
-.LoteEconomico {
+.LoteEconomico *{
     font-family: 'JetBrains Mono', sans-serif;
-  }
+}
   
   .LoteEconomico .ConteudoDaPagina {
     width: 100%;
