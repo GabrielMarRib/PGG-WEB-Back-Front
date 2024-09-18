@@ -9,6 +9,7 @@ import AlertaNotificação from "./../../../Components/AlertaNotificação.js";
 import { useAlerta } from ".././../../Context/AlertaContext.js";
 import { json, useNavigate } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
+import Titulo from "../../../Components/Titulo";
 
 function PagVenderProduto() {
   const [carregando, setCarregando] = useState(true);
