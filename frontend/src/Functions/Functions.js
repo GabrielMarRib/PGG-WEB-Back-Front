@@ -217,12 +217,18 @@ export const exibeMsg = async (setMsg, conteudo, tempo, erro, SetStyle) => {
 };
 
 export const RelatorioPP = async () => {
-    const response = await axios.get('http://localhost:4000/pegaRelatorioPP')
+    const response = await axios.get('http://pggzettav3.mooo.com/api/index.php', {
+        funcao: 'pegaRelatorioPP', 
+        senha: '@7h$Pz!q2X^vR1&K',
+    });
     return (response.data)
 }
 
 export const RelatorioVendas = async () => {
-    const response = await axios.get('http://localhost:4000/pegaRelatorioVendas')
+    const response = await axios.get('http://pggzettav3.mooo.com/api/index.php', {
+        funcao: 'pegaRelatorioVendas', 
+        senha: '@7h$Pz!q2X^vR1&K',
+    });
     return (response.data)
 }
 
