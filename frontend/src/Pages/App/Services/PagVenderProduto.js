@@ -10,7 +10,6 @@ import { useAlerta } from ".././../../Context/AlertaContext.js";
 import { json, useNavigate } from "react-router-dom";
 import Titulo from "../../../Components/Titulo.jsx";
 import userEvent from "@testing-library/user-event";
-import Titulo from "../../../Components/Titulo.jsx";
 
 function PagVenderProduto() {
   const [carregando, setCarregando] = useState(true);
@@ -223,14 +222,13 @@ function PagVenderProduto() {
       const response = await axios.post("http://pggzettav3.mooo.com/api/index.php", {
         funcao: "geraRelatorioPP",
         senha: "@7h$Pz!q2X^vR1&K",
-        PP: PP,
+        pp: PP,
         QV: QV,
         TR: TR,
         ES: ES,
-        msg: msg,
-        QtdeAtual: qtdeSobra,
-        produtoID: produtoSelecionado.id,
-        produtoNome: produtoSelecionado.nome,
+        MSG: msg,
+        Qtd_At: qtdeSobra,
+        Produto_ID: produtoSelecionado.id,
       });
     }
   };
@@ -245,13 +243,10 @@ function PagVenderProduto() {
           senha: "@7h$Pz!q2X^vR1&K",
           produtoVendidoId: produtoSelecionado.id,
           QtdeVendida: quantidadeVenda,
-          pessoaId: User.id,
-          PessoaNome: User.userData.Nome,
-          produtoVendidoNome: produtoSelecionado.nome,
+          Autor: User.id,
           ReceitaProd: receitaEstimada,
           QtdeDisponivel: qtdeSobra,
-          QtdeOld: quantidadeDisponivel,
-          Produtopreco: custoUnitario,
+          custoUnitario: custoUnitario,
         });
       } catch (eee) {
         console.log("deu merda");
