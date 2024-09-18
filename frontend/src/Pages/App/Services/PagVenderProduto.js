@@ -9,6 +9,7 @@ import AlertaNotificação from "./../../../Components/AlertaNotificação.js";
 import { useAlerta } from ".././../../Context/AlertaContext.js";
 import { json, useNavigate } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
+import Titulo from "../../../Components/Titulo.jsx";
 
 function PagVenderProduto() {
   const [carregando, setCarregando] = useState(true);
@@ -242,6 +243,9 @@ const handleGerarRelatorioPP = async (produto) => {
         <div className="CabecalhoHome">
           <CabecalhoHome />
         </div>
+        <Titulo
+          tituloMsg='Processamento de Vendas'
+        />
         <AlertaNotificação />
 
         <div className="enquadramento">
