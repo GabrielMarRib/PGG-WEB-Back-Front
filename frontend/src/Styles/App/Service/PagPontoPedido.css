@@ -92,3 +92,8 @@
     font-weight: bold;
     text-transform: uppercase;
 }
+
+.filtro-selecionado {
+    color: chartreuse;
+  }
+  
