@@ -1,6 +1,6 @@
 import React, { useState, useEffect , useContext} from "react";
 import "../../Styles/App/PagHome.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link} from "react-router-dom";
 import ImageABC from '../../Assets/curvaABC.png';
 import ImageLote from '../../Assets/loteEconomico.png';
 import ImagePEPS from '../../Assets/PEPS.png';
@@ -12,6 +12,8 @@ import Notificacao from "../../Components/Notificacao";
 import { handleLogOut } from "../../../src/Functions/Functions.js";
 import GraficoTeste from "../../Components/GraficoTeste.jsx";
 import { UserContext } from "../../Context/UserContext";
+import OptionIcon from "../../Assets/OptionsWhite.png";
+
 
 function PagHome() {
 
@@ -44,6 +46,7 @@ function PagHome() {
     { title: "PEPS", img: ImagePEPS, link: "/PEPS" },
     { title: "Lote Econômico", img: ImageLote, link: "/PagLoteEconomico" },
     { title: "Custo Médio", img: ImageMedio, link: "/pagInicial" },
+    { title: "Options", img: OptionIcon, link: "/PagPerfil" }
   ];
 
   const handleResize = () => {
@@ -110,18 +113,29 @@ function PagHome() {
 
       <div className={`sidebar ${!sidebarVisible ? "hidden" : isMobile ? "overlay" : ""}`}>
         <div className="sidebar-top-buttons">
-          <div className="btnNotificacao">
-            <Notificacao />
-          </div>
-          <div className="btnSair" 
-              onClick={() => {
-                handleLogOut(navigate);
-              }}
-            >
+      
+      
+      
+         
+         
+            <div className="btnSair" onClick={() => navigate("/PagPerfil")}>
+             <img src={OptionIcon} />
+            </div>
+             
+            <div className="btnNotificacao">
+              <Notificacao />
+            </div>
+         
+         
+
+          <div className="btnSair" onClick={() => {handleLogOut(navigate);}}>
               <div id="DivNotificação">
                 <img src={IconLogOut} />
               </div>
           </div>
+
+          
+       
         </div>
         <div className="user-info">
           <div className="user-avatar" onClick={() => document.getElementById('avatarUpload').click()}>
@@ -149,8 +163,9 @@ function PagHome() {
             <div className="estoque-options">
               <button className="option-button" onClick={() => navigate("/PagProdutos")}>Adicionar Produtos</button>
               <button className="option-button" onClick={() => navigate("/PagVenderProduto")}>Vender Produtos</button>
-              <button className="option-button" onClick={() => navigate("/PagAddCategoria")}>Gerir Categorias</button>
+              <button className="option-button" onClick={() => navigate("/PagGerirCategoria")}>Gerir Categorias</button>
               <button className="option-button" onClick={() => navigate("/PagGerirLotes")}>Gerir lotes</button>
+              <button className="option-button" onClick={() => navigate("/PagMovimentos")}>Mostrar Movimentos</button>
             </div>
           )}
 

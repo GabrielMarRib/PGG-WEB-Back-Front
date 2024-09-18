@@ -126,9 +126,9 @@ function FiltragemComponente({ setFiltroSelecionado, FiltroSelecionado }) {
             <div
              key="opcaoFixa"
              className="option"
-             onMouseDown={() => handleOptionClickFixo('Não há categoria')}
+             onMouseDown={() => handleOptionClickFixo('todas as categorias (sem restrições)')}
             >
-            Não há categoria
+            todas as categorias (sem restrições)
             </div>
             
             {showOptions && (

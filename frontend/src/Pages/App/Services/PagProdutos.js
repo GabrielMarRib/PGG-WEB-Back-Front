@@ -48,6 +48,8 @@ function PagProdutos() {
   const [filtragem, setFiltragem] = useState("");
   const [mensagemVazia, setMensagemVazia] = useState(false); // Estado para controlar a mensagem
 
+  const [NaoTemProduto, setNaoTemProduto] = useState(false);
+
   //Fornecedor:
   const [fornecedor, setFornecedor] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -67,6 +69,7 @@ function PagProdutos() {
       console.log("deu ruim: " + error) // log para sabermos qual foi o erro
     }
   };
+  
 
   useEffect(() => {
     pegaProdutos(false);
@@ -148,20 +151,21 @@ function PagProdutos() {
     setShowModal(bool);
   }
 
-  
-  
+
   const buscarProdutosPorCategoria = async () => {
     try {
       setCarregando(true);
       const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
-        funcao: 'pegaprodutosporcategoria',
-        codcategoria: FiltroSelecionado?.id_categorias, 
+        funcao: 'PegaProdutosECategoriaPorCategoria',
+        codcategoria: FiltroSelecionado ? FiltroSelecionado.id_categorias : "todos", //null.id_categorias -> null
         senha: '@7h$Pz!q2X^vR1&K'
       });
+
       setProdutos(response.data);
       setCarregando(false);
   
       // Exibe a mensagem se não houver produtos na categoria
+      console.log(response.data)
       if (response.data.length === 0) {
         setMensagemVazia(true);
       } else {
@@ -169,16 +173,18 @@ function PagProdutos() {
       }
     } catch (error) {
       console.log("Erro ao buscar produtos por categoria: " + error);
+      setMensagemVazia(true);
       setCarregando(false); // Adiciona aqui também para evitar carregamento infinito em caso de erro
     }
   };
 
   useEffect(() => {
-    if (FiltroSelecionado) {
-      buscarProdutosPorCategoria();
-    } else {
-      pegaProdutos(false); // Carregar todos os produtos quando nenhuma categoria estiver selecionada
-    }
+    // if (FiltroSelecionado) {
+    //   buscarProdutosPorCategoria();
+    // } else {
+    //   setMensagemVazia(true);
+    // }
+    buscarProdutosPorCategoria();
   }, [FiltroSelecionado]);
   
 
@@ -204,7 +210,6 @@ function PagProdutos() {
         <Titulo
           tituloMsg='Gerenciamento de Produtos'
         />
-
         <AlertaNotificação />
         <button
           className="voltar"
@@ -352,7 +357,7 @@ function PagProdutos() {
                       onChange={(e) => {
                         const value = e.target.value;
                         if (/^\d*\.?\d*$/.test(value)) {
-                            setValorCompra(value);
+                            setValorVenda(value);
                         }
                       }}
                       />

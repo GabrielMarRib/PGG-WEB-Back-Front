@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import React from 'react';
 import '../Styles/Components/ConfirmaModal.css';
 
 const ConfirmaModal = ({ message, onConfirm, onCancel, BoolMultiplaEscolha, styles, tamanho }) => {
-
+  const [justificativa, setJustificativa] = useState('');
   const constroiMsg = (mensagem) => {
     console.log(typeof mensagem)
     if (typeof mensagem === 'object') {
@@ -31,18 +32,18 @@ const ConfirmaModal = ({ message, onConfirm, onCancel, BoolMultiplaEscolha, styl
     }
   }
 
-  const StyleDiv = () =>{
-    switch(tamanho){
+  const StyleDiv = () => {
+    switch (tamanho) {
       case 'G':
-        return{
+        return {
           width: '700px'
         }
       case 'GG':
-        return{
+        return {
           width: '1000px'
         }
       case 'XGG':
-        return{
+        return {
           width: '1300px'
         }
       default:
@@ -53,6 +54,8 @@ const ConfirmaModal = ({ message, onConfirm, onCancel, BoolMultiplaEscolha, styl
     }
   }
 
+  const handleConfirm = () => onConfirm(justificativa || 'Não justificado');
+
   return (
     <div className="ConfirmaModal">
       <div style={StyleDiv()} className="modal-content">
@@ -60,7 +63,16 @@ const ConfirmaModal = ({ message, onConfirm, onCancel, BoolMultiplaEscolha, styl
 
         {BoolMultiplaEscolha ? (
           <>
-            <button onClick={onConfirm}>Sim</button>
+            justificativa:
+            <input 
+              style={{width: '50%'}} 
+              value={justificativa}
+              onChange={(e) => {setJustificativa(e.target.value)}}
+              placeholder='Não justificado'
+            />
+            <br />
+            <br />
+            <button onClick={handleConfirm}>Sim</button>
             <button onClick={onCancel}>Não</button>
           </>
         ) : (

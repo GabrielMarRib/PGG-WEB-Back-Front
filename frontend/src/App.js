@@ -4,6 +4,7 @@ import { UserContextProvider } from './Context/UserContext';
 import { AlertaProvider } from './Context/AlertaContext';
 //npm i react-scripts
 //npm i primereact
+//npm i recharts
 function App() {
   return (
     <AlertaProvider>

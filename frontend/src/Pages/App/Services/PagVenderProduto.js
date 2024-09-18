@@ -10,6 +10,7 @@ import { useAlerta } from ".././../../Context/AlertaContext.js";
 import { json, useNavigate } from "react-router-dom";
 import Titulo from "../../../Components/Titulo.jsx";
 import userEvent from "@testing-library/user-event";
+import Titulo from "../../../Components/Titulo.jsx";
 
 function PagVenderProduto() {
   const [carregando, setCarregando] = useState(true);
@@ -37,6 +38,7 @@ function PagVenderProduto() {
         funcao: 'pegacategorias',
         senha: '@7h$Pz!q2X^vR1&K',
       });
+      
       setCategorias(response.data || []);
       setCarregando(false);
     } catch (error) {
@@ -263,7 +265,9 @@ function PagVenderProduto() {
         <div className="CabecalhoHome">
           <CabecalhoHome />
         </div>
-
+        <Titulo
+          tituloMsg='Processamento de Vendas'
+        />
         <AlertaNotificação />
         <Titulo
           tituloMsg='Venda de Produtos'
@@ -362,7 +366,7 @@ function PagVenderProduto() {
                   />
                 </div>
                 <div className="grupo-input">
-                  <label>Receita estimada</label>
+                  <label>Receita desta venda</label>
                   <input
                     className="controle-formulario"
                     type="number"
