@@ -13,7 +13,7 @@ import { handleLogOut } from "../../../src/Functions/Functions.js";
 import GraficoTeste from "../../Components/GraficoTeste.jsx";
 import { UserContext } from "../../Context/UserContext";
 import OptionIcon from "../../Assets/OptionsWhite.png";
-
+import axios from "axios";
 
 function PagHome() {
 
@@ -27,14 +27,33 @@ function PagHome() {
   const [isSelectEstoque, setisSelectEstoque] = useState(false);
   const [isSelectCurvaAbc, setisSelectCurvaAbc] = useState(false);
   const [userAvatar, setUserAvatar] = useState(null); 
+  const [categorias, setCategorias] = useState([])
+  // ()=> {}
+  // function() {}
+
+  useEffect(function(){
+    const pegaCategorias = async () => { // função existe para separar async do useEffect...
+      try {
+          const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {  // acessa via post (SEMPRE SERÁ POST)                
+              funcao: 'pegacategorias', // dita qual função deve ser utilizada da api. (a gente te fala o nome) // ---> parâmetros da consulta... SÃO necessários.
+              senha: '@7h$Pz!q2X^vR1&K' // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
+          });
+          console.log(response.data) // log para sabermos o que foi pego.
+          setCategorias(response.data)
+      } catch (error) {
+          console.log("deu ruim: " + error) // log para sabermos qual foi o erro
+      }
+  };
+  pegaCategorias(); //chama a função
+  }, [])
 
   const sections = [
-    { title: "Faturamento", content: "Informação sobre faturamento" },
-    { title: "Ticket Médio", content: "Informação sobre ticket médio" },
-    { title: "Positividade", content: "Informação sobre positividade" },
-    { title: "Ticket Médio por Produto", content: "Informação sobre ticket médio por produto" },
+    { title: "Faturamento (bruto)", content: "preço de venda x quantidade vendida" },
+    { title: "Ticket Médio", content: "valor total das vendas pelo número de transações" },
+    { title: "Positividade", content: categorias.length > 0 ? categorias[4].nome : "carregando..." },
+    { title: "Ponto de Pedido", content: "Verifique os pedidos urgentes"  },
     { title: "Positividade por Produto", content: "Informação sobre positividade por produto" },
-    { title: "Gerente Faturamento Sei Lá O Que", content: "Informação gerencial" },
+    { title: "Faturamento", content: "Faturamento Geral"},
     { title: "Evolução de Vendas", content: "Análise Mensal da Evolução de Vendas", isChart: true },
     { title: "Linha de Produto", content: "Informação sobre linha de produto", isSameHeight: true },
   ];
@@ -103,6 +122,8 @@ function PagHome() {
     }
   };
 
+
+
   return (
     <div className="PagHome">
       {isMobile && (
@@ -110,7 +131,6 @@ function PagHome() {
           NavBar
         </div>
       )}
-
       <div className={`sidebar ${!sidebarVisible ? "hidden" : isMobile ? "overlay" : ""}`}>
         <div className="sidebar-top-buttons">
       
@@ -134,7 +154,7 @@ function PagHome() {
               </div>
           </div>
 
-          
+
        
         </div>
         <div className="user-info">
@@ -210,6 +230,7 @@ function PagHome() {
               {section.isChart && <div className="chart-placeholder"><GraficoTeste></GraficoTeste></div>}
             </div>
           ))}
+          <button className="option-button" onClick={() => navigate("/PagTesteInsercao")}>página de tutorial</button>
         </div>
       </div>
     </div>
