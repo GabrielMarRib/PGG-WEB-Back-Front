@@ -23,8 +23,10 @@ function PagHome() {
   const [sidebarVisible, setSidebarVisible] = useState(true);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 1000);
   const [showEstoqueOptions, setShowEstoqueOptions] = useState(false);
+  const [showPontoPedido, setshowPontoPedido] = useState(false);
   const [showABCOptions, setShowABCOptions] = useState(false);
   const [isSelectEstoque, setisSelectEstoque] = useState(false);
+  const [isSelectPontoPedido, setisSelectPontoPedido] = useState(false);
   const [isSelectCurvaAbc, setisSelectCurvaAbc] = useState(false);
   const [userAvatar, setUserAvatar] = useState(null); 
 
@@ -75,6 +77,10 @@ function PagHome() {
   const handleEstoqueClick = () => {
     setisSelectEstoque(prevState => !prevState)
     setShowEstoqueOptions(!showEstoqueOptions);
+  };
+  const handlePontoPedidoClick = () => {
+    setisSelectPontoPedido(prevState => !prevState)
+    setshowPontoPedido(!showPontoPedido);
   };
 
   const handleABCClick = () => {
@@ -173,6 +179,7 @@ function PagHome() {
             <img src={buttons[1].img} alt={buttons[1].title} className="button-image" />
             <span className="button-title">{buttons[1].title}</span>
           </button>
+
           {showABCOptions && (
             <div className="abc-options">
               <button className="option-button" onClick={() => navigate("/PagCurvaABC")}>Por Frequência</button>
@@ -180,12 +187,30 @@ function PagHome() {
             </div>
           )}
 
-          {buttons.slice(2).map((button, index) => (
+
+          <button className={isSelectPontoPedido ? "menu-button-Select" : "menu-button"} onClick={handlePontoPedidoClick}>
+            <img src={buttons[2].img} alt={buttons[2].title} className="button-image" />
+            <span className="button-title">{buttons[2].title}</span>
+          </button>
+        {showPontoPedido && (
+            <div className="estoque-options">
+              <button className="option-button" onClick={() => navigate("/PagProdutos")}>Ponto de pedido</button>
+              <button className="option-button" onClick={() => navigate("/PagCadFornecedor")}>Cadastro de fornecedor</button>
+            </div>
+          )}
+
+
+
+            
+          {buttons.slice(3).map((button, index) => (
             <button key={index} className="menu-button" onClick={() => navigate(button.link)}>
               <img src={button.img} alt={button.title} className="button-image" />
               <span className="button-title">{button.title}</span>
             </button>
           ))}
+
+        
+
         </div>
       </div>
 

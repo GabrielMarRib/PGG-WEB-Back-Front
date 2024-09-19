@@ -26,6 +26,7 @@ import PagTesteInsercaoDD from './Pages/App/Services/PagTesteInsercaoDD';
 import PrivateRoute from './PrivateRoute';
 import GerirLotes from './Pages/App/Services/GerirLotes';
 import PagMovimentos from './Pages/App/Services/PagMovimentos';
+import PagCadastroFornecedor from './Pages/App/Services/PagCadastroFornecedor';
 
 const Mobile = IsMobile();
 
@@ -63,6 +64,9 @@ function AppRoutes() {
             <Route path="/PagGerirCategoria" element={<PrivateRoute element={<GerirCategoria />} />} />
             <Route path="/PagGerirLotes" element={<PrivateRoute element={<GerirLotes />} />} />
             <Route path="/PagMovimentos" element={<PrivateRoute element={<PagMovimentos />} />} />
+            <Route path="/PagCadFornecedor" element={<PrivateRoute element={<PagCadastroFornecedor />} />} />
+
+            
           </>
         )}
         {/* Rota padrão para redirecionar qualquer rota desconhecida */}
