@@ -37,23 +37,27 @@ function PagRelatorios() {
     const pegaRelatorios = async () => {
         const responsePP = await RelatorioPP();
         const responseVendas = await RelatorioVendas();
+        console.log("Relatório PP:", responsePP);
+        console.log("Relatório Vendas:", responseVendas);
         setRelatorioPP(responsePP);
         setRelatorioVendas(responseVendas);
     };
-
+    if(Array.isArray(relatorioPP)){
     relatorioPP.sort((a, b) => {
         const dataA = traduzData(a);
         const dataB = traduzData(b);
 
         return dataB - dataA;
     });
+}
 
-    relatorioVendas.sort((a, b) => {
-        const dataA = traduzData(a);
-        const dataB = traduzData(b);
-
-        return dataB - dataA;
-    });
+    if (Array.isArray(relatorioVendas)) {
+        relatorioVendas.sort((a, b) => {
+            const dataA = traduzData(a);
+            const dataB = traduzData(b);
+            return dataB - dataA;
+        });
+    }
 
     useEffect(() => {
         pegaRelatorios();
@@ -103,9 +107,9 @@ function PagRelatorios() {
                 {relatorios.map(({ tipo, item }) => (
                     <div key={item.id} className="ItemRelatorio" onClick={() => handleRelatorioClick(item)}>
                         {tipo === 'PP' ? (
-                            `Relatório PP de ${exibeData(item)} sobre o item '${item.data.produtoNome}' de id ${item.data.produtoID}`
+                            `Relatório PP de ${exibeData(item)} sobre o item '${item.produtoNome}' de id ${item.Produto_ID}`
                         ) : (
-                            `Relatório de vendas de ${exibeData(item)} sobre o item '${item.data.Produto_Vendido_Nome}' de id ${item.data.Produto_Vendido_Id}`
+                            `Relatório de vendas de ${exibeData(item)} sobre o item '${item.Produto_Vendido_Nome}' de id ${item.Produto_id}`
                         )}
                     </div>
                 ))}
@@ -130,9 +134,9 @@ function PagRelatorios() {
 
     const handleConfirm = () => {
         let colecao = '';
-        if (relatorioSelecionado.data?.PP)
+        if (relatorioSelecionado?.PP)
             colecao = 'PontoDePedido'
-        else if (relatorioSelecionado.data?.Produto_Vendido_Id)
+        else if (relatorioSelecionado?.Produto_ID)
             colecao = 'Vendas'
 
         setShowConfirmation(false);
@@ -159,9 +163,9 @@ function PagRelatorios() {
                 Item: {relatorioSelecionado.data.produtoNome}
                 <div className="listaInfo">
                     <ul>
-                        <li>Código do produto: {relatorioSelecionado.data.produtoID}</li>
-                        <li>Estoque atual: {relatorioSelecionado.data.QtdeAtual} {pegaQtde(relatorioSelecionado.data.QtdeAtual)}</li>
-                        <li>Ponto de pedido calculado (PP): {relatorioSelecionado.data.PP} {pegaQtde(relatorioSelecionado.data.PP)}</li>
+                        <li>Código do produto: {relatorioSelecionado.Produto_ID}</li>
+                        <li>Estoque atual: {relatorioSelecionado.Qtd_At} {pegaQtde(relatorioSelecionado.Qtd_At)}</li>
+                        <li>Ponto de pedido calculado (PP): {relatorioSelecionado.pp} {pegaQtde(relatorioSelecionado.data.pp)}</li>
                     </ul>
                 </div>
                 <hr />
@@ -169,10 +173,10 @@ function PagRelatorios() {
                 <h3>PP = (Consumo Médio * Tempo de Reposição) + Estoque de Segurança</h3>
                 <div className="listaInfo">
                     <ul>
-                        <li>Consumo Médio: {(relatorioSelecionado.data.QV / 30).toFixed(2)} itens</li>
-                        <li>Tempo de Reposição: {relatorioSelecionado.data.TR} dias</li>
-                        <li>Estoque de segurança: {relatorioSelecionado.data.ES} {pegaQtde(relatorioSelecionado.data.ES)}</li>
-                        <li>Cálculo executado: ({(relatorioSelecionado.data.QV / 30).toFixed(2)} * {relatorioSelecionado.data.TR}) + {relatorioSelecionado.data.ES} = {relatorioSelecionado.data.PP} (arredondado)</li>
+                        <li>Consumo Médio: {(relatorioSelecionado.QV / 30).toFixed(2)} itens</li>
+                        <li>Tempo de Reposição: {relatorioSelecionado.TR} dias</li>
+                        <li>Estoque de segurança: {relatorioSelecionado.ES} {pegaQtde(relatorioSelecionado.ES)}</li>
+                        <li>Cálculo executado: ({(relatorioSelecionado.QV / 30).toFixed(2)} * {relatorioSelecionado.TR}) + {relatorioSelecionado.ES} = {relatorioSelecionado.pp} (arredondado)</li>
                     </ul>
                 </div>
                 <hr />
@@ -199,16 +203,16 @@ function PagRelatorios() {
             <h2 className="titulo">Relatório de Vendas</h2>
             <h3>Data: {exibeData(relatorioSelecionado)}</h3>
             <hr />
-            <h4>
-                Item: {relatorioSelecionado.data.Produto_Vendido_Nome}
+            <h4> 
+                Item: {relatorioSelecionado.Produto_Vendido_Nome} {/* n tem nome do produto */}
                 <div className="listaInfo">
                     <ul>
-                        <li>Código do produto: {relatorioSelecionado.data.Produto_Vendido_Id}</li>
-                        <li>Quantidade Antes da venda: {relatorioSelecionado.data.Quantidade_Antes_Venda} {pegaQtde(relatorioSelecionado.data.Quantidade_Antes_Venda)}</li>
-                        <li>Quantidade Vendida: {relatorioSelecionado.data.Quantidade_Vendida} {pegaQtde(relatorioSelecionado.data.Quantidade_Vendida)}</li>
-                        <li>Quantidade Atual: {relatorioSelecionado.data.Quantidade_Disponivel} {pegaQtde(relatorioSelecionado.data.Quantidade_Disponivel)}</li>
-                        <li>Custo unitário: R$ {Number(relatorioSelecionado.data.Produto_Custo_Unit).toFixed(2)}</li>
-                        <li>Receita Total: R$ {Number(relatorioSelecionado.data.Receita).toFixed(2)}</li>
+                        <li>Código do produto: {relatorioSelecionado.Produto_Vendido_Id}</li>
+                        <li>Quantidade Antes da venda: {relatorioSelecionado.Quantidade_Antes_Venda} {pegaQtde(relatorioSelecionado.data.Quantidade_Antes_Venda)}</li>
+                        <li>Quantidade Vendida: {relatorioSelecionado.Quantidade_Vendida} {pegaQtde(relatorioSelecionado.data.Quantidade_Vendida)}</li>
+                        <li>Quantidade Atual: {relatorioSelecionado.Quantidade_Disponivel} {pegaQtde(relatorioSelecionado.data.Quantidade_Disponivel)}</li>
+                        <li>Custo unitário: R$ {Number(relatorioSelecionado.Produto_Custo_Unit).toFixed(2)}</li>
+                        <li>Receita Total: R$ {Number(relatorioSelecionado.Receita).toFixed(2)}</li>
                     </ul>
                 </div>
                 <hr />
@@ -230,9 +234,9 @@ function PagRelatorios() {
 
 
     const escolheRelatorio = (relatorioAtual) => {
-        if (relatorioAtual.data.PP) {
+        if (relatorioAtual.pp) {
             return montaRelatorioPP();
-        } else if (relatorioAtual.data.Produto_Vendido_Id) {
+        } else if (relatorioAtual.Produto_Vendido_Id) {
             return montaRelatorioVendas();
         }
     };

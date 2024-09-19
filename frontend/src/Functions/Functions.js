@@ -217,7 +217,7 @@ export const exibeMsg = async (setMsg, conteudo, tempo, erro, SetStyle) => {
 };
 
 export const RelatorioPP = async () => {
-    const response = await axios.get('http://pggzettav3.mooo.com/api/index.php', {
+    const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
         funcao: 'pegaRelatorioPP', 
         senha: '@7h$Pz!q2X^vR1&K',
     });
@@ -225,11 +225,11 @@ export const RelatorioPP = async () => {
 }
 
 export const RelatorioVendas = async () => {
-    const response = await axios.get('http://pggzettav3.mooo.com/api/index.php', {
+    const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
         funcao: 'pegaRelatorioVendas', 
         senha: '@7h$Pz!q2X^vR1&K',
     });
-    return (response.data)
+    return Array.isArray(response.data) ? response.data : [];
 }
 
 export const pegaCategorias = async (setOBJ) =>{
