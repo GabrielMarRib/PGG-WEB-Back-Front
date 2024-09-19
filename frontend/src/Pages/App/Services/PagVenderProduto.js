@@ -264,9 +264,7 @@ function PagVenderProduto() {
           tituloMsg='Processamento de Vendas'
         />
         <AlertaNotificação />
-        <Titulo
-          tituloMsg='Venda de Produtos'
-        />
+      
 
         <div className="enquadramento">
           <button
