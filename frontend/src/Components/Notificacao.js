@@ -47,10 +47,10 @@ const Notificacao = () => {
     }, []);
 
     const handleClick = (item) => {
-        if (item?.data) {
-            if (item.data.PP) {
+        if (item) {
+            if (item.pp) {
                 navigate('/PagPontoPedido')
-            } else if (item.data.Vendas) {
+            } else if (item.fodase) { //provisório
                 navigate('/PagVenderProdutos')
             }
         }
@@ -114,26 +114,26 @@ const Notificacao = () => {
                             notificacoes.length > 0 ? (
                                 notificacoes.map(item => {
                                     vezes++;
-                                    if (!item.data?.msg) { // se nao tiver msg, manda po krl
+                                    if (!item?.MSG) { // se nao tiver msg, manda po krl
                                         if (vezes === 1) {
-                                            return <p>não há notificações</p>
+                                            return <p>não há notificações A </p>
                                         }
                                         else
                                             return null
                                     }
-                                    if (item.data.PP && User.userData.Nivel_acesso != 2) { // se tiver, mas se for relacionada a PP, e vc nao for gestor, manda pro krl
+                                    if (item.PP && User.userData.Nivel_acesso != 2) { // se tiver, mas se for relacionada a PP, e vc nao for gestor, manda pro krl
                                         if (vezes === 1) {
 
-                                            return <p>não há notificações</p>
+                                            return <p>não há notificações B </p>
                                         }
 
                                         else
                                             return null
                                     }
                                     return (
-                                        <div key={item.id}>
+                                        <div key={item.id_ }>
                                             <h2>{exibeData(item)}</h2>
-                                            {constroiMsg(item.data?.msg)}
+                                            {constroiMsg(item?.MSG)}
                                             <button className="BotaoAcao" onClick={() => { handleClick(item) }}>Ver situação</button>
                                             <hr style={{ marginTop: "2vh", marginBottom: "2vh" }} />
                                         </div>
@@ -141,7 +141,7 @@ const Notificacao = () => {
 
                                 })
                             ) : (
-                                <p>não há notificações</p>
+                                <p>não há notificações C</p>
                             )
                         )}
                         {console.log(notificacoes)}
