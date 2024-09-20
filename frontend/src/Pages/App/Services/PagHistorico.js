@@ -4,32 +4,39 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AlertaNotificação from "../../../Components/AlertaNotificação.js";
 import Titulo from "../../../Components/Titulo";
-
+import axios from "axios";
 function PagHistorico() {
   const navigate = useNavigate();
 
   const [historico, setHistorico] = useState([]);
-
-  useEffect(() => {
-    const fetchHistorico = async () => {
-      // Colocar a porrra da API
-      const response = [
-        {
-          tabela: "vendas",
-          id_tabela: 69,
-          campos: "preço, quantidade",
-          valores_antigos: "100, 2",
-          valores_novos: "120, 3",
-          autor: "Bluer",
-          data: "2024-09-19",
-          justificativa: "Ajuste de preço após promoção",
-        },
-      ];
-      setHistorico(response);
+  const [camposVariaveis, setCamposVariaveis] = useState([])
+  useEffect(() => { // useEffect para pegar informações da LISTA de categorias...
+    const pegaHistorico = async () => { // função existe para separar async do useEffect...
+        try {
+            const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {  // acessa via post (SEMPRE SERÁ POST)                
+                funcao: 'consultarHistorico', // dita qual função deve ser utilizada da api. (a gente te fala o nome) // ---> parâmetros da consulta... SÃO necessários.
+                senha: '@7h$Pz!q2X^vR1&K' // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
+            });
+            setHistorico(response.data); // coloca a LISTA de categorias em uma useState
+            console.log(response.data) // log para sabermos o que foi pego.
+            criaCampos(response.data)
+        } catch (error) {
+            console.log("deu ruim: " + error) // log para sabermos qual foi o erro
+        }
     };
+    pegaHistorico(); //chama a função
+}, [])
 
-    fetchHistorico();
-  }, []);
+const criaCampos = (dados) =>{
+    const dadosUnicos = [];
+    dados.forEach(dado => {
+        if(!dadosUnicos.includes(dado.campos)){
+          dadosUnicos.push(dado.campos)
+        }
+    });
+    console.log(dadosUnicos)
+    setCamposVariaveis(dadosUnicos)
+}
 
   return (
     <div className="PagHistorico">
@@ -48,49 +55,29 @@ function PagHistorico() {
         <table className="historicoTable">
           <thead>
             <tr>
-              <th>TABELA</th>
-              <th>preços</th>
-              <th>quantidade</th>
+              <th>Departamento</th>
+              {camposVariaveis.map((campo)=>(
+                <th>{campo}</th>
+              ))}
               <th>AUTOR</th>
               <th>DATA</th>
               <th>JUSTIFICATIVA</th>
             </tr>
           </thead>
           <tbody>
-            {historico.map((item, index) => (
-              <tr key={index}>
-                <td>{item.tabela}</td>
-                <td>
-                  <table className="inner-table">
-                    <tbody>
-                      <tr>
-                        <td><span className="tag-antigos">ANTIGOS</span></td>
-                        <td>{item.valores_antigos.split(",")[0]}</td>
-                      </tr>
-                      <tr>
-                        <td><span className="tag-novos">NOVOS</span></td>
-                        <td>{item.valores_novos.split(",")[0]}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </td>
-                <td>
-                  <table className="inner-table">
-                    <tbody>
-                      <tr>
-                        <td>{item.valores_antigos.split(",")[1]}</td>
-                      </tr>
-                      <tr>
-                        <td>{item.valores_novos.split(",")[1]}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </td>
-                <td>{item.autor}</td>
-                <td>{item.data}</td>
-                <td>{item.justificativa}</td>
+             {historico.map((registro) => (
+              <tr key={registro.id}>
+                {/*work in progress muito forte aqui */}
+                <td>{registro.tabela}</td>
+                <td>{registro.valores_antigos}</td>
+                <td>{registro.valores_novos}</td>
+
+
+                <td>{registro.nome_autor}</td>
+                <td>{registro.data}</td>
+                <td>{registro.justificativa}</td>
               </tr>
-            ))}
+            ))} 
           </tbody>
         </table>
       </div>
