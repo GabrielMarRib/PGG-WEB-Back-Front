@@ -11,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 import AlertaNotificação from "../../../Components/AlertaNotificação.js";
 import InfoModalCat from "../../../Components/InfoModalCat.js";
 import { useAlerta } from "../../../Context/AlertaContext.js";
-import Redirect from "../../../Functions/Redirect.js";
 import RedirectAcesso from "../../../Functions/RedirectAcesso.js";
 import { useContext } from "react";
 import { UserContext } from "../../../Context/UserContext.js";
@@ -23,8 +22,7 @@ function GerirCategoria() {
   //Página protegida...
   const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
   const User = UserOBJ.User; //Pega só o User....
-  //Redireciona sem user
-  Redirect(User);
+
   //Redireciona se user nn for 2
   RedirectAcesso(User, 2)
 

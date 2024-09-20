@@ -5,8 +5,6 @@ import lupa from "../../../Assets/lupa.png";
 import axios from "axios";
 import AlertaNotificação from "../../../Components/AlertaNotificação";
 import { useAlerta } from "../../../Context/AlertaContext";
-import { UserContext } from "../../../Context/UserContext";
-import Redirect from "../../../Functions/Redirect";
 import { useNavigate } from "react-router-dom";
 
 function PagLoteEconomico() {
@@ -25,11 +23,6 @@ function PagLoteEconomico() {
   const [Quantia_Produtos_Estocados, setQuantia_Produtos_Estocados] = useState("");
   const [Numero_Pedidos_Anuais, setNumero_Pedidos_Anuais] = useState("");
   const [demanda_anual, setdemanda_anual] = useState("");
-
-  const UserOBJ = useContext(UserContext);
-  const User = UserOBJ.User;
-
-  Redirect(User);
 
   const CalcularLoteEconomico = async () => {
     if (Valor_despesas_Anuais === "" || Quantia_Produtos_Estocados === "" || Numero_Pedidos_Anuais === "" || demanda_anual === "") {

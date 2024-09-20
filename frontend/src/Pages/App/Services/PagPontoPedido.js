@@ -1,9 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import CabecalhoHome from '../../../Components/CabecalhoHome';
 import '../../../Styles/App/Service/PagPontoPedido.css';
 import axios from 'axios';
-import { UserContext } from '../../../Context/UserContext';
-import Redirect from '../../../Functions/Redirect';
 import { useNavigate } from "react-router-dom";
 import Titulo from '../../../Components/Titulo.jsx';
 import BuscaCategoriasComponentes from "../../../Components/BuscaCategoriasComponente";
@@ -14,10 +12,7 @@ function PagPontoPedido() {
     const [categoriaSelecionada, setCategoriaSelecionada] = useState(null)
     const [dadosPP, setDadosPP] = useState([])
     const [msg, setMsg] = useState('');
-    const UserOBJ = useContext(UserContext);
-    const User = UserOBJ.User;
 
-    Redirect(User);
 
     useEffect(() => {
         const pegaDadosPP = async () => {

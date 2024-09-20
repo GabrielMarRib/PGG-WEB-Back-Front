@@ -3,7 +3,6 @@ import CabecalhoHome from '../../../Components/CabecalhoHome';
 import '../../../Styles/App/Service/PagPontoPedido.css';
 import axios from 'axios';
 import { UserContext } from '../../../Context/UserContext';
-import Redirect from '../../../Functions/Redirect';
 import { useNavigate } from "react-router-dom";
 import Titulo from "../../../Components/Titulo.jsx";
 
@@ -22,8 +21,6 @@ const PagMovimentos = () => {
 
   const UserOBJ = useContext(UserContext);
   const User = UserOBJ.User;
-
-  Redirect(User); // Se não for o User certo, manda embora
 
   useEffect(() => {
     const fetchMovimentos = async () => {

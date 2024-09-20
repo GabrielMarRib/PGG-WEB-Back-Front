@@ -5,7 +5,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../../Context/UserContext";
-import Redirect from "../../../Functions/Redirect";
 import RedirectAcesso from "../../../Functions/RedirectAcesso";
 import { handleAdicionarUser } from "../../../Functions/Functions";
 import { useAlerta } from "../../../Context/AlertaContext.js";
@@ -26,7 +25,6 @@ function PagAddFunc() {
   const User = UserOBJ.User; //Pega só o User....
 
   RedirectAcesso(User,2);
-  Redirect(User);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
