@@ -154,7 +154,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
     if (produtoOBJ.categoria === null) {
       return (
         <div className='erro'>
-          Produto não possui categoria. Veja a próxima aba <u onClick={() => setAbaAtiva('InfoCatProduto')} style={{ cursor: 'pointer', color: 'blue' }}>Alterar Categoria do Produto</u> para referenciar o produto à uma categoria existente
+          Produto não possui categoria. Veja a próxima aba <u onClick={() => setAbaAtiva('InfoCatProduto')} style={{ cursor: 'pointer', color: 'blue' }}>Mover Produto para outra categoria</u> para referenciar o produto à uma categoria existente
           <br />
           <br />
           Não achou a categoria que queria? Clique <Link to="/PagGerirCategoria">AQUI</Link> para criar uma nova categoria
@@ -294,7 +294,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
             <form className='formCat' onSubmit={(e) => handleForm(e)}>
 
               Categoria atual:
-              <h2>{tudoOLD.categoria + ' - ' + tudoOLD.nomeCat}</h2>
+              <h2>{tudoOLD.categoria ? tudoOLD.categoria + ' - ' + tudoOLD.nomeCat : "Não possui categoria"}</h2>
               <hr />
               Escolha a nova categoria do item:
               <center> <BuscaCategoriasComponentes setCategoriaSelecionada={setCategoriaSelecionada} categoriaSelecionada={categoriaSelecionada} /> </center>
