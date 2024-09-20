@@ -29,6 +29,7 @@ function PagRelatorios() {
     const [forceUpdate, setForceUpdate] = useState(false);
 
     const handleRelatorioClick = (relatorio) => {
+        console.log(relatorio);
         setRelatorioSelecionado(relatorio);
     };
 
@@ -105,9 +106,9 @@ function PagRelatorios() {
                 {relatorios.map(({ tipo, item }) => (
                     <div key={item.id} className="ItemRelatorio" onClick={() => handleRelatorioClick(item)}>
                         {tipo === 'PP' ? (
-                            `Relatório PP de ${exibeData(item)} sobre o item '${item.produtoNome}' de id ${item.Produto_ID}`
+                            `Relatório PP de ${item.DATA} sobre o item '${item.nome_produto}' de id ${item.Produto_ID}`
                         ) : (
-                            `Relatório de vendas de ${exibeData(item)} sobre o item '${item.Produto_Vendido_Nome}' de id ${item.Produto_id}`
+                            `Relatório de vendas de ${item.DATA_venda} sobre o item '${item.nome_produto}' de id ${item.Produto_id}`
                         )}
                     </div>
                 ))}
@@ -132,13 +133,13 @@ function PagRelatorios() {
 
     const handleConfirm = () => {
         let colecao = '';
-        if (relatorioSelecionado?.PP)
+        if (relatorioSelecionado.pp)
             colecao = 'PontoDePedido'
-        else if (relatorioSelecionado?.Produto_ID)
+        else if (relatorioSelecionado.Produto_ID)
             colecao = 'Vendas'
 
         setShowConfirmation(false);
-        deletaRelatorio(colecao, relatorioSelecionado.id);
+        deletaRelatorio(colecao, relatorioSelecionado.Produto_id);
         setRelatorioSelecionado(null);
         setTipoRelatorio('nulo');
         pegaRelatorios();
@@ -149,42 +150,54 @@ function PagRelatorios() {
         setShowConfirmation(false);
     };
 
-    const montaRelatorioPP = () => (
-        <div className="InfoRelaorio">
-            <div className="btnFecharRel">
-                <button onClick={() => setRelatorioSelecionado(null)} className="no-print">Fechar relatório</button>
+    const montaRelatorioPP = () => {
+        if (!relatorioSelecionado) {
+            return <div>Nenhum relatório selecionado.</div>; 
+        }
+    
+   
+        const { nome_produto, Produto_ID, Qtd_At, pp, QV, TR, ES } = relatorioSelecionado;
+        if (pp === undefined || Produto_ID === undefined) {
+            return <div>Relatório inválido.</div>; 
+        }
+    
+        return (
+            <div className="InfoRelaorio">
+                <div className="btnFecharRel">
+                    <button onClick={() => setRelatorioSelecionado(null)} className="no-print">Fechar relatório</button>
+                </div>
+                <h2 className="titulo">Relatório de Ponto De Pedido</h2>
+                <h3>Data: {relatorioSelecionado.DATA_venda}</h3>
+                <hr />
+                <h4>
+                    Item: {nome_produto}
+                    <div className="listaInfo">
+                        <ul>
+                            <li>Código do produto: {Produto_ID}</li>
+                            <li>Estoque atual: {Qtd_At} {pegaQtde(Qtd_At)}</li>
+                            <li>Ponto de pedido calculado (PP): {pp} {pegaQtde(pp)}</li>
+                        </ul>
+                    </div>
+                    <hr />
+                    Cálculo utilizado:
+                    <h3>PP = (Consumo Médio * Tempo de Reposição) + Estoque de Segurança</h3>
+                    <div className="listaInfo">
+                        <ul>
+                            <li>Consumo Médio: {(QV / 30).toFixed(2)} itens</li>
+                            <li>Tempo de Reposição: {TR} dias</li>
+                            <li>Estoque de segurança: {ES} {pegaQtde(ES)}</li>
+                            <li>Cálculo executado: ({(QV / 30).toFixed(2)} * {TR}) + {ES} = {pp} (arredondado)</li>
+                        </ul>
+                    </div>
+                    <hr />
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <button className="no-print" onClick={() => window.print()}>Imprimir Relatório</button>
+                        <button className="no-print" onClick={() => setShowConfirmation(true)}>Deletar relatório</button>
+                    </div>
+                </h4>
             </div>
-            <h2 className="titulo">Relatório de Ponto De Pedido</h2>
-            <h3>Data: {exibeData(relatorioSelecionado)}</h3>
-            <hr />
-            <h4>
-                Item: {relatorioSelecionado.data.produtoNome}
-                <div className="listaInfo">
-                    <ul>
-                        <li>Código do produto: {relatorioSelecionado.Produto_ID}</li>
-                        <li>Estoque atual: {relatorioSelecionado.Qtd_At} {pegaQtde(relatorioSelecionado.Qtd_At)}</li>
-                        <li>Ponto de pedido calculado (PP): {relatorioSelecionado.pp} {pegaQtde(relatorioSelecionado.data.pp)}</li>
-                    </ul>
-                </div>
-                <hr />
-                Cálculo utilizado:
-                <h3>PP = (Consumo Médio * Tempo de Reposição) + Estoque de Segurança</h3>
-                <div className="listaInfo">
-                    <ul>
-                        <li>Consumo Médio: {(relatorioSelecionado.QV / 30).toFixed(2)} itens</li>
-                        <li>Tempo de Reposição: {relatorioSelecionado.TR} dias</li>
-                        <li>Estoque de segurança: {relatorioSelecionado.ES} {pegaQtde(relatorioSelecionado.ES)}</li>
-                        <li>Cálculo executado: ({(relatorioSelecionado.QV / 30).toFixed(2)} * {relatorioSelecionado.TR}) + {relatorioSelecionado.ES} = {relatorioSelecionado.pp} (arredondado)</li>
-                    </ul>
-                </div>
-                <hr />
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <button className="no-print" onClick={() => window.print()}>Imprimir Relatório</button>
-                    <button className="no-print" onClick={() => setShowConfirmation(true)}>Deletar relatório</button>
-                </div>
-            </h4>
-        </div>
-    );
+        );
+    };
 
     const pegaQtde = (qtde) =>{
         if(qtde == 1){
@@ -199,17 +212,17 @@ function PagRelatorios() {
                 <button onClick={() => setRelatorioSelecionado(null)} className="no-print">Fechar relatório</button>
             </div>
             <h2 className="titulo">Relatório de Vendas</h2>
-            <h3>Data: {exibeData(relatorioSelecionado)}</h3>
+            <h3>Data: {relatorioSelecionado.DATA}</h3>
             <hr />
             <h4> 
-                Item: {relatorioSelecionado.Produto_Vendido_Nome} {/* n tem nome do produto */}
+                Item: {relatorioSelecionado.nome_produto} {/* n tem nome do produto */}
                 <div className="listaInfo">
                     <ul>
-                        <li>Código do produto: {relatorioSelecionado.Produto_Vendido_Id}</li>
-                        <li>Quantidade Antes da venda: {relatorioSelecionado.Quantidade_Antes_Venda} {pegaQtde(relatorioSelecionado.data.Quantidade_Antes_Venda)}</li>
-                        <li>Quantidade Vendida: {relatorioSelecionado.Quantidade_Vendida} {pegaQtde(relatorioSelecionado.data.Quantidade_Vendida)}</li>
-                        <li>Quantidade Atual: {relatorioSelecionado.Quantidade_Disponivel} {pegaQtde(relatorioSelecionado.data.Quantidade_Disponivel)}</li>
-                        <li>Custo unitário: R$ {Number(relatorioSelecionado.Produto_Custo_Unit).toFixed(2)}</li>
+                        <li>Código do produto: {relatorioSelecionado.nome_produto}</li>
+                        <li>Quantidade Antes da venda: {relatorioSelecionado.Qtd_Disp} {pegaQtde(relatorioSelecionado.Qtd_Disp)}</li>
+                        <li>Quantidade Vendida: {relatorioSelecionado.Qtd_Venda} {pegaQtde(relatorioSelecionado.Qtd_Venda)}</li>
+                        <li>Quantidade Atual: {relatorioSelecionado.Qtd_Disp} {pegaQtde(relatorioSelecionado.Qtd_Disp)}</li>
+                        <li>Custo unitário: R$ {Number(relatorioSelecionado.Custo_unitario).toFixed(2)}</li>
                         <li>Receita Total: R$ {Number(relatorioSelecionado.Receita).toFixed(2)}</li>
                     </ul>
                 </div>
@@ -217,8 +230,8 @@ function PagRelatorios() {
                 <h3>Dados sobre o responsável da venda:</h3>
                 <div className="listaInfo">
                     <ul>
-                        <li>Nome do responsável: {relatorioSelecionado.data.Responsavel_Nome}</li>
-                        <li>Responsavel Id: {relatorioSelecionado.data.Responsavel_Id} </li>
+                        <li>Nome do responsável: {relatorioSelecionado.Autor}</li>  {/* chegando só o id do autor ta fatando o nomezinho*/}
+                        <li>Responsavel Id: {relatorioSelecionado.Responsavel_Id} </li> {/* chegando só o id do autor ta fatando o nomezinho*/}
                     </ul>
                 </div>
                 <hr />
@@ -232,9 +245,10 @@ function PagRelatorios() {
 
 
     const escolheRelatorio = (relatorioAtual) => {
+        if (!relatorioAtual) return null; // Adicione esta verificação
         if (relatorioAtual.pp) {
             return montaRelatorioPP();
-        } else if (relatorioAtual.Produto_Vendido_Id) {
+        } else if (relatorioAtual.Receita) {
             return montaRelatorioVendas();
         }
     };

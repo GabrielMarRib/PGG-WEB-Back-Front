@@ -227,6 +227,7 @@ function PagVenderProduto() {
         MSG: msg,
         Qtd_At: qtdeSobra,
         Produto_ID: produtoSelecionado.id,
+        nome_produto:produtoSelecionado.nome
       });
     }
   };
@@ -245,6 +246,7 @@ function PagVenderProduto() {
           ReceitaProd: receitaEstimada,
           QtdeDisponivel: qtdeSobra,
           custoUnitario: custoUnitario,
+          nome_produto: produtoSelecionado.nome
         });
       } catch (eee) {
         console.log("deu merda");
