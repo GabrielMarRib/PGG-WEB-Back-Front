@@ -5,14 +5,12 @@ import '../Styles/Components/Notificacao.css'
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/UserContext";
 import { useContext } from "react";
-import Redirect from "../Functions/Redirect";
-import userEvent from "@testing-library/user-event";
+
 const Notificacao = () => {
 
     const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
     const User = UserOBJ.User; //Pega só o User....
 
-    Redirect(User)
     let vezes = 0;
     const [notificacoes, setNotificacoes] = useState([]);
     const [carregando, setCarregando] = useState(true);

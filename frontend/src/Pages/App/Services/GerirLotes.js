@@ -10,8 +10,6 @@ import AlertaNotificação from "../../../Components/AlertaNotificação.js";
 import InfoModalCat from "../../../Components/InfoModalCat.js";
 import ModalAtualizarLote from "../../../Components/ModalAtualizarLote.js";
 import { useAlerta } from "../../../Context/AlertaContext.js";
-import Redirect from "../../../Functions/Redirect.js";
-import RedirectAcesso from "../../../Functions/RedirectAcesso.js";
 import { useContext } from "react";
 import { UserContext } from "../../../Context/UserContext.js";
 import Titulo from "../../../Components/Titulo.jsx";

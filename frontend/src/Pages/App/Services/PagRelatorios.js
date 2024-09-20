@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext, useRef } from "react";
 import Cabecalho from "../../../Components/CabecalhoHome";
 import '../../../Styles/App/Service/PagRelatorios.css';
 import { UserContext } from "../../../Context/UserContext";
-import Redirect from "../../../Functions/Redirect";
 import RedirectAcesso from '../../../Functions/RedirectAcesso';
 import { useNavigate } from "react-router-dom";
 import { RelatorioPP, exibeData, RelatorioVendas, traduzData } from "../../../Functions/Functions";
@@ -16,7 +15,6 @@ function PagRelatorios() {
     const User = UserOBJ.User; //Pega só o User....
     const navigate = useNavigate();
     RedirectAcesso(User, 2);
-    Redirect(User);
 
     // Referente a style:
     const { Alerta } = useAlerta(); // alertinha...

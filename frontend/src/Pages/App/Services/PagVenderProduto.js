@@ -3,7 +3,6 @@ import CabecalhoHome from "../../../Components/CabecalhoHome";
 import "../../../Styles/App/Service/PagVenderProduto.css";
 import axios from "axios";
 import { CheckCamposNulos } from "../../../Functions/Functions.js";
-import Redirect from "../../../Functions/Redirect";
 import { UserContext } from "../../../Context/UserContext";
 import AlertaNotificação from "./../../../Components/AlertaNotificação.js";
 import { useAlerta } from ".././../../Context/AlertaContext.js";
@@ -29,7 +28,6 @@ function PagVenderProduto() {
   const UserOBJ = useContext(UserContext);
   const User = UserOBJ.User;
   const { Alerta } = useAlerta();
-  Redirect(User);
 
   const pegaCategorias = async () => {
     try {

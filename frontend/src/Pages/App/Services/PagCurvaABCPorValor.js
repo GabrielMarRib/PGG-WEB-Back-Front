@@ -4,7 +4,6 @@ import '../../../Styles/App/Service/PagCurvaABC.css';
 import { ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import CabecalhoHome from "../../../Components/CabecalhoHome";
 import { UserContext } from "../../../Context/UserContext";
-import Redirect from "../../../Functions/Redirect";
 import RedirectAcesso from "../../../Functions/RedirectAcesso";
 import axios from "axios";
 import Titulo from "../../../Components/Titulo.jsx";
@@ -21,7 +20,7 @@ function CurvaABCPorValor() {
     const navigate = useNavigate();
 
     RedirectAcesso(User, 1);
-    Redirect(User);
+
 
     useEffect(() => {
         const pegaTudo = async () => {

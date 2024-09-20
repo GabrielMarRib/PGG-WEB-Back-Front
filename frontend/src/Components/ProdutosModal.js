@@ -49,27 +49,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
 
   //Categoria select
   const [categoriaSelecionada, setCategoriaSelecionada] = useState();
-  const [mudarCategoria, setMudarCategoria] = useState(null);
-  
-  const btnAtualizarNomeCategoria = async () => {
-
-    try {
-      const response = await axios.post (
-        "http://pggzettav3.mooo.com/api/index.php",
-        {
-          funcao: "",
-          senha: "@7h$Pz!q2X^vR1&K",
-          inputValue: categoriaSelecionada
-        }
-      );
-      console.log(response.data);
-      Alerta(2, "Inserção realizada");
-
-    } catch (error) {
-      console.log("deu ruim: " + error);
-    }
-  
-  };
+  const [overwriteCat, setOverWriteCat] = useState(false);
 
 
   useEffect(() => {
@@ -80,11 +60,14 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
           {
             funcao: "pegaprodutosporcategoria",
             senha: "@7h$Pz!q2X^vR1&K",
-            codcategoria: produtoOBJ.categoria,
+            codcategoria: overwriteCat ? categoriaSelecionada.id_categorias : produtoOBJ.categoria 
           }
         );
         setProdutosEmCat(response.data);
+        console.log("produtosEmCat:")
+        console.log(overwriteCat)
         console.log(response.data);
+        setOverWriteCat(false);
       } catch (error) {
         console.log("deu ruim: " + error);
       }
@@ -141,7 +124,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
     if (obj.length > 2) {
       setTamanho('GG')
     }
-    if(obj.length > 3){
+    if (obj.length > 3) {
       setTamanho('XGG')
     }
 
@@ -262,11 +245,10 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
     const handleForm = (e) => {
       e.preventDefault();
       let categoriaSelect = 0;
-      // console.log("Nosso teste:" + JSON.stringify(categoriaSelecionada))
-      if (categoriaSelecionada){
+      if (categoriaSelecionada) {
         categoriaSelect = categoriaSelecionada.nome
       }
-      else{
+      else {
         categoriaSelect = ''
       }
       const obj = formaObj([categoriaSelect], ['categoria'], ['nomeCat'], ['Nova'])
@@ -285,7 +267,8 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
         categoria: categoriaSelecionada.id_categorias,
         id_produto: produtoOBJ.id_produtos // itens que são necessários enviar para o banco de dados
       }
-      await atualizaDadosUniversal(funcao, setRefreshTudo)
+      setOverWriteCat(true);
+      await atualizaDadosUniversal(funcao, [setRefreshTudo,SetRefreshProdCat])
       setQtConsumo('');
       atualiza();
       setShowConfirma(false)
@@ -310,10 +293,13 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
           <div className='divConteudo' >
             <form className='formCat' onSubmit={(e) => handleForm(e)}>
 
-                Escolha a nova categoria do item:
-                  <center> <BuscaCategoriasComponentes setCategoriaSelecionada={setCategoriaSelecionada} categoriaSelecionada={categoriaSelecionada} /> </center>
-                    
-              <button  className='botao-testar' >Atualizar</button>
+              Categoria atual:
+              <h2>{tudoOLD.categoria + ' - ' + tudoOLD.nomeCat}</h2>
+              <hr />
+              Escolha a nova categoria do item:
+              <center> <BuscaCategoriasComponentes setCategoriaSelecionada={setCategoriaSelecionada} categoriaSelecionada={categoriaSelecionada} /> </center>
+
+              <button className='botao-testar' >Atualizar</button>
             </form>
           </div>
         </div>
@@ -327,9 +313,16 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
 
       if (response.status === 200) {
         Alerta(2, "Alterado com Sucesso");
-        if (setRefresh) {
-          setRefresh(prevState => !prevState)
-        }
+        
+        if(Array.isArray(setRefresh)){
+          setRefresh.forEach((set)=>{
+            console.log("passou aqui no array")
+            set(prevState => !prevState)
+          })
+        }else{
+          if (setRefresh) 
+            setRefresh(prevState => !prevState)
+        } 
       } else {
         Alerta(3, "Erro na alteração");
       }
@@ -432,7 +425,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
   const infoLote = () => {
     return (
       <div className='divSub'>
-        <h2 className='Titulo'> Visualizando informações de <u>Lote</u> do item</h2>
+        <h2 className='Titulo'> Visualizando informações de <u>Lotes</u> do item</h2>
         <div className='subTitulo'>
           <h3>'{produtoOBJ.nome}'</h3>
           <hr />
@@ -447,6 +440,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
                     filter: 'grayscale(100%)',
                   }}
                   placeholder={tudoOLD.dt_compra ? tudoOLD.dt_compra : 'Não possui'}
+                  readOnly
                 />
               </label>
               <label>
@@ -458,6 +452,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
                     filter: 'grayscale(100%)',
                   }}
                   placeholder={tudoOLD.dt_validade ? tudoOLD.dt_validade : "Não possui/Não se aplica"}
+                  readOnly
                 />
               </label>
               <label>
@@ -479,7 +474,8 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
                     cursor: 'not-allowed',
                     opacity: 0.5,
                     filter: 'grayscale(100%)',
-                  }}/>
+                  }} readOnly
+                  />
               </label>
               <label>
                 Valor de venda:
@@ -488,7 +484,11 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
                     cursor: 'not-allowed',
                     opacity: 0.5,
                     filter: 'grayscale(100%)',
-                  }} />
+                    
+                  }} 
+                  readOnly
+                  />
+                  
               </label>
               <p className="instrucao">Deseja alterar as informações de lote? Clique <Link to="/PagGerirCategoria">AQUI</Link> e vá para a página de gereciamento de LOTE para um controle mais detalhado</p>
             </form>
@@ -505,8 +505,8 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
 
       console.log(msgOBJ)
       setMsg(msgOBJ)
-      if(!tudoOLD.demanda_media && !tudoOLD.tempo_reposicao && !tudoOLD.quantidade_vendida && !tudoOLD.tempo_entrega){
-        if(DM === '' || TR === '' || QV === '' || TE === '') 
+      if (!tudoOLD.demanda_media && !tudoOLD.tempo_reposicao && !tudoOLD.quantidade_vendida && !tudoOLD.tempo_entrega) {
+        if (DM === '' || TR === '' || QV === '' || TE === '')
           setMsg("Por favor, preencha todos os campos")
       }
       setShowConfirma(true)
@@ -520,7 +520,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
         DM: DM === '' ? tudoOLD.demanda_media : DM,
         TR: TR === '' ? tudoOLD.tempo_reposicao : TR,
         QV: QV === '' ? tudoOLD.quantidade_vendida : QV,
-        TE: TE === '' ? tudoOLD.tempo_entrega : TE 
+        TE: TE === '' ? tudoOLD.tempo_entrega : TE
       }
       await atualizaDadosUniversal(funcao, setRefreshTudo)
       setDM('');
@@ -538,7 +538,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
           {showConfirma &&
             <ConfirmaModal
               message={msg}
-              onConfirm={() => atualizaDados() }
+              onConfirm={() => atualizaDados()}
               onCancel={() => setShowConfirma(false)}
               BoolMultiplaEscolha={msg == 'Por favor, informe pelo menos um campo para alteração' || msg == 'Por favor, preencha todos os campos' ? false : true}
               styles={{ 'STYLE1': { color: '#da0f0f' }, 'STYLE2': { color: '#00aef3' } }}
@@ -559,7 +559,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
                       setDM(value);
                     }
                   }}
-                  numeric/>
+                  numeric />
               </label>
 
               <label>
@@ -572,7 +572,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
                       setTR(value);
                     }
                   }}
-                  numeric/>
+                  numeric />
               </label>
 
               <label>
@@ -585,7 +585,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
                       setTE(value);
                     }
                   }}
-                  numeric/>
+                  numeric />
               </label>
 
               <label>
@@ -647,14 +647,14 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
   const infoCurva = () => {
 
     const handleForm = (e) => {
-      
+
       e.preventDefault();
       const obj = formaObj([qtConsumo], ['Quantidade de Consumo'], ['qt_consumo'], ['Nova'])
       const msgOBJ = preparaMSG_ALTERAR(obj)
 
       console.log(msgOBJ)
       setMsg(msgOBJ)
-      
+
       setShowConfirma(true)
     }
 
@@ -702,7 +702,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
                     if (/^\d*$/.test(value)) {
                       setQtConsumo(value);
                     }
-                   
+
                   }}
                   numeric
                 />
@@ -716,11 +716,88 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
   }
   const infoLoteEco = () => {
     return (
-      <div>
-        <h2 className='Titulo'> Editando <u>Lote Econômico</u> do item</h2>
+      <div className='divSub'>
+        <h2 className='Titulo'> Visualizando informações de <u>Lote Econômico</u> do item</h2>
         <div className='subTitulo'>
           <h3>'{produtoOBJ.nome}'</h3>
           <hr />
+          <div className='divConteudo'>
+            <form className='formCat'>
+              <label>
+                Demanda anual:
+                <input
+                  style={{
+                    cursor: 'not-allowed',
+                    opacity: 0.5,
+                    filter: 'grayscale(100%)',
+                  }}
+                  placeholder={tudoOLD.demanda_anual ? tudoOLD.demanda_anual : 'Não possui'}
+                  readOnly
+                />
+              </label>
+              <label>
+                Numero de Pedidos Anuais:
+                <input
+                  style={{
+                    cursor: 'not-allowed',
+                    opacity: 0.5,
+                    filter: 'grayscale(100%)',
+                  }}
+                  placeholder={tudoOLD.Numero_Pedidos_Anuais ? tudoOLD.Numero_Pedidos_Anuais : "Não possui"}
+                  readOnly
+                />
+              </label>
+              <label>
+                Valor Despesas Anuais:
+                <input
+                  style={{
+                    cursor: 'not-allowed',
+                    opacity: 0.5,
+                    filter: 'grayscale(100%)',
+                  }}
+                  placeholder={tudoOLD.valor_despesas_anuais ? tudoOLD.valor_despesas_anuais : "Não possui"}
+                  readOnly
+                />
+              </label>
+              <label>
+                Custo do Pedido:
+                <input placeholder={tudoOLD.custo_pedido? tudoOLD.custo_pedido : "Não possui"}
+                  style={{
+                    cursor: 'not-allowed',
+                    opacity: 0.5,
+                    filter: 'grayscale(100%)',
+                  }} readOnly
+                  />
+              </label>
+              <label>
+                Custo de armazenagem:
+                <input placeholder={tudoOLD.custo_armazem ? tudoOLD.custo_armazem : "Não possui"}
+                  style={{
+                    cursor: 'not-allowed',
+                    opacity: 0.5,
+                    filter: 'grayscale(100%)',
+                    
+                  }} 
+                  readOnly
+                  />
+                  
+              </label>
+              <label>
+                Cálculo Lote Econômico:
+                <input placeholder={tudoOLD.calculo_lote_eco ? tudoOLD.calculo_lote_eco : "Não possui"}
+                  style={{
+                    cursor: 'not-allowed',
+                    opacity: 0.5,
+                    filter: 'grayscale(100%)',
+                    
+                  }} 
+                  readOnly
+                  />
+                  
+              </label>
+              <p style={{fontSize: '15px'}}className="instrucao">Deseja alterar as informações de Lote Econômico? Clique <Link to="/PagLoteEconomico">AQUI</Link> e vá para a página de gereciamento de LOTE ECONÔMICO para um controle mais detalhado</p>
+            </form>
+          </div>
         </div>
       </div>
     )
@@ -741,7 +818,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
             className={`botao-aba ${abaAtiva === 'Lote' ? 'ativa' : ''}`}
             onClick={() => handleClickAba('Lote')}
           >
-            Lote
+            Lotes
           </button>
           <button
             className={`botao-aba ${abaAtiva === 'Ponto De Pedido' ? 'ativa' : ''}`}

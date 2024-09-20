@@ -3,14 +3,14 @@ import Cabecalho from "../../Components/CabecalhoHome.js";
 import "../../Styles/App/PagEscolhaProdutos.css"
 import { useContext } from "react";
 import { UserContext } from "../../Context/UserContext";
-import Redirect from "../../Functions/Redirect";
+
 
 function PagEscolhaProdutos() {
     const navigate = useNavigate();
     const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
     const User = UserOBJ.User; //Pega só o User....
 
-    Redirect(User);
+
     return (
         <div className="PagEscolhaProdutos">
             <div>

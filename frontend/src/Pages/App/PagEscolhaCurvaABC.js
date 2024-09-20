@@ -3,7 +3,6 @@ import Cabecalho from '../../Components/CabecalhoHome'; // Utilize o mesmo compo
 import "../../Styles/App/PagEscolhaCurvaABC.css";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../Context/UserContext";
-import Redirect from "../../Functions/Redirect";
 import RedirectAcesso from '../../Functions/RedirectAcesso';
 import axios from 'axios';
 function PagEscolhaCurvaABC() {
@@ -22,7 +21,7 @@ function PagEscolhaCurvaABC() {
     const UserOBJ = useContext(UserContext);
     const User = UserOBJ.User;
 
-    Redirect(User);
+
     RedirectAcesso(User,1)
     const navigate = useNavigate();
     const [menuOpen, setMenuOpen] = useState(false);

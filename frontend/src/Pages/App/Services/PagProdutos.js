@@ -10,7 +10,7 @@ import AlertaNotificação from "../../../Components/AlertaNotificação.js";
 import { useAlerta } from "../../../Context/AlertaContext.js";
 import { useContext } from "react";
 import { UserContext } from "../../../Context/UserContext.js";
-import Redirect from "../../../Functions/Redirect.js";
+
 import ProdutosModal from "../../../Components/ProdutosModal.js";
 import Titulo from "../../../Components/Titulo.jsx";
 
@@ -18,7 +18,6 @@ function PagProdutos() {
   const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
   const User = UserOBJ.User; //Pega só o User....
   const navigate = useNavigate();
-  Redirect(User);
 
   const { Alerta } = useAlerta();
   const [codigo, setCodigo] = useState(null);
@@ -28,8 +27,8 @@ function PagProdutos() {
   const [codigoDeBarras, setCodigoDeBarras] = useState('');
   const [dataCompra, setDataCompra] = useState('');
   const [dataValidade, setDataValidade] = useState('');
-  const [valorCompra, setValorCompra] = useState(0);
-  const [valorVenda, setValorVenda] = useState(0);
+  const [valorCompra, setValorCompra] = useState('');
+  const [valorVenda, setValorVenda] = useState('');
 
 
   //Pesquisa
@@ -100,7 +99,7 @@ function PagProdutos() {
         codigoBarras: codigoDeBarras, // na api, referenciamos como 'codigoBarras' não 'codigoDeBarras'... Regra: o da esquerda é oq vc manda pra gente do backend
         categoria: categoriaSelecionada?.id_categorias ? categoriaSelecionada.id_categorias : null, //categoria q é selecionada pelo usuario no select...
         dt_compra: dataCompra,
-        dt_validade: dataValidade, // na api, referenciamos como 'codigoBarras' não 'codigoDeBarras'... Regra: o da esquerda é oq vc manda pra gente do backend
+        dt_validade: dataValidade === '' ? null : dataValidade, // na api, referenciamos como 'codigoBarras' não 'codigoDeBarras'... Regra: o da esquerda é oq vc manda pra gente do backend
         quantidade: quantidade, //categoria q é selecionada pelo usuario no select...
         vlr_compra: valorCompra,
         vlr_venda: valorVenda,
@@ -326,7 +325,7 @@ function PagProdutos() {
                       type="int"
                       id="quantidadeProduto"
                       required value={quantidade}
-                      onChange={(e) => setQuantidade(parseInt(e.target.value))}
+                      onChange={(e) => setQuantidade(e.target.value === '' ? 0 : parseInt(e.target.value))}
                     />
                   </div>
 

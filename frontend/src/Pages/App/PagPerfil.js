@@ -13,7 +13,7 @@ import IconListaFunc from '../../Assets/ListaFunc.png';
 import { UserContext } from '../../Context/UserContext.js'
 import { handleLogOut } from "../../Functions/Functions.js";
 import { useNavigate } from "react-router-dom";
-import Redirect from "../../Functions/Redirect.js";
+
 import Notificacao from "../../Components/Notificacao.js";
 
 function PagPerfil() {
@@ -26,7 +26,7 @@ function PagPerfil() {
         setShowPopup(!showPopup);
     };
 
-    Redirect(User)
+
 
     const mostraNivelAcesso = () => {
         if (User && User.userData) {
