@@ -10,50 +10,54 @@ function PagHistorico() {
 
   const [historico, setHistorico] = useState([]);
   const [camposVariaveis, setCamposVariaveis] = useState([])
+
   useEffect(() => { // useEffect para pegar informações da LISTA de categorias...
     const pegaHistorico = async () => { // função existe para separar async do useEffect...
-        try {
-            const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {  // acessa via post (SEMPRE SERÁ POST)                
-                funcao: 'consultarHistorico', // dita qual função deve ser utilizada da api. (a gente te fala o nome) // ---> parâmetros da consulta... SÃO necessários.
-                senha: '@7h$Pz!q2X^vR1&K' // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
-            });
-            setHistorico(response.data); // coloca a LISTA de categorias em uma useState
-            console.log(response.data) // log para sabermos o que foi pego.
-            criaCampos(response.data)
-        } catch (error) {
-            console.log("deu ruim: " + error) // log para sabermos qual foi o erro
-        }
+      try {
+        const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {  // acessa via post (SEMPRE SERÁ POST)                
+          funcao: 'consultarHistorico', // dita qual função deve ser utilizada da api. (a gente te fala o nome) // ---> parâmetros da consulta... SÃO necessários.
+          senha: '@7h$Pz!q2X^vR1&K' // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
+        });
+        setHistorico(response.data); // coloca a LISTA de categorias em uma useState
+        console.log(response.data) // log para sabermos o que foi pego.
+        criaCampos(response.data)
+      } catch (error) {
+        console.log("deu ruim: " + error) // log para sabermos qual foi o erro
+      }
     };
     pegaHistorico(); //chama a função
-}, [])
+  }, [])
 
-const criaCampos = (dados) =>{
+  const criaCampos = (dados) => {
     const dadosUnicos = [];
-    for(let dado of dados){
-        if(!dadosUnicos.includes(dado.campos)){
-          if(dado.campos.indexOf(',') > 0){
-            const subArray = dado.campos.split(',')
-            subArray.forEach((valor)=>{
-              let valTrim = valor.trim();
-              if(!dadosUnicos.includes(valTrim)){
-                dadosUnicos.push(valTrim)
-              }         
-            })
-          }
-          dadosUnicos.push(dado.campos)
+    for (let dado of dados) {
+      if (!dadosUnicos.includes(dado.campos)) {
+        if (dado.campos.indexOf(',') > 0) {
+          const subArray = dado.campos.split(',')
+          subArray.forEach((valor) => {
+            let valTrim = valor.trim();
+            if (!dadosUnicos.includes(valTrim)) {
+              dadosUnicos.push(valTrim)
+            }
+          })
         }
+        dadosUnicos.push(dado.campos)
+      }
     };
-    dadosUnicos.forEach((dado)=>{
-      if(dado.indexOf(',') > 0)
-      {
+    dadosUnicos.forEach((dado) => {
+      if (dado.indexOf(',') > 0) {
         const index = dadosUnicos.indexOf(dado)
-        dadosUnicos.splice(index,1);
+        dadosUnicos.splice(index, 1);
       }
     })
     console.log(dadosUnicos)
     setCamposVariaveis(dadosUnicos)
-}
+  }
+  let i = 0;
 
+  const constroiRegistros = () =>{
+
+  }
   return (
     <div className="PagHistorico">
       <div className="Cabecalho">
@@ -72,7 +76,7 @@ const criaCampos = (dados) =>{
           <thead>
             <tr>
               <th>Departamento</th>
-              {camposVariaveis.map((campo)=>(
+              {camposVariaveis.map((campo) => (
                 <th>{campo}</th>
               ))}
               <th>AUTOR</th>
@@ -81,19 +85,63 @@ const criaCampos = (dados) =>{
             </tr>
           </thead>
           <tbody>
-             {historico.map((registro) => (
+            {historico.map((registro) => (
               <tr key={registro.id}>
                 {/*work in progress muito forte aqui */}
+
                 <td>{registro.tabela}</td>
-                <td>{registro.valores_antigos}</td>
-                <td>{registro.valores_novos}</td>
+                {camposVariaveis.map((campo, index) => (
+                  registro.campos.includes(campo) ? (
+                    (()=>{
+                      
+                      let registrosAntigos = '';
+                      let registrosNovos = '';
+                      let registrosRaw = '';
+
+                      if(registro.valores_antigos?.indexOf(',') > 0){
+                        registrosRaw = registro.valores_antigos.split(',')
+                        registrosAntigos = registrosRaw[i]
+                        console.log(registrosRaw.length)
+                      }else{
+                        registrosAntigos = registro.valores_antigos;
+                      }
+
+                      if(registro.valores_novos?.indexOf(',') > 0){
+                        registrosRaw = registro.valores_novos.split(',')
+                        registrosNovos = registrosRaw[i]
+                      }else{
+                        registrosNovos = registro.valores_novos;
+                      }
+                      i++;
+                      if (i > registrosRaw.length-1)
+                        i = 0;
+                      return (       
+                         <td>
+                          antigos: {registrosAntigos} <br/>
+                          novos: {registrosNovos}
+                         </td> 
+                      )
+
+                      console.log(registro.valores_antigos?.indexOf(','))
+                    })()  
+                    // 
+                    
+                  ) :  (
+                    <td></td>
+                  )
+                  
+
+                ))}
+                {/* <td>{registro.valores_antigos}</td>
+                <td>{registro.valores_novos}</td> */}
 
 
                 <td>{registro.nome_autor}</td>
                 <td>{registro.data}</td>
                 <td>{registro.justificativa}</td>
               </tr>
-            ))} 
+            ))}
+
           </tbody>
         </table>
       </div>
