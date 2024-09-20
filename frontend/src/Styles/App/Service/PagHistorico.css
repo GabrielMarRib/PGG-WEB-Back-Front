@@ -1,0 +1,125 @@
+.PagHistorico {
+    font-family: 'JetBrains Mono';
+}
+
+.PagHistorico .btn {
+    margin-bottom: 20px;
+}
+
+.PagHistorico button {
+    padding: 10px 20px;
+    border-radius: 3px;
+    background-color: #e04d18;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
+    font-family: 'JetBrains Mono';
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.PagHistorico button:hover {
+    background-color: #c43e10;
+}
+
+.historicoVendas {
+    margin-top: 20px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.historicoTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.historicoTable th, 
+.historicoTable td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+    vertical-align: top; 
+}
+
+.historicoTable th {
+    background-color: #e04d18;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.historicoTable tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.historicoTable tr:hover {
+    background-color: #f1f1f1;
+}
+
+.historicoTable td {
+    color: #333;
+    font-family: 'JetBrains Mono';
+    font-size: 14px;
+}
+
+.historicoTable th {
+    font-family: 'JetBrains Mono';
+    font-size: 16px;
+}
+
+.PagHistorico table {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+
+.inner-table {
+    width: 100%;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.inner-table td {
+    padding: 5px 0; 
+    border: none;
+    font-family: 'JetBrains Mono';
+    font-size: 14px;
+}
+
+.tag-antigos, .tag-novos {
+    display: inline-block;
+    padding: 2px 6px;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    border-radius: 3px;
+}
+
+.tag-antigos {
+    background-color: #ff2600; 
+}
+
+.tag-novos {
+    background-color: #32cd32; 
+}
+
+@media (max-width: 768px) {
+    .historicoVendas {
+        padding: 10px;
+    }
+
+    .historicoTable th, 
+    .historicoTable td {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .PagHistorico button {
+        font-size: 14px;
+    }
+}

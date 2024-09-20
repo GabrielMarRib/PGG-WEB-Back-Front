@@ -7,6 +7,7 @@ import ImagePEPS from '../../Assets/PEPS.png';
 import ImagePedido from '../../Assets/pontodePedido.png';
 import ImageMedio from '../../Assets/custoMedio.png';
 import ImageCaixa from '../../Assets/caixa.png';
+import historia from '../../Assets/historia.png';
 import IconLogOut from "../../Assets/LogOutIconWhite.png";
 import Notificacao from "../../Components/Notificacao";
 import { handleLogOut } from "../../../src/Functions/Functions.js";
@@ -67,6 +68,7 @@ function PagHome() {
     { title: "PEPS", img: ImagePEPS, link: "/PEPS" },
     { title: "Lote Econômico", img: ImageLote, link: "/PagLoteEconomico" },
     { title: "Custo Médio", img: ImageMedio, link: "/pagInicial" },
+    { title: "Histórico", img: historia, link: "/PagHistorico" },
     { title: "Options", img: OptionIcon, link: "/PagPerfil" }
   ];
 
@@ -214,7 +216,7 @@ function PagHome() {
           </button>
         {showPontoPedido && (
             <div className="estoque-options">
-              <button className="option-button" onClick={() => navigate("/PagProdutos")}>Ponto de pedido</button>
+              <button className="option-button" onClick={() => navigate("/PagPontoPedido")}>Ponto de pedido</button>
               <button className="option-button" onClick={() => navigate("/PagCadFornecedor")}>Cadastro de fornecedor</button>
             </div>
           )}
