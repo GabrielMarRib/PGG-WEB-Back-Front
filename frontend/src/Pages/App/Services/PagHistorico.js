@@ -117,11 +117,10 @@ function PagHistorico() {
                         i = 0;
                       return (       
                          <td>
-                          antigos: {registrosAntigos} <br/>
+                          antigos: {registrosAntigos ? registrosAntigos : "Não possui"} <br/>
                           novos: {registrosNovos}
-                         </td> 
+                         </td>  
                       )
-
                       console.log(registro.valores_antigos?.indexOf(','))
                     })()  
                     // 
