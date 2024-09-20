@@ -29,6 +29,7 @@ function PagHistorico() {
   }, [])
 
   const criaCampos = (dados) => {
+
     const dadosUnicos = [];
     for (let dado of dados) {
       if (!dadosUnicos.includes(dado.campos)) {
