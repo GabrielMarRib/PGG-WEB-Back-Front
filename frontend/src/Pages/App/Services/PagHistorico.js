@@ -29,11 +29,27 @@ function PagHistorico() {
 
 const criaCampos = (dados) =>{
     const dadosUnicos = [];
-    dados.forEach(dado => {
+    for(let dado of dados){
         if(!dadosUnicos.includes(dado.campos)){
+          if(dado.campos.indexOf(',') > 0){
+            const subArray = dado.campos.split(',')
+            subArray.forEach((valor)=>{
+              let valTrim = valor.trim();
+              if(!dadosUnicos.includes(valTrim)){
+                dadosUnicos.push(valTrim)
+              }         
+            })
+          }
           dadosUnicos.push(dado.campos)
         }
-    });
+    };
+    dadosUnicos.forEach((dado)=>{
+      if(dado.indexOf(',') > 0)
+      {
+        const index = dadosUnicos.indexOf(dado)
+        dadosUnicos.splice(index,1);
+      }
+    })
     console.log(dadosUnicos)
     setCamposVariaveis(dadosUnicos)
 }
