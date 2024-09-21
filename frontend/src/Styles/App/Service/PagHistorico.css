@@ -161,6 +161,27 @@
     font-weight: bold; 
 }
 
+
+.PagHistorico .historicoTable .Data {
+    text-align: center; 
+    padding-top: 45px;
+    font-size: 16px;
+}
+
+
+.PagHistorico .historicoTable .Autor {
+    text-align: center; 
+    padding-top: 45px;
+    font-size: 16px;
+}
+
+
+.PagHistorico .historicoTable .justificativa {
+    text-align: center; 
+    padding-top: 45px;
+    font-size: 16px;
+}
+
 /* Select */
 
 .PagHistorico .filtroDepartamento {
@@ -184,3 +205,4 @@
     font-family: 'JetBrains Mono'; 
     transition: border-color 0.3s ease;
 }
+

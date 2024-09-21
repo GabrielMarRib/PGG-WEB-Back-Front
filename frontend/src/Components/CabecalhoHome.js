@@ -152,8 +152,8 @@ const CabecalhoHome = () => {
           </li>
 
           <li>
-            <a onClick={() => { navigate("/pagInicial") }}
-              className="paginas"> Custo Médio </a>
+            <a onClick={() => { navigate("/PagHistorico") }}
+              className="paginas"> Histórico </a>
           </li>
 
 

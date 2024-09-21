@@ -245,9 +245,9 @@ function PagHistorico() {
                     <td key={campo}></td>
                   )
                 )}
-                <td>{registro.nome_autor}</td>
-                <td>{registro.data}</td>
-                <td>{registro.justificativa}</td>
+                <td className="Autor">{registro.nome_autor}</td>
+                <td className="Data">{registro.data}</td>
+                <td className="justificativa">{registro.justificativa}</td>
               </tr>
             ))}
           </tbody>
