@@ -78,10 +78,11 @@
 
 
 .PagHistorico .inner-table {
+    margin-top: 10%;
     width: 100%;
     border: none;
-    margin: 0;
     padding: 0;
+    display: table;
 }
 
 .PagHistorico .inner-table td {
@@ -130,6 +131,12 @@
     font-weight: 600;
 }
 
+.PagHistorico .infoAdicional{
+    margin-bottom: 0;
+    background-color: #f5f5f5;
+    border-radius: 2px;
+}
+
 .PagHistorico .TDnovo{
     display: flex;
     background-color: rgba(40, 202, 61, 0.199);
@@ -137,6 +144,16 @@
     font-weight: 700;
 }
 
+.PagHistorico .tdInfernal {
+    min-width: 70px;
+
+}
+
+.PagHistorico .paiTabela{
+    background-color: #e4e4e4;
+    border-radius: 3px;
+    font-weight: 1000;
+}
 
 .highlight {
     background-color: #32cd32; 
