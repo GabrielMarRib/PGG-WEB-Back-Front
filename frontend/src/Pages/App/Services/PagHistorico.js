@@ -12,19 +12,20 @@ function PagHistorico() {
   const [historico, setHistorico] = useState([]);
   const [camposVariaveis, setCamposVariaveis] = useState([]);
   const [departamentoSelecionado, setDepartamentoSelecionado] = useState(""); // Porra do filtro de departamento
-
-  useEffect(() => { // useEffect para pegar informações da LISTA de categorias...
+  const [adicionaisCurva, setAdicionaisCurva] = useState([]);
+  const [adicionaisLote, setAdicionaisLote] = useState([]);
+  useEffect(() => {
     const pegaHistorico = async () => { // função existe para separar async do useEffect...
       try {
-        const response = await axios.post(   // acessa via post (SEMPRE SERÁ POST)
+        const response = await axios.post(
           "http://pggzettav3.mooo.com/api/index.php",
           {
-            funcao: "consultarHistorico", // dita qual função deve ser utilizada da api. (a gente te fala o nome) // ---> parâmetros da consulta... SÃO necessários.
-            senha: "@7h$Pz!q2X^vR1&K", // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
+            funcao: "consultarHistorico",
+            senha: "@7h$Pz!q2X^vR1&K",
           }
         );
-        setHistorico(response.data); // coloca a LISTA de categorias em uma useState
-        console.log(response.data); // log para sabermos o que foi pego.
+        setHistorico(response.data);
+        console.log(response.data);
         criaCampos(response.data);
       } catch (error) {
         console.log("deu ruim: " + error); // log para sabermos qual foi o erro
@@ -32,6 +33,33 @@ function PagHistorico() {
     };
     pegaHistorico(); //chama a função
   }, []);
+
+  useEffect(() => {
+    const pegaAdicionais = async () => {
+      try {
+        const response = await axios.post(
+          "http://pggzettav3.mooo.com/api/index.php",
+          {
+            funcao: "PegaTodosDadosCurvaABC",
+            senha: "@7h$Pz!q2X^vR1&K",
+          }
+        );
+        setAdicionaisCurva(response.data);
+        const responseLote = await axios.post(
+          "http://pggzettav3.mooo.com/api/index.php",
+          {
+            funcao: "PegarLotes",
+            senha: "@7h$Pz!q2X^vR1&K",
+          }
+        );
+        setAdicionaisLote(responseLote.data)
+        console.log(responseLote.data)
+      } catch (error) {
+        console.log("deu ruim: " + error); // log para sabermos qual foi o erro
+      }
+    };
+    pegaAdicionais();
+  }, [])
 
   const criaCampos = (dados) => {
     const dadosUnicos = [];
@@ -62,9 +90,9 @@ function PagHistorico() {
   // Função Para filtrar departamento selecionado
   const historicoFiltrado = departamentoSelecionado
     ? historico.filter( // Se não for vazio
-        (registro) => 
-          registro.tabela.toLowerCase() === departamentoSelecionado.toLowerCase()
-      )
+      (registro) =>
+        registro.tabela.toLowerCase() === departamentoSelecionado.toLowerCase()
+    )
     : historico; // Se essa porra estiver vazio, retorna todo a arry do historico
 
   let i = 0; // Inicia essa porra 
@@ -73,17 +101,16 @@ function PagHistorico() {
   // Campos pertencentes a cada departamento
   const camposDepartamento = {
     curvaabc: ["quantidadeConsumo"],
-    lote: ["vlr_compra", "vlr_venda", "qtde"],
-    teste: ["teste1", "teste2","teste3"]
+    lote: ["vlr_compra", "vlr_venda", "qtde"]
   };
 
-  
+
   const obterCamposDepartamento = () => {
     // retorna os campos do departamento que foi selecionado ou os campos variaveis se nenhum departamento estiver selecionado
     if (departamentoSelecionado && camposDepartamento[departamentoSelecionado]) {
       return camposDepartamento[departamentoSelecionado];
     }
-    return camposVariaveis; 
+    return camposVariaveis;
   };
 
   return (
@@ -109,7 +136,6 @@ function PagHistorico() {
           <option value="">Todos</option>
           <option value="curvaabc">Curva ABC</option>
           <option value="lote">Lote</option>
-          <option value="teste">teste</option>
 
         </select>
       </div>
@@ -128,76 +154,103 @@ function PagHistorico() {
             </tr>
           </thead>
           <tbody>
-          {historicoFiltrado.map((registro) => (
-            <tr key={registro.id}>
-              <td>{registro.tabela}</td>
-              {obterCamposDepartamento().map((campo) =>
-                registro.campos.includes(campo) ? (
-                  (() => {
-                    let registrosAntigos = "";
-                    let registrosNovos = "";
-                    let registrosRaw = "";
-                    let multiplo = false;
-
-                    if (registro.valores_antigos?.indexOf(",") > 0) {
-                      registrosRaw = registro.valores_antigos.split(",");
-                      multiplo = true;
-                      registrosAntigos = registrosRaw[i];
-                    } else {
-                      registrosAntigos = registro.valores_antigos;
+            {historicoFiltrado.map((registro) => (
+              <tr key={registro.id}>
+                <td>
+                  <div className="paiTabela">
+                    {registro.tabela}
+                  </div>
+                  <br />
+                  {(() => {
+                    if (registro?.tabela === 'curvaabc') {
+                      const achados = adicionaisCurva.find((adicional) => adicional.id_curvaabc === registro.id_tabela)
+                      return (
+                        <div className="infoAdicional">
+                          Produto: <span style={{fontWeight: '700'}}>{achados?.prodNome}</span><br />
+                          Id: <span style={{fontWeight: '700'}}>{achados?.id_produtos}</span><br />
+                          Categoria: <span style={{fontWeight: '700'}}>{achados?.id_categorias} - {achados?.catNome}</span>
+                        </div>
+                      )
+                    } else if (registro?.tabela === 'lote'){
+                      const achados = adicionaisLote.find((adicional) => adicional.numerolote === registro.id_tabela)
+                      return (
+                        <div className="infoAdicional">
+                          Id lote: <span style={{fontWeight: '700'}}>{achados?.numerolote}</span><br />
+                          Produto: <span style={{fontWeight: '700'}}>{achados?.nome}</span><br />
+                          Fornecedor: <span style={{fontWeight: '700'}}>{achados?.fornecedor ? achados?.fornecedor : "Não cadastrado"}</span><br />
+                          Nota Fiscal: <span style={{fontWeight: '700'}}>{achados?.nota_fiscal ? achados?.nota_fiscal : "Não cadastrado"}</span><br />
+                        </div>
+                      )
                     }
+                  })()}
+                </td>
+                {obterCamposDepartamento().map((campo) =>
+                  registro.campos.includes(campo) ? (
+                    (() => {
+                      let registrosAntigos = "";
+                      let registrosNovos = "";
+                      let registrosRaw = "";
+                      let multiplo = false;
 
-                    if (registro.valores_novos?.indexOf(",") > 0) { //repetindo a mesma coisa pq isso NÃO DÁ pra deixar estável em um método por alguma CARALHA de motivo
-                      registrosRaw = registro.valores_novos.split(",");
-                      registrosNovos = registrosRaw[i];
-                    } else {
-                      registrosNovos = registro.valores_novos;
-                    }
+                      if (registro.valores_antigos?.indexOf(",") > 0) {
+                        registrosRaw = registro.valores_antigos.split(",");
+                        multiplo = true;
+                        registrosAntigos = registrosRaw[i];
+                      } else {
+                        registrosAntigos = registro.valores_antigos;
+                      }
 
-                    i++;
-                    if (i > registrosRaw.length - 1) i = 0;
-                    return (
-                      <td>
-                        <table className="inner-table">
-                          <tbody>
-                            <tr>
-                              {multiplo
-                                ? i - 1 === 0 ? (
-                                  <td><span className="tag-antigos">ANTIGOS</span></td>
-                                ) : null
+                      if (registro.valores_novos?.indexOf(",") > 0) { //repetindo a mesma coisa pq isso NÃO DÁ pra deixar estável em um método por alguma CARALHA de motivo
+                        registrosRaw = registro.valores_novos.split(",");
+                        registrosNovos = registrosRaw[i];
+                      } else {
+                        registrosNovos = registro.valores_novos;
+                      }
 
-                                : i === 0 ? (
-                                  <td><span className="tag-antigos">ANTIGOS</span></td>
-                                ) : null}
-                              <td className="TDantigo">
-                                {registrosAntigos ? "ﾠ" + registrosAntigos : "ﾠNão possui"}
-                              </td>
-                            </tr>
-                            <tr>
-                              {multiplo
-                                ? i - 1 === 0 ? (
-                                  <td><span className="tag-novos">NOVOS</span></td>
-                                ) : null
-                                : i === 0 ? (
-                                  <td><span className="tag-novos">NOVOS</span></td>
-                                ) : null}
-                              <td className="TDnovo">{"ﾠ" + registrosNovos}</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </td>
-                    );
-                  })()
-                ) : (
-                  <td key={campo}></td>
-                )
-              )}
-              <td>{registro.nome_autor}</td>
-              <td>{registro.data}</td>
-              <td>{registro.justificativa}</td>
-            </tr>
-          ))}
-        </tbody>
+                      i++;
+                      if (i > registrosRaw.length - 1) i = 0;
+                      return (
+                        <td className="tdInfernal">
+                          <table className="inner-table">
+                            <tbody>
+                              <tr>
+                                {multiplo
+                                  ? i - 1 === 0 ? (
+                                    <td><span className="tag-antigos">ANTIGOS</span></td>
+                                  ) : null
+
+                                  : i === 0 ? (
+                                    <td><span className="tag-antigos">ANTIGOS</span></td>
+                                  ) : null}
+                                <td className="TDantigo">
+                                  {registrosAntigos ? "ﾠ" + registrosAntigos : "ﾠNão possui"}
+                                </td>
+                              </tr>
+                              <tr>
+                                {multiplo
+                                  ? i - 1 === 0 ? (
+                                    <td><span className="tag-novos">NOVOS</span></td>
+                                  ) : null
+                                  : i === 0 ? (
+                                    <td><span className="tag-novos">NOVOS</span></td>
+                                  ) : null}
+                                <td className="TDnovo">{"ﾠ" + registrosNovos}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      );
+                    })()
+                  ) : (
+                    <td key={campo}></td>
+                  )
+                )}
+                <td>{registro.nome_autor}</td>
+                <td>{registro.data}</td>
+                <td>{registro.justificativa}</td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
     </div>
