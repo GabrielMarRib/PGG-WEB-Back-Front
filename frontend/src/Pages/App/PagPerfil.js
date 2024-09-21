@@ -57,9 +57,6 @@ function PagPerfil() {
                     ) :
                         null
                     }
-                    <div className="notific">
-                        <Notificacao />
-                    </div>
                 </div>
             </div>
             <div className="Corpo">

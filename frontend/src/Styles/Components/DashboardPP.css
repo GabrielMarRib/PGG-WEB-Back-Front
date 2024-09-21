@@ -1,0 +1,45 @@
+.DashPP {
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 10px; 
+    margin-top: 20px;
+    border-radius: 10px;
+  }
+  
+  /* Estilo para a barra de rolagem */
+  .DashPP::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .DashPP::-webkit-scrollbar-thumb {
+    background-color: #dedede; 
+    border-radius: 10px;
+  }
+  
+  .DashPP::-webkit-scrollbar-thumb:hover {
+    background-color: #c9c9c9;
+  }
+  
+  .DashPP .notificacaoItem {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .DashPP .notificacaoItem:last-child {
+    border-bottom: none;
+  }
+  
+  .DashPP .BotaoAcao {
+    margin: 8px 0;
+    padding: 6px 10px; /* Reduzido para deixar o botão mais compacto */
+    font-size: 14px; /* Tamanho da fonte já ajustado */
+    background-color: #fc8458;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .DashPP .BotaoAcao:hover {
+    background-color: #d6501f;
+  }
+  

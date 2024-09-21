@@ -10,6 +10,7 @@ import ImageCaixa from '../../Assets/caixa.png';
 import historia from '../../Assets/historia.png';
 import IconLogOut from "../../Assets/LogOutIconWhite.png";
 import Notificacao from "../../Components/Notificacao";
+import DashboardPP from "../../Components/DashboardPP.js";
 import { handleLogOut } from "../../../src/Functions/Functions.js";
 import GraficoTeste from "../../Components/GraficoTeste.jsx";
 import { UserContext } from "../../Context/UserContext";
@@ -54,11 +55,11 @@ function PagHome() {
     { title: "Faturamento (bruto)", content: "preço de venda x quantidade vendida" },
     { title: "Ticket Médio", content: "valor total das vendas pelo número de transações" },
     { title: "Positividade", content: categorias.length > 0 ? categorias[4].nome : "carregando..." },
-    { title: "Ponto de Pedido", content: "Verifique os pedidos urgentes"  },
+    { title: "Linha de Produto", content: "Informação sobre linha de produto", isSameHeight: true },
     { title: "Positividade por Produto", content: "Informação sobre positividade por produto" },
     { title: "Faturamento", content: "Faturamento Geral"},
     { title: "Evolução de Vendas", content: "Análise Mensal da Evolução de Vendas", isChart: true },
-    { title: "Linha de Produto", content: "Informação sobre linha de produto", isSameHeight: true },
+    { title: "Ponto de Pedido", content: <DashboardPP />  },
   ];
 
   const buttons = [
