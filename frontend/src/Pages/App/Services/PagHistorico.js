@@ -56,9 +56,6 @@ function PagHistorico() {
   }
   let i = 0;
 
-  const constroiRegistros = () =>{
-
-  }
   return (
     <div className="PagHistorico">
       <div className="Cabecalho">
@@ -88,60 +85,61 @@ function PagHistorico() {
           <tbody>
             {historico.map((registro) => (
               <tr key={registro.id}>
-                {/*work in progress muito forte aqui */}
 
                 <td>{registro.tabela}</td>
-                {camposVariaveis.map((campo, index) => (
+                {camposVariaveis.map((campo) => (
                   registro.campos.includes(campo) ? (
                     (()=>{
-                      
+                       
                       let registrosAntigos = '';
                       let registrosNovos = '';
                       let registrosRaw = '';
+                      let multiplo = false;
 
                       if(registro.valores_antigos?.indexOf(',') > 0){
                         registrosRaw = registro.valores_antigos.split(',')
+                        multiplo = true;
                         registrosAntigos = registrosRaw[i]
-                        console.log(registrosRaw.length)
                       }else{
                         registrosAntigos = registro.valores_antigos;
                       }
 
-                      if(registro.valores_novos?.indexOf(',') > 0){
+                      if(registro.valores_novos?.indexOf(',') > 0){ //repetindo a mesma coisa pq isso NÃO DÁ pra deixar estável em um método por alguma CARALHA de motivo
                         registrosRaw = registro.valores_novos.split(',')
                         registrosNovos = registrosRaw[i]
                       }else{
                         registrosNovos = registro.valores_novos;
                       }
+
                       i++;
                       if (i > registrosRaw.length-1)
                         i = 0;
                       return (       
                          <td>
-                          antigos: {registrosAntigos ? registrosAntigos : "Não possui"} <br/>
-                          novos: {registrosNovos}
+                          <table className="inner-table">
+                                <tbody>
+                                  <tr>
+                                    {multiplo ? i-1 === 0 ? <td><span className="tag-antigos">ANTIGOS</span></td> : null : i === 0 ? <td><span className="tag-antigos">ANTIGOS</span></td> : null}
+                                    <td className="TDantigo">{registrosAntigos ? "ﾠ" + registrosAntigos : "ﾠNão possui"} </td>
+                                  </tr>
+                                  <tr>
+                                    {multiplo ? i-1 === 0 ? <td><span className="tag-novos">NOVOS</span></td> : null : i === 0 ? <td><span className="tag-novos">NOVOS</span></td> : null}
+                                    <td className="TDnovo">{"ﾠ"+registrosNovos}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
                          </td>  
                       )
-                      console.log(registro.valores_antigos?.indexOf(','))
                     })()  
-                    // 
-                    
-                  ) :  (
+                  ) : (
                     <td></td>
-                  )
-                  
-
+                  )               
                 ))}
-                {/* <td>{registro.valores_antigos}</td>
-                <td>{registro.valores_novos}</td> */}
-
-
                 <td>{registro.nome_autor}</td>
                 <td>{registro.data}</td>
                 <td>{registro.justificativa}</td>
               </tr>
             ))}
-
           </tbody>
         </table>
       </div>
