@@ -136,3 +136,35 @@
     border-radius: 5px;
     font-weight: 700;
 }
+
+
+.highlight {
+    background-color: #32cd32; 
+    color: white; 
+    font-weight: bold; 
+}
+
+/* Select */
+
+.PagHistorico .filtroDepartamento {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    margin: 20px 0; 
+}
+
+.PagHistorico .filtroDepartamento label {
+    font-family: 'JetBrains Mono';
+    font-size: 16px; 
+    margin-bottom: 10px;
+}
+
+.PagHistorico .filtroDepartamento select {
+    padding: 10px; 
+    border-radius: 3px; 
+    border: 1px solid #ddd; 
+    font-size: 16px;
+    font-family: 'JetBrains Mono'; 
+    transition: border-color 0.3s ease;
+}
+
