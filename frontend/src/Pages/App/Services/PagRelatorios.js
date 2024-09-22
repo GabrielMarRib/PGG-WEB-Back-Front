@@ -41,26 +41,11 @@ function PagRelatorios() {
         setRelatorioPP(responsePP);
         setRelatorioVendas(responseVendas);
     };
-    if(Array.isArray(relatorioPP)){
-    relatorioPP.sort((a, b) => {
-        const dataA = traduzData(a);
-        const dataB = traduzData(b);
-
-        return dataB - dataA;
-    });
-}
-
-    if (Array.isArray(relatorioVendas)) {
-        relatorioVendas.sort((a, b) => {
-            const dataA = traduzData(a);
-            const dataB = traduzData(b);
-            return dataB - dataA;
-        });
-    }
 
     useEffect(() => {
         pegaRelatorios();
     }, [forceUpdate]);
+
 
     const handleChange = (event) => {
         const value = event.target.value;
@@ -72,18 +57,24 @@ function PagRelatorios() {
         setTipoRelatorio(value);
     };
 
-    const mapeiaRelatorios = () => {
+    const mapeiaRelatorios = (teste) => {
         if (!tipoRelatorio || tipoRelatorio === 'nulo') {
             return null;
         }
     
         let relatorios = [];
         if (tipoRelatorio === 'PP') {
+            if (relatorioSelecionado && relatorioSelecionado.id_relatorio) {
+                teste = relatorioSelecionado.id_relatorio; // Gambiarrra
+            }
             relatorios = relatorioPP.map(item => ({
                 tipo: 'PP',
                 item
             }));
         } else if (tipoRelatorio === 'Vendas') {
+            if (relatorioSelecionado && relatorioSelecionado.id_venda) {
+                teste = relatorioSelecionado.id_venda; // Gambiarrra
+            }
             relatorios = relatorioVendas.map(item => ({
                 tipo: 'Vendas',
                 item
@@ -117,42 +108,56 @@ function PagRelatorios() {
     };
     
 
-    const deletaRelatorio = async (tipo, id) => {
+    const deletaRelatorio = async (tipo, teste) => {
         try {
-            await axios.post('http://localhost:4000/deletaRelatorio', {
+              await axios.post('http://pggzettav3.mooo.com/api/index.php', {
+                funcao: 'deletaRelatorio', 
+                senha: '@7h$Pz!q2X^vR1&K',
                 TipoRelatorio: tipo,
-                Id: id
+                Id: teste  /*Gambiarrra*/
             });
             setForceUpdate(prevState => !prevState);
             Alerta(2, "Deletado com sucesso");
         } catch (error) {
-            console.log(error);
+            console.log(teste)
+            console.log(tipo)
+            console.log(error.response.data);
             Alerta(3, "Erro ao deletar o relatório");
         }
     };
 
     const handleConfirm = () => {
         let colecao = '';
-        if (relatorioSelecionado.pp)
-            colecao = 'PontoDePedido'
-        else if (relatorioSelecionado.Produto_ID)
-            colecao = 'Vendas'
-
-        setShowConfirmation(false);
-        deletaRelatorio(colecao, relatorioSelecionado.Produto_id);
-        setRelatorioSelecionado(null);
-        setTipoRelatorio('nulo');
-        pegaRelatorios();
-
+        let id_relatorio = 0;
+        console.log(JSON.stringify(relatorioSelecionado))
+        if (relatorioSelecionado && relatorioSelecionado.pp) {
+            colecao = 'PP';
+        } else if (relatorioSelecionado && relatorioSelecionado.id_venda) {
+            colecao = 'Vendas';
+        }
+        if (relatorioSelecionado.id_venda){
+            colecao = 'Vendas';
+            id_relatorio = relatorioSelecionado.id_venda
+        }else {
+            colecao = 'PP';
+            id_relatorio = relatorioSelecionado.id_relatorio
+        }
+    
+        if (colecao) {
+            setShowConfirmation(false);
+            deletaRelatorio(colecao, id_relatorio);
+            setRelatorioSelecionado(null);
+            setTipoRelatorio('nulo');
+            pegaRelatorios();
+        }
     };
-
     const handleCancel = () => {
         setShowConfirmation(false);
     };
 
     const montaRelatorioPP = () => {
-        if (!relatorioSelecionado) {
-            return <div>Nenhum relatório selecionado.</div>; 
+        if (!relatorioSelecionado || !relatorioSelecionado.Produto_ID) {
+            return <div>Nenhum relatório selecionado ou relatório inválido.</div>; 
         }
     
    
@@ -167,7 +172,7 @@ function PagRelatorios() {
                     <button onClick={() => setRelatorioSelecionado(null)} className="no-print">Fechar relatório</button>
                 </div>
                 <h2 className="titulo">Relatório de Ponto De Pedido</h2>
-                <h3>Data: {relatorioSelecionado.DATA_venda}</h3>
+                <h3>Data: {relatorioSelecionado.DATA}</h3>
                 <hr />
                 <h4>
                     Item: {nome_produto}
@@ -207,19 +212,20 @@ function PagRelatorios() {
     }
 
     const montaRelatorioVendas = () => (
+        
         <div className="InfoRelaorio">
             <div className="btnFecharRel">
                 <button onClick={() => setRelatorioSelecionado(null)} className="no-print">Fechar relatório</button>
             </div>
             <h2 className="titulo">Relatório de Vendas</h2>
-            <h3>Data: {relatorioSelecionado.DATA}</h3>
+            <h3>Data: {relatorioSelecionado.DATA_venda}</h3>
             <hr />
             <h4> 
                 Item: {relatorioSelecionado.nome_produto} {/* n tem nome do produto */}
                 <div className="listaInfo">
                     <ul>
                         <li>Código do produto: {relatorioSelecionado.nome_produto}</li>
-                        <li>Quantidade Antes da venda: {relatorioSelecionado.Qtd_Disp} {pegaQtde(relatorioSelecionado.Qtd_Disp)}</li>
+                        <li>Quantidade Antes da venda: {relatorioSelecionado.Qtd_Disp} {pegaQtde(relatorioSelecionado.Qtd_Disp)}</li> {/*aqui tem q colcoar quantidade antiga ou seja depois q executar uma venda tem q mostrar a quantidade q estava*/}
                         <li>Quantidade Vendida: {relatorioSelecionado.Qtd_Venda} {pegaQtde(relatorioSelecionado.Qtd_Venda)}</li>
                         <li>Quantidade Atual: {relatorioSelecionado.Qtd_Disp} {pegaQtde(relatorioSelecionado.Qtd_Disp)}</li>
                         <li>Custo unitário: R$ {Number(relatorioSelecionado.Custo_unitario).toFixed(2)}</li>
@@ -230,8 +236,8 @@ function PagRelatorios() {
                 <h3>Dados sobre o responsável da venda:</h3>
                 <div className="listaInfo">
                     <ul>
-                        <li>Nome do responsável: {relatorioSelecionado.Autor}</li>  {/* chegando só o id do autor ta fatando o nomezinho*/}
-                        <li>Responsavel Id: {relatorioSelecionado.Responsavel_Id} </li> {/* chegando só o id do autor ta fatando o nomezinho*/}
+                        <li>Nome do responsável: {relatorioSelecionado.Autor_nome}</li>  {/* chegando só o id do autor ta fatando o nomezinho*/}
+                        <li>Responsavel Id: {relatorioSelecionado.Autor} </li> {/* chegando só o id do autor ta fatando o nomezinho*/}
                     </ul>
                 </div>
                 <hr />
@@ -248,7 +254,7 @@ function PagRelatorios() {
         if (!relatorioAtual) return null; // Adicione esta verificação
         if (relatorioAtual.pp) {
             return montaRelatorioPP();
-        } else if (relatorioAtual.Receita) {
+        } else if (relatorioAtual.id_venda) {
             return montaRelatorioVendas();
         }
     };
@@ -267,6 +273,9 @@ function PagRelatorios() {
                     message="Tem certeza que deseja excluir este relatório? Esta ação removerá a notificação atrelada ao relatório, e não poderá ser desfeita"
                     onConfirm={handleConfirm}
                     onCancel={handleCancel}
+                    BoolMultiplaEscolha={true}
+                    tamanho={"G"}
+                    styles={'STYLE2'}
                 />
             )}
             <div className="btn">

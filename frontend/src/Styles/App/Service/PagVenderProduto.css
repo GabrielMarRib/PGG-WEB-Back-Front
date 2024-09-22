@@ -153,3 +153,64 @@
     background: white;
     transition: transform 0.2s;
   }
+
+  .container-tela-cad_Fornecedor{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding: 10px 0px;
+  }
+  .container-tela-cad_Fornecedor button{
+    padding: 10px;
+    border-radius: 3px;
+    background-color: #e04d18;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
+    font-family: 'JetBrains Mono';
+    margin-top: 10px;
+    width: 100%;
+
+  }
+
+
+
+    .container-tela-cad_Fornecedor .formulario{
+        display: inline-flex;
+        border: 2px solid #000;
+        border-radius: 10px;
+        padding: 50px;
+        width: 40%;
+       
+    }
+
+
+    .ListaFornecedores {
+        margin-left: 10px;
+        display: flex;
+        flex-direction: column; 
+        overflow-y: scroll;
+        height: 380px;
+    }
+    .ListaFornecedores label{
+        
+        font-size: 18px;
+        
+    }
+
+    .ListaFornecedores .Fornecedores{
+        border: 1px solid #000;
+        margin-top: 5px;
+    }
+    .Fornecedores img{
+        width: 20px;
+        height: 20px;
+        margin-bottom: -4px;
+        margin-left: 5px;
+    }

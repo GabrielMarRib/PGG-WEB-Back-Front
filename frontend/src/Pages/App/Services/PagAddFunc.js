@@ -67,7 +67,7 @@ function PagAddFunc() {
       {User &&
       User.userData &&
       User.userData.Nivel_acesso &&
-      User.userData.Nivel_acesso == 2 ? (
+      User.userData.Nivel_acesso >= 2 ? (
         <form className="formAddFunc" onSubmit={(e) => handleSubmit(e)}>
           <h1>Cadastro de Funcionário</h1>
           <br />
