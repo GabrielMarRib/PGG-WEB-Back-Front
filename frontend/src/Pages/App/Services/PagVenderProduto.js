@@ -28,6 +28,7 @@ function PagVenderProduto() {
   const UserOBJ = useContext(UserContext);
   const User = UserOBJ.User;
   const { Alerta } = useAlerta();
+  console.log(User.userData.Nome)
 
   const pegaCategorias = async () => {
     try {
@@ -246,7 +247,8 @@ function PagVenderProduto() {
           ReceitaProd: receitaEstimada,
           QtdeDisponivel: qtdeSobra,
           custoUnitario: custoUnitario,
-          nome_produto: produtoSelecionado.nome
+          nome_produto: produtoSelecionado.nome,
+          Autor_nome: User.userData.Nome
         });
       } catch (eee) {
         console.log("deu merda");
