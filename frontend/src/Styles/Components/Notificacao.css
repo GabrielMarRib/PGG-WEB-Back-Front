@@ -8,6 +8,10 @@
   width: 50px;
 }
 
+.Notificacao span{
+  margin: 10px;
+}
+
 .Notificacao #DivImg {
   height: 100%;
   width: 100%;
@@ -148,6 +152,9 @@
   border-radius: 5px;
   box-shadow: 2px 4px 2px rgb(114, 112, 112);
   cursor: pointer;
+  color:#f0eded ;
+  border-color: transparent;
+  font-size: 16px;
 }
 
 .Notificacao .BotaoAcao:hover {

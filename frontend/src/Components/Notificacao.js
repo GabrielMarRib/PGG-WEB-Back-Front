@@ -80,7 +80,7 @@ const Notificacao = () => {
 
         return (
             <h3>
-                <span style={styleCustom}>{ChaveMsg}</span>
+                <span style={styleCustom}>{ChaveMsg}</span> <br />
                 {msgFinal}
             </h3>
         );
@@ -106,6 +106,7 @@ const Notificacao = () => {
                             X
                         </button>
                         <h2 className="notificacaoH2">Notificações</h2>
+                        <hr />
                         {carregando ? (
                             <p>Carregando...</p>
                         ) : (
@@ -139,7 +140,7 @@ const Notificacao = () => {
 
                                 })
                             ) : (
-                                <p>não há notificações C</p>
+                                <p>Não há notificações C</p>
                             )
                         )}
                         {console.log(notificacoes)}

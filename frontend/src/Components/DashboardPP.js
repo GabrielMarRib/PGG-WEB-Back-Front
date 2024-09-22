@@ -65,7 +65,7 @@ const DashboardPP = () => {
 
     return (
       <h3>
-        <span style={styleCustom}>{ChaveMsg}</span>
+        <span style={styleCustom}>{ChaveMsg}</span> <br />
         {msgFinal}
       </h3>
     );

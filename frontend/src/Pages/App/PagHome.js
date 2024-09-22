@@ -258,7 +258,7 @@ function PagHome() {
               {section.isChart && <div className="chart-placeholder"><GraficoTeste></GraficoTeste></div>}
             </div>
           ))}
-          <button className="option-button" onClick={() => navigate("/PagTesteInsercao")}>página de tutorial</button>
+          <button className="option-button" onClick={() => navigate("/PagTesteInsercao")}>Página de Tutorial</button>
         </div>
       </div>
     </div>
