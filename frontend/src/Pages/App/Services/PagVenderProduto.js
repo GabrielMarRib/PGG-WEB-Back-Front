@@ -143,11 +143,8 @@ function PagVenderProduto() {
 
     if (User && User.userData && User.userData.Nome) {
       try {
-        //console.log("Rodou aqui")
-        //console.log(JSON.stringify(User))
-        //console.log(JSON.stringify(produtoSelecionado))
-        //INSERT INTO `movimento`(`produto`, `data`, `qtde`, `valor`, `mov`, `cliente`, `Autor`, `Autor_id`, `Autor_Acesso`) VALUES ('[value-2]','[value-3]','[value-4]','[value-5]','[value-6]','[value-7]','[value-8]','[value-9]','[value-10]')
-        const response = await axios.post("http://pggzettav3.mooo.com/api/index.php", {
+     
+         await axios.post("http://pggzettav3.mooo.com/api/index.php", {
           funcao: "insereMovimento",
           senha: "@7h$Pz!q2X^vR1&K",
           produto: produtoSelecionado.id,
@@ -156,13 +153,9 @@ function PagVenderProduto() {
           mov: "S",
           Autor: User.userData.Nome,
           Autor_id: User.id,
-          Autor_Acesso: User.userData.Nivel_acesso,
           cliente: cliente,
         });
-        //console.log(response)
 
-        // INSERT INTO `movimento`(`produto`, `qtde`, `valor`, `mov`, `cliente`, `Autor`, `Autor_id`, `Autor_Acesso`) 
-        // VALUES (1,1,1,"E","Sergio","SErgio2","ADSA",2)
 
         handleGerarRelatorioVenda(
           produtoSelecionado.id,

@@ -54,7 +54,7 @@ function PagHome() {
   const sections = [
     { title: "Faturamento (bruto)", content: "preço de venda x quantidade vendida" },
     { title: "Ticket Médio", content: "valor total das vendas pelo número de transações" },
-    { title: "Positividade", content: categorias.length > 0 ? categorias[4].nome : "carregando..." },
+    { title: "Positividade", content: categorias.length > 0 ? categorias[4]?.nome : "carregando..." },
     { title: "Linha de Produto", content: "Informação sobre linha de produto", isSameHeight: true },
     { title: "Positividade por Produto", content: "Informação sobre positividade por produto" },
     { title: "Faturamento", content: "Faturamento Geral"},

@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import CabecalhoHome from '../../../Components/CabecalhoHome';
 import '../../../Styles/App/Service/PagPontoPedido.css';
 import axios from 'axios';
-import { UserContext } from '../../../Context/UserContext';
 import { useNavigate } from "react-router-dom";
 import Titulo from "../../../Components/Titulo.jsx";
 
@@ -19,8 +18,6 @@ const PagMovimentos = () => {
   const [codigosUnicos, setCodigosUnicos] = useState([]); // Só códigos únicos de produto, porque repetição é coisa de amador
   const [autoresUnicos, setAutoresUnicos] = useState([]); // Autores sem repetição, quem não gosta é porque não entende nada
 
-  const UserOBJ = useContext(UserContext);
-  const User = UserOBJ.User;
 
   useEffect(() => {
     const fetchMovimentos = async () => {
@@ -54,7 +51,7 @@ const PagMovimentos = () => {
   const handleFiltroChange = (e) => {
     setFiltro(e.target.value); // Escolheu o filtro? Agora é só mexer nos dados
     setValorFiltro(''); // Reseta o valor do filtro, pra começar do zero
-    setOrdem('maior'); // Reseta a ordem, assim tudo fica no esquema
+    setOrdem('maior');  // Reseta a ordem, assim tudo fica no esquema
   };
 
   const handleValorFiltroChange = (e) => {
@@ -100,8 +97,6 @@ const PagMovimentos = () => {
             return a.valor - b.valor;
           }
         });
-      } else if (filtro === 'movimento') {
-        movimentosFiltrados = movimentos.filter(mov => mov.mov === valorFiltro);
       } else if (filtro === 'cliente') {
         // Filtrar por cliente, sem ligar se o texto é maiúsculo ou minúsculo
         const valorFiltroLower = valorFiltro.toLowerCase();
@@ -119,7 +114,7 @@ const PagMovimentos = () => {
   }, [valorFiltro, filtro, ordem, movimentos]);
 
   return (
-    <div className='PagMovimentos'>
+    <div>
       <div className="CabecalhoHome">
         <CabecalhoHome />
       </div>
@@ -129,66 +124,105 @@ const PagMovimentos = () => {
       {erro && <p style={{ color: 'red' }}>{erro}</p>}
       
       {/* Filtro principal */}
-      <div className='Tabela'>
-        <div className="filtro-section">
-          <label htmlFor="filtro">Filtrar por: </label>
-          <select id="filtro" value={filtro} onChange={handleFiltroChange}>
-            <option value="">Selecione um filtro</option>
-            <option value="codigo">Código do Produto</option>
-            <option value="data">Data</option>
-            <option value="quantidade">Quantidade</option>
-            <option value="valor">Valor</option>
-            <option value="movimento">Tipo de Movimento</option> {/* Filtro adicionado */}
-            <option value="cliente">Cliente</option>
-            <option value="autor">Autor</option>
+      <div className="filtro-section">
+        <label htmlFor="filtro">Filtrar por: </label>
+        <select id="filtro" value={filtro} onChange={handleFiltroChange}>
+          <option value="">Selecione um filtro</option>
+          <option value="codigo">Código do Produto</option>
+          <option value="data">Data</option>
+          <option value="quantidade">Quantidade</option>
+          <option value="valor">Valor</option>
+          <option value="cliente">Cliente</option>
+          <option value="autor">Autor</option>
+        </select>
+      </div>
+
+      {/* Select ou input de acordo com o filtro selecionado */}
+      {filtro === 'codigo' && (
+        <div className="select-produto-section">
+          <label htmlFor="produto">Selecione um Produto: </label>
+          <select id="produto" value={valorFiltro} onChange={handleValorFiltroChange}>
+            <option value="">Selecione um produto</option>
+            {codigosUnicos.map(codigo => (
+              <option key={codigo} value={codigo}>
+                {codigo} - {movimentos.find(mov => mov.produto === codigo)?.produtosNome || 'Nome não encontrado'}
+              </option>
+            ))}
           </select>
         </div>
+      )}
 
-        {/* Filtro de tipo de movimento */}
-        {filtro === 'movimento' && (
-          <div className="select-movimento-section">
-            <label htmlFor="movimento">Tipo de Movimento: </label>
-            <select id="movimento" value={valorFiltro} onChange={handleValorFiltroChange}>
-              <option value="">Selecione o tipo</option>
-              <option value="E">Entrada</option>
-              <option value="S">Saída</option>
-            </select>
-          </div>
-        )}
+      {/* Select para autores */}
+      {filtro === 'autor' && (
+        <div className="select-autor-section">
+          <label htmlFor="autor">Selecione um Autor: </label>
+          <select id="autor" value={valorFiltro} onChange={handleAutorChange}>
+            <option value="">Selecione um autor</option>
+            {autoresUnicos.map(autor => (
+              <option key={autor} value={autor}>
+                {autor}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
 
-        {/* Outros filtros continuam aqui... */}
+      {/* Ordenação de Quantidade ou Valor */}
+      {(filtro === 'quantidade' || filtro === 'valor') && (
+        <div className="ordem-section">
+          <label htmlFor="ordem">Ordenar por: </label>
+          <select id="ordem" value={ordem} onChange={handleOrdemChange}>
+            <option value="maior">Maior para Menor</option>
+            <option value="menor">Menor para Maior</option>
+          </select>
+        </div>
+      )}
 
-        <table border="1" className='estiloTabela'>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th className={filtro === 'codigo' ? 'filtro-selecionado' : ''}>Código do Produto</th>
-      <th className={filtro === 'data' ? 'filtro-selecionado' : ''}>Data</th>
-      <th className={filtro === 'quantidade' ? 'filtro-selecionado' : ''}>Quantidade</th>
-      <th className={filtro === 'valor' ? 'filtro-selecionado' : ''}>Valor</th>
-      <th className={filtro === 'movimento' ? 'filtro-selecionado' : ''}>Movimento</th>
-      <th className={filtro === 'cliente' ? 'filtro-selecionado' : ''}>Cliente</th>
-      <th className={filtro === 'autor' ? 'filtro-selecionado' : ''}>Autor</th>
-    </tr>
-  </thead>
-  <tbody>
-    {movimentosFiltrados.map(movimento => (
-      <tr key={movimento.id_mov}>
-        <td>{movimento.id_mov}</td>
-        <td>{movimento.produto}</td>
-        <td>{movimento.data}</td>
-        <td>{movimento.qtde}</td>
-        <td>{movimento.valor}</td>
-        <td>{movimento.mov}</td>
-        <td>{movimento.cliente}</td>
-        <td>{movimento.Autor}</td>
-      </tr>
-    ))}
-  </tbody>
-</table>
+      {/* Input para clientes */}
+      {(filtro === 'cliente') && (
+        <div className="input-filtro-section">
+          <label htmlFor="valorFiltro">Nome do Cliente: </label>
+          <input
+            id="valorFiltro"
+            type="text"
+            value={valorFiltro}
+            onChange={handleValorFiltroChange}
+            placeholder="Digite o nome do cliente"
+          />
+        </div>
+      )}
 
-
-      </div>
+      {/* Renderiza a tabela */}
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Código do Produto</th>
+            <th>Produto Nome</th>
+            <th>Data</th>
+            <th>Quantidade</th>
+            <th>Valor</th>
+            <th>Movimento</th>
+            <th>Cliente</th>
+            <th>Autor</th>
+          </tr>
+        </thead>
+        <tbody>
+          {movimentosFiltrados.map(movimento => (
+            <tr key={movimento.id_mov}>
+              <td>{movimento.id_mov}</td>
+              <td>{movimento.produto}</td>
+              <td>{movimento.produtosNome}</td>
+              <td>{movimento.data}</td>
+              <td>{movimento.qtde}</td>
+              <td>{movimento.valor}</td>
+              <td>{movimento.mov}</td>
+              <td>{movimento.cliente}</td>
+              <td>{movimento.Autor}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
