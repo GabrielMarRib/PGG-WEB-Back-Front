@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CabecalhoHome from '../../../Components/CabecalhoHome';
-import '../../../Styles/App/Service/PagPontoPedido.css';
+import '../../../Styles/App/Service/PagMovimentos.css';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import Titulo from "../../../Components/Titulo.jsx";
@@ -114,7 +114,7 @@ const PagMovimentos = () => {
   }, [valorFiltro, filtro, ordem, movimentos]);
 
   return (
-    <div>
+    <div className='PagMovimentos'>
       <div className="CabecalhoHome">
         <CabecalhoHome />
       </div>

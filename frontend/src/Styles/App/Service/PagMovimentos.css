@@ -1,0 +1,107 @@
+.PagMovimentos {
+    font-family: 'JetBrains Mono', monospace; 
+    text-align: center; 
+    display: flex;
+    flex-direction: column;
+   
+}
+
+.PagMovimentos .btn {
+    margin-top: 20px;
+}
+
+.PagMovimentos .Tabela {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza a tabela */
+    margin: 30px auto; /* Centraliza verticalmente */
+    gap: 20px;
+    align-items: center; /* Centraliza horizontalmente */
+    /* Remover margens e padding que possam afetar o cabeçalho */
+}
+
+.PagMovimentos .Tabela table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    max-width: 100%; 
+}
+
+.PagMovimentos th, .PagMovimentos td {
+    padding: 10px; 
+    border: 1px solid #ddd; /* Adiciona bordas às células */
+}
+
+.PagMovimentos th {
+    background-color: #e04d18;
+    color: white;
+}
+
+.PagMovimentos tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.PagMovimentos .atencao {
+    background-color: #fa3d2f;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.filtro-selecionado {
+    color: chartreuse;
+}
+
+@media screen and (max-width: 768px) {
+    .PagMovimentos .Tabela {
+        overflow-x: auto;
+    }
+}
+
+/* Select */
+
+.PagMovimentos .filtro-section,
+.PagMovimentos .select-produto-section,
+.PagMovimentos .select-autor-section,
+.PagMovimentos .ordem-section,
+.PagMovimentos .input-filtro-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    margin: 10px 0;
+}
+
+.PagMovimentos .filtro-section label,
+.PagMovimentos .select-produto-section label,
+.PagMovimentos .select-autor-section label,
+.PagMovimentos .ordem-section label,
+.PagMovimentos .input-filtro-section label {
+    font-family: 'JetBrains Mono';
+    font-size: 16px; 
+    margin-bottom: 5px; 
+}
+
+.PagMovimentos .filtro-section select,
+.PagMovimentos .select-produto-section select,
+.PagMovimentos .select-autor-section select,
+.PagMovimentos .ordem-section select {
+    width: 240px; 
+    padding: 10px; 
+    border-radius: 3px; 
+    border: 1px solid #ddd; 
+    font-size: 16px;
+    font-family: 'JetBrains Mono'; 
+    transition: border-color 0.3s ease;
+}
+
+.PagMovimentos .input-filtro-section input {
+    width: 240px; 
+    padding: 10px; 
+    border-radius: 3px; 
+    border: 1px solid #ddd; 
+    font-size: 16px;
+    font-family: 'JetBrains Mono'; 
+    transition: border-color 0.3s ease;
+}
