@@ -68,7 +68,6 @@ function PagHome() {
     { title: "Ponto de Pedido", img: ImagePedido, link: "/PagPontoPedido" },
     { title: "PEPS", img: ImagePEPS, link: "/PEPS" },
     { title: "Lote Econômico", img: ImageLote, link: "/PagLoteEconomico" },
-    { title: "Custo Médio", img: ImageMedio, link: "/pagInicial" },
     { title: "Logs", img: historia, link: "/PagHistorico" },
     { title: "Options", img: OptionIcon, link: "/PagPerfil" }
   ];
