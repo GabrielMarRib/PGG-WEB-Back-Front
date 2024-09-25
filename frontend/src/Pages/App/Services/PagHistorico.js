@@ -11,7 +11,7 @@ function PagHistorico() {
 
   const [historico, setHistorico] = useState([]);
   const [camposVariaveis, setCamposVariaveis] = useState([]);
-  const [departamentoSelecionado, setDepartamentoSelecionado] = useState(""); // Porra do filtro de departamento
+  const [departamentoSelecionado, setDepartamentoSelecionado] = useState("curvaabc"); // Porra do filtro de departamento
   const [adicionaisCurva, setAdicionaisCurva] = useState([]);
   const [adicionaisLote, setAdicionaisLote] = useState([]);
   useEffect(() => {
@@ -105,7 +105,6 @@ function PagHistorico() {
   const camposDepartamento = {
     curvaabc: ["quantidadeConsumo"],
     lote: ["vlr_compra", "vlr_venda", "qtde"],
-    sexo: ['saldo', 'entradas', 'saidas']
   };
 
 
@@ -137,10 +136,8 @@ function PagHistorico() {
           value={departamentoSelecionado}
           onChange={(e) => setDepartamentoSelecionado(e.target.value)}
         >
-          <option value="">Todos</option>
           <option value="curvaabc">Curva ABC</option>
           <option value="lote">Lote</option>
-          <option value="teste">teste</option>
 
         </select>
       </div>

@@ -121,13 +121,13 @@ const InfoModalCat = ({ titulo, msgObj, fechar, reFetch }) => {
                 value={novoNome}
                 onChange={(e) => setNovoNome(e.target.value)}
                 type="text"
-                placeholder={msgObj.subCat}
+                placeholder={titulo ===  'Editando Subcategoria' ? msgObj.subCat : msgObj.cat}
               />
               <br />
               {console.log("msgObj.catId: " + JSON.stringify(msgObj) + " msgObj.subCatId: " +  msgObj.subCatId)}
               <button
                 onClick={() =>
-                  handleEditarCat(novoNome, msgObj.subCatId)
+                  handleEditarCat(novoNome, titulo ===  'Editando Subcategoria' ? msgObj.subCatId : msgObj.catId)
                 }
               >
                 Enviar

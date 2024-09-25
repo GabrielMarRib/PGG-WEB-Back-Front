@@ -97,10 +97,12 @@ const PagMovimentos = () => {
             return a.valor - b.valor;
           }
         });
-      } else if (filtro === 'cliente') {
+      } else if (filtro === 'movimento') {
+        movimentosFiltrados = movimentos.filter(mov => mov.mov === valorFiltro);
+      }else if (filtro === 'cliente') {
         // Filtrar por cliente, sem ligar se o texto é maiúsculo ou minúsculo
         const valorFiltroLower = valorFiltro.toLowerCase();
-        movimentosFiltrados = movimentos.filter(mov => 
+        movimentosFiltrados = movimentos.filter(mov =>
           mov.cliente.toLowerCase().includes(valorFiltroLower)
         );
       } else if (filtro === 'autor') {
@@ -119,10 +121,10 @@ const PagMovimentos = () => {
         <CabecalhoHome />
       </div>
       <Titulo
-          tituloMsg='Visualização de Movimentos'
-        />
+        tituloMsg='Visualização de Movimentos (Ficha de estoque)'
+      />
       {erro && <p style={{ color: 'red' }}>{erro}</p>}
-      
+
       {/* Filtro principal */}
       <div className="filtro-section">
         <label htmlFor="filtro">Filtrar por: </label>
@@ -133,6 +135,7 @@ const PagMovimentos = () => {
           <option value="quantidade">Quantidade</option>
           <option value="valor">Valor</option>
           <option value="cliente">Cliente</option>
+          <option value="movimento">Tipo de Movimento</option> {/* Filtro adicionado */}
           <option value="autor">Autor</option>
         </select>
       </div>
@@ -145,9 +148,20 @@ const PagMovimentos = () => {
             <option value="">Selecione um produto</option>
             {codigosUnicos.map(codigo => (
               <option key={codigo} value={codigo}>
-                {codigo} - {movimentos.find(mov => mov.produto === codigo)?.produtosNome || 'Nome não encontrado'}
+                {codigo} - {movimentos.find(mov => mov.produto === codigo)?.produtosNome}
               </option>
             ))}
+          </select>
+        </div>
+      )}
+
+      {filtro === 'movimento' && (
+        <div className="select-movimento-section">
+          <label htmlFor="movimento">Tipo de Movimento: </label>
+          <select id="movimento" value={valorFiltro} onChange={handleValorFiltroChange}>
+            <option value="">Selecione o tipo</option>
+            <option value="E">Entrada</option>
+            <option value="S">Saída</option>
           </select>
         </div>
       )}
@@ -196,7 +210,6 @@ const PagMovimentos = () => {
       <table>
         <thead>
           <tr>
-            <th>ID</th>
             <th>Código do Produto</th>
             <th>Produto Nome</th>
             <th>Data</th>
@@ -210,7 +223,6 @@ const PagMovimentos = () => {
         <tbody>
           {movimentosFiltrados.map(movimento => (
             <tr key={movimento.id_mov}>
-              <td>{movimento.id_mov}</td>
               <td>{movimento.produto}</td>
               <td>{movimento.produtosNome}</td>
               <td>{movimento.data}</td>
