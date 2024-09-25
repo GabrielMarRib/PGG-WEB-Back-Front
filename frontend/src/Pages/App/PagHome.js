@@ -52,15 +52,15 @@ function PagHome() {
   }, [])
 
   const sections = [
-    { title: "Faturamento (bruto)", content: "preço de venda x quantidade vendida" },
-    { title: "Ticket Médio", content: "valor total das vendas pelo número de transações" },
-    { title: "Positividade", content: categorias.length > 0 ? categorias[4]?.nome : "carregando..." },
-    { title: "Linha de Produto", content: "Informação sobre linha de produto", isSameHeight: true },
-    { title: "Positividade por Produto", content: "Informação sobre positividade por produto" },
-    { title: "Faturamento", content: "Faturamento Geral"},
+    { title: "Faturamento por Serviço", content: "Transporte expresso: R$ 2.450.000, Armazenagem: R$ 1.200.000" },
+    { title: "Ticket Médio por Entrega", content: "R$ 650 por entrega" },
+    { title: "Entregas no Prazo", content: "96% das entregas realizadas no prazo" },
+    { title: "Capacidade de Armazenagem Utilizada", content: "Utilização dos armazéns: 78%", isSameHeight: true },
+    { title: "Custo Operacional por Entrega", content: "Custo médio de R$ 130 por entrega" },
+    { title: "Satisfação do Cliente", content: "Nível de satisfação dos clientes: 92%" },
     { title: "Evolução de Vendas", content: "Análise Mensal da Evolução de Vendas", isChart: true },
     { title: "Ponto de Pedido", content: <DashboardPP />  },
-  ];
+];
 
   const buttons = [
     { title: "Estoque", img: ImageCaixa, link: "/PagEscolhaProdutos" },
@@ -258,7 +258,6 @@ function PagHome() {
               {section.isChart && <div className="chart-placeholder"><GraficoTeste></GraficoTeste></div>}
             </div>
           ))}
-          <button className="option-button" onClick={() => navigate("/PagTesteInsercao")}>Página de Tutorial</button>
         </div>
       </div>
     </div>
