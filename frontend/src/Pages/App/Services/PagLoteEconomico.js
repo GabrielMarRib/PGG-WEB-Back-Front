@@ -3,6 +3,7 @@ import CabecalhoHome from "../../../Components/CabecalhoHome";
 import "../../../Styles/App/Service/PagLoteEconomico.css";
 import lupa from "../../../Assets/lupa.png";
 import axios from "axios";
+import Titulo from '../../../Components/Titulo.jsx';
 import AlertaNotificação from "../../../Components/AlertaNotificação";
 import { useAlerta } from "../../../Context/AlertaContext";
 import { useNavigate } from "react-router-dom";
@@ -125,7 +126,9 @@ function PagLoteEconomico() {
       <div className="CabecalhoHome">
         <CabecalhoHome />
       </div>
-
+      <Titulo
+                tituloMsg='Gestão do Lote Econômico'
+            />
       <div className="btn">
         <button className="Voltar" onClick={() => navigate("/PagHome")}>
           Voltar
