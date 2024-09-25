@@ -220,9 +220,6 @@ function PagHome() {
               <button className="option-button" onClick={() => navigate("/PagCadFornecedor")}>Cadastro de fornecedor</button>
             </div>
           )}
-
-
-
             
           {buttons.slice(3).map((button, index) => (
             <button key={index} className="menu-button" onClick={() => navigate(button.link)}>

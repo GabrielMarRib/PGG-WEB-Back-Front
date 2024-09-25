@@ -44,6 +44,11 @@ function GraficoTeste() {
 
   return (
     <div>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
       <ResponsiveContainer width={625} height={300}>
         <ComposedChart data={vendasInfo}>
           <XAxis dataKey="name" />
@@ -58,6 +63,5 @@ function GraficoTeste() {
     </div>
   );
 }
-
 
 export default GraficoTeste
