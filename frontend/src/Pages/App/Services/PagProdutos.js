@@ -51,6 +51,7 @@ function PagProdutos() {
 
   //Fornecedor:
   const [fornecedor, setFornecedor] = useState("");
+  const [FornecedorSelect, setFornecedorSelect] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
   const pegaProdutos = async (dataFRESH) => {
@@ -68,10 +69,25 @@ function PagProdutos() {
       console.log("deu ruim: " + error) // log para sabermos qual foi o erro
     }
   };
+  const pegarTodosFornecedores = async () => {
+    try {
+      const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {  // acessa via post (SEMPRE SERÁ POST)                
+        funcao: 'pegarTodosFornecedores', // dita qual função deve ser utilizada da api. (a gente te fala o nome) // ---> parâmetros da consulta... SÃO necessários.
+        senha: '@7h$Pz!q2X^vR1&K' // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
+      });
+      setFornecedorSelect(response.data.fornecedores); // coloca a LISTA de categorias em uma useState
+      console.log(response.data) // log para sabermos o que foi pego
+    } catch (error) {
+      console.log("deu ruim: " + error) // log para sabermos qual foi o erro
+    }
+  };
+  
   
 
   useEffect(() => {
-    pegaProdutos(false);
+     pegaProdutos(false);
+     pegarTodosFornecedores();
+    console.log("Entrou aqui")
   }, [repescarInfo])
 
 
@@ -106,7 +122,8 @@ function PagProdutos() {
         id_usuario: User.id,
         data_movimento: diaOK,
         Mov: "E",
-        NomeCliente: fornecedor
+        NomeCliente: fornecedor,
+        fornecedor: fornecedor
       });
 
       // se a inserção deu OK, ele vai executar os códigos abaixo... (Se deu ruim, vai pro catch direto... Sim, existe uma linha de continuídade, só é bem tênue)
@@ -183,6 +200,7 @@ function PagProdutos() {
     // } else {
     //   setMensagemVazia(true);
     // }
+   
     buscarProdutosPorCategoria();
   }, [FiltroSelecionado]);
   
@@ -198,6 +216,22 @@ function PagProdutos() {
   }, [categoriaSelecionada])
 
 
+  
+  const MapearFornecedor = (Fornecedor) => {
+    return(
+      <option value={Fornecedor.nome}>{Fornecedor.id_fornecedor} - {Fornecedor.nome}</option>
+    );
+  }
+
+  const handleChangeFornecedor = (e) =>{
+    const val = e.target.value
+    if(val === 'Vazio'){
+      setFornecedor(null)
+    }else{
+      setFornecedor(val)
+    }
+    console.log(val)
+  }
 
   return (
     <div className="Produtos">
@@ -289,12 +323,19 @@ function PagProdutos() {
                   <div className="grupo-input">
                     <label htmlFor="dataCompra">Fornecedor: </label>
                     <select
-                      onChange={(e) => setFornecedor(e.target.value)}
+                      onChange={handleChangeFornecedor}
                       value={fornecedor}
                     >
-                      <option value={"não conhecido"}>Não conhecido</option>
-                      <option value={"zezinho da esquina"}>zezinho da esquina</option>
-                      <option value={"logitech"}>logitech</option>
+                      <option value="Vazio">Selecione um fornecedor</option>
+                      <option value="Vazio">Sem fornecedor</option>
+                      {Array.isArray(FornecedorSelect) ? (
+                        FornecedorSelect?.map(MapearFornecedor)
+                      ) : (
+                        null
+                      )
+                        
+                      
+                      }
                     </select>
                   </div>
                   <div className="grupo-input">

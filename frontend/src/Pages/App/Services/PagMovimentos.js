@@ -114,7 +114,7 @@ const PagMovimentos = () => {
   }, [valorFiltro, filtro, ordem, movimentos]);
 
   return (
-    <div>
+    <div className='geral'>
       <div className="CabecalhoHome">
         <CabecalhoHome />
       </div>
