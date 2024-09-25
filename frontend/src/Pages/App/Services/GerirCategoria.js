@@ -54,7 +54,8 @@ function GerirCategoria() {
   const [codigoDisponivel, SetCodigoDisponivel] = useState(null);
   const [categoriaInput, setCategoriaInput] = useState("");
 
-
+  //Modal:
+  const [titulo,setTitulo] = useState('');
  
   const pegaCategorias = async (setOBJ, LetRender2Select) =>{
 
@@ -94,7 +95,7 @@ function GerirCategoria() {
 
   }, []);
   useEffect(() => {
-    SetCodigoDisponivel(categorias.length + 2);
+    SetCodigoDisponivel(categorias.length + 1);
   }, [categorias]);
 
   useEffect(() => {
@@ -232,6 +233,17 @@ function GerirCategoria() {
       return (
         <li key={item.id_categorias}>
           {item.id_categorias} - {item.nome}
+          <span className="btnEditSpan">
+          <button
+            onClick={() => {
+              handleEditar(item, null, EnderecoProduto);
+            }}
+            className="btnEditar"
+          >
+            Editar
+          </button>
+
+        </span>
           <ul>
             <div>
               {categoriasFiltradas.map((subItem) =>
@@ -280,11 +292,16 @@ function GerirCategoria() {
 
   const handleEditar = (itemPai, subItem, EnderecoProduto) => {
     
+    if(subItem){
+      setTitulo('Editando Subcategoria')
+    }else{
+      setTitulo('Editando Categoria')
+    }
     setMsgModal({
       cat: itemPai.nome,
       catId: itemPai.id_categorias,
-      subCat: subItem.nome,
-      subCatId: subItem.id_categorias,
+      subCat: subItem?.nome ? subItem.nome : "Não possui" ,
+      subCatId: subItem?.id_categorias ? subItem.id_categorias : "nulo" ,
       caminho: EnderecoProduto,
     });
     setMostrarModal(true);
@@ -405,6 +422,7 @@ const IpersLinks = (item) => {
 
       {mostrarModal && (
         <InfoModalCat
+          titulo= {titulo}
           msgObj={msgModal}
           fechar={handleFecharModal}
           reFetch={fetchData} // Pass fetchData as a prop
@@ -533,4 +551,3 @@ const IpersLinks = (item) => {
 
 
 export default GerirCategoria;
-

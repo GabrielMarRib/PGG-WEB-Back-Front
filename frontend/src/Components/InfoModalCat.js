@@ -5,7 +5,7 @@ import { CheckCamposVazios } from "../Functions/Functions";
 import AlertaNotificação from "./AlertaNotificação";
 import { useAlerta } from "../Context/AlertaContext.js";
 
-const InfoModalCat = ({ msgObj, fechar, reFetch }) => {
+const InfoModalCat = ({ titulo, msgObj, fechar, reFetch }) => {
   const { Alerta } = useAlerta();
 
   const [novoNome, setNovoNome] = useState("");
@@ -34,13 +34,13 @@ const InfoModalCat = ({ msgObj, fechar, reFetch }) => {
 
 
   const pegaProdutos = async () => {
-    console.log(msgObj.subCatId)
+    console.log(msgObj)
     try {
       const response = await axios.post("http://pggzettav3.mooo.com/api/index.php",
         {
           funcao: "pegaprodutosporcategoria",
           senha: "@7h$Pz!q2X^vR1&K",
-          codcategoria: msgObj.subCatId
+          codcategoria: titulo === 'Editando Subcategoria' ? msgObj.subCatId : msgObj.catId
         });
       console.log("PegaprodutoPorCategoria" + JSON.stringify(response.data));
       setProdutos(response.data);
@@ -92,7 +92,7 @@ const InfoModalCat = ({ msgObj, fechar, reFetch }) => {
           </button>
         </div>
         <div className="tituloDiv">
-          <h2>Editando Subcategoria</h2>
+          <h2>{titulo}</h2>
           <div className="subTit">
             <h4>{msgObj.subCat}</h4>
           </div>
@@ -145,7 +145,7 @@ const InfoModalCat = ({ msgObj, fechar, reFetch }) => {
                 </button>
               </div>
               <h3>
-                Produtos na categoria {msgObj.subCat}:
+                Produtos na categoria {titulo ===  'Editando Subcategoria' ? msgObj.subCat : msgObj.cat}:
               </h3>
               {carregando ? (
                 <div>Carregando...</div>
