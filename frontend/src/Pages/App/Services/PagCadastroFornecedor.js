@@ -199,7 +199,7 @@ function PagVenderProduto() {
                     className="controle-formulario"
                     type="text"
                     value={Endereco}
-                    placeholder="Ex: Rua Rastelo,02 - SP"
+                    placeholder="Ex: Rua Restelo,02 - SP, Jd Donaria"
                     onChange={(e) => setEndereco(e.target.value)}
                   />
 
@@ -237,7 +237,7 @@ function PagVenderProduto() {
 
                   
                 <button className="botao" type="submit">
-                  Efetuar venda
+                  Cadastrar Fornecedor
                 </button>
               </div>
             </form>

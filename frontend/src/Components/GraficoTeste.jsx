@@ -1,36 +1,63 @@
-import React from 'react'
+import React, { useEffect,useState } from 'react'
 import { ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Area } from 'recharts';
+import axios from 'axios';
 
 function GraficoTeste() {
-  const data = [
-    { name: 'Jan', receita: 0, encomendas: 0, custo: 0 },
-    { name: 'Fev', receita: 0, encomendas: 0, custo: 0 },
-    { name: 'Mar', receita: 0, encomendas: 0, custo: 0 },
-    { name: 'Abr', receita: 0, encomendas: 0, custo: 0 },
-    { name: 'Mai', receita: 0, encomendas: 0, custo: 0 },
-    { name: 'Jun', receita: 0, encomendas: 0, custo: 0 },
-    { name: 'Jul', receita: 0, encomendas: 0, custo: 0 },
-    { name: 'Ago', receita: 0, encomendas: 0, custo: 0 },
-    { name: 'Set', receita: 1200, encomendas: 100, custo: 8500 },
-    { name: 'Out', receita: 0, encomendas: 0, custo: 0 },
-    { name: 'Nov', receita: 0, encomendas: 0, custo: 0 },
-    { name: 'Dez', receita: 0, encomendas: 0, custo: 0 }
-  ];
+  const [vendasInfo, setVendasInfo] = useState({});
+
+  useEffect(() => {
+    const fetchVendas = async () => {
+      try {
+        const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
+          funcao: 'pegarVendaAcumulada',
+          senha: '@7h$Pz!q2X^vR1&K'
+        });
+        const months = [
+          { name: 'Jan', receita: 0, qtdeTotal: 0 },
+          { name: 'Fev', receita: 0, qtdeTotal: 0 },
+          { name: 'Mar', receita: 0, qtdeTotal: 0 },
+          { name: 'Abr', receita: 0, qtdeTotal: 0 },
+          { name: 'Maio', receita: 0, qtdeTotal: 0 },
+          { name: 'Jun', receita: 0, qtdeTotal: 0 },
+          { name: 'Jul', receita: 0, qtdeTotal: 0 },
+          { name: 'Ago', receita: 0, qtdeTotal: 0 },
+          { name: 'Set', receita: 0, qtdeTotal: 0 },
+          { name: 'Out', receita: 0, qtdeTotal: 0 },
+          { name: 'Nov', receita: 0, qtdeTotal: 0 },
+          { name: 'Dez', receita: 0, qtdeTotal: 0 },
+        ];
+        response.data.forEach(item => {
+          const monthIndex = new Date(item.data).getMonth(); 
+          months[monthIndex] = {
+            name: months[monthIndex].name,
+            receita: item.acc_valor || 0,
+            qtdeTotal: item.acc_qtde || 0,
+          };
+        });
+        setVendasInfo(months);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchVendas();
+  }, []);
 
   return (
     <div>
-      <ComposedChart width={625} height={200} data={data}>
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <CartesianGrid stroke="#ababab" />
-        <Area type="monotone" dataKey="custo" fill="#8884d8" stroke="#8884d8" name="Custo" />
-        <Bar dataKey="encomendas" barSize={20} fill="#413ea0" name="Encomendas" />
-        <Line type="monotone" dataKey="receita" stroke="#ff7300" name="Receita" />
-      </ComposedChart>
+      <ResponsiveContainer width={625} height={300}>
+        <ComposedChart data={vendasInfo}>
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <CartesianGrid stroke="#ababab" />
+          <Bar dataKey="qtdeTotal" barSize={20} fill="#413ea0" name="Quantidade vendida" />
+          <Line type="monotone" dataKey="receita" stroke="#ff7300" name="Receita" />
+        </ComposedChart>
+      </ResponsiveContainer>
     </div>
-  )
+  );
 }
+
 
 export default GraficoTeste

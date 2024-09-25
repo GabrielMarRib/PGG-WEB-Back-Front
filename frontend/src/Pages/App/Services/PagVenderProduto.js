@@ -241,6 +241,8 @@ function PagVenderProduto() {
   ) => {
     if (User && User.userData && User.userData.Nome) {
       const qtdeSobra = quantidadeDisponivel - quantidadeVenda;
+      const qtdeSeiLaNumSei = Number(quantidadeDisponivel)+Number(quantidadeVenda)
+
       try {
         await axios.post("http://pggzettav3.mooo.com/api/index.php", {
           funcao: "geraRelatorioVenda",
@@ -252,7 +254,8 @@ function PagVenderProduto() {
           QtdeDisponivel: qtdeSobra,
           custoUnitario: custoUnitario,
           nome_produto: produtoSelecionado.nome,
-          Autor_nome: User.userData.Nome
+          Autor_nome: User.userData.Nome,
+          Qtd_Old: quantidadeDisponivel
         });
       } catch (eee) {
         console.log("deu merda");

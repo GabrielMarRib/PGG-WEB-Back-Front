@@ -225,7 +225,7 @@ function PagRelatorios() {
                 <div className="listaInfo">
                     <ul>
                         <li>Código do produto: {relatorioSelecionado.nome_produto}</li>
-                        <li>Quantidade Antes da venda: {relatorioSelecionado.Qtd_Disp} {pegaQtde(relatorioSelecionado.Qtd_Disp)}</li> {/*aqui tem q colcoar quantidade antiga ou seja depois q executar uma venda tem q mostrar a quantidade q estava*/}
+                        <li>Quantidade Antes da venda: {relatorioSelecionado.Qtd_Old} {pegaQtde(relatorioSelecionado.Qtd_Old)}</li> {/*aqui tem q colcoar quantidade antiga ou seja depois q executar uma venda tem q mostrar a quantidade q estava*/}
                         <li>Quantidade Vendida: {relatorioSelecionado.Qtd_Venda} {pegaQtde(relatorioSelecionado.Qtd_Venda)}</li>
                         <li>Quantidade Atual: {relatorioSelecionado.Qtd_Disp} {pegaQtde(relatorioSelecionado.Qtd_Disp)}</li>
                         <li>Custo unitário: R$ {Number(relatorioSelecionado.Custo_unitario).toFixed(2)}</li>
