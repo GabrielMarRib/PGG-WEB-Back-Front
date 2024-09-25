@@ -103,7 +103,7 @@ const DashboardPP = () => {
             );
           })
         ) : (
-          <p>Não há notificações C</p>
+          <p>Não há pontos de pedido...</p>
         )
       )}
     </div>

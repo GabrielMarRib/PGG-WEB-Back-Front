@@ -139,7 +139,7 @@ const Notificacao = () => {
 
                                 })
                             ) : (
-                                <p>não há notificações C</p>
+                                <p>Não há notificações...</p>
                             )
                         )}
                         {console.log(notificacoes)}
