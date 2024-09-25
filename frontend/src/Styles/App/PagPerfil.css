@@ -1,231 +1,74 @@
 .PagPerfil {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
-    font-family: 'JetBrains Mono';
+    font-family: 'JetBrains Mono', monospace;
+    background-color: #f5f5f5;
+    min-height: 100vh;
 }
 
-.PagPerfil .Corpo {
+.Corpo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    display: flex;
-    margin-top: 30px;
+    padding: 50px;
 }
 
-
-.PagPerfil .forms {
-    border: 1px solid #000;
-    width: auto;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 10px 10px 8px #888888;
-    margin-right: 20px;
-    background-color: #eceae8;
-}
-
-.PagPerfil .coluna1 {
-    flex-direction: column;
-}
-
-.PagPerfil .coluna2 {
-    flex-direction: column;
-}
-
-.PagPerfil .row {
-    display: flex;
-    flex-direction: column;
-}
-
-.PagPerfil .buttons{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 30px;
-    margin-top: 15px;
-}
-
-.PagPerfil .ButtonEditar {
-    padding: 10px;
-    border-radius: 3px;
-    width: 150px;
-    background-color: #e04d18;
-    border: none;
-    cursor: pointer;
-    color: #fff;
-    font-size: 16px;
-    font-family: 'JetBrains Mono';
-}
-
-.PagPerfil .ButtonExcluir {
-    padding: 10px;
-    border-radius: 3px;
-    width: 150px;
-    background-color: #e04d18;
-    border: none;
-    cursor: pointer;
-    color: #fff;
-    font-size: 16px;
-    font-family: 'JetBrains Mono';
-}
-
-
-.PagPerfil .Informacoes1 {
-    border: 1px solid #000;
-
-    flex-wrap: wrap;
-    width: 350px;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 10px 10px 8px #888888;
-    margin-left: 60px;
-    line-height: 35px;
-    background-color: #eceae8;
-}
-
-.PagPerfil .Informacoes2 {
-    border: 1px solid #000;
-
-    flex-wrap: wrap;
-    width: 350px;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 10px 10px 8px #888888;
-    margin-left: 60px;
-    margin-top: 70px;
-    line-height: 35px;
-    background-color: #eceae8;
-}
-
-.PagPerfil .Informacoes3 {
-    border: 1px solid #000;
-
-    flex-wrap: wrap;
-    width: 350px;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 10px 10px 8px #888888;
-    margin-left: 60px;
-    margin-top: 70px;
-    line-height: 35px;
-    background-color: #eceae8;
-}
-
-.PagPerfil .data-user h1 {
-    text-align: center;
-}
-
-.PagPerfil .data-user h2 {
+.dados-usuario {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 800px;
     text-align: left;
+    margin-bottom: 30px;
 }
 
-.PagPerfil .Pendencias {
+.dados-usuario h1 {
     text-align: center;
-
+    margin-bottom: 20px;
 }
 
-.PagPerfil .Pendencias p {
-    text-align: left;
-    font-size: 20px;
-    margin-top: 10px;
-}
-
-.PagPerfil .Pendencias {
-    border: 1px solid #000;
-    flex-wrap: wrap;
-    height: auto;
-    width: 500px;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 10px 10px 8px #888888;
-    margin-top: 60px;
-    height: 220px;
-    overflow-y: scroll;
-    background-color: #eceae8;
-}
-
-.PagPerfil .PegaTudo{
-    margin-top: 2vw;
+.dados-usuario h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
     display: flex;
-    justify-content: center;
-    width: 100%;
+    align-items: center;
 }
 
-.PagPerfil .DivBtnsFuncionarios{
-    display: flex;
-    width: 1100px;
-    
+.dados-usuario img {
+    margin-right: 10px;
+    width: 25px;
+    height: 25px;
 }
 
-.PagPerfil .notific{
+.acoes-funcionarios {
     display: flex;
-    margin-left: 420px;
-}
-
-.PagPerfil #IdBtnAddFunc{
-    display: flex;
-    justify-content: center;
     gap: 20px;
 }
 
-.PagPerfil #IdAddFuncIcon{
-    margin-top: 5px;
-    margin-left: 10px;
+.botao-func {
+    display: flex;
+    align-items: center;
+    background-color: #e04d18;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    min-width: 250px;
+}
+
+.botao-func:hover {
+    background-color: #c84315;
+}
+
+.botao-func img {
     margin-right: 10px;
     width: 30px;
     height: 30px;
-    align-items: center;
-    display: flex;
 }
-.PagPerfil .AddFunc{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    border-radius: 3px;
-    width: 200px;
-    background-color: #e04d18;
-    border: none;
-    cursor: pointer;
-    color: #fff;
-    font-size: 16px;
-    font-family: 'JetBrains Mono';
-    box-shadow: 5px 5px 0px #888888;
-}
-.PagPerfil #IdBtnAddFunc img{
-    width: 40px;
-    height: 40px;
-}
-/* Imagens das Informações*/
-.PagPerfil .Imagem1 {
-    width: 25px;
-    height: 25px;
-}
-
-.PagPerfil .Imagem2 {
-    width: 25px;
-    height: 25px;
-}
-.PagPerfil .Imagem3 {
-    width: 25px;
-    height: 25px;
-}
-.PagPerfil .Imagem4 {
-    width: 25px;
-    height: 25px;
-}
-.PagPerfil .Imagem5 {
-    width: 25px;
-    height: 25px;
-}
-
-
-.PagPerfil .Imagem1 {
-    margin-top: -10px;
-}
-
-
-.PagPerfil .notific img {
-    height: 35px;
-    width: 35px;
-}
-
-
-
