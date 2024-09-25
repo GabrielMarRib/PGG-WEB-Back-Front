@@ -48,7 +48,7 @@ const Notificacao = () => {
         if (item) {
             if (item.pp) {
                 navigate('/PagPontoPedido')
-            } else if (item.fodase) { //provisório
+            } else if (item.id_venda) {
                 navigate('/PagVenderProdutos')
             }
         }
@@ -114,7 +114,7 @@ const Notificacao = () => {
                                     vezes++;
                                     if (!item?.MSG) { // se nao tiver msg, manda po krl
                                         if (vezes === 1) {
-                                            return <p>não há notificações A </p>
+                                            return <p>não há notificações  </p>
                                         }
                                         else
                                             return null
@@ -122,7 +122,7 @@ const Notificacao = () => {
                                     if (item.PP && User.userData.Nivel_acesso != 2) { // se tiver, mas se for relacionada a PP, e vc nao for gestor, manda pro krl
                                         if (vezes === 1) {
 
-                                            return <p>não há notificações B </p>
+                                            return <p>não há notificações  </p>
                                         }
 
                                         else

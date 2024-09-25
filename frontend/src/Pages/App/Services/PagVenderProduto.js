@@ -23,11 +23,13 @@ function PagVenderProduto() {
   const [categorias, setCategorias] = useState([]);
   const [dadosPP, setDadosPP] = useState([]);
   const [buscarPP, setBuscarPP] = useState(false);
+  const [PrimeiraOpcaoSelection, setPrimeiraOpcaoSelection] = useState(true);
 
   const navigate = useNavigate();
   const UserOBJ = useContext(UserContext);
   const User = UserOBJ.User;
   const { Alerta } = useAlerta();
+  console.log(User.userData.Nome)
 
   const pegaCategorias = async () => {
     try {
@@ -68,8 +70,14 @@ function PagVenderProduto() {
 
   const handleChangeCategoria = (e) => {
     const valor = e.target.value; // basicamente o valor do filho do select (option)
-    console.log(valor)
+    console.log("VALOR" + valor)
     setProdutosCats([])
+    if(valor == 'Nada'){
+      setCategoriaSelecionada(null)  
+      setPrimeiraOpcaoSelection(true)
+      return
+    }
+    setPrimeiraOpcaoSelection(false)
     if (isNaN(valor) || valor.length === 0) // aquela jogadinha la embaixo...
 
       setCategoriaSelecionada(null)   // se o valor pouco importa para o bd, manda null
@@ -78,8 +86,10 @@ function PagVenderProduto() {
   };
 
   const handleChangeProduto = (event) => {
+    
     try {
       const produtoId = event.target.value;
+      
 
       const produto = produtosCats.find((prod) => prod.id == produtoId)
       setProdutoSelecionado(produto);
@@ -133,11 +143,8 @@ function PagVenderProduto() {
 
     if (User && User.userData && User.userData.Nome) {
       try {
-        //console.log("Rodou aqui")
-        //console.log(JSON.stringify(User))
-        //console.log(JSON.stringify(produtoSelecionado))
-        //INSERT INTO `movimento`(`produto`, `data`, `qtde`, `valor`, `mov`, `cliente`, `Autor`, `Autor_id`, `Autor_Acesso`) VALUES ('[value-2]','[value-3]','[value-4]','[value-5]','[value-6]','[value-7]','[value-8]','[value-9]','[value-10]')
-        const response = await axios.post("http://pggzettav3.mooo.com/api/index.php", {
+     
+         await axios.post("http://pggzettav3.mooo.com/api/index.php", {
           funcao: "insereMovimento",
           senha: "@7h$Pz!q2X^vR1&K",
           produto: produtoSelecionado.id,
@@ -146,13 +153,9 @@ function PagVenderProduto() {
           mov: "S",
           Autor: User.userData.Nome,
           Autor_id: User.id,
-          Autor_Acesso: User.userData.Nivel_acesso,
           cliente: cliente,
         });
-        //console.log(response)
 
-        // INSERT INTO `movimento`(`produto`, `qtde`, `valor`, `mov`, `cliente`, `Autor`, `Autor_id`, `Autor_Acesso`) 
-        // VALUES (1,1,1,"E","Sergio","SErgio2","ADSA",2)
 
         handleGerarRelatorioVenda(
           produtoSelecionado.id,
@@ -246,7 +249,8 @@ function PagVenderProduto() {
           ReceitaProd: receitaEstimada,
           QtdeDisponivel: qtdeSobra,
           custoUnitario: custoUnitario,
-          nome_produto: produtoSelecionado.nome
+          nome_produto: produtoSelecionado.nome,
+          Autor_nome: User.userData.Nome
         });
       } catch (eee) {
         console.log("deu merda");
@@ -283,7 +287,7 @@ function PagVenderProduto() {
                   <label>Selecione a Categoria:</label>
                   <div className="grupo-select">
                     <select className="Select-Produto" value={categoriaSelecionada} onChange={handleChangeCategoria}>
-                      <option value="salve">Categorias</option>
+                      <option value="Nada">Categorias</option>
                       {categorias?.map((categoria) => (
                         <option key={categoria.id_categorias} value={categoria.id_categorias}>
                           {categoria.id_categorias} - {categoria.nome}
@@ -305,7 +309,13 @@ function PagVenderProduto() {
                       </select>
                     </>
                   ) : (
-                    <p>Categoria sem produto</p>
+
+                    PrimeiraOpcaoSelection == true ? (
+                        <p></p>
+                    ) : (
+                        <p>Categoria sem produto</p>
+                    )
+                    
                   )}
                 </div>
 

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import CabecalhoHome from "../../../Components/CabecalhoHome.js";
 import "../../../Styles/App/Service/PagVenderProduto.css";
 import { UserContext } from "../../../Context/UserContext.js";
@@ -7,6 +7,12 @@ import { useAlerta } from "../../../Context/AlertaContext.js";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Titulo from "../../../Components/Titulo.jsx";
+import ImgAtivo from "../../../Assets/GreenCheckMark.png";
+import ImgInativo from "../../../Assets/ReadCheckMark.png";
+
+
+
+
 
 const formatCNPJ = (value) => {
   // Remove caracteres não numéricos
@@ -30,23 +36,62 @@ const formatTelefone = (value) => {
   return value;
 };
 
+
 function PagVenderProduto() {
   const [NomeForcedor, setNomeForcedor] = useState('');
   const [CNPJ, setCNPJ] = useState('');
   const [Endereco, setEndereco] = useState('');
   const [Telefone, setTelefone] = useState('');
   const [Email, setEmail] = useState('');
-  const [Status, setStatus] = useState('');
+  const [Status, setStatus] = useState('inativo');
+  const [FornecedoresTabela, setFornecedoresTabela] = useState([]);
 
   const navigate = useNavigate();
   const UserOBJ = useContext(UserContext);
   const User = UserOBJ.User;
   const { Alerta } = useAlerta();
 
+
+  const PegarFornecedores = async () => {
+    try {
+      const Response = await axios.post("http://pggzettav3.mooo.com/api/index.php", {
+        funcao: "pegarTodosFornecedores",
+        senha: "@7h$Pz!q2X^vR1&K",
+      });
+      console.log( "Fornecedores pegados" );
+      setFornecedoresTabela(Response.data.fornecedores)
+      console.log( Response.data.fornecedores );
+    } catch (eee) {
+      console.log("deu merda");
+    }
+  }
+
+  useEffect(() => {
+
+    const PegarFornecedores = async () => {
+      try {
+        const Response = await axios.post("http://pggzettav3.mooo.com/api/index.php", {
+          funcao: "pegarTodosFornecedores",
+          senha: "@7h$Pz!q2X^vR1&K",
+        });
+        console.log( "Fornecedores pegados" );
+        setFornecedoresTabela(Response.data.fornecedores)
+        console.log( Response.data.fornecedores );
+      } catch (eee) {
+        console.log("deu merda");
+      }
+    }
+
+    PegarFornecedores()
+
+  }, []);
+
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (
-      !NomeForcedor || !CNPJ || !Endereco || !Telefone || !Email || !Status
+      !NomeForcedor || !CNPJ || !Endereco || !Telefone || !Email
     ) {
       Alerta(3, "Campos não preenchidos");
       return;
@@ -55,16 +100,24 @@ function PagVenderProduto() {
    
     try {
       const Response = await axios.post("http://pggzettav3.mooo.com/api/index.php", {
-        funcao: "CadastroFuncionario",
+        funcao: "cadastrarFornecedor",
         senha: "@7h$Pz!q2X^vR1&K",
-        Nome: NomeForcedor,
-        CNPJ: CNPJ,
-        Endereco: Endereco,
-        Telefone: Telefone,
-        Email: Email,
-        Status: Status,
+        nome: NomeForcedor,
+        cnpj: CNPJ,
+        endereco: Endereco,
+        telefone: Telefone,
+        email: Email,
+        status: Status,
       });
       console.log( Response );
+      Alerta(2, "Cadastrado")
+      setNomeForcedor('')
+      setCNPJ('')
+      setEndereco('')
+      setTelefone('')
+      setEmail('')
+      setStatus('')
+      PegarFornecedores()
     } catch (eee) {
       console.log("deu merda");
     }
@@ -72,6 +125,35 @@ function PagVenderProduto() {
 
     console.log({ NomeForcedor, CNPJ, Endereco, Telefone, Email, Status });
   };
+
+
+  const MapearFornecedores = (Fornecedor) => {
+    return(
+      <div className="Fornecedores"> 
+       <center><label><strong>Fornecedor(a): </strong>{Fornecedor.nome}</label>
+        <label> - {Fornecedor.id_fornecedor}</label></center>
+        <br />
+        <label><strong>CNPJ:</strong> {Fornecedor.cnpj} </label>
+        <label><strong>Endereço:</strong> {Fornecedor.endereco} </label>
+        <br />
+        <label><strong>Email:</strong> {Fornecedor.email} </label>
+        <br />
+        <label><strong>Telefone:</strong> {Fornecedor.telefone} </label>
+        <br />
+        {Fornecedor.status == 'ativo' ? (
+        <label><strong>Status:</strong> Ativo</label>
+      ) : (
+        <label><strong>Status:</strong> Inativo</label>
+      )}
+        {Fornecedor.status == 'ativo' ? (
+          <img src={ImgAtivo} alt="GreenCheck" />
+        ) : (
+          <img src={ImgInativo} alt="ReadCheck" />
+        )}
+
+      </div>
+    );
+  }
 
   return (
     <div className="PagVenderProduto">
@@ -90,7 +172,7 @@ function PagVenderProduto() {
             Voltar
           </button>
 
-          <div className="container-tela-produtos">
+           <div className="container-tela-cad_Fornecedor">   {/* container-tela-produtos */}
             <form className="formulario" onSubmit={handleSubmit}>
               <div className="grupo-input-produto">
                 <div className="grupo-input">
@@ -159,6 +241,18 @@ function PagVenderProduto() {
                 </button>
               </div>
             </form>
+            <div className="formulario">
+          <div className="ListaFornecedores">
+              <h2>Lista de fornecedores</h2>
+
+            {FornecedoresTabela.length > 0 ? (
+              FornecedoresTabela.map(MapearFornecedores)
+            ) : ( 
+              <p>Nenhum fornecedor cadastrado.</p> 
+            )}
+            
+             </div>
+            </div>
           </div>
         </div>
       </div>

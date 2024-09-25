@@ -48,7 +48,7 @@ function PagPerfil() {
             {/* <button className="Notificacao" onClick={togglePopup}> <img src={SININHO} alt="Sino"></img> </button> */}
             <div className="PegaTudo">
                 <div className="DivBtnsFuncionarios">
-                    {User && User.userData && User.userData.Nivel_acesso && User.userData.Nivel_acesso == 2 ? (
+                    {User && User.userData && User.userData.Nivel_acesso && User.userData.Nivel_acesso >= 2 ? (
                         <div id="IdBtnAddFunc">
                             <button className="AddFunc" onClick={() => { navigate('/PagAddFunc') }}> <img src={AddPerfil} id="IdAddFuncIcon"></img> Adicionar Funcionário</button>
                             <button className="AddFunc" onClick={() => { navigate('/PagFuncionarios') }}> <img src={IconListaFunc} id="IdAddFuncIcon"></img> Lista de Funcionarios</button>
@@ -57,9 +57,6 @@ function PagPerfil() {
                     ) :
                         null
                     }
-                    <div className="notific">
-                        <Notificacao />
-                    </div>
                 </div>
             </div>
             <div className="Corpo">
