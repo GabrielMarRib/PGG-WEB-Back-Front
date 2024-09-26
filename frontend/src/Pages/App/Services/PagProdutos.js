@@ -416,7 +416,6 @@ function PagProdutos() {
                   onChange={(e) => setPesquisaProduto(e.target.value)}
                 />
                  </div>
-
                  {carregando ? (
                   <div>Carregando...</div>
                 ) : (
