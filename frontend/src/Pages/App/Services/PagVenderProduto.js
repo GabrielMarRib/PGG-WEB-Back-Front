@@ -155,7 +155,7 @@ function PagVenderProduto() {
           data_movimento: nowMySQL,
           id_usuario: User.id,
           NomeCliente: cliente,
-          vlr_venda: quantidadeVenda
+          vlr_venda: custoUnitario
         });
 
 

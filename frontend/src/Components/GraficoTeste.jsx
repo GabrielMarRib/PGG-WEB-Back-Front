@@ -4,7 +4,7 @@ import axios from 'axios';
 
 function GraficoTeste() {
   const [vendasInfo, setVendasInfo] = useState({});
-
+  const [raw, setRaw] = useState(null);
   useEffect(() => {
     const fetchVendas = async () => {
       try {
@@ -26,6 +26,7 @@ function GraficoTeste() {
           { name: 'Nov', receita: 0, qtdeTotal: 0 },
           { name: 'Dez', receita: 0, qtdeTotal: 0 },
         ];
+        setRaw(Number(response?.data[0].max_acc_valor));
         response.data.forEach(item => {
           const monthIndex = new Date(item.data).getMonth(); 
           months[monthIndex] = {
@@ -47,12 +48,10 @@ function GraficoTeste() {
       <br></br>
       <br></br>
       <br></br>
-      <br></br>
-      <br></br>
       <ResponsiveContainer width={625} height={300}>
         <ComposedChart data={vendasInfo}>
-          <XAxis dataKey="name" />
-          <YAxis />
+          <XAxis dataKey="name" />  
+          <YAxis domain={[0, raw]} tickCount={10} />
           <Tooltip />
           <Legend />
           <CartesianGrid stroke="#ababab" />
