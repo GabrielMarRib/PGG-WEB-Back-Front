@@ -44,10 +44,7 @@ function PagProdutos() {
   //Categoria:
   const [categoriaSelecionada, setCategoriaSelecionada] = useState(null);
   const [FiltroSelecionado, setFiltroSelecionado] = useState(null);
-  const [filtragem, setFiltragem] = useState("");
   const [mensagemVazia, setMensagemVazia] = useState(false); // Estado para controlar a mensagem
-
-  const [NaoTemProduto, setNaoTemProduto] = useState(false);
 
   //Fornecedor:
   const [fornecedor, setFornecedor] = useState("");
@@ -151,7 +148,7 @@ function PagProdutos() {
   }
 
   const produtosFiltrados = produtos.filter((produto) =>
-    produto.nome.toLowerCase().includes(pesquisaProduto.toLowerCase())
+    isNaN(pesquisaProduto) ? produto.nome.toLowerCase().includes(pesquisaProduto.toLowerCase()) : produto.id_produtos.includes(pesquisaProduto)
   );
 
   const atualizaProd = async () => {
@@ -195,12 +192,6 @@ function PagProdutos() {
   };
 
   useEffect(() => {
-    // if (FiltroSelecionado) {
-    //   buscarProdutosPorCategoria();
-    // } else {
-    //   setMensagemVazia(true);
-    // }
-   
     buscarProdutosPorCategoria();
   }, [FiltroSelecionado]);
   
@@ -232,6 +223,7 @@ function PagProdutos() {
     }
     console.log(val)
   }
+
 
   return (
     <div className="Produtos">
@@ -436,6 +428,7 @@ function PagProdutos() {
                         <ul key={produto.id_produtos} className="produtoGerado">
                           <div className="conteudoProdutoGerado">
                             <li className="liGerado">{produto.nome}</li>
+                            <li className="liGerado">Código: {produto.id_produtos}</li>
                             <button onClick={() => {
                               handleSelecionarProd(produto);
                               handleModal(true);
