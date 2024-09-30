@@ -19,6 +19,7 @@
     cursor: pointer;
     margin: 10px auto;
     font-family: 'JetBrains Mono';
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .PagRelatorios .listaInfo {

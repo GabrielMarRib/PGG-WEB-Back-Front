@@ -150,7 +150,8 @@
   min-height: 3.5vh;
   background-color: #eb6c3e;
   border-radius: 5px;
-  box-shadow: 2px 4px 2px rgb(114, 112, 112);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  
   cursor: pointer;
   color:#f0eded ;
   border-color: transparent;

@@ -17,6 +17,8 @@
     font-family: 'JetBrains Mono';
     transition: background-color 0.3s ease;
     margin-top: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-left: 20px;
 }
 
 .PagHistorico button:hover {

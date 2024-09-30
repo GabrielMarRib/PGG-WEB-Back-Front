@@ -45,6 +45,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .ModalAtualizarLote input {
@@ -85,6 +86,7 @@
     font-size: 16px;
     margin-top: 20px;
     width: 93%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Tirar as setinhas do input */

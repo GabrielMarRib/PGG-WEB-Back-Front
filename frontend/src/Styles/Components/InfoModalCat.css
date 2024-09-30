@@ -31,6 +31,7 @@
     cursor: pointer;
     margin: 10px auto;
     font-family: 'JetBrains Mono';
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .InfoModal .tituloDiv{
@@ -63,6 +64,7 @@
     border-radius: 30px !important;
     width: 30px;
     background-color: rgb(255, 57, 57) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .InfoModal .util{
@@ -93,6 +95,7 @@
     width: 20px;
     font-size: 10px !important;
     background-color: rgb(255, 57, 57) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .InfoModal .btnFecharInfoDiv{
