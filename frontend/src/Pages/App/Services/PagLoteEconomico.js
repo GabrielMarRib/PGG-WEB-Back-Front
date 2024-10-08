@@ -7,6 +7,7 @@ import Titulo from '../../../Components/Titulo.jsx';
 import AlertaNotificação from "../../../Components/AlertaNotificação";
 import { useAlerta } from "../../../Context/AlertaContext";
 import { useNavigate } from "react-router-dom";
+import Tooltip from '../../../Components/Dica.js'; // Importando o componente Tooltip
 
 function PagLoteEconomico() {
   const [DadosLoteEconomico, setDadosLoteEconomico] = useState([]);
@@ -72,13 +73,19 @@ function PagLoteEconomico() {
       <div key={item.idProduto} className="DivsItens">
         <li>{item.produtoNome}</li>
         <div className="DivsResutlados">
-          CP:<label>{CP}</label>
+          <Tooltip text="Custo do Pedido">
+            CP:<label>{CP}</label>
+          </Tooltip>
         </div>
         <div className="DivsResutlados">
-          CA:<label>{CA}</label>
+          <Tooltip text="Custo de Armazém">
+            CA:<label>{CA}</label>
+          </Tooltip>
         </div>
         <div className="DivsResutlados">
-          LEC:<label>{LE}</label>
+          <Tooltip text="Cálculo do Lote Econômico">
+            LEC:<label>{LE}</label>
+          </Tooltip>
         </div>
         <br />
         {respostaPesquisa[item.idProduto]?.RespostaExiste === true ? (
@@ -127,8 +134,8 @@ function PagLoteEconomico() {
         <CabecalhoHome />
       </div>
       <Titulo
-                tituloMsg='Gestão do Lote Econômico'
-            />
+        tituloMsg='Gestão do Lote Econômico'
+      />
       <div className="btn">
         <button className="Voltar" onClick={() => navigate("/PagHome")}>
           Voltar
@@ -154,10 +161,9 @@ function PagLoteEconomico() {
         </div>
 
         <div
-          className={
-            isVisibleForms
-              ? "ContainerFormularioLoteEconomicoShow"
-              : "ContainerFormularioLoteEconomico"
+          className={isVisibleForms
+            ? "ContainerFormularioLoteEconomicoShow"
+            : "ContainerFormularioLoteEconomico"
           }
         >
           <div className="container-tela-produtos">
