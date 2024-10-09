@@ -218,6 +218,7 @@ function PagHome() {
             <div className="estoque-options">
               <button className="option-button" onClick={() => navigate("/PagPontoPedido")}>Ponto de pedido</button>
               <button className="option-button" onClick={() => navigate("/PagCadFornecedor")}>Cadastro de fornecedor</button>
+              <button className="option-button" onClick={() => navigate("/PagPesquisaFornecedor")}>Pesquisa de produtos</button>
             </div>
           )}
             
