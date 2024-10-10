@@ -6,36 +6,37 @@ import { useNavigate } from "react-router-dom";
 import Titulo from "../../../Components/Titulo.jsx";
 
 const PagMovimentos = () => {
-  const navigate = useNavigate(); // Manja? É pra navegar entre páginas, estilo chefão!
+  const navigate = useNavigate();
   const [carregando, setCarregando] = useState(true);
   const [msg, setMsg] = useState('');
   const [movimentos, setMovimentos] = useState([]);
-  const [filtro, setFiltro] = useState(''); // Aqui é onde você escolhe o filtro. Aí você manda ver!
-  const [valorFiltro, setValorFiltro] = useState(''); // Valor do filtro, tipo código do produto, tá ligado?
-  const [ordem, setOrdem] = useState('maior'); // Ordem, se vai ser do maior pro menor ou o contrário
-  const [movimentosFiltrados, setMovimentosFiltrados] = useState([]); // Só os movimentos filtrados, o resto é passado
+  const [filtro, setFiltro] = useState('');
+  const [valorFiltro, setValorFiltro] = useState('');
+  const [ordem, setOrdem] = useState('maior');
+  const [movimentosFiltrados, setMovimentosFiltrados] = useState([]);
+  const [mostrarCustoMedio, setMostrarCustoMedio] = useState(false);
   const [erro, setErro] = useState('');
-  const [codigosUnicos, setCodigosUnicos] = useState([]); // Só códigos únicos de produto, porque repetição é coisa de amador
-  const [autoresUnicos, setAutoresUnicos] = useState([]); // Autores sem repetição, quem não gosta é porque não entende nada
-
+  const [codigosUnicos, setCodigosUnicos] = useState([]);
+  const [autoresUnicos, setAutoresUnicos] = useState([]);
+  const [TotalQuantidade, setTotalQuantidade] = useState([]);
+  const [TotalValor, setTotalValor] = useState([]);
+  const [i, seti] = useState(false);
 
   useEffect(() => {
     const fetchMovimentos = async () => {
       try {
         const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
-          funcao: 'pegaDadosMovimentos', // Função que manda os dados, o segredo do sucesso
-          senha: '@7h$Pz!q2X^vR1&K' // Senha, porque não se revela, né?
+          funcao: 'pegaDadosMovimentos',
+          senha: '@7h$Pz!q2X^vR1&K'
         });
 
         const movimentosData = response.data;
         setMovimentos(movimentosData);
-        setMovimentosFiltrados(movimentosData); // No começo, tá tudo liberado, sem filtro
+        setMovimentosFiltrados(movimentosData);
 
-        // Extrair códigos únicos de produtos
         const codigos = [...new Set(movimentosData.map(mov => mov.produto))];
         setCodigosUnicos(codigos);
 
-        // Extrair autores únicos
         const autores = [...new Set(movimentosData.map(mov => mov.Autor))];
         setAutoresUnicos(autores);
 
@@ -49,58 +50,46 @@ const PagMovimentos = () => {
   }, []);
 
   const handleFiltroChange = (e) => {
-    setFiltro(e.target.value); // Escolheu o filtro? Agora é só mexer nos dados
-    setValorFiltro(''); // Reseta o valor do filtro, pra começar do zero
-    setOrdem('maior');  // Reseta a ordem, assim tudo fica no esquema
+    setFiltro(e.target.value);
+    setValorFiltro('');
+    setOrdem('maior');
   };
 
   const handleValorFiltroChange = (e) => {
-    setValorFiltro(e.target.value); // Atualiza o valor do filtro, tipo quando escolhe o produto
+    setValorFiltro(e.target.value);
   };
 
   const handleOrdemChange = (e) => {
-    setOrdem(e.target.value); // Muda a ordem, de maior pra menor ou o contrário
+    setOrdem(e.target.value);
   };
 
   const handleAutorChange = (e) => {
-    setValorFiltro(e.target.value); // Atualiza o valor do filtro para autor
+    setValorFiltro(e.target.value);
+  };
+
+  const handleCustoMedioChange = (e) => {
+    setMostrarCustoMedio(e.target.value === 'custoMedio');
   };
 
   useEffect(() => {
-    if (valorFiltro || filtro === 'data' || filtro === 'quantidade' || filtro === 'valor') {
-      let movimentosFiltrados = movimentos;
+    let movimentosFiltrados = movimentos;
 
+    if (valorFiltro || filtro === 'data' || filtro === 'quantidade' || filtro === 'valor') {
       if (filtro === 'codigo') {
         movimentosFiltrados = movimentos.filter(mov => mov.produto === valorFiltro);
       } else if (filtro === 'data') {
-        // Filtrar por data, da mais recente pra mais antiga
-        movimentosFiltrados = [...movimentos].sort((a, b) => {
-          const dataA = new Date(a.data);
-          const dataB = new Date(b.data);
-          return dataB - dataA;
-        });
+        movimentosFiltrados = [...movimentos].sort((a, b) => new Date(b.data) - new Date(a.data));
       } else if (filtro === 'quantidade') {
-        // Filtrar por quantidade, maior pra menor ou o contrário
         movimentosFiltrados = [...movimentos].sort((a, b) => {
-          if (ordem === 'maior') {
-            return b.qtde - a.qtde; // Maior pra menor, estilo chefão
-          } else {
-            return a.qtde - b.qtde; // Menor pra maior, pro pessoal que prefere assim
-          }
+          return ordem === 'maior' ? b.qtde - a.qtde : a.qtde - b.qtde;
         });
       } else if (filtro === 'valor') {
-        // Filtrar por valor, mesma coisa que quantidade, só muda o valor
         movimentosFiltrados = [...movimentos].sort((a, b) => {
-          if (ordem === 'maior') {
-            return b.valor - a.valor;
-          } else {
-            return a.valor - b.valor;
-          }
+          return ordem === 'maior' ? b.valor - a.valor : a.valor - b.valor;
         });
       } else if (filtro === 'movimento') {
         movimentosFiltrados = movimentos.filter(mov => mov.mov === valorFiltro);
-      }else if (filtro === 'cliente') {
-        // Filtrar por cliente, sem ligar se o texto é maiúsculo ou minúsculo
+      } else if (filtro === 'cliente') {
         const valorFiltroLower = valorFiltro.toLowerCase();
         movimentosFiltrados = movimentos.filter(mov =>
           mov.cliente.toLowerCase().includes(valorFiltroLower)
@@ -108,12 +97,62 @@ const PagMovimentos = () => {
       } else if (filtro === 'autor') {
         movimentosFiltrados = movimentos.filter(mov => mov.Autor === valorFiltro);
       }
-
-      setMovimentosFiltrados(movimentosFiltrados);
-    } else {
-      setMovimentosFiltrados(movimentos); // Sem filtro, mostra tudo
     }
+
+    setMovimentosFiltrados(movimentosFiltrados);
   }, [valorFiltro, filtro, ordem, movimentos]);
+
+  const calcularCustoMedio = (movimentoAtual) => {
+    const totalValor = CalcularValorTotal(movimentoAtual);
+    const totalQuantidade = CalcularQuantidadeTotal(movimentoAtual);
+  
+    if (totalQuantidade > 0) {
+      return (totalValor / totalQuantidade).toFixed(2);
+    }
+    return '0.00';
+  };
+
+  const CalcularValorTotal = (movimentoAtual) => {
+    let totalValorlet = 0;
+    let produtoId = movimentoAtual.produto;
+  
+    const movimentacoesProduto = movimentos
+      .filter(mov => mov.produto === produtoId)
+      .sort((a, b) => new Date(a.data) - new Date(b.data));
+  
+    movimentacoesProduto.forEach((movimento) => {
+      const valor = parseFloat(movimento.valor);  
+      const quantidade = parseInt(movimento.qtde);
+  
+      if (movimento.mov === 'E') { 
+        totalValorlet += quantidade * valor;
+      } else if (movimento.mov === 'S') { 
+        totalValorlet -= quantidade * valor;
+      }
+    });
+    return totalValorlet;
+  };
+  
+  
+  
+  const CalcularQuantidadeTotal = (movimentoAtual) => {
+    let totalQuantidadelet = 0;
+    let produtoId = movimentoAtual.produto;
+  
+    const movimentacoesProduto = movimentos
+      .filter(mov => mov.produto === produtoId)
+      .sort((a, b) => new Date(a.data) - new Date(b.data));
+  
+    movimentacoesProduto.forEach((movimento) => {
+      const quantidade = parseInt(movimento.qtde, 10);
+      if (movimento.mov === 'E') {
+        totalQuantidadelet += quantidade;
+      } else if (movimento.mov === 'S') {
+        totalQuantidadelet -= quantidade;
+      }
+    });
+    return totalQuantidadelet;
+  };
 
   return (
     <div className='PagMovimentos'>
@@ -125,7 +164,6 @@ const PagMovimentos = () => {
       />
       {erro && <p style={{ color: 'red' }}>{erro}</p>}
 
-      {/* Filtro principal */}
       <div className="filtro-section">
         <label htmlFor="filtro">Filtrar por: </label>
         <select id="filtro" value={filtro} onChange={handleFiltroChange}>
@@ -135,12 +173,18 @@ const PagMovimentos = () => {
           <option value="quantidade">Quantidade</option>
           <option value="valor">Valor</option>
           <option value="cliente">Cliente</option>
-          <option value="movimento">Tipo de Movimento</option> {/* Filtro adicionado */}
+          <option value="movimento">Tipo de Movimento</option>
           <option value="autor">Autor</option>
+        </select>
+
+        <label htmlFor="custoMedio"></label>
+        <select id="custoMedio" onChange={handleCustoMedioChange}>
+          <option value="">Selecione</option>
+          <option value="custoMedio">Custo Médio</option>
+          <option value="peps">PEPS</option>
         </select>
       </div>
 
-      {/* Select ou input de acordo com o filtro selecionado */}
       {filtro === 'codigo' && (
         <div className="select-produto-section">
           <label htmlFor="produto">Selecione um Produto: </label>
@@ -155,58 +199,6 @@ const PagMovimentos = () => {
         </div>
       )}
 
-      {filtro === 'movimento' && (
-        <div className="select-movimento-section">
-          <label htmlFor="movimento">Tipo de Movimento: </label>
-          <select id="movimento" value={valorFiltro} onChange={handleValorFiltroChange}>
-            <option value="">Selecione o tipo</option>
-            <option value="E">Entrada</option>
-            <option value="S">Saída</option>
-          </select>
-        </div>
-      )}
-
-      {/* Select para autores */}
-      {filtro === 'autor' && (
-        <div className="select-autor-section">
-          <label htmlFor="autor">Selecione um Autor: </label>
-          <select id="autor" value={valorFiltro} onChange={handleAutorChange}>
-            <option value="">Selecione um autor</option>
-            {autoresUnicos.map(autor => (
-              <option key={autor} value={autor}>
-                {autor}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
-
-      {/* Ordenação de Quantidade ou Valor */}
-      {(filtro === 'quantidade' || filtro === 'valor') && (
-        <div className="ordem-section">
-          <label htmlFor="ordem">Ordenar por: </label>
-          <select id="ordem" value={ordem} onChange={handleOrdemChange}>
-            <option value="maior">Maior para Menor</option>
-            <option value="menor">Menor para Maior</option>
-          </select>
-        </div>
-      )}
-
-      {/* Input para clientes */}
-      {(filtro === 'cliente') && (
-        <div className="input-filtro-section">
-          <label htmlFor="valorFiltro">Nome do Cliente: </label>
-          <input
-            id="valorFiltro"
-            type="text"
-            value={valorFiltro}
-            onChange={handleValorFiltroChange}
-            placeholder="Digite o nome do cliente"
-          />
-        </div>
-      )}
-
-      {/* Renderiza a tabela */}
       <table>
         <thead>
           <tr>
@@ -214,10 +206,13 @@ const PagMovimentos = () => {
             <th>Produto Nome</th>
             <th>Data</th>
             <th>Quantidade</th>
-            <th>Valor</th>
+            <th>Custo</th>
             <th>Movimento</th>
             <th>Cliente</th>
             <th>Autor</th>
+            {/* {mostrarCustoMedio && <th>Valor Total</th>}
+            {mostrarCustoMedio && <th>Quantidade Total</th>} */}
+            {mostrarCustoMedio && <th>Custo Médio</th>}
           </tr>
         </thead>
         <tbody>
@@ -231,6 +226,9 @@ const PagMovimentos = () => {
               <td>{movimento.mov}</td>
               <td>{movimento.cliente}</td>
               <td>{movimento.Autor}</td>
+              {/* {mostrarCustoMedio && <td>R$ {CalcularValorTotal(movimento)}</td>}
+              {mostrarCustoMedio && <td>{CalcularQuantidadeTotal(movimento)}</td>} */}
+              {mostrarCustoMedio && <td>R$ {calcularCustoMedio(movimento)}</td>}
             </tr>
           ))}
         </tbody>
