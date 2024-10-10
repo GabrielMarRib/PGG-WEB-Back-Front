@@ -65,9 +65,11 @@ function PagLoteEconomico() {
   };
 
   const pegaProdutos = (item) => {
-    let CP = item.custoPedido === null ? "Nenhum valor ainda" : item.custoPedido;
-    let CA = item.custoArmazem === null ? "Nenhum valor ainda" : item.custoArmazem;
-    let LE = item.calculoLote === null ? "Nenhum valor ainda" : item.calculoLote;
+    let CP = item.custoPedido === null ? "Nenhum valor ainda" : Math.sqrt(item.custoPedido).toFixed(2);
+    let CA = item.custoArmazem === null ? "Nenhum valor ainda" : Math.sqrt(item.custoArmazem);
+    let LE = item.calculoLote === null ? "Nenhum valor ainda" : Math.sqrt(item.calculoLote);
+
+    
 
     return (
       <div key={item.idProduto} className="DivsItens">
