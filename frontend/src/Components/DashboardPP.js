@@ -53,7 +53,7 @@ const DashboardPP = () => {
       case "URGENTE!!":
         styleCustom = {
           display: 'inline-block',
-          backgroundColor: '#fc8458',
+          backgroundColor: '#FF0000 ',
           minWidth: '4vw',
           borderRadius: '5px',
           color: 'white',
