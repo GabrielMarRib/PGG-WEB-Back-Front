@@ -166,7 +166,7 @@ function PagPesquisaFornecedor() {
                     <CabecalhoHome />
                 </div>
 
-                <Titulo tituloMsg="Gerenciamento de Produtos" />
+                <Titulo tituloMsg="Pesquisa de Produtos" />
                 <AlertaNotificação />
                 <button className="voltar" onClick={() => { navigate("/PagEscolhaProdutos"); }}>
                     Voltar
