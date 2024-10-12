@@ -141,19 +141,21 @@ function PagVenderProduto() {
 
   const handleInsercaoVendas = async () => {
 
+    const nowMySQL = new Date().toISOString().slice(0, 19).replace('T', ' ');
     if (User && User.userData && User.userData.Nome) {
       try {
      
          await axios.post("http://pggzettav3.mooo.com/api/index.php", {
           funcao: "insereMovimento",
           senha: "@7h$Pz!q2X^vR1&K",
-          produto: produtoSelecionado.id,
-          qtde: quantidadeVenda,
-          valor: receitaEstimada,
-          mov: "S",
-          Autor: User.userData.Nome,
-          Autor_id: User.id,
-          cliente: cliente,
+          id: produtoSelecionado.id,
+          quantidade: quantidadeVenda,
+          vlr_compra: receitaEstimada,
+          Mov: "S",
+          data_movimento: nowMySQL,
+          id_usuario: User.id,
+          NomeCliente: cliente,
+          vlr_venda: custoUnitario
         });
 
 
@@ -239,6 +241,8 @@ function PagVenderProduto() {
   ) => {
     if (User && User.userData && User.userData.Nome) {
       const qtdeSobra = quantidadeDisponivel - quantidadeVenda;
+      const qtdeSeiLaNumSei = Number(quantidadeDisponivel)+Number(quantidadeVenda)
+
       try {
         await axios.post("http://pggzettav3.mooo.com/api/index.php", {
           funcao: "geraRelatorioVenda",
@@ -250,7 +254,8 @@ function PagVenderProduto() {
           QtdeDisponivel: qtdeSobra,
           custoUnitario: custoUnitario,
           nome_produto: produtoSelecionado.nome,
-          Autor_nome: User.userData.Nome
+          Autor_nome: User.userData.Nome,
+          Qtd_Old: quantidadeDisponivel
         });
       } catch (eee) {
         console.log("deu merda");

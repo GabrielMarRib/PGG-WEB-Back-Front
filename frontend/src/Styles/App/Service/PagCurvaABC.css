@@ -13,13 +13,17 @@
     color: #333;
 }
 
-.CurvaABC .btn button.voltar {
-    width: 80px;
+.CurvaABC .btn button.voltar{
+    margin: 20px;
+}
 
+.CurvaABC.btn button.voltar {
+    width: 80px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .CurvaABC .btn {
-    margin-right: 1500px;
+    margin-right: 80%;
 }
 
 .CurvaABC .Nome-produto-input {
@@ -70,6 +74,7 @@
     font-family: 'JetBrains Mono';
     margin-top: 20px;
     margin-right: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .CurvaABC .Container-Textos {
@@ -238,7 +243,6 @@
     display: inline-block;
     float: right;
     margin-right: 10px;
-
     display: flex;
     flex-direction: column;
     align-items: center;

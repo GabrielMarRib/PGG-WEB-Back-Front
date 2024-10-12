@@ -34,6 +34,7 @@
     margin: 10px auto;
     width: 80px;
     font-family: 'JetBrains Mono';
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .PagFuncionarios .BarraLateral {
@@ -111,6 +112,7 @@
     cursor: pointer;
     margin: 10px;
     font-family: 'JetBrains Mono', monospace;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .PagFuncionarios .botoes button:focus {

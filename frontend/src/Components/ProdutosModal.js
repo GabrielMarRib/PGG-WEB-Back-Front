@@ -297,8 +297,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
               <h2>{tudoOLD.categoria ? tudoOLD.categoria + ' - ' + tudoOLD.nomeCat : "Não possui categoria"}</h2>
               <hr />
               Escolha a nova categoria do item:
-              <center> <BuscaCategoriasComponentes setCategoriaSelecionada={setCategoriaSelecionada} categoriaSelecionada={categoriaSelecionada} /> </center>
-
+                <center> <BuscaCategoriasComponentes setCategoriaSelecionada={setCategoriaSelecionada} categoriaSelecionada={categoriaSelecionada} /> </center>
               <button className='botao-testar' >Atualizar</button>
             </form>
           </div>
@@ -490,7 +489,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
                   />
                   
               </label>
-              <p className="instrucao">Deseja alterar as informações de lote? Clique <Link to="/PagGerirCategoria">AQUI</Link> e vá para a página de gereciamento de LOTE para um controle mais detalhado</p>
+              <p className="instrucao">Deseja alterar as informações de lote? Clique <Link to="/PagGerirLotes">AQUI</Link> e vá para a página de gereciamento de LOTE para um controle mais detalhado</p>
             </form>
           </div>
         </div>

@@ -19,6 +19,7 @@
 .PagVenderProduto .DivForms button.voltar {
     align-items: center;
     margin-top: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }  
 
 .PagVenderProduto .container-tela-produtos {
@@ -94,6 +95,7 @@
     font-family: 'JetBrains Mono';
     margin-top: 10px;
     width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -176,7 +178,7 @@
     font-family: 'JetBrains Mono';
     margin-top: 10px;
     width: 100%;
-
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
 
 
@@ -214,3 +216,6 @@
         margin-bottom: -4px;
         margin-left: 5px;
     }
+
+/*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 10px 10px;*/

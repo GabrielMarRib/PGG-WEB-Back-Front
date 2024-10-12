@@ -11,12 +11,13 @@ function PagHistorico() {
 
   const [historico, setHistorico] = useState([]);
   const [camposVariaveis, setCamposVariaveis] = useState([]);
-  const [departamentoSelecionado, setDepartamentoSelecionado] = useState(""); // Porra do filtro de departamento
+  const [departamentoSelecionado, setDepartamentoSelecionado] = useState("curvaabc"); // Porra do filtro de departamento
   const [adicionaisCurva, setAdicionaisCurva] = useState([]);
   const [adicionaisLote, setAdicionaisLote] = useState([]);
   useEffect(() => {
     const pegaHistorico = async () => { // função existe para separar async do useEffect...
       try {
+
         const response = await axios.post(
           "http://pggzettav3.mooo.com/api/index.php",
           {
@@ -37,6 +38,7 @@ function PagHistorico() {
   useEffect(() => {
     const pegaAdicionais = async () => {
       try {
+
         const response = await axios.post(
           "http://pggzettav3.mooo.com/api/index.php",
           {
@@ -63,6 +65,7 @@ function PagHistorico() {
 
   const criaCampos = (dados) => {
     const dadosUnicos = [];
+
     for (let dado of dados) {
       if (!dadosUnicos.includes(dado.campos)) {
         if (dado.campos.indexOf(",") > 0) {
@@ -101,7 +104,7 @@ function PagHistorico() {
   // Campos pertencentes a cada departamento
   const camposDepartamento = {
     curvaabc: ["quantidadeConsumo"],
-    lote: ["vlr_compra", "vlr_venda", "qtde"]
+    lote: ["vlr_compra", "vlr_venda", "qtde"],
   };
 
 
@@ -119,7 +122,7 @@ function PagHistorico() {
         <CabecalhoHome />
       </div>
       <AlertaNotificação />
-      <Titulo tituloMsg="Histórico" />
+      <Titulo tituloMsg="Logs" />
       <div className="btn">
         <button className="Voltar" onClick={() => navigate("/PagHome")}>
           Voltar
@@ -127,13 +130,12 @@ function PagHistorico() {
       </div>
 
       <div className="filtroDepartamento">
-        <label htmlFor="departamento">Filtrar por Departamento:</label>
+        <label htmlFor="departamento">Filtrar por tipo de visão:</label>
         <select
           id="departamento"
           value={departamentoSelecionado}
           onChange={(e) => setDepartamentoSelecionado(e.target.value)}
         >
-          <option value="">Todos</option>
           <option value="curvaabc">Curva ABC</option>
           <option value="lote">Lote</option>
 
@@ -144,7 +146,7 @@ function PagHistorico() {
         <table className="historicoTable">
           <thead>
             <tr>
-              <th>Departamento</th>
+              <th>TIPO DE VISÃO</th>
               {obterCamposDepartamento().map((campo) => (
                 <th key={campo}>{campo}</th>
               ))}

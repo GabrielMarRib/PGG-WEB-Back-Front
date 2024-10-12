@@ -44,10 +44,7 @@ function PagProdutos() {
   //Categoria:
   const [categoriaSelecionada, setCategoriaSelecionada] = useState(null);
   const [FiltroSelecionado, setFiltroSelecionado] = useState(null);
-  const [filtragem, setFiltragem] = useState("");
   const [mensagemVazia, setMensagemVazia] = useState(false); // Estado para controlar a mensagem
-
-  const [NaoTemProduto, setNaoTemProduto] = useState(false);
 
   //Fornecedor:
   const [fornecedor, setFornecedor] = useState("");
@@ -122,7 +119,8 @@ function PagProdutos() {
         id_usuario: User.id,
         data_movimento: diaOK,
         Mov: "E",
-        NomeCliente: fornecedor
+        NomeCliente: fornecedor,
+        fornecedor: fornecedor
       });
 
       // se a inserção deu OK, ele vai executar os códigos abaixo... (Se deu ruim, vai pro catch direto... Sim, existe uma linha de continuídade, só é bem tênue)
@@ -150,7 +148,7 @@ function PagProdutos() {
   }
 
   const produtosFiltrados = produtos.filter((produto) =>
-    produto.nome.toLowerCase().includes(pesquisaProduto.toLowerCase())
+    isNaN(pesquisaProduto) ? produto.nome.toLowerCase().includes(pesquisaProduto.toLowerCase()) : produto.id_produtos.includes(pesquisaProduto)
   );
 
   const atualizaProd = async () => {
@@ -194,12 +192,6 @@ function PagProdutos() {
   };
 
   useEffect(() => {
-    // if (FiltroSelecionado) {
-    //   buscarProdutosPorCategoria();
-    // } else {
-    //   setMensagemVazia(true);
-    // }
-   
     buscarProdutosPorCategoria();
   }, [FiltroSelecionado]);
   
@@ -217,12 +209,19 @@ function PagProdutos() {
 
   
   const MapearFornecedor = (Fornecedor) => {
-    if(Fornecedor == 'Vazio'){
-      setFornecedor('')
-    }
     return(
       <option value={Fornecedor.nome}>{Fornecedor.id_fornecedor} - {Fornecedor.nome}</option>
     );
+  }
+
+  const handleChangeFornecedor = (e) =>{
+    const val = e.target.value
+    if(val === 'Vazio'){
+      setFornecedor(null)
+    }else{
+      setFornecedor(val)
+    }
+    console.log(val)
   }
 
 
@@ -316,18 +315,18 @@ function PagProdutos() {
                   <div className="grupo-input">
                     <label htmlFor="dataCompra">Fornecedor: </label>
                     <select
-                      onChange={(e) => setFornecedor(e.target.value)}
+                      onChange={handleChangeFornecedor}
                       value={fornecedor}
                     >
                       <option value="Vazio">Selecione um fornecedor</option>
-
+                      <option value="Vazio">Sem fornecedor</option>
                       {Array.isArray(FornecedorSelect) ? (
-                        
                         FornecedorSelect?.map(MapearFornecedor)
                       ) : (
                         null
                       )
                         
+                      
                       }
                     </select>
                   </div>
@@ -417,7 +416,6 @@ function PagProdutos() {
                   onChange={(e) => setPesquisaProduto(e.target.value)}
                 />
                  </div>
-
                  {carregando ? (
                   <div>Carregando...</div>
                 ) : (
@@ -429,6 +427,7 @@ function PagProdutos() {
                         <ul key={produto.id_produtos} className="produtoGerado">
                           <div className="conteudoProdutoGerado">
                             <li className="liGerado">{produto.nome}</li>
+                            <li className="liGerado">Código: {produto.id_produtos}</li>
                             <button onClick={() => {
                               handleSelecionarProd(produto);
                               handleModal(true);

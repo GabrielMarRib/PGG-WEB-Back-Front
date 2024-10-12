@@ -53,7 +53,7 @@ const DashboardPP = () => {
       case "URGENTE!!":
         styleCustom = {
           display: 'inline-block',
-          backgroundColor: '#fc8458',
+          backgroundColor: '#FF0000 ',
           minWidth: '4vw',
           borderRadius: '5px',
           color: 'white',
@@ -103,7 +103,7 @@ const DashboardPP = () => {
             );
           })
         ) : (
-          <p>Não há notificações C</p>
+          <p>Não há pontos de pedido...</p>
         )
       )}
     </div>

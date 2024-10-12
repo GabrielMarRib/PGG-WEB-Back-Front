@@ -3,9 +3,11 @@ import CabecalhoHome from "../../../Components/CabecalhoHome";
 import "../../../Styles/App/Service/PagLoteEconomico.css";
 import lupa from "../../../Assets/lupa.png";
 import axios from "axios";
+import Titulo from '../../../Components/Titulo.jsx';
 import AlertaNotificação from "../../../Components/AlertaNotificação";
 import { useAlerta } from "../../../Context/AlertaContext";
 import { useNavigate } from "react-router-dom";
+import Tooltip from '../../../Components/Dica.js'; // Importando o componente Tooltip
 
 function PagLoteEconomico() {
   const [DadosLoteEconomico, setDadosLoteEconomico] = useState([]);
@@ -61,36 +63,50 @@ function PagLoteEconomico() {
     setItemAtual(item);
     setIdProduto(hashAtual);
   };
+  
+const FecharJanela = () => {
+    setIsVisibleForms(!isVisibleForms);
+}
 
   const pegaProdutos = (item) => {
-    let CP = item.custoPedido === null ? "Nenhum valor ainda" : item.custoPedido;
-    let CA = item.custoArmazem === null ? "Nenhum valor ainda" : item.custoArmazem;
-    let LE = item.calculoLote === null ? "Nenhum valor ainda" : item.calculoLote;
+    let CP = item.custoPedido === null ? "Nenhum valor ainda" : Math.sqrt(item.custoPedido).toFixed(2);
+    let CA = item.custoArmazem === null ? "Nenhum valor ainda" : Math.sqrt(item.custoArmazem).toFixed(2);
+    let LE = item.calculoLote === null ? "Nenhum valor ainda" : Math.sqrt(item.calculoLote).toFixed(2); 
+
+    
 
     return (
       <div key={item.idProduto} className="DivsItens">
-        <li>{item.produtoNome}</li>
-        <div className="DivsResutlados">
-          CP:<label>{CP}</label>
+        <div className="alinhamento">
+          <div className="colunamento">
+            <li>{item.produtoNome}</li>
+            <div className="DivsResutlados">
+              <Tooltip text="Custo do Pedido">
+                CP:<label>{CP}</label>
+              </Tooltip>
+            </div>
+            <div className="DivsResutlados">
+              <Tooltip text="Custo de Armazém">
+                CA:<label>{CA}</label>
+              </Tooltip>
+            </div>
+            <div className="DivsResutlados">
+              <Tooltip text="Cálculo do Lote Econômico">
+                LEC:<label>{LE}</label>
+              </Tooltip>
+            </div>
+            <br />
+            {respostaPesquisa[item.idProduto]?.RespostaExiste === true ? (
+              <button onClick={() => mostrarForms(item.produtoNome, item.idProduto)}>
+                Editar item
+              </button>
+            ) : (
+              <button onClick={() => mostrarForms(item.produtoNome, item.idProduto, false)}>
+                Editar Valor  
+              </button>
+            )}
+          </div>
         </div>
-        <div className="DivsResutlados">
-          CA:<label>{CA}</label>
-        </div>
-        <div className="DivsResutlados">
-          LEC:<label>{LE}</label>
-        </div>
-        <br />
-        {respostaPesquisa[item.idProduto]?.RespostaExiste === true ? (
-          <button onClick={() => mostrarForms(item.produtoNome, item.idProduto)}>
-            Editar item
-          </button>
-        ) : (
-          <button onClick={() => mostrarForms(item.produtoNome, item.idProduto, false)}>
-            Adicionar Valor
-          </button>
-        )}
-        <br />
-        --------------------
       </div>
     );
   };
@@ -125,7 +141,9 @@ function PagLoteEconomico() {
       <div className="CabecalhoHome">
         <CabecalhoHome />
       </div>
-
+      <Titulo
+        tituloMsg='Gestão do Lote Econômico'
+      />
       <div className="btn">
         <button className="Voltar" onClick={() => navigate("/PagHome")}>
           Voltar
@@ -151,10 +169,9 @@ function PagLoteEconomico() {
         </div>
 
         <div
-          className={
-            isVisibleForms
-              ? "ContainerFormularioLoteEconomicoShow"
-              : "ContainerFormularioLoteEconomico"
+          className={isVisibleForms
+            ? "ContainerFormularioLoteEconomicoShow"
+            : "ContainerFormularioLoteEconomico"
           }
         >
           <div className="container-tela-produtos">
@@ -171,7 +188,6 @@ function PagLoteEconomico() {
                   onChange={(e) => setValor_despesas_Anuais(e.target.value)}
                 />
               </div>
-
               <div className="grupo-input">
                 <label htmlFor="QtdProdutoEstocado">
                   Quantia de produtos estocados anuais
@@ -193,7 +209,6 @@ function PagLoteEconomico() {
                   onChange={(e) => setNumero_Pedidos_Anuais(e.target.value)}
                 />
               </div>
-
               <div className="grupo-input">
                 <label htmlFor="demanda_anual">Demanda Anual</label>
                 <input
@@ -203,7 +218,10 @@ function PagLoteEconomico() {
                   onChange={(e) => setdemanda_anual(e.target.value)}
                 />
               </div>
+              <did className="">
               <button onClick={CalcularLoteEconomico}>Atualizar</button>
+              <button onClick={() => FecharJanela()} >fechar</button>
+              </did>
             </div>
           </div>
         </div>

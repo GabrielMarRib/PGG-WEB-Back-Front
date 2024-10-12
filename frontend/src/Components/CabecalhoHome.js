@@ -136,10 +136,17 @@ const CabecalhoHome = () => {
             null
           )}
 
-          <li>
-            <a onClick={() => { navigate("/PagPontoPedido") }}
-              className="paginas"> Ponto de Pedido </a>
-          </li>
+<li>
+              <a onClick={() => { navigate("/PagPontoPedido") }} className="paginas">   Ponto de Pedido </a>
+              <ul className="dropdown">
+                <li> <a onClick={() => { navigate("/PagCadFornecedor") }}
+                  className="paginas"> Cadastrar fornecedores</a> </li>
+                <li> <a onClick={() => { navigate("/PagPesquisaFornecedor") }}
+                  className="paginas"> Pesquisa Produtos </a>
+                </li>
+              </ul>
+
+            </li>
 
           <li>
             <a onClick={() => { navigate("/PEPS") }}
@@ -153,7 +160,7 @@ const CabecalhoHome = () => {
 
           <li>
             <a onClick={() => { navigate("/PagHistorico") }}
-              className="paginas"> Histórico </a>
+              className="paginas"> Logs </a>
           </li>
 
 
