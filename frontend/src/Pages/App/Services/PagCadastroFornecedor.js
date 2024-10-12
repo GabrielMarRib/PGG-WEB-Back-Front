@@ -96,8 +96,9 @@ function PagVenderProduto() {
       Alerta(3, "Campos não preenchidos");
       return;
     }
-
-   
+    
+    
+    console.log({ NomeForcedor, CNPJ, Endereco, Telefone, Email, Status });
     try {
       const Response = await axios.post("http://pggzettav3.mooo.com/api/index.php", {
         funcao: "cadastrarFornecedor",
@@ -123,7 +124,6 @@ function PagVenderProduto() {
     }
   
 
-    console.log({ NomeForcedor, CNPJ, Endereco, Telefone, Email, Status });
   };
 
 
@@ -230,6 +230,7 @@ function PagVenderProduto() {
                       type="checkbox"
                       id="statusToggle"
                       checked={Status}
+                      
                       onChange={() => setStatus(!Status)}
                     />
                     <label htmlFor="statusToggle">{Status ? "ativo" : "inativo"}</label>
@@ -237,7 +238,7 @@ function PagVenderProduto() {
 
                   
                 <button className="botao" type="submit">
-                  Efetuar venda
+                  Efetuar cadastrado
                 </button>
               </div>
             </form>
