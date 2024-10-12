@@ -9,6 +9,7 @@ import { useAlerta } from ".././../../Context/AlertaContext.js";
 import { json, useNavigate } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import Titulo from "../../../Components/Titulo";
+import BuscaCategoriasComponentes from "../../../Components/BuscaCategoriasComponente.js";
 
 function PagVenderProduto() {
   const [carregando, setCarregando] = useState(true);
@@ -20,10 +21,14 @@ function PagVenderProduto() {
   const [cliente, setcliente] = useState([]);
   const [produtosCats, setProdutosCats] = useState([]);
   const [categoriaSelecionada, setCategoriaSelecionada] = useState(null);
+  const [DescricaoBaixa, setDescricaoBaixa] = useState(null);
+  const [QtdeBaixa, setQtdeBaixa] = useState(null);
+
   const [categorias, setCategorias] = useState([]);
-  const [dadosPP, setDadosPP] = useState([]);
+  
   const [buscarPP, setBuscarPP] = useState(false);
   const [PrimeiraOpcaoSelection, setPrimeiraOpcaoSelection] = useState(true);
+  const [MotivoBaixa, setMotivoBaixa] = useState(null);
 
   const navigate = useNavigate();
   const UserOBJ = useContext(UserContext);
@@ -57,7 +62,7 @@ function PagVenderProduto() {
           {
             funcao: "obterProdutosPorCategoriaComLote",
             senha: "@7h$Pz!q2X^vR1&K",
-            categoria: categoriaSelecionada,
+            categoria: categoriaSelecionada.id_categorias,
           }
         );
         setProdutosCats(response.data)
@@ -69,26 +74,39 @@ function PagVenderProduto() {
   }, [categoriaSelecionada]);
 
   const handleChangeCategoria = (e) => {
-    const valor = e.target.value; // basicamente o valor do filho do select (option)
-    console.log("VALOR" + valor)
+    const valor = e; // basicamente o valor do filho do select (option)
+    console.log("VALOR" + JSON.stringify(valor))
     setProdutosCats([])
-    if(valor == 'Nada'){
+    if(valor == null){
       setCategoriaSelecionada(null)  
       setPrimeiraOpcaoSelection(true)
+      setProdutoSelecionado("") 
       return
     }
     setPrimeiraOpcaoSelection(false)
-    if (isNaN(valor) || valor.length === 0) // aquela jogadinha la embaixo...
-
-      setCategoriaSelecionada(null)   // se o valor pouco importa para o bd, manda null
-    else                                // caso contrário
-      setCategoriaSelecionada(valor)  // manda o valor pra variável de categoria selecionada
+    // if (isNaN(valor) || valor.length === 0) // aquela jogadinha la embaixo...
+    //   setCategoriaSelecionada(null)   // se o valor pouco importa para o bd, manda null
+    // else                                // caso contrário
+    //   setCategoriaSelecionada(valor)  // manda o valor pra variável de categoria selecionada
   };
+  
+
+
+  useEffect(() => {
+    handleChangeCategoria(categoriaSelecionada);
+  }, [categoriaSelecionada]);
+
+
 
   const handleChangeProduto = (event) => {
-    
+    const produtoId = event.target.value;
+   if(produtoId == ''){
+    setProdutoSelecionado('');
+    setQuantidadeDisponivel('');
+    setCustoUnitario('');
+    return
+   }
     try {
-      const produtoId = event.target.value;
       
 
       const produto = produtosCats.find((prod) => prod.id == produtoId)
@@ -128,7 +146,19 @@ function PagVenderProduto() {
       Alerta(3, "Campos não preenchidos");
       return;
     }
-    handleInsercaoVendas();
+
+
+    if(MotivoBaixa == 1){ // venda
+      handleInsercaoVendas();
+    }else if(MotivoBaixa == 2){ //Perda/Quebra
+      handleBaixaqtdeEstoque();
+    }else if(MotivoBaixa == 3){ //Expiração/vecimento 
+      handleBaixaqtdeEstoque();
+    }else if(MotivoBaixa == 4){ //DevoluçãoFornecedor
+      handleBaixaqtdeEstoque();
+    }else if(MotivoBaixa == 5){ //Dar baixa do produto inteiro
+      handleBaixaDoProduto();
+    }
 
   };
 
@@ -136,9 +166,55 @@ function PagVenderProduto() {
     setcliente(e.target.value)
   }
 
+  const handleBaixaDoProduto = async () => {
+    try {
+  
+      await axios.post("http://pggzettav3.mooo.com/api/index.php", {
+       funcao: "baixadoproduto",
+       senha: "@7h$Pz!q2X^vR1&K",
+       produtoid: produtoSelecionado.id_categorias,
+     });
 
+     Alerta(2, "Baixa concluida!");
+     setReceitaEstimada(0);
+     setQuantidadeVenda(0);
+     setQuantidadeDisponivel(0);
+     setCustoUnitario(0);
+     setProdutoSelecionado([]);
+     setcliente("");
+     setMotivoBaixa('')
+     setProdutoSelecionado('')
+     setCategoriaSelecionada('')
+   } catch (error) {
+     console.log(error);
+   }
+  }
 
+  const handleBaixaqtdeEstoque = async () => {
+    try {
+  
+      await axios.post("http://pggzettav3.mooo.com/api/index.php", {
+       funcao: "baixaqtedproduto",
+       senha: "@7h$Pz!q2X^vR1&K",
+       Qtde: quantidadeVenda,
+       motivo: DescricaoBaixa,
+     });
 
+     Alerta(2, "Baixa concluida!");
+     setReceitaEstimada(0);
+     setQuantidadeVenda(0);
+     setQuantidadeDisponivel(0);
+     setCustoUnitario(0);
+     setProdutoSelecionado([]);
+     setcliente("");
+     setMotivoBaixa('')
+     setProdutoSelecionado('')
+     setCategoriaSelecionada('')
+   } catch (error) {
+     console.log(error);
+   }
+
+  }
   const handleInsercaoVendas = async () => {
 
     const nowMySQL = new Date().toISOString().slice(0, 19).replace('T', ' ');
@@ -205,7 +281,16 @@ function PagVenderProduto() {
     PegaDadosPP();
   }, []);
 
+  useEffect(() => {
+    if(!categoriaSelecionada){
+      setProdutoSelecionado(null)
+    }
+  }, [categoriaSelecionada]);
 
+  const handleMotivoBaixa = (e) => {
+    const MotivoSelecionado = e.target.value;
+    setMotivoBaixa(MotivoSelecionado)
+  }
 
   const handleGerarRelatorioPP = async (produto) => {
     const dados = await PegaDadosPP()
@@ -270,7 +355,7 @@ function PagVenderProduto() {
           <CabecalhoHome />
         </div>
         <Titulo
-          tituloMsg='Processamento de Vendas'
+          tituloMsg='Baixa de Produtos'
         />
         <AlertaNotificação />
       
@@ -289,22 +374,31 @@ function PagVenderProduto() {
             <form className="formulario" onSubmit={handleForm}>
               <div className="grupo-input-produto">
                 <div className="grupo-input">
-                  <label>Selecione a Categoria:</label>
+                  <center><h4>Selecione um Produto</h4></center>
+                 
+                  
                   <div className="grupo-select">
-                    <select className="Select-Produto" value={categoriaSelecionada} onChange={handleChangeCategoria}>
+
+                    {/* <select className="Select-Produto" value={categoriaSelecionada} onChange={handleChangeCategoria}>
                       <option value="Nada">Categorias</option>
                       {categorias?.map((categoria) => (
                         <option key={categoria.id_categorias} value={categoria.id_categorias}>
                           {categoria.id_categorias} - {categoria.nome}
                         </option>
                       ))}
-                    </select>
+                    </select> */}
+
+                    <div className="grupo-select">
+                    <BuscaCategoriasComponentes setCategoriaSelecionada={setCategoriaSelecionada} categoriaSelecionada={categoriaSelecionada} />
+                    </div>
+
                   </div>
+                  <br></br>
 
                   {produtosCats.length > 0 ? (
                     <>
-                      <label>Selecione um produto:</label>
-                      <select className="Select-Produto" value={produtoSelecionado.id} onChange={handleChangeProduto}>
+                      <label>Produtos da categoria acima:</label>
+                      <select className="Select-Produto" value={produtoSelecionado ? produtoSelecionado.id : null} onChange={handleChangeProduto}>
                         <option value="">Selecione um produto</option>
                         {produtosCats?.map((produtos) => (
                           <option key={produtos.id} value={produtos.id}>
@@ -318,12 +412,20 @@ function PagVenderProduto() {
                     PrimeiraOpcaoSelection == true ? (
                         <p></p>
                     ) : (
-                        <p>Categoria sem produto</p>
+                      <>
+                      <center><h7>Categoria sem produto</h7></center>
+                      {/* {setProdutoSelecionado("")} */}
+                      </>
                     )
                     
                   )}
                 </div>
+              
 
+
+                {produtoSelecionado ? (
+                  <>
+                  <center>
                 <div className="Resultado-select">
                   {produtoSelecionado.nome && (
                     <p>Produto Selecionado: {produtoSelecionado.nome}</p>
@@ -332,9 +434,38 @@ function PagVenderProduto() {
                     <p>Produto id: {produtoSelecionado.id}</p>
                   )}
                 </div>
-                {produtosCats.length > 0 && (
+                  </center>
+                    <center><label>-----------------------</label></center>
+                    <div className="grupo-input">
+                      <label>Quantidade disponível do produto</label>
+                      <input
+                        className="controle-formulario"
+                        type="number"
+                        value={quantidadeDisponivel}
+                        readOnly
+                      />
+                    </div>
+                    <label>Motivo da Baixa</label>
+                    <select className="Select-Produto" value={MotivoBaixa} onChange={handleMotivoBaixa}>
+                          <option value="">Selecione o motivo da baixa</option>
+                          <option value={1}>Venda</option>
+                          <option value={2}>Perda/Quebra</option>
+                          <option value={3}>Expiração/Vencimento</option>
+                          <option value={4}>Devolução ao Fornecedor</option>
+                          <option value={5}>Do produto todo</option>
+                      </select>
+
+                  </>
+                ) : (
+                  null
+                )}
+
+                     
+
+                {produtosCats.length > 0 && MotivoBaixa == 1 &&(
                   <>
                     <div className="grupo-input">
+                      <br></br>
                       <label>Cliente:</label>
                       <input
                         className="controle-formulario"
@@ -352,17 +483,8 @@ function PagVenderProduto() {
                         readOnly
                       />
                     </div>
-                    <div className="grupo-input">
-                      <label>Quantidade disponível</label>
-                      <input
-                        className="controle-formulario"
-                        type="number"
-                        value={quantidadeDisponivel}
-                        readOnly
-                      />
-                    </div>
-                  </>
-                )}
+            
+                 
                 <div className="grupo-input">
                   <label>Quantidade de venda</label>
                   <input
@@ -386,6 +508,114 @@ function PagVenderProduto() {
                 <button className="botao" type="submit">
                   Efetuar venda
                 </button>
+                </>
+                )}
+
+
+                {produtosCats.length > 0 && produtoSelecionado && MotivoBaixa == 2 && (
+                <>
+                  <div className="grupo-input">
+                    <br></br>
+                    <label>Quantidade da Baixa</label>
+                    <input
+                      className="controle-formulario"
+                      type="number"
+                      value={quantidadeVenda === 0 ? "" : quantidadeVenda}
+                      onChange={handleReceita}
+                      placeholder="0"
+                      />
+                    </div>
+
+                  <div className="grupo-input">
+                   <label>Motivo da perda/quebra do produto</label>
+                      <input
+                        className="controle-formulario"
+                        type="text"
+                        value={DescricaoBaixa}
+                      />  
+                  </div>
+                  
+
+                  <button className="botao" type="submit">
+                   Efetuar Baixa
+                 </button>
+
+                </>
+                  )}
+
+            {produtosCats.length > 0 && produtoSelecionado && MotivoBaixa == 3 && (
+                <>
+                  <div className="grupo-input">
+                    <br></br>
+                    <label>Quantidade da Baixa</label>
+                    <input
+                      className="controle-formulario"
+                      type="number"
+                      value={quantidadeVenda === 0 ? "" : quantidadeVenda}
+                      onChange={handleReceita}
+                      placeholder="0"
+                      />
+                    </div>
+
+                  <div className="grupo-input">
+                   <label>Motivo da expiração/vencimento do produto</label>
+                      <input
+                        className="controle-formulario"
+                        type="text"
+                        value={DescricaoBaixa}
+                      />  
+                  </div>
+                  
+
+                  <button className="botao" type="submit">
+                   Efetuar Baixa
+                 </button>
+
+                </>
+                  )}
+
+              {produtosCats.length > 0 && produtoSelecionado && MotivoBaixa == 4 && (
+                <>
+                  <div className="grupo-input">
+                    <br></br>
+                    <label>Quantidade da Baixa</label>
+                    <input
+                      className="controle-formulario"
+                      type="number"
+                      value={quantidadeVenda === 0 ? "" : quantidadeVenda}
+                      onChange={handleReceita}
+                      placeholder="0"
+                      />
+                    </div>
+
+                  <div className="grupo-input">
+                   <label>Motivo da devolução do produto</label>
+                      <input
+                        className="controle-formulario"
+                        type="text"
+                        value={DescricaoBaixa}
+                      />  
+                  </div>
+                  
+
+                  <button className="botao" type="submit">
+                   Efetuar Baixa
+                 </button>
+
+                </>
+                  )}
+
+              {produtosCats.length > 0 && produtoSelecionado && MotivoBaixa == 5 && (
+                <>
+                  <button className="botao" type="submit">
+                   Efetuar Baixa do produto
+                 </button>
+
+                </>
+                  )}
+
+
+
               </div>
             </form>
           </div>
