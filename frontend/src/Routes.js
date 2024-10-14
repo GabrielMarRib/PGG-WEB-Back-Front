@@ -29,6 +29,7 @@ import PagMovimentos from './Pages/App/Services/PagMovimentos';
 import PagCadastroFornecedor from './Pages/App/Services/PagCadastroFornecedor'; 
 import PagHistorico from './Pages/App/Services/PagHistorico'; 
 
+
 const Mobile = IsMobile();
 
 function AppRoutes() {

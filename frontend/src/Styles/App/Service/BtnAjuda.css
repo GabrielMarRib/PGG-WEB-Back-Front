@@ -1,0 +1,45 @@
+.BtnAjuda .ajuda{
+    padding: 10px;
+    background-color: #f88c00;
+}
+
+  .BtnAjuda .popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .BtnAjuda .popup-conteudo {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 70%;
+    height: 70%;
+    text-align: left;
+    overflow: auto;
+    position: relative;
+  }
+  
+  .BtnAjuda .fechar-popup {
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    position: absolute; /* Adicionado para posicionamento */
+    top: 10px; /* Distância do topo */
+    right: 10px; /* Distância da direita */
+  }
+  
+  .fechar-popup:hover {
+    background-color: #ff4d4d;
+  }

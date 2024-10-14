@@ -48,7 +48,6 @@ const CabecalhoHome = () => {
           <ul id="navbar" className={clicked ? "#navbar active" : "#navbar"}>
 
           </ul>
-
           <div className="NomeUserId">
             <a className="NomeUserIdLabel">Olá, {handleNomeUltimoNome()}</a>
           </div>

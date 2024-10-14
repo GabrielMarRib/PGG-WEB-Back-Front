@@ -15,6 +15,7 @@ import RedirectAcesso from "../../../Functions/RedirectAcesso.js";
 import { useContext } from "react";
 import { UserContext } from "../../../Context/UserContext.js";
 import Titulo from "../../../Components/Titulo.jsx";
+import BtnAjuda from "../../../Components/BtnAjuda.js";
 
 function GerirCategoria() {
   const navigate = useNavigate();
@@ -402,7 +403,46 @@ const IpersLinks = (item) => {
   });
 }
 
+const [showPopup, setShowPopup] = useState(false);
 
+// Variável com informações pré-definidas para o popup
+const popupInfo = `Guia de Ajuda - Tela de Importação de Planilha Excel\n
+Visão Geral\n
+Nesta tela, você pode importar planilhas em formato Excel (.xlsx ou .xls) para o sistema. Isso é super útil para atualizar dados em massa, sem precisar fazer isso manualmente. Vamos ver como funciona!\n
+\n
+Como Usar\n
+1. Voltar para o Perfil\n
+Se precisar voltar para a tela anterior, clique no botão Voltar. Isso te levará de volta para a sua página de perfil sem perder tempo.\n
+\n
+2. Enviando sua Planilha\n
+Clique em Selecione a Planilha para abrir o explorador de arquivos do seu computador.\n
+Escolha o arquivo Excel que você deseja importar. Após selecionar, o nome do arquivo aparecerá logo abaixo.\n
+\n
+3. Enviando a Planilha\n
+Clique no botão Enviar Planilha para carregar os dados no sistema.\n
+Certifique-se de que a planilha contém os dados que você deseja importar. Se não houver nada, o sistema não fará nada.\n
+\n
+4. Visualizando os Dados Importados\n
+Após o envio, você verá uma tabela com os dados que foram importados. Isso te permite confirmar que tudo foi carregado corretamente.\n
+\n
+5. Gerenciando Importações Salvas\n
+Na parte inferior da tela, há uma lista de importações salvas. Aqui você pode ver:\n
+- ID: Identificação única da importação.\n
+- Nome do Arquivo: O nome do arquivo que foi importado.\n
+- Dados: Uma pré-visualização dos dados importados.\n
+- Data de Importação: Quando os dados foram carregados.\n
+- Ações: Um botão para Deletar a importação, caso você não precise mais dela.\n
+\n
+6. Deletando uma Importação\n
+Se decidir que não precisa mais de uma importação, clique no botão Deletar. O sistema vai perguntar se você tem certeza antes de apagar tudo. É sempre bom verificar duas vezes, né?\n
+\n
+Dicas Finais\n
+Sempre confira os dados na sua planilha antes de enviar. Um pequeno erro pode causar confusão depois.\n
+Se precisar mudar a planilha, você pode clicar em Selecionar Outra Planilha para escolher um novo arquivo.`;
+
+const togglePopup = () => {
+  setShowPopup(!showPopup);
+};
 
   return (
     <div className="PagAddCategoria">
@@ -411,6 +451,39 @@ const IpersLinks = (item) => {
       <Titulo
           tituloMsg = 'Gerenciamento de Categorias'
         />
+         <div className="pagina-produtos">
+      <header className="cabecalho">
+        <div className="ajuda" onClick={togglePopup}>
+          Ajuda
+        </div>
+      </header>
+
+      <main className="conteudo">
+        {/* Seu código para listar produtos e formulários de gerenciamento */}
+      </main>
+
+      {/* Popup com informações */}
+      <div className="BtnAjuda">
+      {showPopup && (
+        <div className="popup">
+        <div className="popup-conteudo">
+        <button className="fechar-popup" onClick={togglePopup}>Fechar</button>
+          {popupInfo.split('\n').map((line, index) => {
+            if (line.startsWith('Guia de Ajuda') || line.startsWith('Visão Geral') || line.startsWith('Como Usar') || line.startsWith('Dicas Finais')) {
+              return <h1 key={index}>{line}</h1>;  // Títulos em h1
+            } else if (line.startsWith('1.') || line.startsWith('2.') || line.startsWith('3.') || line.startsWith('4.') || line.startsWith('5.') || line.startsWith('6.')) {
+              return <h2 key={index}>{line}</h2>;  // Subtítulos em h2
+            } else if (line.includes('ID:') || line.includes('Nome do Arquivo:') || line.includes('Dados:') || line.includes('Data de Importação:') || line.includes('Ações:')) {
+              return <p key={index}><strong>{line}</strong></p>;  // Negrito para itens específicos
+            } else {
+              return <p key={index}>{line}</p>;  // Linhas normais
+            }
+          })}
+        </div>
+      </div>      
+      )}
+    </div>
+    </div>
       <button
         className="voltar"
         onClick={() => {

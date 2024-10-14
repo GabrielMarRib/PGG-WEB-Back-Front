@@ -17,6 +17,7 @@ import { UserContext } from "../../Context/UserContext";
 import OptionIcon from "../../Assets/OptionsWhite.png";
 import axios from "axios";
 
+
 function PagHome() {
 
   const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
