@@ -92,7 +92,7 @@ const LoteMemo = memo(function ModalAtualizarLote({ LoteSelecionado, fechar, IdU
         <AlertaNotificação />
     <div className='conteudo-modal'>
       <div className='cabecalho-modal'>
-      <h1>Editar lote :D</h1>
+      <h1>Editar lote</h1>
       <button onClick={fechar} className='botao-fechar'>X</button>
       </div>
     <center><h1> {LoteSelecionado.nome} </h1></center>
@@ -126,7 +126,7 @@ const LoteMemo = memo(function ModalAtualizarLote({ LoteSelecionado, fechar, IdU
         />
 
     
-        Quantide do produto
+        Quantidade do produto
         <input 
           type='number'
           value={Qtd_Produto}
@@ -137,7 +137,7 @@ const LoteMemo = memo(function ModalAtualizarLote({ LoteSelecionado, fechar, IdU
         Justificativa
         <input 
           value={Justificativa}
-          placeholder={"Porque . . ."}
+          placeholder={"Porque..."}
           required 
           onChange={(e) => setJustificativa(e.target.value)}
         />

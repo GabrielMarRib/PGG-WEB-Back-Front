@@ -3,28 +3,28 @@ import { useEffect, useState, useRef } from "react";
 
 // componente estritamente igual ao de BuscaCategorias (praticamente duplicado), só foi criado com variáveis diferentes para não dar conflito na página de produtos
 
-function FiltragemFornecedor({ setFiltroSelecionado, FiltroSelecionado }) {
+function FiltragemCategoria({ setFiltroSelecionado, FiltroSelecionado }) {
 
     const [inputValue, setInputValue] = useState("");
     const [inputFallBack, setInputFallBack] = useState('');
-    const [fornecedores, setFornecedores] = useState([]);
+    const [categorias, setCategorias] = useState([]);
     const [foco, setFoco] = useState(false);
     const [showOptions, setShowOptions] = useState(false);
-    const [FornecedoresFiltrados, setFornecedoresFiltrados] = useState(false);
+    const [CategoriasFiltradas, setCategoriasFiltradas] = useState(false);
     const [I, setI] = useState(true);
     const [Montador, setMontador] = useState(true);
   
   
-    const ColhendoFornecedor = async (setOBJ) => {
+    const ColhendoCategoria = async (setOBJ) => {
   
       try { //tente...
         const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {  // acessa via get (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
-          funcao: 'pegarTodosFornecedores',
+          funcao: 'pegacategorias',
           senha: '@7h$Pz!q2X^vR1&K'
         });
   
-        setOBJ(response.data.fornecedores)
-        console.log(response.data.fornecedores)
+        setOBJ(response.data)
+        console.log(response.data)
         // const FiltroCategoria = response.data.filter((categoria) =>
         //   categoria.nome.toLowerCase().includes(inputValue.toLowerCase())
         // )
@@ -34,19 +34,19 @@ function FiltragemFornecedor({ setFiltroSelecionado, FiltroSelecionado }) {
       }
   
     }
-    const pegaFornecedor = async () => {
-      await ColhendoFornecedor(setFornecedores);
+    const pegaCategoria = async () => {
+      await ColhendoCategoria(setCategorias);
     };
   
     useEffect(() => {
-      pegaFornecedor();
+      pegaCategoria();
     }, [])
   
-    const handleOptionClick = async (fornecedor) => {
+    const handleOptionClick = async (categoria) => {
       setI(false)
   
-      setFiltroSelecionado(fornecedor)
-      setInputValue(`${fornecedor.id_fornecedor} - ${fornecedor.nome}`);
+      setFiltroSelecionado(categoria)
+      setInputValue(`${categoria.id_categorias} - ${categoria.nome}`);
       setInputFallBack('')
       setShowOptions(false);
   
@@ -60,7 +60,7 @@ function FiltragemFornecedor({ setFiltroSelecionado, FiltroSelecionado }) {
   
     useEffect(() => {
       if (Montador == true) {
-        pegaFornecedor();
+        pegaCategoria();
         setMontador(false)
       }
   
@@ -75,19 +75,19 @@ function FiltragemFornecedor({ setFiltroSelecionado, FiltroSelecionado }) {
       }
   
       if(inputValue === ''){
-        setFornecedoresFiltrados(fornecedores) // kkkkkk
+        setCategoriasFiltradas(categorias) // kkkkkk
         return
       }
       
-      const FiltroFornecedor = fornecedores.filter((fornecedor) => {
+      const FiltroCategoria = categorias.filter((categoria) => {
         if(isNaN(inputValue)){
-          return fornecedor.nome.toLowerCase().includes(inputValue.toLowerCase()) //não é num; vê o nome
+          return categoria.nome.toLowerCase().includes(inputValue.toLowerCase()) //não é num; vê o nome
         }else{
-          return fornecedor.id_fornecedor.includes(inputValue) // é num, vê o código
+          return categoria.id_categorias.includes(inputValue) // é num, vê o código
         }
         
       })
-      setFornecedoresFiltrados(FiltroFornecedor)
+      setCategoriasFiltradas(FiltroCategoria)
     }, [inputValue, foco]); // tasquei foco aq tbm
   
     const handleFocus = () =>{
@@ -113,7 +113,7 @@ function FiltragemFornecedor({ setFiltroSelecionado, FiltroSelecionado }) {
             //
           }}
           onChange={(e) => setInputValue(e.target.value)}
-          placeholder="Pesquisar fornecedor..."
+          placeholder="Pesquisar categorias..."
 
         />
         {showOptions && (
@@ -121,19 +121,19 @@ function FiltragemFornecedor({ setFiltroSelecionado, FiltroSelecionado }) {
             <div
              key="opcaoFixa"
              className="option"
-             onMouseDown={() => handleOptionClickFixo('todos os fornecedores (sem restrições)')}
+             onMouseDown={() => handleOptionClickFixo('todas as categorias (sem restrições)')}
             >
-            todos os fornecedores (sem restrições)
+            todas as categorias (sem restrições)
             </div>
             
             {showOptions && (
-              FornecedoresFiltrados.map((fornecedor, index) => (
+              CategoriasFiltradas.map((categoria, index) => (
                 <div
                   key={index}
                   className="option"
-                  onMouseDown={() => handleOptionClick(fornecedor)} // Use onMouseDown para capturar o clique antes do onBlur
+                  onMouseDown={() => handleOptionClick(categoria)} // Use onMouseDown para capturar o clique antes do onBlur
                 >
-                  {fornecedor.id_fornecedor} - {fornecedor.nome}
+                  {categoria.id_categorias} - {categoria.nome}
                 </div>
               ))
             )}
@@ -144,4 +144,4 @@ function FiltragemFornecedor({ setFiltroSelecionado, FiltroSelecionado }) {
   );
 }
 
-export default FiltragemFornecedor;
+export default FiltragemCategoria;

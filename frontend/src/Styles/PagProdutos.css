@@ -15,6 +15,15 @@
   justify-content: center;
 }
 
+.Produtos .ajuda{
+  width: 90%;
+  display: flex;
+  justify-content: right;
+  font-size: 25px;
+  position: absolute;
+  margin-top: 10px;
+}
+
 .Produtos .telaInteira {
   width: 100%;
   display: -webkit-box;
@@ -39,7 +48,6 @@
 
 .Produtos .container-tela-produtos {
   background-color: #ffffff;
-  font-size: 18px;
   border-radius: 5px;
   border: 2px solid #000000;
   color: #000000;
@@ -114,12 +122,12 @@
 
 .Produtos .terminal {
   border: 2px solid #000000;
-  padding: 10px;
+  padding: 20px;
   border-radius: 5px;
   background-color: #ffffff;
   overflow: auto;
   width: 100%;
-  max-height: 875px;
+  max-height: 855px;
 }
 
 .Produtos .barra-pesquisa {
@@ -317,3 +325,26 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   margin: 10px 10px;
 }
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+

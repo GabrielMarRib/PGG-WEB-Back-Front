@@ -233,9 +233,14 @@ function PagProdutos() {
         </div>
 
         <Titulo
-          tituloMsg='Gerenciamento de Produtos'
+          tituloMsg='Gerenciamento de Produtos' 
         />
+
+        <div className="ajuda"> ? </div>
+
+
         <AlertaNotificação />
+
         <button
           className="voltar"
           onClick={() => {
@@ -405,6 +410,7 @@ function PagProdutos() {
            
           
             <div className="terminal">
+              <h2>Produtos cadastrados</h2>
               <div className="barra-pesquisa">
               <div className="teste">
                     <FiltragemComponente setFiltroSelecionado={setFiltroSelecionado} FiltroSelecionado={FiltroSelecionado} />
