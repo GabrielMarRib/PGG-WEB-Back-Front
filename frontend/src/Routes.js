@@ -28,7 +28,8 @@ import GerirLotes from './Pages/App/Services/GerirLotes';
 import PagMovimentos from './Pages/App/Services/PagMovimentos';
 import PagCadastroFornecedor from './Pages/App/Services/PagCadastroFornecedor'; 
 import PagHistorico from './Pages/App/Services/PagHistorico'; 
-import PagPesquisaFornecedor from './Pages/App/Services/PagPesquisaFornecedor'; 
+import PagPesquisaFornecedor from './Pages/App/Services/PagPesquisaFornecedor';
+import PagUploadExcel from './Pages/App/Services/PagUploadExcel'; 
 
 const Mobile = IsMobile();
 
@@ -69,6 +70,7 @@ function AppRoutes() {
             <Route path="/PagCadFornecedor" element={<PrivateRoute element={<PagCadastroFornecedor />} />} />
             <Route path="/PagHistorico" element={<PrivateRoute element={<PagHistorico />} />} />
             <Route path="/PagPesquisaFornecedor" element={<PrivateRoute element={<PagPesquisaFornecedor />} />} />
+            <Route path="/PagUploadExcel" element={<PrivateRoute element={<PagUploadExcel />} />} />
 
             
           </>

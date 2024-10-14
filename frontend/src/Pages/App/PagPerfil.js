@@ -4,8 +4,9 @@ import CabecalhoHome from "../../Components/CabecalhoHome";
 import ImageProfile from '../../Assets/userProfile/TESTEUSER.png';
 import ImageEmail from '../../Assets/userProfile/EMAIL.png';
 import NivelAcesso from '../../Assets/userProfile/CHAVE.png';
-import Telefone from '../../Assets/userProfile/TELEFONE.png';
+import Telefone from '../../Assets/userProfile/TELEFONE.png'; 
 import Cpf from '../../Assets/userProfile/CPF.png';
+import excel from '../../Assets/excel.png';  
 import AddPerfil from '../../Assets/add-userWhite.png';
 import IconListaFunc from '../../Assets/ListaFunc.png';
 import { UserContext } from '../../Context/UserContext.js';
@@ -58,6 +59,9 @@ function PagPerfil() {
                         </button>
                         <button className="botao-func" onClick={() => { navigate('/PagRelatorios') }}>
                             <img src={IconListaFunc} alt="Relatórios" /> Relatórios
+                        </button>
+                        <button className="botao-func" onClick={() => { navigate('/PagUploadExcel') }}>
+                            <img src={excel} alt="UploadExel" /> Importar Planilha
                         </button>
                     </div>
                 )}

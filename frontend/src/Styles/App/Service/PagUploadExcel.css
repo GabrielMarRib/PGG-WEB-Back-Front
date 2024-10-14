@@ -1,0 +1,130 @@
+.cabecalho-upload {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.area-upload {
+    border: 2px dashed #4caf50; 
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s; 
+}
+
+.area-upload:hover {
+    background-color: #f0f8e0; 
+}
+
+.btn-upload {
+    background-color: #4caf50;
+    color: white;
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+}
+
+.btn-upload:hover {
+    background-color: #45a049; 
+}
+
+.tabela-dados {
+    margin-top: 20px;
+    width: 100%; 
+    overflow-x: auto; 
+}
+
+.tabela-dados table {
+    width: 100%; 
+    border-collapse: collapse; 
+}
+
+.tabela-dados th, .tabela-dados td {
+    border: 1px solid #ddd;
+    padding: 8px; 
+    text-align: left; 
+}
+
+.tabela-dados th {
+    background-color: #4caf50;
+    color: white;
+}
+
+.tabela-dados tr:nth-child(even) {
+    background-color: #f2f2f2; 
+}
+
+.tabela-dados tr:hover {
+    background-color: #ddd; 
+}
+
+.nome-arquivo {
+    margin-top: 10px;
+    font-style: italic; 
+}
+
+.btn-deletar {
+    background-color: #d9534f; 
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    font-size: 16px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+    margin-top: 10px; 
+}
+
+.btn-deletar:hover {
+    background-color: #c9302c;
+}
+
+.btn-deletar:active {
+    background-color: #ac2925; 
+}
+
+.btn-limpar {
+    background-color: #4caf50;
+    color: white;
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s;
+}
+
+.btn-limpar:hover {
+    background-color: #45a049; 
+}
+
+.tabela-dados-expandida {
+    margin-top: 20px;
+}
+
+.botao-container {
+    display: flex; 
+    justify-content: flex-end; 
+    margin-top: 10px;
+}
+
+.btn-fechar {
+    background-color: #f44336; 
+    color: white; 
+    border: none; 
+    padding: 10px; 
+    border-radius: 50%; 
+    width: 40px; 
+    height: 40px; 
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 4px;
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+}
+
+.btn-fechar:hover {
+    background-color: #e53935;
+}
+
