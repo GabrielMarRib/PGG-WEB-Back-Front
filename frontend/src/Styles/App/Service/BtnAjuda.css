@@ -1,6 +1,13 @@
-.BtnAjuda .ajuda {
+.Botaoajuda {
+  justify-content: right;
+  position: absolute;
   padding: 10px;
   background-color: #f88c00;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 15px;
+  max-width: 70px;
+  font-size: 17px;
 }
 
 .BtnAjuda .popup {
@@ -25,6 +32,7 @@
   text-align: left;
   overflow: auto;
   position: relative;
+  z-index: 10;
 }
 
 .BtnAjuda .fechar-popup {
@@ -46,3 +54,14 @@
 .fechar-popup:hover {
   background-color: #ff4d4d;
 }
+
+.cabecalhoBtnAjuda {
+  width: 90%;
+  display: flex;
+  justify-content: right;
+  font-size: 25px;
+  position: absolute;
+  margin-top: 5px;
+  font-size: 20px;
+}
+

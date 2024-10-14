@@ -15,14 +15,6 @@
   justify-content: center;
 }
 
-.Produtos .ajuda{
-  width: 90%;
-  display: flex;
-  justify-content: right;
-  font-size: 25px;
-  position: absolute;
-  margin-top: 10px;
-}
 
 .Produtos .telaInteira {
   width: 100%;
@@ -321,9 +313,17 @@
 }
 
 .Produtos .DivForms button.voltar{
-  align-items: center;
+  padding: 10px;
+  border-radius: 3px;
+  background-color: #e04d18;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  font-size: 16px;
+  font-family: 'JetBrains Mono';
+  margin-top: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  margin: 10px 10px;
+  margin-left: 10px;
 }
 
 .modal-overlay {
