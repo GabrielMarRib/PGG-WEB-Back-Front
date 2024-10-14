@@ -13,6 +13,7 @@ import { UserContext } from "../../../Context/UserContext.js";
 
 import ProdutosModal from "../../../Components/ProdutosModal.js";
 import Titulo from "../../../Components/Titulo.jsx";
+import BtnAjuda from "../../../Components/BtnAjuda.js";
 
 function PagProdutos() {
   const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
@@ -224,6 +225,7 @@ function PagProdutos() {
     console.log(val)
   }
 
+  const [showPopup, setShowPopup] = useState(false); 
 
   return (
     <div className="Produtos">
@@ -233,9 +235,26 @@ function PagProdutos() {
         </div>
 
         <Titulo
-          tituloMsg='Gerenciamento de Produtos'
+          tituloMsg='Gerenciamento de Produtos' 
         />
+
+        <header className="cabecalhoBtnAjuda">
+          <div className="Botaoajuda" onClick={() => {setShowPopup(true)}}> {/*crie um botão que no onClick faz o setShowPopup ficar true*/}
+            Ajuda
+          </div>
+        </header>
+
+          <div className="BtnAjuda">
+          {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
+            <BtnAjuda /* chama o btnAjuda */
+              fechar={() => {setShowPopup(false)}} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
+              msgChave={"CATEGORIAS"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
+            />
+          )}
+        </div>
+
         <AlertaNotificação />
+
         <button
           className="voltar"
           onClick={() => {
@@ -405,6 +424,7 @@ function PagProdutos() {
            
           
             <div className="terminal">
+              <h2>Produtos cadastrados</h2>
               <div className="barra-pesquisa">
               <div className="teste">
                     <FiltragemComponente setFiltroSelecionado={setFiltroSelecionado} FiltroSelecionado={FiltroSelecionado} />

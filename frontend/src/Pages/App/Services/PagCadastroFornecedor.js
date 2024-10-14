@@ -69,7 +69,9 @@ function PagVenderProduto() {
       Alerta(3, "Todos os campos devem ser preenchidos.");
       return;
     }
-
+    
+    
+    console.log({ NomeForcedor, CNPJ, Endereco, Telefone, Email, Status });
     try {
       const Response = await axios.post("http://pggzettav3.mooo.com/api/index.php", {
         funcao: "cadastrarFornecedor",
@@ -94,6 +96,8 @@ function PagVenderProduto() {
       console.error("Erro ao cadastrar fornecedor:", error);
       Alerta(3, "Erro ao cadastrar fornecedor.");
     }
+  
+
   };
 
   const MapearFornecedores = (Fornecedor) => {
