@@ -95,11 +95,11 @@ const CabecalhoHome = () => {
 
             <ul className="dropdown">
               <li> <a onClick={() => { navigate("/PagProdutos") }}
-                className="paginas"> Gerir Produtos </a> </li>
+                className="paginas"> Gerir/Add Produtos </a> </li>
               <li> <a onClick={() => { navigate("/PagVenderProduto") }}
-                className="paginas"> Vender Produto </a>
+                className="paginas"> Dar Baixa Produtos</a>
               </li>
-              {User && User.userData && User.userData.Nivel_acesso && User.userData.Nivel_acesso == 2 ? (
+              {User && User.userData && User.userData.Nivel_acesso && User.userData.Nivel_acesso >= 2 ? (
                 <li> <a onClick={() => { navigate("/PagGerirCategoria") }}
                   className="paginas"> Gerir Categorias </a>
                 </li>) : (
@@ -140,7 +140,9 @@ const CabecalhoHome = () => {
               <ul className="dropdown">
                 <li> <a onClick={() => { navigate("/PagCadFornecedor") }}
                   className="paginas"> Cadastrar fornecedores</a> </li>
-
+                <li> <a onClick={() => { navigate("/PagPesquisaFornecedor") }}
+                  className="paginas"> Pesquisa Produtos </a>
+                </li>
               </ul>
 
             </li>

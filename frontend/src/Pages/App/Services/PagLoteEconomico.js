@@ -63,42 +63,50 @@ function PagLoteEconomico() {
     setItemAtual(item);
     setIdProduto(hashAtual);
   };
+  
+const FecharJanela = () => {
+    setIsVisibleForms(!isVisibleForms);
+}
 
   const pegaProdutos = (item) => {
-    let CP = item.custoPedido === null ? "Nenhum valor ainda" : item.custoPedido;
-    let CA = item.custoArmazem === null ? "Nenhum valor ainda" : item.custoArmazem;
-    let LE = item.calculoLote === null ? "Nenhum valor ainda" : item.calculoLote;
+    let CP = item.custoPedido === null ? "Nenhum valor ainda" : Math.sqrt(item.custoPedido).toFixed(2);
+    let CA = item.custoArmazem === null ? "Nenhum valor ainda" : Math.sqrt(item.custoArmazem).toFixed(2);
+    let LE = item.calculoLote === null ? "Nenhum valor ainda" : Math.sqrt(item.calculoLote).toFixed(2); 
+
+    
 
     return (
       <div key={item.idProduto} className="DivsItens">
-        <li>{item.produtoNome}</li>
-        <div className="DivsResutlados">
-          <Tooltip text="Custo do Pedido">
-            CP:<label>{CP}</label>
-          </Tooltip>
+        <div className="alinhamento">
+          <div className="colunamento">
+            <li>{item.produtoNome}</li>
+            <div className="DivsResutlados">
+              <Tooltip text="Custo do Pedido">
+                CP:<label>{CP}</label>
+              </Tooltip>
+            </div>
+            <div className="DivsResutlados">
+              <Tooltip text="Custo de Armazém">
+                CA:<label>{CA}</label>
+              </Tooltip>
+            </div>
+            <div className="DivsResutlados">
+              <Tooltip text="Cálculo do Lote Econômico">
+                LEC:<label>{LE}</label>
+              </Tooltip>
+            </div>
+            <br />
+            {respostaPesquisa[item.idProduto]?.RespostaExiste === true ? (
+              <button onClick={() => mostrarForms(item.produtoNome, item.idProduto)}>
+                Editar item
+              </button>
+            ) : (
+              <button onClick={() => mostrarForms(item.produtoNome, item.idProduto, false)}>
+                Editar Valor  
+              </button>
+            )}
+          </div>
         </div>
-        <div className="DivsResutlados">
-          <Tooltip text="Custo de Armazém">
-            CA:<label>{CA}</label>
-          </Tooltip>
-        </div>
-        <div className="DivsResutlados">
-          <Tooltip text="Cálculo do Lote Econômico">
-            LEC:<label>{LE}</label>
-          </Tooltip>
-        </div>
-        <br />
-        {respostaPesquisa[item.idProduto]?.RespostaExiste === true ? (
-          <button onClick={() => mostrarForms(item.produtoNome, item.idProduto)}>
-            Editar item
-          </button>
-        ) : (
-          <button onClick={() => mostrarForms(item.produtoNome, item.idProduto, false)}>
-            Adicionar Valor
-          </button>
-        )}
-        <br />
-        --------------------
       </div>
     );
   };
@@ -180,7 +188,6 @@ function PagLoteEconomico() {
                   onChange={(e) => setValor_despesas_Anuais(e.target.value)}
                 />
               </div>
-
               <div className="grupo-input">
                 <label htmlFor="QtdProdutoEstocado">
                   Quantia de produtos estocados anuais
@@ -202,7 +209,6 @@ function PagLoteEconomico() {
                   onChange={(e) => setNumero_Pedidos_Anuais(e.target.value)}
                 />
               </div>
-
               <div className="grupo-input">
                 <label htmlFor="demanda_anual">Demanda Anual</label>
                 <input
@@ -212,7 +218,10 @@ function PagLoteEconomico() {
                   onChange={(e) => setdemanda_anual(e.target.value)}
                 />
               </div>
+              <did className="">
               <button onClick={CalcularLoteEconomico}>Atualizar</button>
+              <button onClick={() => FecharJanela()} >fechar</button>
+              </did>
             </div>
           </div>
         </div>

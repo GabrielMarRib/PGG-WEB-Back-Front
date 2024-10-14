@@ -10,10 +10,6 @@ import Titulo from "../../../Components/Titulo.jsx";
 import ImgAtivo from "../../../Assets/GreenCheckMark.png";
 import ImgInativo from "../../../Assets/ReadCheckMark.png";
 
-
-
-
-
 const formatCNPJ = (value) => {
   // Remove caracteres não numéricos
   value = value.replace(/\D/g, '');
@@ -21,7 +17,7 @@ const formatCNPJ = (value) => {
   if (value.length <= 14) {
     return value.replace(/(\d{2})(\d)/, '$1.$2')
                 .replace(/(\d{3})(\d)/, '$1.$2')
-                .replace(/(\d{3})(\d{1,2})$/, '$1/$2')
+                .replace(/(\d{3})(\d{4})/, '$1/$2')
                 .replace(/(\d{4})(\d{2})$/, '$1-$2');
   }
   return value;
@@ -36,14 +32,13 @@ const formatTelefone = (value) => {
   return value;
 };
 
-
 function PagVenderProduto() {
   const [NomeForcedor, setNomeForcedor] = useState('');
   const [CNPJ, setCNPJ] = useState('');
   const [Endereco, setEndereco] = useState('');
   const [Telefone, setTelefone] = useState('');
   const [Email, setEmail] = useState('');
-  const [Status, setStatus] = useState('inativo');
+  const [Status, setStatus] = useState(false); // Status como booleano
   const [FornecedoresTabela, setFornecedoresTabela] = useState([]);
 
   const navigate = useNavigate();
@@ -51,53 +46,32 @@ function PagVenderProduto() {
   const User = UserOBJ.User;
   const { Alerta } = useAlerta();
 
-
   const PegarFornecedores = async () => {
     try {
       const Response = await axios.post("http://pggzettav3.mooo.com/api/index.php", {
         funcao: "pegarTodosFornecedores",
         senha: "@7h$Pz!q2X^vR1&K",
       });
-      console.log( "Fornecedores pegados" );
-      setFornecedoresTabela(Response.data.fornecedores)
-      console.log( Response.data.fornecedores );
-    } catch (eee) {
-      console.log("deu merda");
+      setFornecedoresTabela(Response.data.fornecedores);
+    } catch (error) {
+      console.error("Erro ao buscar fornecedores:", error);
+      Alerta(3, "Erro ao buscar fornecedores.");
     }
-  }
+  };
 
   useEffect(() => {
-
-    const PegarFornecedores = async () => {
-      try {
-        const Response = await axios.post("http://pggzettav3.mooo.com/api/index.php", {
-          funcao: "pegarTodosFornecedores",
-          senha: "@7h$Pz!q2X^vR1&K",
-        });
-        console.log( "Fornecedores pegados" );
-        setFornecedoresTabela(Response.data.fornecedores)
-        console.log( Response.data.fornecedores );
-      } catch (eee) {
-        console.log("deu merda");
-      }
-    }
-
-    PegarFornecedores()
-
+    PegarFornecedores();
   }, []);
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (
-      !NomeForcedor || !CNPJ || !Endereco || !Telefone || !Email
-    ) {
-      Alerta(3, "Campos não preenchidos");
+    if (!NomeForcedor || !CNPJ || !Endereco || !Telefone || !Email) {
+      Alerta(3, "Todos os campos devem ser preenchidos.");
       return;
     }
-
-   
+    
+    
+    console.log({ NomeForcedor, CNPJ, Endereco, Telefone, Email, Status });
     try {
       const Response = await axios.post("http://pggzettav3.mooo.com/api/index.php", {
         funcao: "cadastrarFornecedor",
@@ -107,31 +81,32 @@ function PagVenderProduto() {
         endereco: Endereco,
         telefone: Telefone,
         email: Email,
-        status: Status,
+        status: Status ? 'ativo' : 'inativo', // Convertendo booleano para string
       });
-      console.log( Response );
-      Alerta(2, "Cadastrado")
-      setNomeForcedor('')
-      setCNPJ('')
-      setEndereco('')
-      setTelefone('')
-      setEmail('')
-      setStatus('')
-      PegarFornecedores()
-    } catch (eee) {
-      console.log("deu merda");
+      Alerta(2, "Fornecedor cadastrado com sucesso.");
+      // Resetando os campos
+      setNomeForcedor('');
+      setCNPJ('');
+      setEndereco('');
+      setTelefone('');
+      setEmail('');
+      setStatus(false); // Resetando o Status para inativo
+      PegarFornecedores();
+    } catch (error) {
+      console.error("Erro ao cadastrar fornecedor:", error);
+      Alerta(3, "Erro ao cadastrar fornecedor.");
     }
   
 
-    console.log({ NomeForcedor, CNPJ, Endereco, Telefone, Email, Status });
   };
 
-
   const MapearFornecedores = (Fornecedor) => {
-    return(
-      <div className="Fornecedores"> 
-       <center><label><strong>Fornecedor(a): </strong>{Fornecedor.nome}</label>
-        <label> - {Fornecedor.id_fornecedor}</label></center>
+    return (
+      <div className="Fornecedores" key={Fornecedor.id_fornecedor}>
+        <center>
+          <label><strong>Fornecedor(a): </strong>{Fornecedor.nome}</label>
+          <label> - {Fornecedor.id_fornecedor}</label>
+        </center>
         <br />
         <label><strong>CNPJ:</strong> {Fornecedor.cnpj} </label>
         <label><strong>Endereço:</strong> {Fornecedor.endereco} </label>
@@ -140,20 +115,11 @@ function PagVenderProduto() {
         <br />
         <label><strong>Telefone:</strong> {Fornecedor.telefone} </label>
         <br />
-        {Fornecedor.status == 'ativo' ? (
-        <label><strong>Status:</strong> Ativo</label>
-      ) : (
-        <label><strong>Status:</strong> Inativo</label>
-      )}
-        {Fornecedor.status == 'ativo' ? (
-          <img src={ImgAtivo} alt="GreenCheck" />
-        ) : (
-          <img src={ImgInativo} alt="ReadCheck" />
-        )}
-
+        <label><strong>Status:</strong> {Fornecedor.status === 'ativo' ? 'Ativo' : 'Inativo'}</label>
+        <img src={Fornecedor.status === 'ativo' ? ImgAtivo : ImgInativo} alt={Fornecedor.status === 'ativo' ? 'GreenCheck' : 'ReadCheck'} />
       </div>
     );
-  }
+  };
 
   return (
     <div className="PagVenderProduto">
@@ -161,18 +127,13 @@ function PagVenderProduto() {
         <div className="CabecalhoHome">
           <CabecalhoHome />
         </div>
-        <Titulo tituloMsg='Cadastro de fornecedor' />
+        <Titulo tituloMsg="Cadastro de fornecedor" />
         <AlertaNotificação />
-
         <div className="enquadramento">
-          <button
-            className="voltar"
-            onClick={() => navigate("/PagEscolhaProdutos")}
-          >
+          <button className="voltar" onClick={() => navigate("/PagEscolhaProdutos")}>
             Voltar
           </button>
-
-           <div className="container-tela-cad_Fornecedor">   {/* container-tela-produtos */}
+          <div className="container-tela-cad_Fornecedor">
             <form className="formulario" onSubmit={handleSubmit}>
               <div className="grupo-input-produto">
                 <div className="grupo-input">
@@ -181,77 +142,67 @@ function PagVenderProduto() {
                     className="controle-formulario"
                     type="text"
                     value={NomeForcedor}
-                    placeholder="Ex: Thiago Marques"
+                    placeholder="Ex: Fornecedor ABC"
                     onChange={(e) => setNomeForcedor(e.target.value)}
                   />
-
                   <label>CNPJ:</label>
                   <input
                     className="controle-formulario"
                     type="text"
                     value={CNPJ}
                     onChange={(e) => setCNPJ(formatCNPJ(e.target.value))}
-                    placeholder="00.000.000/0000-00"
+                    placeholder="Ex: 00.000.000/0000-00"
+                    maxLength={18} 
                   />
-
-                  <label>Endereço</label>
+                  <label>Endereço:</label>
                   <input
                     className="controle-formulario"
                     type="text"
                     value={Endereco}
-                    placeholder="Ex: Rua Restelo,02 - SP, Jd Donaria"
+                    placeholder="Ex: Av. Brasil, 0000 - Centro"
                     onChange={(e) => setEndereco(e.target.value)}
                   />
-
                   <label>Telefone:</label>
                   <input
                     className="controle-formulario"
                     type="text"
                     value={Telefone}
                     onChange={(e) => setTelefone(formatTelefone(e.target.value))}
-                    placeholder="(00) 00000-0000"
+                    placeholder="Ex: (00) 00000-0000"
                   />
-
                   <label>Email:</label>
                   <input
                     className="controle-formulario"
                     type="email"
                     value={Email}
-                    placeholder="Ex: SeuEmail@gmail.com"
+                    placeholder="Ex: fornecedor@exemplo.com"
                     onChange={(e) => setEmail(e.target.value)}
                   />
-
                 </div>
-
-
                 <label>Status:</label>
-                  <div className="toggle-switch">
-                    <input
-                      type="checkbox"
-                      id="statusToggle"
-                      checked={Status}
-                      onChange={() => setStatus(!Status)}
-                    />
-                    <label htmlFor="statusToggle">{Status ? "ativo" : "inativo"}</label>
-                  </div>
-
-                  
+                <div className="toggle-switch">
+                  <input
+                    type="checkbox"
+                    id="statusToggle"
+                    checked={Status}
+                    onChange={() => setStatus(!Status)}
+                  />
+                  <label htmlFor="statusToggle">{Status ? "Ativo" : "Inativo"}</label>
+                </div>
                 <button className="botao" type="submit">
                   Cadastrar Fornecedor
                 </button>
               </div>
             </form>
             <div className="formulario">
-          <div className="ListaFornecedores">
-              <h2>Lista de fornecedores</h2>
-
-            {FornecedoresTabela.length > 0 ? (
-              FornecedoresTabela.map(MapearFornecedores)
-            ) : ( 
-              <p>Nenhum fornecedor cadastrado.</p> 
-            )}
-            
-             </div>
+              <div className="ListaFornecedores">
+                <h2>Lista de fornecedores</h2>
+                {FornecedoresTabela.length > 0 ? (
+                  FornecedoresTabela.map(MapearFornecedores)
+                ) : (
+                  <p>Nenhum fornecedor cadastrado.</p>
+                )}
+              </div>
             </div>
           </div>
         </div>
