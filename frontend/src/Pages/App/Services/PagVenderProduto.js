@@ -10,6 +10,8 @@ import { json, useNavigate } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import Titulo from "../../../Components/Titulo";
 import BuscaCategoriasComponentes from "../../../Components/BuscaCategoriasComponente.js";
+import BtnAjuda from "../../../Components/BtnAjuda.js";
+
 
 function PagVenderProduto() {
   const [carregando, setCarregando] = useState(true);
@@ -34,7 +36,7 @@ function PagVenderProduto() {
   const UserOBJ = useContext(UserContext);
   const User = UserOBJ.User;
   const { Alerta } = useAlerta();
-  console.log(User.userData.Nome)
+
 
   const pegaCategorias = async () => {
     try {
@@ -65,6 +67,7 @@ function PagVenderProduto() {
             categoria: categoriaSelecionada.id_categorias,
           }
         );
+        console.log(response.data)
         setProdutosCats(response.data)
       } catch (error) {
         console.log(error)
@@ -94,23 +97,25 @@ function PagVenderProduto() {
 
   useEffect(() => {
     handleChangeCategoria(categoriaSelecionada);
+ 
   }, [categoriaSelecionada]);
 
 
 
   const handleChangeProduto = (event) => {
     const produtoId = event.target.value;
-   if(produtoId == ''){
-    setProdutoSelecionado('');
-    setQuantidadeDisponivel('');
-    setCustoUnitario('');
-    return
-   }
+    if(produtoId == ''){
+      setProdutoSelecionado('');
+      setQuantidadeDisponivel('');
+      setCustoUnitario('');
+      return
+    }
     try {
       
-
+      
       const produto = produtosCats.find((prod) => prod.id == produtoId)
       setProdutoSelecionado(produto);
+      console.log("produto selecionado: " + JSON.stringify(produto))
       setQuantidadeDisponivel(produto.qtde);
       setCustoUnitario(produto.custoUnitario);
       if (produto?.qtde === 0) {
@@ -135,6 +140,10 @@ function PagVenderProduto() {
 
   const handleForm = (e) => {
     e.preventDefault();
+    if(MotivoBaixa == 5){ //Dar baixa do produto inteiro
+      handleBaixaDoProduto();
+      return
+    }
     if (
       CheckCamposNulos([
         custoUnitario,
@@ -147,17 +156,19 @@ function PagVenderProduto() {
       return;
     }
 
+    console.log(produtoSelecionado.id)
+    console.log(quantidadeVenda)
+    console.log(DescricaoBaixa)
 
     if(MotivoBaixa == 1){ // venda
       handleInsercaoVendas();
     }else if(MotivoBaixa == 2){ //Perda/Quebra
+
       handleBaixaqtdeEstoque();
     }else if(MotivoBaixa == 3){ //Expiração/vecimento 
       handleBaixaqtdeEstoque();
     }else if(MotivoBaixa == 4){ //DevoluçãoFornecedor
       handleBaixaqtdeEstoque();
-    }else if(MotivoBaixa == 5){ //Dar baixa do produto inteiro
-      handleBaixaDoProduto();
     }
 
   };
@@ -170,9 +181,9 @@ function PagVenderProduto() {
     try {
   
       await axios.post("http://pggzettav3.mooo.com/api/index.php", {
-       funcao: "baixadoproduto",
+       funcao: "DeletarProduto",
        senha: "@7h$Pz!q2X^vR1&K",
-       produtoid: produtoSelecionado.id_categorias,
+       produtoid: produtoSelecionado.id,
      });
 
      Alerta(2, "Baixa concluida!");
@@ -183,8 +194,7 @@ function PagVenderProduto() {
      setProdutoSelecionado([]);
      setcliente("");
      setMotivoBaixa('')
-     setProdutoSelecionado('')
-     setCategoriaSelecionada('')
+     setCategoriaSelecionada(null)
    } catch (error) {
      console.log(error);
    }
@@ -194,24 +204,24 @@ function PagVenderProduto() {
     try {
   
       await axios.post("http://pggzettav3.mooo.com/api/index.php", {
-       funcao: "baixaqtedproduto",
+       funcao: "BaixaQtedProduto",
        senha: "@7h$Pz!q2X^vR1&K",
-       Qtde: quantidadeVenda,
+       produtoid: produtoSelecionado.id,
+       quantidade: quantidadeVenda,
        motivo: DescricaoBaixa,
+       autorId: User.id
      });
 
      Alerta(2, "Baixa concluida!");
      setReceitaEstimada(0);
-     setQuantidadeVenda(0);
-     setQuantidadeDisponivel(0);
-     setCustoUnitario(0);
-     setProdutoSelecionado([]);
+     setQuantidadeDisponivel(quantidadeDisponivel - quantidadeVenda);
      setcliente("");
-     setMotivoBaixa('')
-     setProdutoSelecionado('')
-     setCategoriaSelecionada('')
+     setMotivoBaixa('');
+     setDescricaoBaixa('');
+     setQuantidadeVenda(0);
    } catch (error) {
      console.log(error);
+     Alerta(3, "Erro");
    }
 
   }
@@ -348,6 +358,9 @@ function PagVenderProduto() {
     }
   };
   // heeheheh testesinho
+
+  const [showPopup, setShowPopup] = useState(false); 
+
   return (
     <div className="PagVenderProduto">
       <div className="DivForms">
@@ -358,7 +371,21 @@ function PagVenderProduto() {
           tituloMsg='Baixa de Produtos'
         />
         <AlertaNotificação />
-      
+
+        <header className="cabecalhoBtnAjuda">
+          <div className="Botaoajuda" onClick={() => {setShowPopup(true)}}> {/*crie um botão que no onClick faz o setShowPopup ficar true*/}
+            Ajuda
+          </div>
+        </header>
+
+        <div className="BtnAjuda">
+          {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
+            <BtnAjuda /* chama o btnAjuda */
+              fechar={() => {setShowPopup(false)}} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
+              msgChave={"BAIXASPRODUTOS"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
+            />
+          )}
+        </div>
 
         <div className="enquadramento">
           <button
@@ -400,7 +427,7 @@ function PagVenderProduto() {
                       <label>Produtos da categoria acima:</label>
                       <select className="Select-Produto" value={produtoSelecionado ? produtoSelecionado.id : null} onChange={handleChangeProduto}>
                         <option value="">Selecione um produto</option>
-                        {produtosCats?.map((produtos) => (
+                        {produtosCats.map((produtos) => (
                           <option key={produtos.id} value={produtos.id}>
                             {produtos.nome}
                           </option>
@@ -409,15 +436,9 @@ function PagVenderProduto() {
                     </>
                   ) : (
 
-                    PrimeiraOpcaoSelection == true ? (
-                        <p></p>
-                    ) : (
-                      <>
-                      <center><h7>Categoria sem produto</h7></center>
-                      {/* {setProdutoSelecionado("")} */}
-                      </>
-                    )
+                      <center><h7>Categoria sem produto</h7></center>                    
                     
+
                   )}
                 </div>
               
@@ -532,6 +553,7 @@ function PagVenderProduto() {
                         className="controle-formulario"
                         type="text"
                         value={DescricaoBaixa}
+                        onChange={(e) => setDescricaoBaixa(e.target.value)}
                       />  
                   </div>
                   
@@ -563,6 +585,8 @@ function PagVenderProduto() {
                         className="controle-formulario"
                         type="text"
                         value={DescricaoBaixa}
+                        onChange={(e) => setDescricaoBaixa(e.target.value)}
+                        
                       />  
                   </div>
                   
@@ -594,6 +618,7 @@ function PagVenderProduto() {
                         className="controle-formulario"
                         type="text"
                         value={DescricaoBaixa}
+                        onChange={(e) => setDescricaoBaixa(e.target.value)}
                       />  
                   </div>
                   

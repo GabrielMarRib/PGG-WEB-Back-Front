@@ -174,12 +174,22 @@ function PagHistorico() {
                       const achados = adicionaisCurva.find((adicional) => adicional.id_curvaabc === registro.id_tabela)
                       return (
                         <div className="infoAdicional">
-                          Produto: <span style={{ fontWeight: '700' }}>{achados?.prodNome}</span><br />
-                          Id: <span style={{ fontWeight: '700' }}>{achados?.id_produtos}</span><br />
-                          Categoria: <span style={{ fontWeight: '700' }}>{achados?.id_categorias} - {achados?.catNome}</span>
+                          Produto: <span style={{fontWeight: '700'}}>{achados?.prodNome}</span><br />
+                          Id: <span style={{fontWeight: '700'}}>{achados?.id_produtos}</span><br />
+                          Categoria: <span style={{fontWeight: '700'}}>{achados?.id_categorias} - {achados?.catNome}</span>
                         </div>
                       )
-                    } else if (registro?.tabela === 'lote') {
+                    } else if (registro?.tabela === 'lote'){
+                      const achados = adicionaisLote.find((adicional) => adicional.numerolote === registro.id_tabela)
+                      return (
+                        <div className="infoAdicional">
+                          Id lote: <span style={{fontWeight: '700'}}>{achados?.numerolote}</span><br />
+                          Produto: <span style={{fontWeight: '700'}}>{achados?.nome}</span><br />
+                          Fornecedor: <span style={{fontWeight: '700'}}>{achados?.fornecedor ? achados?.fornecedor : "Não cadastrado"}</span><br />
+                          Nota Fiscal: <span style={{fontWeight: '700'}}>{achados?.nota_fiscal ? achados?.nota_fiscal : "Não cadastrado"}</span><br />
+                        </div>
+                      )
+                    } else if (registro?.tabela === 'Baixa'){
                       const achados = adicionaisLote.find((adicional) => adicional.numerolote === registro.id_tabela)
                       return (
                         <div className="infoAdicional">
@@ -189,7 +199,7 @@ function PagHistorico() {
                           Nota Fiscal: <span style={{ fontWeight: '700' }}>{achados?.nota_fiscal ? achados?.nota_fiscal : "Não cadastrado"}</span><br />
                         </div>
                       )
-                    }
+                    } 
                   })()}
                 </td>
                 {obterCamposDepartamento().map((campo) =>

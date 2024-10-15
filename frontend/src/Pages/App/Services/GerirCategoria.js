@@ -401,8 +401,8 @@ function GerirCategoria() {
       />
       <div className="pagina-produtos">
 
-        <header className="cabecalho">
-          <div className="ajuda" onClick={() => {setShowPopup(true)}}> {/*crie um botão que no onClick faz o setShowPopup ficar true*/}
+        <header className="cabecalhoBtnAjuda">
+          <div className="Botaoajuda" onClick={() => {setShowPopup(true)}}> {/*crie um botão que no onClick faz o setShowPopup ficar true*/}
             Ajuda
           </div>
         </header>
@@ -411,7 +411,7 @@ function GerirCategoria() {
           {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
             <BtnAjuda /* chama o btnAjuda */
               fechar={() => {setShowPopup(false)}} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
-              msgChave={"CATEGORIAS"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
+              msgChave={"GERENCIAMENTECATEGORIA"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
             />
           )}
         </div>
