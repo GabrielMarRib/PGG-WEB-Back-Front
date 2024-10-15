@@ -316,3 +316,17 @@
         margin-right: 150px;
     }
 }
+
+/* Botão importar planilha Excel */
+
+.PagHome .btn-padrao{
+    margin: 8px 0;
+    padding: 6px 10px;
+    font-size: 14px; 
+    background-color: #dc430c;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    border-color: transparent;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
