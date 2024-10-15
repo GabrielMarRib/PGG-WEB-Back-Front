@@ -5,8 +5,11 @@ import Titulo from "../../../Components/Titulo.jsx";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import * as XLSX from 'xlsx'; // Novo pacote npm no Front para manipular arquivos Excel (npm install xlsx)
+import AlertaNotificação from "../../../Components/AlertaNotificação.js";
+import { useAlerta } from "../../../Context/AlertaContext.js";
 
 function PagUploadExcel() {
+    const { Alerta } = useAlerta();
     const [nomeArquivo, setNomeArquivo] = useState(""); // Estado para armazenar o nome do arquivo Excel
     const [dadosImportados, setDadosImportados] = useState([]); // Estado para guardar os dados importados
     const [importacoes, setImportacoes] = useState([]); // Estado para armazenar as importações salvas
@@ -30,11 +33,16 @@ function PagUploadExcel() {
 
             if (resposta.data && resposta.data.importacoes) {
                 setImportacoes(resposta.data.importacoes);
+                
+                if (resposta.data.importacoes.length === 0) {
+                    Alerta(1, "Nenhuma importação encontrada.");
+                }
             } else {
                 console.log("Formato inesperado da resposta:", resposta.data);
             }
         } catch (error) {
             console.log("Erro ao buscar importações:", error.response ? error.response.data : error.message);
+            Alerta(3, "Erro ao carregar as importações. Tente novamente mais tarde.");
         } finally {
             setCarregando(false);
         }
@@ -66,7 +74,7 @@ function PagUploadExcel() {
     // Função que envia os dados da planilha importada para o servidor
     const lidarComSubmit = async () => {
         if (dadosImportados.length === 0) {
-            console.log("Nenhum dado importado para enviar.");
+            Alerta(1, "Nenhum dado importado para enviar."); // Exibe um alerta de erro
             return;
         }
         try {
@@ -77,12 +85,13 @@ function PagUploadExcel() {
                 nome_arquivo: nomeArquivo
             });
 
-            console.log("Dados importados com sucesso:", resposta.data);
+            Alerta(2, "Dados importados com sucesso!"); // Alerta de sucesso
             buscarImportacoes(); // Atualiza a lista de importações
             setNomeArquivo("");
             setDadosImportados([]);
             document.getElementById('upload-arquivo').value = ""; // Reseta o campo de upload
         } catch (error) {
+            Alerta(3, "Erro ao enviar dados."); // Alerta de erro
             console.log("Erro ao enviar dados:", error.response ? error.response.data : error.message);
         }
     };
@@ -105,6 +114,7 @@ function PagUploadExcel() {
                 id
             });
 
+            Alerta(2, "Importação deletada com sucesso!"); // Alerta de sucesso
             console.log("Importação deletada com sucesso:", resposta.data);
 
             // Atualiza o estado de importacoes para remover a importação deletada
@@ -112,6 +122,7 @@ function PagUploadExcel() {
                 prevImportacoes.filter(importacao => importacao.id !== id)
             );
         } catch (error) {
+            Alerta(3, "Erro ao deletar importação."); // Alerta de erro
             console.log("Erro ao deletar importação:", error.response ? error.response.data : error.message);
         }
     };
@@ -282,6 +293,7 @@ function PagUploadExcel() {
     return (
         <div className="PagUploadExcel">
             <CabecalhoHome />
+            <AlertaNotificação />
             <Titulo tituloMsg='Importação de Planilha Excel' />
 
             <button
