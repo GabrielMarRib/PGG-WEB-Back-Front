@@ -53,14 +53,14 @@ function PagHome() {
   }, [])
 
   const sections = [
-    { title: "Faturamento por Serviço", content: "Transporte expresso: R$ 2.450.000, Armazenagem: R$ 1.200.000" },
-    { title: "Ticket Médio por Entrega", content: "R$ 650 por entrega" },
-    { title: "Entregas no Prazo", content: "96% das entregas realizadas no prazo" },
+    { title: "Faturamento por Serviço", content: "Armazenagem: R$ 1.200.000" },
+    { title: "Fornecedores ativos", content: "Lista de fornecedores ativos" },
     { title: "Capacidade de Armazenagem Utilizada", content: "Utilização dos armazéns: 78%", isSameHeight: true },
-    { title: "Custo Operacional por Entrega", content: "Custo médio de R$ 130 por entrega" },
+    { title: "Ponto de Pedido", content: <DashboardPP />  },
+    { title: "Baixas de produto", content: "20 baixas efetuadas hoje" },
     { title: "Satisfação do Cliente", content: "Nível de satisfação dos clientes: 92%" },
     { title: "Evolução de Vendas", content: "Análise Mensal da Evolução de Vendas", isChart: true },
-    { title: "Ponto de Pedido", content: <DashboardPP />  },
+    
 ];
 
   const buttons = [
