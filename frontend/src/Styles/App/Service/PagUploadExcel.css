@@ -1,3 +1,39 @@
+*{
+    font-family: 'JetBrains Mono', sans-serif;
+}
+
+div.paginacaoLbl{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+}
+div.paginacaoBtn{
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.paginacaoBtn button{
+    margin: 20px;
+    color: #ffffff;
+    background-color: #2d7c2e;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 6%;
+    height: 30%;
+    cursor: pointer;
+    transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+div.paginacaoBtn button:hover{
+    background-color: #164217;
+}
+
+
 .cabecalho-upload {
     margin-bottom: 20px;
     text-align: center;
@@ -8,7 +44,25 @@
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 20px;
-    transition: background-color 0.3s; 
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    flex-direction: column;
+}
+
+.areaInput{
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    flex-direction: column;
+    margin: 10px;
+}
+
+.areaInput input{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .area-upload:hover {
@@ -30,8 +84,8 @@
 }
 
 .tabela-dados {
-    margin-top: 20px;
-    width: 100%; 
+    margin: 10px 10px;
+    width: 98%; 
     overflow-x: auto; 
 }
 
@@ -65,7 +119,7 @@
 }
 
 .btn-deletar {
-    background-color: #d9534f; 
+    background-color: #f44034; 
     color: white; 
     border: none; 
     padding: 10px 20px; 
@@ -74,10 +128,11 @@
     cursor: pointer; 
     transition: background-color 0.3s ease; 
     margin-top: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .btn-deletar:hover {
-    background-color: #c9302c;
+    background-color: #811d1a;
 }
 
 .btn-deletar:active {
@@ -109,7 +164,7 @@
 }
 
 .btn-fechar {
-    background-color: #f44336; 
+    background-color: #f44034; 
     color: white; 
     border: none; 
     padding: 10px; 
@@ -122,10 +177,12 @@
     display: flex; 
     align-items: center; 
     justify-content: center; 
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .btn-fechar:hover {
-    background-color: #e53935;
+    background-color: #590d0d;
 }
 
 button.voltar{
@@ -140,4 +197,10 @@ button.voltar{
     margin-top: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin-left: 10px;
-  }
+}
+
+.PagUploadExcel h3{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

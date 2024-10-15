@@ -12,6 +12,11 @@ function PagUploadExcel() {
     const [importacoes, setImportacoes] = useState([]); // Estado para armazenar as importações salvas
     const [carregando, setCarregando] = useState(true); // Estado de controle de carregamento
     const [importacaoExpandida, setImportacaoExpandida] = useState(null); // Estado para controlar qual importação está expandida
+    const [paginaAtual, setPaginaAtual] = useState(1); // Página atual para a tabela de importações
+    const [registrosPorPagina, setRegistrosPorPagina] = useState(10); // Registros por página para a tabela de importações
+    const [paginaAtualExpandida, setPaginaAtualExpandida] = useState(1); // Página atual para a tabela expandida
+    const [registrosPorPaginaExpandida, setRegistrosPorPaginaExpandida] = useState(10); // Registros por página para a tabela expandida
+
     const navigate = useNavigate();
 
     // Função responsável por buscar as importações salvas no banco de dados
@@ -82,6 +87,12 @@ function PagUploadExcel() {
         }
     };
 
+    const mudarRegistrosPorPaginaExpandida = (e) => {
+        setRegistrosPorPaginaExpandida(Number(e.target.value));
+        setPaginaAtualExpandida(1); // Resetar para a primeira página ao mudar a quantidade de registros por página
+    };
+    
+
     // Função que deleta uma importação do banco de dados
     const lidarComDeletar = async (id) => {
         const confirmarDeletar = window.confirm("Tem certeza que deseja deletar esta importação?"); // Colocar isso depois em um popup.
@@ -105,29 +116,151 @@ function PagUploadExcel() {
         }
     };
 
-    // Função para formatar os dados importados em uma tabela HTML
-    const formatarDadosImportacao = (dados) => {
-        return (
-            <table>
-                <thead>
-                    <tr>
-                        {dados[0].map((cabecalho, index) => (
-                            <th key={index}>{cabecalho}</th>
-                        ))}
-                    </tr>
-                </thead>
-                <tbody>
-                    {dados.slice(1).map((linha, index) => (
-                        <tr key={index}>
-                            {linha.map((celula, indiceCelula) => (
-                                <td key={indiceCelula}>{celula}</td>
-                            ))}
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        );
+    // Função para calcular os dados visíveis na tabela de importações com paginação
+    const calcularDadosPaginados = (dados, paginaAtual, registrosPorPagina) => {
+        const indiceUltimoRegistro = paginaAtual * registrosPorPagina;
+        const indicePrimeiroRegistro = indiceUltimoRegistro - registrosPorPagina;
+        return dados.slice(indicePrimeiroRegistro, indiceUltimoRegistro);
     };
+
+    // Função para mudar a página da tabela de importações
+    const mudarPagina = (novaPagina) => {
+        setPaginaAtual(novaPagina);
+    };
+
+    // Função para mudar a página da tabela expandida
+    const mudarPaginaExpandida = (novaPagina) => {
+        setPaginaAtualExpandida(novaPagina);
+    };
+
+    // Função para alterar a quantidade de registros por página na tabela de importações
+    const mudarRegistrosPorPagina = (e) => {
+        setRegistrosPorPagina(Number(e.target.value));
+        setPaginaAtual(1);
+    };
+
+        // Função que renderiza a tabela expandida com paginação
+        const formatarDadosImportacao = (dados) => {
+            const dadosPaginados = calcularDadosPaginados(dados, paginaAtualExpandida, registrosPorPaginaExpandida);
+    
+            return (
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                {dados[0].map((cabecalho, index) => (
+                                    <th key={index}>{cabecalho}</th>
+                                ))}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {dadosPaginados.map((linha, index) => (
+                                <tr key={index}>
+                                    {linha.map((celula, indiceCelula) => (
+                                        <td key={indiceCelula}>{celula}</td>
+                                    ))}
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+    
+                    {/* Controles de paginação para a tabela expandida */}
+                    <div className="paginacao">
+                        <div className="paginacaoLbl">
+                            <label htmlFor="registrosPorPaginaExpandida">Registros por página:</label>
+                            <select id="registrosPorPaginaExpandida" value={registrosPorPaginaExpandida} onChange={mudarRegistrosPorPaginaExpandida}>
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+                        <div className="paginacaoBtn">
+                            <button
+                                onClick={() => mudarPaginaExpandida(paginaAtualExpandida - 1)}
+                                disabled={paginaAtualExpandida === 1}
+                            >
+                                Anterior
+                            </button>
+                            <span>{`Página ${paginaAtualExpandida}`}</span>
+                            <button
+                                onClick={() => mudarPaginaExpandida(paginaAtualExpandida + 1)}
+                                disabled={paginaAtualExpandida * registrosPorPaginaExpandida >= dados.length}
+                            >
+                                Próximo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+    
+        // Função que renderiza a tabela de importações com paginação
+        const formatarTabelaImportacoes = () => {
+            const dadosPaginados = calcularDadosPaginados(importacoes, paginaAtual, registrosPorPagina);
+    
+            return (
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome do Arquivo</th>
+                                <th>Data de Importação</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {dadosPaginados.map((importacao) => (
+                                <tr key={importacao.id}>
+                                    <td>{importacao.id}</td>
+                                    <td
+                                        onClick={() => setImportacaoExpandida(importacao.id)}
+                                        style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}
+                                    >
+                                        {importacao.nome_arquivo}
+                                    </td>
+                                    <td>{new Date(importacao.data_importacao).toLocaleString()}</td>
+                                    <td>
+                                        <button className="btn-deletar" onClick={() => lidarComDeletar(importacao.id)}>Deletar</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+    
+                    {/* Controles de paginação para a tabela de importações */}
+                    <div className="paginacao">
+                        <div className="paginacaoLbl">
+                            <label htmlFor="registrosPorPagina">Registros por página:</label>
+                            <select id="registrosPorPagina" value={registrosPorPagina} onChange={mudarRegistrosPorPagina}>
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+                        <div className="paginacaoBtn">
+                            <button
+                                onClick={() => mudarPagina(paginaAtual - 1)}
+                                disabled={paginaAtual === 1}
+                            >
+                                Anterior
+                            </button>
+                            <span>{`Página ${paginaAtual}`}</span>
+                            <button
+                                onClick={() => mudarPagina(paginaAtual + 1)}
+                                disabled={paginaAtual * registrosPorPagina >= importacoes.length}
+                            >
+                                Próximo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+    
+
 
     // Função para limpar a seleção do arquivo
     const limparSelecaoArquivo = () => {
@@ -166,15 +299,19 @@ function PagUploadExcel() {
                 </div>
 
                 <div className="area-upload">
-                    <label htmlFor="upload-arquivo" className="custom-file-upload">
-                        <span>Selecione a Planilha</span>
-                    </label>
-                    <input
-                        id="upload-arquivo"
-                        type="file"
-                        accept=".xlsx, .xls"
-                        onChange={lidarComUploadArquivo}
-                    />
+                    <div className="areaLbl">
+                        <label htmlFor="upload-arquivo" className="custom-file-upload">
+                            <span>Selecione a Planilha</span>
+                        </label>
+                    </div>
+                    <div className="areaInput">
+                        <input
+                            id="upload-arquivo"
+                            type="file"
+                            accept=".xlsx, .xls"
+                            onChange={lidarComUploadArquivo}
+                        />
+                    </div>
                 </div>
 
                 <button className="btn-upload" onClick={lidarComSubmit}>
@@ -203,6 +340,7 @@ function PagUploadExcel() {
                         <p>Carregando...</p>
                     ) : (
                         <div className="tabela-rolavel">
+                            
                             <table>
                                 <thead>
                                     <tr>
