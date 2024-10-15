@@ -19,6 +19,8 @@ function PagUploadExcel() {
     const [registrosPorPagina, setRegistrosPorPagina] = useState(10); // Registros por página para a tabela de importações
     const [paginaAtualExpandida, setPaginaAtualExpandida] = useState(1); // Página atual para a tabela expandida
     const [registrosPorPaginaExpandida, setRegistrosPorPaginaExpandida] = useState(10); // Registros por página para a tabela expandida
+    const [mostrarPopup, setMostrarPopup] = useState(false);
+    const [importacaoParaDeletar, setImportacaoParaDeletar] = useState(null);
 
     const navigate = useNavigate();
 
@@ -102,29 +104,36 @@ function PagUploadExcel() {
     };
     
 
-    // Função que deleta uma importação do banco de dados
-    const lidarComDeletar = async (id) => {
-        const confirmarDeletar = window.confirm("Tem certeza que deseja deletar esta importação?"); // Colocar isso depois em um popup.
-        if (!confirmarDeletar) return;
+    const lidarComDeletar = (id) => {
+        setImportacaoParaDeletar(id);
+        setMostrarPopup(true);
+    };
 
+    const confirmarDelecao = async () => {
         try {
             const resposta = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
                 senha: "@7h$Pz!q2X^vR1&K",
                 funcao: "deletarImportacao",
-                id
+                id: importacaoParaDeletar
             });
 
-            Alerta(2, "Importação deletada com sucesso!"); // Alerta de sucesso
+            Alerta(2, "Importação deletada com sucesso!");
             console.log("Importação deletada com sucesso:", resposta.data);
-
-            // Atualiza o estado de importacoes para remover a importação deletada
             setImportacoes((prevImportacoes) =>
-                prevImportacoes.filter(importacao => importacao.id !== id)
+                prevImportacoes.filter(importacao => importacao.id !== importacaoParaDeletar)
             );
         } catch (error) {
-            Alerta(3, "Erro ao deletar importação."); // Alerta de erro
+            Alerta(3, "Erro ao deletar importação.");
             console.log("Erro ao deletar importação:", error.response ? error.response.data : error.message);
+        } finally {
+            setMostrarPopup(false);
+            setImportacaoParaDeletar(null);
         }
+    };
+
+    const cancelarDelecao = () => {
+        setMostrarPopup(false);
+        setImportacaoParaDeletar(null);
     };
 
     // Função para calcular os dados visíveis na tabela de importações com paginação
@@ -291,115 +300,125 @@ function PagUploadExcel() {
     
 
     return (
-        <div className="PagUploadExcel">
-            <CabecalhoHome />
-            <AlertaNotificação />
-            <Titulo tituloMsg='Importação de Planilha Excel' />
+    <div className="PagUploadExcel">
+        <CabecalhoHome />
+        <AlertaNotificação />
+        <Titulo tituloMsg='Importação de Planilha Excel' />
 
-            <button
-                className="voltar"
-                onClick={() => {
-                    navigate("/PagPerfil");
-                }}
-            >
-                Voltar
-            </button>
+        <button
+            className="voltar"
+            onClick={() => {
+                navigate("/PagPerfil");
+            }}
+        >
+            Voltar
+        </button>
 
-            <div className="container-upload">
-                <div className="cabecalho-upload">
-                    <h2>Envio de Arquivo Excel</h2>
+        <div className="container-upload">
+            <div className="cabecalho-upload">
+                <h2>Envio de Arquivo Excel</h2>
+            </div>
+
+            <div className="area-upload">
+                <div className="areaLbl">
+                    <label htmlFor="upload-arquivo" className="custom-file-upload">
+                        <span>Selecione a Planilha</span>
+                    </label>
                 </div>
-
-                <div className="area-upload">
-                    <div className="areaLbl">
-                        <label htmlFor="upload-arquivo" className="custom-file-upload">
-                            <span>Selecione a Planilha</span>
-                        </label>
-                    </div>
-                    <div className="areaInput">
-                        <input
-                            id="upload-arquivo"
-                            type="file"
-                            accept=".xlsx, .xls"
-                            onChange={lidarComUploadArquivo}
-                        />
-                    </div>
-                </div>
-
-                <button className="btn-upload" onClick={lidarComSubmit}>
-                    Enviar Planilha
-                </button>
-
-                {nomeArquivo && (
-                    <div className="nome-arquivo">
-                        <p>Arquivo selecionado: <strong>{nomeArquivo}</strong></p>
-                        <button className="btn-limpar" onClick={limparSelecaoArquivo}>
-                            Selecionar Outra Planilha
-                        </button>
-                    </div>
-                )}
-
-                {dadosImportados.length > 0 && (
-                    <div className="tabela-dados">
-                        <h3>Dados Importados</h3>
-                        {formatarDadosImportacao(dadosImportados)}
-                    </div>
-                )}
-
-                <div className="tabela-dados">
-                    <h3>Importações Salvas</h3>
-                    {carregando ? (
-                        <p>Carregando...</p>
-                    ) : (
-                        <div className="tabela-rolavel">
-                            
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Nome do Arquivo</th>
-                                        <th>Data de Importação</th>
-                                        <th>Ações</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {importacoes.map((importacao) => (
-                                        <tr key={importacao.id}>
-                                            <td>{importacao.id}</td>
-                                            <td
-                                                onClick={() => lidarComExpandir(importacao.id)}
-                                                style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}
-                                            >
-                                                {importacao.nome_arquivo}
-                                            </td>
-                                            <td>{new Date(importacao.data_importacao).toLocaleString()}</td>
-                                            <td>
-                                                <button className="btn-deletar" onClick={() => lidarComDeletar(importacao.id)}>Deletar</button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                            {importacaoExpandida && (
-                                <div className="tabela-dados-expandida">
-                                    <h3 style={{ flex: 1 }}>
-                                        Dados da Importação -
-                                        <span style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline', marginLeft: '8px' }}>
-                                            {importacoes.find(importacao => importacao.id === importacaoExpandida).nome_arquivo}
-                                        </span>
-                                    </h3>
-                                    <button className="btn-fechar" onClick={() => setImportacaoExpandida(null)}>
-                                        X
-                                    </button>
-                                    {formatarDadosImportacao(JSON.parse(importacoes.find(importacao => importacao.id === importacaoExpandida).dados))}
-                                </div>
-                            )}
-                        </div>
-                    )}
+                <div className="areaInput">
+                    <input
+                        id="upload-arquivo"
+                        type="file"
+                        accept=".xlsx, .xls"
+                        onChange={lidarComUploadArquivo}
+                    />
                 </div>
             </div>
+
+            <button className="btn-upload" onClick={lidarComSubmit}>
+                Enviar Planilha
+            </button>
+
+            {nomeArquivo && (
+                <div className="nome-arquivo">
+                    <p>Arquivo selecionado: <strong>{nomeArquivo}</strong></p>
+                    <button className="btn-limpar" onClick={limparSelecaoArquivo}>
+                        Selecionar Outra Planilha
+                    </button>
+                </div>
+            )}
+
+            {dadosImportados.length > 0 && (
+                <div className="tabela-dados">
+                    <h3>Dados Importados</h3>
+                    {formatarDadosImportacao(dadosImportados)}
+                </div>
+            )}
+
+            <div className="tabela-dados">
+                <h3>Importações Salvas</h3>
+                {carregando ? (
+                    <p>Carregando...</p>
+                ) : (
+                    <div className="tabela-rolavel">
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nome do Arquivo</th>
+                                    <th>Data de Importação</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {importacoes.map((importacao) => (
+                                    <tr key={importacao.id}>
+                                        <td>{importacao.id}</td>
+                                        <td
+                                            onClick={() => lidarComExpandir(importacao.id)}
+                                            style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}
+                                        >
+                                            {importacao.nome_arquivo}
+                                        </td>
+                                        <td>{new Date(importacao.data_importacao).toLocaleString()}</td>
+                                        <td>
+                                            <button className="btn-deletar" onClick={() => lidarComDeletar(importacao.id)}>Deletar</button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        {importacaoExpandida && (
+                            <div className="tabela-dados-expandida">
+                                <h3 style={{ flex: 1 }}>
+                                    Dados da Importação -
+                                    <span style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline', marginLeft: '8px' }}>
+                                        {importacoes.find(importacao => importacao.id === importacaoExpandida).nome_arquivo}
+                                    </span>
+                                </h3>
+                                <button className="btn-fechar" onClick={() => setImportacaoExpandida(null)}>
+                                    X
+                                </button>
+                                {formatarDadosImportacao(JSON.parse(importacoes.find(importacao => importacao.id === importacaoExpandida).dados))}
+                            </div>
+                        )}
+                    </div>
+                )}
+            </div>
         </div>
-    );
+        {mostrarPopup && (
+                <div className="popup">
+                    <div className="popup-conteudo">
+                        <h4>Confirmar Deleção</h4>
+                        <p>Você tem certeza que deseja deletar esta importação?</p>
+                        <button onClick={confirmarDelecao}>Confirmar</button>
+                        <button onClick={cancelarDelecao}>Cancelar</button>
+                    </div>
+                </div>
+            )}
+    </div>
+);
 }
 
 export default PagUploadExcel;

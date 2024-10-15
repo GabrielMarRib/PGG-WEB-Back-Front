@@ -204,3 +204,79 @@ button.voltar{
     align-items: center;
     justify-content: center;
 }
+
+/* Estilo do fundo do popup */
+.PagUploadExcel.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7); /* Fundo semitransparente mais escuro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilo do conteúdo do popup */
+.PagUploadExcel .popup-conteudo {
+    background-color: #ffffff; /* Cor de fundo do popup */
+    padding: 30px; /* Aumenta o espaçamento interno */
+    border-radius: 10px; /* Bordas mais arredondadas */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Sombra mais profunda */
+    width: 90%; /* Largura responsiva */
+    max-width: 500px; /* Largura máxima do popup */
+    height: auto; /* Altura automática para ajustar o conteúdo */
+    text-align: left; /* Alinhamento do texto à esquerda */
+    overflow: auto; /* Adiciona barra de rolagem se necessário */
+    position: relative;
+    z-index: 10;
+}
+
+/* Estilo do botão de ação */
+.PagUploadExcel .popup-conteudo button {
+    display: inline-block; /* Permite centralizar os botões */
+    background-color: #4caf50; /* Cor de fundo do botão de ação */
+    color: white; /* Cor do texto */
+    border: none; /* Remove borda padrão */
+    padding: 10px 20px; /* Espaçamento interno */
+    border-radius: 5px; /* Bordas arredondadas */
+    cursor: pointer; /* Cursor de mão ao passar o mouse */
+    transition: background-color 0.3s ease; /* Transição suave para o hover */
+    margin: 5px; /* Margem entre os botões */
+}
+
+/* Estilo do botão de ação ao passar o mouse */
+.PagUploadExcel .popup-conteudo button:hover {
+    background-color: #45a049; /* Cor do botão ao passar o mouse */
+}
+
+/* Centraliza os botões na parte inferior do conteúdo */
+.PagUploadExcel .popup-conteudo .botao-container {
+    display: flex; /* Usar flexbox para o layout dos botões */
+    justify-content: center; /* Centraliza os botões */
+    margin-top: 20px; /* Margem superior */
+}
+
+/* Estilo do botão de fechar */
+.PagUploadExcel .fechar-popup {
+    background-color: #ff6b6b; /* Cor de fundo do botão */
+    color: white; /* Cor do texto */
+    border: none; /* Remove borda padrão */
+    padding: 10px 15px; /* Espaçamento interno do botão */
+    border-radius: 5px; /* Bordas arredondadas */
+    cursor: pointer; /* Cursor de mão ao passar o mouse */
+    margin-bottom: 15px; /* Espaçamento inferior */
+    position: absolute; /* Posicionamento absoluto */
+    top: 15px; /* Distância do topo */
+    right: 15px; /* Distância da direita */
+    font-weight: bold; /* Aumenta o destaque do texto */
+    transition: background-color 0.3s ease; /* Transição suave para o hover */
+}
+
+/* Estilo do botão de fechar ao passar o mouse */
+.PagUploadExcel .fechar-popup:hover {
+    background-color: #ff4d4d; /* Cor do botão ao passar o mouse */
+}
+  
+  
