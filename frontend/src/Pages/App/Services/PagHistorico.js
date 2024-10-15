@@ -14,6 +14,7 @@ function PagHistorico() {
   const [departamentoSelecionado, setDepartamentoSelecionado] = useState("curvaabc"); // Porra do filtro de departamento
   const [adicionaisCurva, setAdicionaisCurva] = useState([]);
   const [adicionaisLote, setAdicionaisLote] = useState([]);
+  const [tabelasUnicas, setTabelasUnicas] = useState([])
   useEffect(() => {
     const pegaHistorico = async () => { // função existe para separar async do useEffect...
       try {
@@ -67,28 +68,27 @@ function PagHistorico() {
     const dadosUnicos = [];
 
     for (let dado of dados) {
-      if (!dadosUnicos.includes(dado.campos)) {
+      const camposExistentes = dadosUnicos.map((item) => item.campo);
+
+      if (!camposExistentes.includes(dado.campos)) {
         if (dado.campos.indexOf(",") > 0) {
           const subArray = dado.campos.split(",");
           subArray.forEach((valor) => {
             let valTrim = valor.trim();
-            if (!dadosUnicos.includes(valTrim)) {
-              dadosUnicos.push(valTrim);
+            if (!camposExistentes.includes(valTrim)) {
+              dadosUnicos.push({ campo: valTrim, tabela: dado.tabela });
             }
           });
+        } else {
+          dadosUnicos.push({ campo: dado.campos, tabela: dado.tabela });
         }
-        dadosUnicos.push(dado.campos);
       }
     }
-    dadosUnicos.forEach((dado) => {
-      if (dado.indexOf(",") > 0) {
-        const index = dadosUnicos.indexOf(dado);
-        dadosUnicos.splice(index, 1);
-      }
-    });
+
     console.log(dadosUnicos);
     setCamposVariaveis(dadosUnicos);
   };
+
 
   // Função Para filtrar departamento selecionado
   const historicoFiltrado = departamentoSelecionado
@@ -102,10 +102,14 @@ function PagHistorico() {
 
 
   // Campos pertencentes a cada departamento
-  const camposDepartamento = {
-    curvaabc: ["quantidadeConsumo"],
-    lote: ["vlr_compra", "vlr_venda", "qtde"],
-  };
+  const camposDepartamento = camposVariaveis.reduce((acc, reg) => {
+    if (!acc[reg.tabela]) { // se já não tiver um registro reduzido,
+      acc[reg.tabela] = []; // nn tendi, mas blz
+    }
+    acc[reg.tabela].push(reg.campo); // da certo, fé em Deus
+    return acc;
+  }, {});
+
 
 
   const obterCamposDepartamento = () => {
@@ -136,9 +140,11 @@ function PagHistorico() {
           value={departamentoSelecionado}
           onChange={(e) => setDepartamentoSelecionado(e.target.value)}
         >
-          <option value="curvaabc">Curva ABC</option>
-          <option value="lote">Lote</option>
-
+          {Object.keys(camposDepartamento).map((tabela) => (
+            <option key={tabela} value={tabela}>
+              {tabela}
+            </option>
+          ))}
         </select>
       </div>
 
@@ -168,19 +174,19 @@ function PagHistorico() {
                       const achados = adicionaisCurva.find((adicional) => adicional.id_curvaabc === registro.id_tabela)
                       return (
                         <div className="infoAdicional">
-                          Produto: <span style={{fontWeight: '700'}}>{achados?.prodNome}</span><br />
-                          Id: <span style={{fontWeight: '700'}}>{achados?.id_produtos}</span><br />
-                          Categoria: <span style={{fontWeight: '700'}}>{achados?.id_categorias} - {achados?.catNome}</span>
+                          Produto: <span style={{ fontWeight: '700' }}>{achados?.prodNome}</span><br />
+                          Id: <span style={{ fontWeight: '700' }}>{achados?.id_produtos}</span><br />
+                          Categoria: <span style={{ fontWeight: '700' }}>{achados?.id_categorias} - {achados?.catNome}</span>
                         </div>
                       )
-                    } else if (registro?.tabela === 'lote'){
+                    } else if (registro?.tabela === 'lote') {
                       const achados = adicionaisLote.find((adicional) => adicional.numerolote === registro.id_tabela)
                       return (
                         <div className="infoAdicional">
-                          Id lote: <span style={{fontWeight: '700'}}>{achados?.numerolote}</span><br />
-                          Produto: <span style={{fontWeight: '700'}}>{achados?.nome}</span><br />
-                          Fornecedor: <span style={{fontWeight: '700'}}>{achados?.fornecedor ? achados?.fornecedor : "Não cadastrado"}</span><br />
-                          Nota Fiscal: <span style={{fontWeight: '700'}}>{achados?.nota_fiscal ? achados?.nota_fiscal : "Não cadastrado"}</span><br />
+                          Id lote: <span style={{ fontWeight: '700' }}>{achados?.numerolote}</span><br />
+                          Produto: <span style={{ fontWeight: '700' }}>{achados?.nome}</span><br />
+                          Fornecedor: <span style={{ fontWeight: '700' }}>{achados?.fornecedor ? achados?.fornecedor : "Não cadastrado"}</span><br />
+                          Nota Fiscal: <span style={{ fontWeight: '700' }}>{achados?.nota_fiscal ? achados?.nota_fiscal : "Não cadastrado"}</span><br />
                         </div>
                       )
                     }

@@ -78,12 +78,12 @@ function PagProdutos() {
       console.log("deu ruim: " + error) // log para sabermos qual foi o erro
     }
   };
-  
-  
+
+
 
   useEffect(() => {
-     pegaProdutos(false);
-     pegarTodosFornecedores();
+    pegaProdutos(false);
+    pegarTodosFornecedores();
     console.log("Entrou aqui")
   }, [repescarInfo])
 
@@ -96,11 +96,9 @@ function PagProdutos() {
       return;
     }
 
-    //inserção de produtos com mtas procedures...
+    const diaDeHj = new Date();
+    const diaOK = diaDeHj.toLocaleString('sv-SE').replace('T', ' ');
     try {
-      const diaDeHj = new Date();
-      const diaOK = diaDeHj.toLocaleString('sv-SE').replace('T', ' ');
-
       const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {  // acessa via get (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
         //parâmetros da consulta... SÃO necessários.
         funcao: 'inserirProdutoLoteEMovimento', // dita qual função deve ser utilizada da api. (a gente te fala o nome)
@@ -121,30 +119,31 @@ function PagProdutos() {
         Mov: "E",
         NomeCliente: fornecedor,
         fornecedor: fornecedor
-      });
-
-      // se a inserção deu OK, ele vai executar os códigos abaixo... (Se deu ruim, vai pro catch direto... Sim, existe uma linha de continuídade, só é bem tênue)
-      console.log(response.data) // manda a resposta pro console.log pra gente saber o que ta acontecendo...
-      Alerta(2, "Inserção realizada");
-      //zera os campos
-      setCategoriaSelecionada(null);
-      setCodigo('');
-      setDescricao('');
-      setNome('');
-      setCodigoDeBarras('');
-      setDataCompra('');
-      setDataValidade('');
-      setQuantidade('');
-      setValorCompra('');
-      setValorVenda('');
-
-      //REPESCAR INFORMAÇÕES (ATUALIZAR TABELA)
-      setRepescarInfo(prevState => !prevState); // variável fica na dependency array do useEffect que busca as informações da tabela. Quando o valor é mudado,
-      // o useEffect é triggered de novo, pois ESSA variável está na dependency array.
-      // prevState => !prevState inverte um valor booleano. Se era false, vira true, se era true, vira false. Isso só para repescarmos a informação.
+      })
+      if (response.status === 200) {
+        console.log(response.data);
+        Alerta(2, "Inserção realizada");
+        // Reset fields and refresh
+        setCategoriaSelecionada(null);
+        setCodigo('');
+        setDescricao('');
+        setNome('');
+        setCodigoDeBarras('');
+        setDataCompra('');
+        setDataValidade('');
+        setQuantidade('');
+        setValorCompra('');
+        setValorVenda('');
+        setRepescarInfo(prevState => !prevState);
+      } else {
+        console.error('Unexpected response:', response);
+        Alerta(1, "Erro Desconhecido");
+      }
     } catch (error) {
-      console.log("deu ruim: " + error) // log para sabermos qual foi o erro
+      console.error('Error during API call:', error);
+      Alerta(3, "Erro interno");
     }
+
   }
 
   const produtosFiltrados = produtos.filter((produto) =>
@@ -176,7 +175,7 @@ function PagProdutos() {
 
       setProdutos(response.data);
       setCarregando(false);
-  
+
       // Exibe a mensagem se não houver produtos na categoria
       console.log(response.data)
       if (response.data.length === 0) {
@@ -194,7 +193,7 @@ function PagProdutos() {
   useEffect(() => {
     buscarProdutosPorCategoria();
   }, [FiltroSelecionado]);
-  
+
 
   const handleSelecionarProd = (produto) => {
     setProdutoSelecId(produto.id_produtos);
@@ -207,18 +206,18 @@ function PagProdutos() {
   }, [categoriaSelecionada])
 
 
-  
+
   const MapearFornecedor = (Fornecedor) => {
-    return(
+    return (
       <option value={Fornecedor.nome}>{Fornecedor.id_fornecedor} - {Fornecedor.nome}</option>
     );
   }
 
-  const handleChangeFornecedor = (e) =>{
+  const handleChangeFornecedor = (e) => {
     const val = e.target.value
-    if(val === 'Vazio'){
+    if (val === 'Vazio') {
       setFornecedor(null)
-    }else{
+    } else {
       setFornecedor(val)
     }
     console.log(val)
@@ -233,7 +232,7 @@ function PagProdutos() {
         </div>
 
         <Titulo
-          tituloMsg='Gerenciamento de Produtos' 
+          tituloMsg='Gerenciamento de Produtos'
         />
 
         <div className="ajuda"> ? </div>
@@ -330,8 +329,8 @@ function PagProdutos() {
                       ) : (
                         null
                       )
-                        
-                      
+
+
                       }
                     </select>
                   </div>
@@ -377,10 +376,10 @@ function PagProdutos() {
                       onChange={(e) => {
                         const value = e.target.value;
                         if (/^\d*\.?\d*$/.test(value)) {
-                            setValorCompra(value);
+                          setValorCompra(value);
                         }
                       }}
-                      />
+                    />
                   </div>
 
                   <div className="grupo-input">
@@ -394,10 +393,10 @@ function PagProdutos() {
                       onChange={(e) => {
                         const value = e.target.value;
                         if (/^\d*\.?\d*$/.test(value)) {
-                            setValorVenda(value);
+                          setValorVenda(value);
                         }
                       }}
-                      />
+                    />
                   </div>
 
                   <button className="btnInserir">
@@ -407,45 +406,45 @@ function PagProdutos() {
 
               </div>
             </div>
-           
-          
+
+
             <div className="terminal">
               <h2>Produtos cadastrados</h2>
               <div className="barra-pesquisa">
-              <div className="teste">
-                    <FiltragemComponente setFiltroSelecionado={setFiltroSelecionado} FiltroSelecionado={FiltroSelecionado} />
-                  </div>
+                <div className="teste">
+                  <FiltragemComponente setFiltroSelecionado={setFiltroSelecionado} FiltroSelecionado={FiltroSelecionado} />
+                </div>
                 <input
                   type="text"
                   placeholder="Pesquisar produto..."
                   value={pesquisaProduto}
                   onChange={(e) => setPesquisaProduto(e.target.value)}
                 />
-                 </div>
-                 {carregando ? (
-                  <div>Carregando...</div>
+              </div>
+              {carregando ? (
+                <div>Carregando...</div>
+              ) : (
+                mensagemVazia ? (
+                  <div>Nenhum produto encontrado na categoria selecionada.</div>
                 ) : (
-                  mensagemVazia ? (
-                    <div>Nenhum produto encontrado na categoria selecionada.</div>
+                  produtosFiltrados.length > 0 ? (
+                    produtosFiltrados.map((produto) => (
+                      <ul key={produto.id_produtos} className="produtoGerado">
+                        <div className="conteudoProdutoGerado">
+                          <li className="liGerado">{produto.nome}</li>
+                          <li className="liGerado">Código: {produto.id_produtos}</li>
+                          <button onClick={() => {
+                            handleSelecionarProd(produto);
+                            handleModal(true);
+                          }}>Editar produto</button>
+                        </div>
+                      </ul>
+                    ))
                   ) : (
-                    produtosFiltrados.length > 0 ? (
-                      produtosFiltrados.map((produto) => (
-                        <ul key={produto.id_produtos} className="produtoGerado">
-                          <div className="conteudoProdutoGerado">
-                            <li className="liGerado">{produto.nome}</li>
-                            <li className="liGerado">Código: {produto.id_produtos}</li>
-                            <button onClick={() => {
-                              handleSelecionarProd(produto);
-                              handleModal(true);
-                            }}>Editar produto</button>
-                          </div>
-                        </ul>
-                      ))
-                    ) : (
-                      <div>Nenhum produto encontrado com o termo pesquisado.</div>
-                    )
+                    <div>Nenhum produto encontrado com o termo pesquisado.</div>
                   )
-                )}
+                )
+              )}
             </div>
           </div>
         </div>
