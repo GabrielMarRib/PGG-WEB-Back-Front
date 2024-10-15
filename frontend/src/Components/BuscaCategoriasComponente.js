@@ -58,7 +58,7 @@ function BuscaCategoriasComponente({
     setHistoricoSelecoes((prev) => [
       ...prev,
       {
-        id: categoria.id_categorias,
+        id_categorias: categoria.id_categorias,
         nome: categoria.nome,
         subcategoria: categoria.subcategoria,
       },
@@ -127,12 +127,12 @@ function BuscaCategoriasComponente({
 
   const IpersLinks = (item) => {
     setCategoriaSelecionada(item);
-    setInputValue(`${item.id} - ${item.nome}`);
+    setInputValue(`${item.id_categorias} - ${item.nome}`);
 
     setHistoricoSelecoes((Prev) => {
       const index = Prev.findIndex(
         (I) =>
-          I.id === item.id &&
+          I.id_categorias === item.id &&
           I.nome === item.nome &&
           I.subcategoria === item.subcategoria
       );

@@ -105,6 +105,7 @@ function PagHistorico() {
   const camposDepartamento = {
     curvaabc: ["quantidadeConsumo"],
     lote: ["vlr_compra", "vlr_venda", "qtde"],
+    Baixa: ["Quantidade"]
   };
 
 
@@ -138,7 +139,7 @@ function PagHistorico() {
         >
           <option value="curvaabc">Curva ABC</option>
           <option value="lote">Lote</option>
-
+          <option value="Baixa">Baixas</option>
         </select>
       </div>
 
@@ -183,7 +184,17 @@ function PagHistorico() {
                           Nota Fiscal: <span style={{fontWeight: '700'}}>{achados?.nota_fiscal ? achados?.nota_fiscal : "Não cadastrado"}</span><br />
                         </div>
                       )
-                    }
+                    } else if (registro?.tabela === 'Baixa'){
+                      const achados = adicionaisLote.find((adicional) => adicional.numerolote === registro.id_tabela)
+                      return (
+                        <div className="infoAdicional">
+                          Id lote: <span style={{fontWeight: '700'}}>{achados?.numerolote}</span><br />
+                          Produto: <span style={{fontWeight: '700'}}>{achados?.nome}</span><br />
+                          Fornecedor: <span style={{fontWeight: '700'}}>{achados?.fornecedor ? achados?.fornecedor : "Não cadastrado"}</span><br />
+                          Nota Fiscal: <span style={{fontWeight: '700'}}>{achados?.nota_fiscal ? achados?.nota_fiscal : "Não cadastrado"}</span><br />
+                        </div>
+                      )
+                    } 
                   })()}
                 </td>
                 {obterCamposDepartamento().map((campo) =>
