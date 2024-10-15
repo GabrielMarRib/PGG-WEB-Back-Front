@@ -5,6 +5,7 @@ import { AlertaProvider } from './Context/AlertaContext';
 //npm i react-scripts
 //npm i primereact
 //npm i recharts
+//npm install xlsx
 function App() {
   return (
     <AlertaProvider>

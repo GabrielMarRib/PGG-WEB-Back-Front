@@ -18,9 +18,6 @@ const PagMovimentos = () => {
   const [erro, setErro] = useState('');
   const [codigosUnicos, setCodigosUnicos] = useState([]);
   const [autoresUnicos, setAutoresUnicos] = useState([]);
-  const [TotalQuantidade, setTotalQuantidade] = useState([]);
-  const [TotalValor, setTotalValor] = useState([]);
-  const [i, seti] = useState(false);
 
   useEffect(() => {
     const fetchMovimentos = async () => {
@@ -36,10 +33,6 @@ const PagMovimentos = () => {
 
         const codigos = [...new Set(movimentosData.map(mov => mov.produto))];
         setCodigosUnicos(codigos);
-
-        const autores = [...new Set(movimentosData.map(mov => mov.Autor))];
-        setAutoresUnicos(autores);
-
       } catch (error) {
         console.error("Erro ao buscar movimentos: ", error);
         setErro("Houve um erro ao buscar os movimentos. Por favor, tente novamente mais tarde.");
@@ -56,14 +49,6 @@ const PagMovimentos = () => {
   };
 
   const handleValorFiltroChange = (e) => {
-    setValorFiltro(e.target.value);
-  };
-
-  const handleOrdemChange = (e) => {
-    setOrdem(e.target.value);
-  };
-
-  const handleAutorChange = (e) => {
     setValorFiltro(e.target.value);
   };
 
@@ -87,15 +72,11 @@ const PagMovimentos = () => {
         movimentosFiltrados = [...movimentos].sort((a, b) => {
           return ordem === 'maior' ? b.valor - a.valor : a.valor - b.valor;
         });
-      } else if (filtro === 'movimento') {
-        movimentosFiltrados = movimentos.filter(mov => mov.mov === valorFiltro);
       } else if (filtro === 'cliente') {
         const valorFiltroLower = valorFiltro.toLowerCase();
         movimentosFiltrados = movimentos.filter(mov =>
           mov.cliente.toLowerCase().includes(valorFiltroLower)
         );
-      } else if (filtro === 'autor') {
-        movimentosFiltrados = movimentos.filter(mov => mov.Autor === valorFiltro);
       }
     }
 
@@ -132,9 +113,7 @@ const PagMovimentos = () => {
     });
     return totalValorlet;
   };
-  
-  
-  
+
   const CalcularQuantidadeTotal = (movimentoAtual) => {
     let totalQuantidadelet = 0;
     let produtoId = movimentoAtual.produto;
@@ -159,9 +138,7 @@ const PagMovimentos = () => {
       <div className="CabecalhoHome">
         <CabecalhoHome />
       </div>
-      <Titulo
-        tituloMsg='Visualização de Movimentos (Ficha de estoque)'
-      />
+      <Titulo tituloMsg='Visualização de Movimentos (Ficha de estoque)' />
       {erro && <p style={{ color: 'red' }}>{erro}</p>}
 
       <div className="filtro-section">
@@ -173,8 +150,6 @@ const PagMovimentos = () => {
           <option value="quantidade">Quantidade</option>
           <option value="valor">Valor</option>
           <option value="cliente">Cliente</option>
-          <option value="movimento">Tipo de Movimento</option>
-          <option value="autor">Autor</option>
         </select>
 
         <label htmlFor="custoMedio"></label>
@@ -202,33 +177,47 @@ const PagMovimentos = () => {
       <table>
         <thead>
           <tr>
-            <th>Código do Produto</th>
-            <th>Produto Nome</th>
-            <th>Data</th>
-            <th>Quantidade</th>
-            <th>Custo</th>
-            <th>Movimento</th>
-            <th>Cliente</th>
-            <th>Autor</th>
-            {/* {mostrarCustoMedio && <th>Valor Total</th>}
-            {mostrarCustoMedio && <th>Quantidade Total</th>} */}
-            {mostrarCustoMedio && <th>Custo Médio</th>}
+            {mostrarCustoMedio ? (
+              <>
+                <th>Produto Nome</th>
+                <th>Autor</th>
+                <th>Custo Médio</th>
+              </>
+            ) : (
+              <>
+                <th>Código do Produto</th>
+                <th>Produto Nome</th>
+                <th>Data</th>
+                <th>Quantidade</th>
+                <th>Custo</th>
+                <th>Movimento</th>
+                <th>Cliente</th>
+                <th>Autor</th>                
+              </>
+            )}
           </tr>
         </thead>
         <tbody>
           {movimentosFiltrados.map(movimento => (
             <tr key={movimento.id_mov}>
-              <td>{movimento.produto}</td>
-              <td>{movimento.produtosNome}</td>
-              <td>{movimento.data}</td>
-              <td>{movimento.qtde}</td>
-              <td>{movimento.valor}</td>
-              <td>{movimento.mov}</td>
-              <td>{movimento.cliente}</td>
-              <td>{movimento.Autor}</td>
-              {/* {mostrarCustoMedio && <td>R$ {CalcularValorTotal(movimento)}</td>}
-              {mostrarCustoMedio && <td>{CalcularQuantidadeTotal(movimento)}</td>} */}
-              {mostrarCustoMedio && <td>R$ {calcularCustoMedio(movimento)}</td>}
+              {mostrarCustoMedio ? (
+                <>
+                  <td>{movimento.produtosNome}</td>
+                  <td>{movimento.Autor}</td>
+                  <td>R$ {calcularCustoMedio(movimento)}</td>
+                </>
+              ) : (
+                <>
+                  <td>{movimento.produto}</td>
+                  <td>{movimento.produtosNome}</td>
+                  <td>{movimento.data}</td>
+                  <td>{movimento.qtde}</td>
+                  <td>{movimento.valor}</td>
+                  <td>{movimento.mov}</td>
+                  <td>{movimento.cliente}</td>
+                  <td>{movimento.Autor}</td>
+                </>
+              )}
             </tr>
           ))}
         </tbody>

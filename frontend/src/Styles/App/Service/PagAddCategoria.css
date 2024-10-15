@@ -1,4 +1,4 @@
-.PagAddCategoria *{
+.PagAddCategoria * {
     font-family: 'JetBrains Mono';
 }
 
@@ -10,10 +10,11 @@
     font-family: 'JetBrains Mono';
 }
 
+
 .PagAddCategoria .Formulario {
     border: 1px solid #000;
     padding: 20px;
-    width: 95%; 
+    width: 95%;
     background-color: rgb(228, 228, 228);
     margin: 50px auto;
     display: flex;
@@ -22,7 +23,7 @@
     max-height: 70vh;
 }
 
-.PagAddCategoria .conteudo1{
+.PagAddCategoria .conteudo1 {
     height: 100%;
 }
 
@@ -50,7 +51,7 @@
 }
 
 
-.PagAddCategoria input{
+.PagAddCategoria input {
     padding: 5px;
     margin-right: 10px;
     border: 1px solid #000;
@@ -58,23 +59,25 @@
     height: 30px;
     font-size: 14px;
 }
-.PagAddCategoria .btnEditSpan{
+
+.PagAddCategoria .btnEditSpan {
     display: inline-flex;
     margin-left: 0.5%;
     justify-content: start;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.PagAddCategoria .SubCatSpan{
+.PagAddCategoria .SubCatSpan {
     margin-left: 1%;
     display: inline-block;
 }
-.PagAddCategoria .TextoEBtn{
+
+.PagAddCategoria .TextoEBtn {
 
     padding-bottom: 1%;
 }
 
-.PagAddCategoria .btnEditar{
+.PagAddCategoria .btnEditar {
     border-radius: 4px;
     background-color: #e04d18;
     border: none;
@@ -92,7 +95,7 @@
 
 .PagAddCategoria .addCatProibido,
 .PagAddCategoria .CodigoCatProibido,
-.PagAddCategoria .addSubCatProibido{
+.PagAddCategoria .addSubCatProibido {
     width: min-content;
     cursor: not-allowed;
 }
@@ -109,7 +112,7 @@
     margin-right: 10px;
 }
 
-.PagAddCategoria .btnEnviar{
+.PagAddCategoria .btnEnviar {
     height: 100%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -121,8 +124,9 @@
     height: 100%;
     flex: 1;
 }
-.PagAddCategoria .BotaoAddSubCategoria{
-    height: 100% ;
+
+.PagAddCategoria .BotaoAddSubCategoria {
+    height: 100%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -154,20 +158,21 @@
     background-color: #fff;
     margin-bottom: 20px;
 }
-.PagAddCategoria .SubCatLI{
-    
+
+.PagAddCategoria .SubCatLI {
+
     margin-bottom: 5px;
     border-radius: 5px;
     background-color: #fff;
     padding: 5px;
     border: 1px solid #000;
     margin-left: 1%;
-    
+
     margin-top: 0.5%;
-    
+
 }
 
-.voltar {
+.PagAddCategoria .voltar {
     padding: 10px;
     border-radius: 3px;
     background-color: #e04d18;
@@ -178,33 +183,35 @@
     font-family: 'JetBrains Mono';
     margin-top: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
+}
 
-  .voltar{
+.PagAddCategoria .voltar {
     align-items: center;
     margin-left: 10px;
     margin-top: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
+}
 
 
 
 
-  /* Aqui pra baixo é coisa da pagina Gerir lotes */
-  .p{
+/* Aqui pra baixo é coisa da pagina Gerir lotes */
+.PagAddCategoria .p {
     font-size: 15px;
     display: inline-block;
     margin-left: 15px;
     text-align: center;
     align-items: center;
     justify-content: center;
-  }
-  .DivGerirLotes{
-     border: 1px solid #000000;
-     margin-top: 10px;
- 
-  }
-  .btnEditarGerirLotes{
+}
+
+.PagAddCategoria .DivGerirLotes {
+    border: 1px solid #000000;
+    margin-top: 10px;
+
+}
+
+.btnEditarGerirLotes {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 4px;
     background-color: #e04d18;
@@ -218,17 +225,29 @@
     width: 40%;
     height: 40px;
     margin: 20px 0px;
-  }
-  .divbtnEditarGerirLotes{
+}
+
+.divbtnEditarGerirLotes {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-  }
+}
 
 
-  .IconBoxImg{
+.PagAddCategoria .IconBoxImg {
     width: 50px;
     height: 50px;
     margin-bottom: -20px;
-  }
+}
+
+
+.PagAddCategoria .cabecalho {
+    width: 90%;
+    display: flex;
+    justify-content: right;
+    font-size: 25px;
+    position: absolute;
+    margin-top: 5px;
+    font-size: 20px;
+}

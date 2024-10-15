@@ -15,6 +15,7 @@
   justify-content: center;
 }
 
+
 .Produtos .telaInteira {
   width: 100%;
   display: -webkit-box;
@@ -39,7 +40,6 @@
 
 .Produtos .container-tela-produtos {
   background-color: #ffffff;
-  font-size: 18px;
   border-radius: 5px;
   border: 2px solid #000000;
   color: #000000;
@@ -114,12 +114,12 @@
 
 .Produtos .terminal {
   border: 2px solid #000000;
-  padding: 10px;
+  padding: 20px;
   border-radius: 5px;
   background-color: #ffffff;
   overflow: auto;
   width: 100%;
-  max-height: 875px;
+  max-height: 855px;
 }
 
 .Produtos .barra-pesquisa {
@@ -313,9 +313,17 @@
 }
 
 .Produtos .DivForms button.voltar{
-  align-items: center;
+  padding: 10px;
+  border-radius: 3px;
+  background-color: #e04d18;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  font-size: 16px;
+  font-family: 'JetBrains Mono';
+  margin-top: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  margin: 10px 10px;
+  margin-left: 10px;
 }
 
 .modal-overlay {
