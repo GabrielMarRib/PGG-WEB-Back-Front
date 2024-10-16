@@ -205,19 +205,6 @@ button.voltar{
     justify-content: center;
 }
 
-/* Estilo do fundo do popup */
-.PagUploadExcel.popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7); /* Fundo semitransparente mais escuro */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 /* Estilo do conteúdo do popup */
 .PagUploadExcel .popup-conteudo {
     background-color: #ffffff; /* Cor de fundo do popup */
@@ -227,7 +214,7 @@ button.voltar{
     width: 90%; /* Largura responsiva */
     max-width: 500px; /* Largura máxima do popup */
     height: auto; /* Altura automática para ajustar o conteúdo */
-    text-align: left; /* Alinhamento do texto à esquerda */
+    text-align: center; /* Alinhamento do texto ao centro */
     overflow: auto; /* Adiciona barra de rolagem se necessário */
     position: relative;
     z-index: 10;
@@ -256,6 +243,7 @@ button.voltar{
     display: flex; /* Usar flexbox para o layout dos botões */
     justify-content: center; /* Centraliza os botões */
     margin-top: 20px; /* Margem superior */
+    gap: 10px; /* Espaçamento entre os botões, opcional */
 }
 
 /* Estilo do botão de fechar */
@@ -278,5 +266,3 @@ button.voltar{
 .PagUploadExcel .fechar-popup:hover {
     background-color: #ff4d4d; /* Cor do botão ao passar o mouse */
 }
-  
-  

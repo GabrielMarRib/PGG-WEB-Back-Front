@@ -21,6 +21,8 @@ function PagUploadExcel() {
     const [registrosPorPaginaExpandida, setRegistrosPorPaginaExpandida] = useState(10); // Registros por página para a tabela expandida
     const [mostrarPopup, setMostrarPopup] = useState(false);
     const [importacaoParaDeletar, setImportacaoParaDeletar] = useState(null);
+    const [nomeArquivoDeletar, setNomeArquivoDeletar] = useState(""); // Estado para armazenar o nome do arquivo a ser deletado
+
 
     const navigate = useNavigate();
 
@@ -35,7 +37,7 @@ function PagUploadExcel() {
 
             if (resposta.data && resposta.data.importacoes) {
                 setImportacoes(resposta.data.importacoes);
-                
+
                 if (resposta.data.importacoes.length === 0) {
                     Alerta(1, "Nenhuma importação encontrada.");
                 }
@@ -57,6 +59,13 @@ function PagUploadExcel() {
     // Função que lida com o upload do arquivo Excel
     const lidarComUploadArquivo = (evento) => {
         const arquivo = evento.target.files[0]; // Captura o arquivo selecionado
+        if (!arquivo) return;
+
+        const extensaoArquivo = arquivo.name.split('.').pop().toLowerCase();
+        if (!['xls', 'xlsx'].includes(extensaoArquivo)) {
+            Alerta(1, "Formato de arquivo inválido. Por favor, envie um arquivo .xls ou .xlsx.");
+            return;
+        }
         if (arquivo) {
             setNomeArquivo(arquivo.name); // Armazena o nome do arquivo
             const leitor = new FileReader();
@@ -64,9 +73,14 @@ function PagUploadExcel() {
             // Quando o leitor termina de carregar o arquivo, processa os dados
             leitor.onload = (e) => {
                 const binaryStr = e.target.result;
-                const workbook = XLSX.read(binaryStr, { type: 'binary' }); // Lê o arquivo como uma planilha
+                const workbook = XLSX.read(binaryStr, { type: 'binary' }); // Lê o arquivo como binário
                 const worksheet = workbook.Sheets[workbook.SheetNames[0]]; // Pega a primeira aba da planilha
-                const dadosDaPlanilha = XLSX.utils.sheet_to_json(worksheet, { header: 1 }); // Converte para JSON
+                const dadosDaPlanilha = XLSX.utils.sheet_to_json(worksheet, { header: 1 }); // Converte para JSON com cabeçalho
+                // Verifique se a primeira linha está duplicada
+                if (dadosDaPlanilha.length > 1 && JSON.stringify(dadosDaPlanilha[0]) === JSON.stringify(dadosDaPlanilha[1])) {
+                    dadosDaPlanilha.shift(); // Remove a primeira linha de cabeçalhos duplicados
+                }
+                console.log(dadosDaPlanilha);
                 setDadosImportados(dadosDaPlanilha); // Armazena os dados importados no estado
             };
             leitor.readAsBinaryString(arquivo); // Lê o arquivo como string binária
@@ -79,6 +93,7 @@ function PagUploadExcel() {
             Alerta(1, "Nenhum dado importado para enviar."); // Exibe um alerta de erro
             return;
         }
+        console.log("Enviando os seguintes dados para o servidor:", dadosImportados);
         try {
             const resposta = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
                 senha: "@7h$Pz!q2X^vR1&K",
@@ -102,9 +117,11 @@ function PagUploadExcel() {
         setRegistrosPorPaginaExpandida(Number(e.target.value));
         setPaginaAtualExpandida(1); // Resetar para a primeira página ao mudar a quantidade de registros por página
     };
-    
+
 
     const lidarComDeletar = (id) => {
+        const importacao = importacoes.find(importacao => importacao.id === id); // Busca a importação
+        setNomeArquivoDeletar(importacao.nome_arquivo); // Armazena o nome do arquivo
         setImportacaoParaDeletar(id);
         setMostrarPopup(true);
     };
@@ -158,130 +175,125 @@ function PagUploadExcel() {
         setRegistrosPorPagina(Number(e.target.value));
         setPaginaAtual(1);
     };
-
-        // Função que renderiza a tabela expandida com paginação
-        const formatarDadosImportacao = (dados) => {
-            const dadosPaginados = calcularDadosPaginados(dados, paginaAtualExpandida, registrosPorPaginaExpandida);
     
-            return (
-                <div>
-                    <table>
-                        <thead>
-                            <tr>
-                                {dados[0].map((cabecalho, index) => (
-                                    <th key={index}>{cabecalho}</th>
+    // Função que renderiza a tabela expandida com paginação
+    const formatarDadosImportacao = (dados) => {
+        if (dados.length === 0) return null; // Não renderiza nada se não houver dados
+    
+        const dadosPaginados = calcularDadosPaginados(dados, paginaAtualExpandida, registrosPorPaginaExpandida);
+    
+        return (
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            {dados[0] && dados[0].map((cabecalho, index) => (
+                                <th key={index}>{cabecalho}</th>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {dadosPaginados.slice(1).map((linha, index) => ( // Começa do índice 1 para evitar o cabeçalho duplicado
+                            <tr key={index}>
+                                {linha.map((celula, indiceCelula) => (
+                                    <td key={indiceCelula}>{celula}</td>
                                 ))}
                             </tr>
-                        </thead>
-                        <tbody>
-                            {dadosPaginados.map((linha, index) => (
-                                <tr key={index}>
-                                    {linha.map((celula, indiceCelula) => (
-                                        <td key={indiceCelula}>{celula}</td>
-                                    ))}
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-    
-                    {/* Controles de paginação para a tabela expandida */}
-                    <div className="paginacao">
-                        <div className="paginacaoLbl">
-                            <label htmlFor="registrosPorPaginaExpandida">Registros por página:</label>
-                            <select id="registrosPorPaginaExpandida" value={registrosPorPaginaExpandida} onChange={mudarRegistrosPorPaginaExpandida}>
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
-                        </div>
-                        <div className="paginacaoBtn">
-                            <button
-                                onClick={() => mudarPaginaExpandida(paginaAtualExpandida - 1)}
-                                disabled={paginaAtualExpandida === 1}
-                            >
-                                Anterior
-                            </button>
-                            <span>{`Página ${paginaAtualExpandida}`}</span>
-                            <button
-                                onClick={() => mudarPaginaExpandida(paginaAtualExpandida + 1)}
-                                disabled={paginaAtualExpandida * registrosPorPaginaExpandida >= dados.length}
-                            >
-                                Próximo
-                            </button>
-                        </div>
+                        ))}
+                    </tbody>
+                </table>
+                {/* Controles de paginação para a tabela expandida */}
+                <div className="paginacao">
+                    <div className="paginacaoLbl">
+                        <label htmlFor="registrosPorPaginaExpandida">Registros por página:</label>
+                        <select id="registrosPorPaginaExpandida" value={registrosPorPaginaExpandida} onChange={mudarRegistrosPorPaginaExpandida}>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                    <div className="paginacaoBtn">
+                        <button
+                            onClick={() => mudarPaginaExpandida(paginaAtualExpandida - 1)}
+                            disabled={paginaAtualExpandida === 1}
+                        >
+                            Anterior
+                        </button>
+                        <span>{`Página ${paginaAtualExpandida}`}</span>
+                        <button
+                            onClick={() => mudarPaginaExpandida(paginaAtualExpandida + 1)}
+                            disabled={paginaAtualExpandida * registrosPorPaginaExpandida >= dados.length}
+                        >
+                            Próximo
+                        </button>
                     </div>
                 </div>
-            );
-        };
-    
-        // Função que renderiza a tabela de importações com paginação
-        const formatarTabelaImportacoes = () => {
-            const dadosPaginados = calcularDadosPaginados(importacoes, paginaAtual, registrosPorPagina);
-    
-            return (
-                <div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nome do Arquivo</th>
-                                <th>Data de Importação</th>
-                                <th>Ações</th>
+            </div>
+        );
+    };
+    // Função que renderiza a tabela de importações com paginação
+    const formatarTabelaImportacoes = () => {
+        const dadosPaginados = calcularDadosPaginados(importacoes, paginaAtual, registrosPorPagina);
+        return (
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome do Arquivo</th>
+                            <th>Data de Importação</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {dadosPaginados.map((importacao) => (
+                            <tr key={importacao.id}>
+                                <td>{importacao.id}</td>
+                                <td
+                                    onClick={() => setImportacaoExpandida(importacao.id)}
+                                    style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}
+                                >
+                                    {importacao.nome_arquivo}
+                                </td>
+                                <td>{new Date(importacao.data_importacao).toLocaleString()}</td>
+                                <td>
+                                    <button className="btn-deletar" onClick={() => lidarComDeletar(importacao.id)}>Deletar</button>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {dadosPaginados.map((importacao) => (
-                                <tr key={importacao.id}>
-                                    <td>{importacao.id}</td>
-                                    <td
-                                        onClick={() => setImportacaoExpandida(importacao.id)}
-                                        style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}
-                                    >
-                                        {importacao.nome_arquivo}
-                                    </td>
-                                    <td>{new Date(importacao.data_importacao).toLocaleString()}</td>
-                                    <td>
-                                        <button className="btn-deletar" onClick={() => lidarComDeletar(importacao.id)}>Deletar</button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-    
-                    {/* Controles de paginação para a tabela de importações */}
-                    <div className="paginacao">
-                        <div className="paginacaoLbl">
-                            <label htmlFor="registrosPorPagina">Registros por página:</label>
-                            <select id="registrosPorPagina" value={registrosPorPagina} onChange={mudarRegistrosPorPagina}>
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
-                        </div>
-                        <div className="paginacaoBtn">
-                            <button
-                                onClick={() => mudarPagina(paginaAtual - 1)}
-                                disabled={paginaAtual === 1}
-                            >
-                                Anterior
-                            </button>
-                            <span>{`Página ${paginaAtual}`}</span>
-                            <button
-                                onClick={() => mudarPagina(paginaAtual + 1)}
-                                disabled={paginaAtual * registrosPorPagina >= importacoes.length}
-                            >
-                                Próximo
-                            </button>
-                        </div>
+                        ))}
+                    </tbody>
+                </table>
+                {/* Controles de paginação para a tabela de importações */}
+                <div className="paginacao">
+                    <div className="paginacaoLbl">
+                        <label htmlFor="registrosPorPagina">Registros por página:</label>
+                        <select id="registrosPorPagina" value={registrosPorPagina} onChange={mudarRegistrosPorPagina}>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                    <div className="paginacaoBtn">
+                        <button
+                            onClick={() => mudarPagina(paginaAtual - 1)}
+                            disabled={paginaAtual === 1}
+                        >
+                            Anterior
+                        </button>
+                        <span>{`Página ${paginaAtual}`}</span>
+                        <button
+                            onClick={() => mudarPagina(paginaAtual + 1)}
+                            disabled={paginaAtual * registrosPorPagina >= importacoes.length}
+                        >
+                            Próximo
+                        </button>
                     </div>
                 </div>
-            );
-        };
-    
-
-
+            </div>
+        );
+    };
     // Função para limpar a seleção do arquivo
     const limparSelecaoArquivo = () => {
         setNomeArquivo("");
@@ -297,128 +309,128 @@ function PagUploadExcel() {
             setImportacaoExpandida(id); // Expande a tabela
         }
     };
-    
-
     return (
-    <div className="PagUploadExcel">
-        <CabecalhoHome />
-        <AlertaNotificação />
-        <Titulo tituloMsg='Importação de Planilha Excel' />
+        <div className="PagUploadExcel">
+            <CabecalhoHome />
+            <AlertaNotificação />
+            <Titulo tituloMsg='Importação de Planilha Excel' />
 
-        <button
-            className="voltar"
-            onClick={() => {
-                navigate("/PagPerfil");
-            }}
-        >
-            Voltar
-        </button>
-
-        <div className="container-upload">
-            <div className="cabecalho-upload">
-                <h2>Envio de Arquivo Excel</h2>
-            </div>
-
-            <div className="area-upload">
-                <div className="areaLbl">
-                    <label htmlFor="upload-arquivo" className="custom-file-upload">
-                        <span>Selecione a Planilha</span>
-                    </label>
-                </div>
-                <div className="areaInput">
-                    <input
-                        id="upload-arquivo"
-                        type="file"
-                        accept=".xlsx, .xls"
-                        onChange={lidarComUploadArquivo}
-                    />
-                </div>
-            </div>
-
-            <button className="btn-upload" onClick={lidarComSubmit}>
-                Enviar Planilha
+            <button
+                className="voltar"
+                onClick={() => {
+                    navigate("/PagPerfil");
+                }}
+            >
+                Voltar
             </button>
 
-            {nomeArquivo && (
-                <div className="nome-arquivo">
-                    <p>Arquivo selecionado: <strong>{nomeArquivo}</strong></p>
-                    <button className="btn-limpar" onClick={limparSelecaoArquivo}>
-                        Selecionar Outra Planilha
-                    </button>
+            <div className="container-upload">
+                <div className="cabecalho-upload">
+                    <h2>Envio de Arquivo Excel</h2>
                 </div>
-            )}
 
-            {dadosImportados.length > 0 && (
-                <div className="tabela-dados">
-                    <h3>Dados Importados</h3>
-                    {formatarDadosImportacao(dadosImportados)}
+                <div className="area-upload">
+                    <div className="areaLbl">
+                        <label htmlFor="upload-arquivo" className="custom-file-upload">
+                            <span>Selecione a Planilha</span>
+                        </label>
+                    </div>
+                    <div className="areaInput">
+                        <input
+                            id="upload-arquivo"
+                            type="file"
+                            accept=".xlsx, .xls"
+                            onChange={lidarComUploadArquivo}
+                        />
+                    </div>
                 </div>
-            )}
 
-            <div className="tabela-dados">
-                <h3>Importações Salvas</h3>
-                {carregando ? (
-                    <p>Carregando...</p>
-                ) : (
-                    <div className="tabela-rolavel">
-                        
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nome do Arquivo</th>
-                                    <th>Data de Importação</th>
-                                    <th>Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {importacoes.map((importacao) => (
-                                    <tr key={importacao.id}>
-                                        <td>{importacao.id}</td>
-                                        <td
-                                            onClick={() => lidarComExpandir(importacao.id)}
-                                            style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}
-                                        >
-                                            {importacao.nome_arquivo}
-                                        </td>
-                                        <td>{new Date(importacao.data_importacao).toLocaleString()}</td>
-                                        <td>
-                                            <button className="btn-deletar" onClick={() => lidarComDeletar(importacao.id)}>Deletar</button>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                        {importacaoExpandida && (
-                            <div className="tabela-dados-expandida">
-                                <h3 style={{ flex: 1 }}>
-                                    Dados da Importação -
-                                    <span style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline', marginLeft: '8px' }}>
-                                        {importacoes.find(importacao => importacao.id === importacaoExpandida).nome_arquivo}
-                                    </span>
-                                </h3>
-                                <button className="btn-fechar" onClick={() => setImportacaoExpandida(null)}>
-                                    X
-                                </button>
-                                {formatarDadosImportacao(JSON.parse(importacoes.find(importacao => importacao.id === importacaoExpandida).dados))}
-                            </div>
-                        )}
+                <button className="btn-upload" onClick={lidarComSubmit}>
+                    Enviar Planilha
+                </button>
+
+                {nomeArquivo && (
+                    <div className="nome-arquivo">
+                        <p>Arquivo selecionado: <strong>{nomeArquivo}</strong></p>
+                        <button className="btn-limpar" onClick={limparSelecaoArquivo}>
+                            Selecionar Outra Planilha
+                        </button>
                     </div>
                 )}
+
+                {dadosImportados.length > 0 && (
+                    <div className="tabela-dados">
+                        <h3>Dados Importados</h3>
+                        {formatarDadosImportacao(dadosImportados)}
+                    </div>
+                )}
+
+                <div className="tabela-dados">
+                    <h3>Importações Salvas</h3>
+                    {carregando ? (
+                        <p>Carregando...</p>
+                    ) : (
+                        <div className="tabela-rolavel">
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nome do Arquivo</th>
+                                        <th>Data de Importação</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {importacoes.map((importacao) => (
+                                        <tr key={importacao.id}>
+                                            <td>{importacao.id}</td>
+                                            <td
+                                                onClick={() => lidarComExpandir(importacao.id)}
+                                                style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}
+                                            >
+                                                {importacao.nome_arquivo}
+                                            </td>
+                                            <td>{new Date(importacao.data_importacao).toLocaleString()}</td>
+                                            <td>
+                                                <button className="btn-deletar" onClick={() => lidarComDeletar(importacao.id)}>Deletar</button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            {importacaoExpandida && (
+                                <div className="tabela-dados-expandida">
+                                    <h3 style={{ flex: 1 }}>
+                                        Dados da Importação -
+                                        <span style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline', marginLeft: '8px' }}>
+                                            {importacoes.find(importacao => importacao.id === importacaoExpandida).nome_arquivo}
+                                        </span>
+                                    </h3>
+                                    <button className="btn-fechar" onClick={() => setImportacaoExpandida(null)}>
+                                        X
+                                    </button>
+                                    {formatarDadosImportacao(JSON.parse(importacoes.find(importacao => importacao.id === importacaoExpandida).dados))}
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </div>
             </div>
-        </div>
-        {mostrarPopup && (
+            {mostrarPopup && (
                 <div className="popup">
                     <div className="popup-conteudo">
-                        <h4>Confirmar Deleção</h4>
-                        <p>Você tem certeza que deseja deletar esta importação?</p>
-                        <button onClick={confirmarDelecao}>Confirmar</button>
-                        <button onClick={cancelarDelecao}>Cancelar</button>
+                        <h4>Confirmar Exclusão</h4>
+                        <p>Você tem certeza que deseja deletar a importação do arquivo <strong>{nomeArquivoDeletar}</strong>?</p>
+                        <div className="botao-container">
+                            <button onClick={confirmarDelecao}>Confirmar</button>
+                            <button onClick={cancelarDelecao}>Cancelar</button>
+                        </div>
                     </div>
                 </div>
             )}
-    </div>
-);
+        </div>
+    );
 }
 
 export default PagUploadExcel;
