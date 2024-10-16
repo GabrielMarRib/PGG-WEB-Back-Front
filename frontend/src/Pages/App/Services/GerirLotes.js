@@ -14,6 +14,8 @@ import { useContext } from "react";
 import { UserContext } from "../../../Context/UserContext.js";
 import Titulo from "../../../Components/Titulo.jsx";
 import Box from '../../../Assets/Box.png'
+import BtnAjuda from "../../../Components/BtnAjuda.js";
+
 
 function GerirLotes() {
   const { User } = useContext(UserContext);
@@ -64,6 +66,9 @@ const handleFecharModal = async (bool) =>{
   setShowModal(bool);
   await PegarLotes(SetTabelaLote);
 }
+
+const [showPopup, setShowPopup] = useState(false); 
+
   const MapearLotes = (item) => {
     //Mapeando item por item dentro da tabela lote
     return (
@@ -100,6 +105,21 @@ const handleFecharModal = async (bool) =>{
       <CabecalhoHome />
       <AlertaNotificação />
       <Titulo tituloMsg="Gerenciamento de lotes" />
+
+      <header className="cabecalhoBtnAjuda">
+          <div className="Botaoajuda" onClick={() => {setShowPopup(true)}}> {/*crie um botão que no onClick faz o setShowPopup ficar true*/}
+            Ajuda
+          </div>
+        </header>  
+
+      <div className="BtnAjuda">
+          {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
+            <BtnAjuda /* chama o btnAjuda */
+              fechar={() => {setShowPopup(false)}} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
+              msgChave={"GERENCIAMENTOLOTES"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
+            />
+          )}
+
       <button
         className="voltar"
         onClick={() => {
@@ -110,6 +130,8 @@ const handleFecharModal = async (bool) =>{
       </button>
 
 
+        </div>
+
       {ShowModal ? (
           <ModalAtualizarLote
             LoteSelecionado={LoteSelecionado}
@@ -119,7 +141,6 @@ const handleFecharModal = async (bool) =>{
            ) : (
             null
         )}
-
 
       <div className="Formulario">
         <div className="ListaCategorias"> 

@@ -157,7 +157,50 @@ const BtnAjuda = ({ msgChave, fechar }) => {
           <p>Verifique se o nome da categoria que você está adicionando não está duplicado. Categorias com nomes iguais podem causar confusão.</p>
           <p>Se precisar editar uma categoria, faça isso rapidamente após a adição, para evitar inconsistências.</p>
         </>
+          ) 
 
+          case 'GERENCIAMENTOLOTES':
+        return (
+          <> {/* TEM q ter esse baguio vazio englobando tudo (<>) pq o react é chato */}
+          <h1>Guia de Ajuda - Gerenciamento de Lotes</h1>
+
+          <h1>Visão Geral</h1>
+          <p>Esta tela permite o gerenciamento de lotes de produtos, oferecendo funcionalidades para visualizar, editar e manter controle sobre as informações dos lotes, como datas, valores e fornecedores.</p>
+
+          <h1>Como Usar</h1>
+
+          <h2>1. Voltar para a Página Anterior</h2>
+          <p>Clique no botão Voltar no canto superior esquerdo da tela para retornar à página anterior, caso deseje sair da tela de gerenciamento de lotes.</p>
+
+          <h2>2. Visualizando Lotes</h2>
+          <p>Ao acessar a tela, você verá uma lista de lotes cadastrados, contendo informações como:</p>
+          <ul>
+            <li>Id do lote: Número identificador do lote.</li>
+            <li>Produto: Nome do produto associado ao lote.</li>
+            <li>Fornecedor: Fornecedor responsável.</li>
+            <li>Data de compra e Data de validade: As datas relevantes para o lote.</li>
+            <li>Valores de compra e venda: Informações financeiras do lote.</li>
+          </ul>
+
+          <h2>3. Editando um Lote</h2>
+          <p>Para editar um lote, clique no botão Editar abaixo do lote que deseja modificar. Isso abrirá um popup de edição onde você poderá alterar informações detalhadas do lote, como:</p>
+          <ul>
+            <li>Valor de compra</li>
+            <li>Valor de venda</li>
+            <li>Quantidade do produto</li>
+            <li>Justificativa (explicação sobre a alteração)</li>
+          </ul>
+          <p>Após preencher as informações, clique no botão Alterar para confirmar as modificações.</p>
+
+          <h2>4. Fechando o Popup de Edição</h2>
+          <p>Caso deseje fechar o popup de edição sem salvar as alterações, clique no ícone de "X" no canto superior direito do popup.</p>
+
+          <h1>Dicas Finais</h1>
+          <ul>
+            Verifique se as informações, especialmente valores e datas, estão corretas antes de confirmar as alterações.
+            Utilize a justificativa para documentar o motivo de qualquer mudança nos lotes, mantendo o histórico de edições bem claro.
+          </ul>
+        </>
 
           ) 
         

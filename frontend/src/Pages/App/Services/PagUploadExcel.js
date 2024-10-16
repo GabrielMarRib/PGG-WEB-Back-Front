@@ -366,7 +366,7 @@ function PagUploadExcel() {
                 )}
 
                 <div className="tabela-dados">
-                    <h3>Importações Salvas</h3>
+                    <h3 className='TextoH3'>Importações Salvas</h3>
                     {carregando ? (
                         <p>Carregando...</p>
                     ) : (

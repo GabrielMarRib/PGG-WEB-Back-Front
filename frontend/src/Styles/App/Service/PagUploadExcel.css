@@ -2,20 +2,20 @@
     font-family: 'JetBrains Mono', sans-serif;
 }
 
-div.paginacaoLbl{
+.PagUploadExcel div.paginacaoLbl{
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 10px;
 }
-div.paginacaoBtn{
+.PagUploadExcel div.paginacaoBtn{
     margin: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-div.paginacaoBtn button{
+.PagUploadExcel div.paginacaoBtn button{
     margin: 20px;
     color: #ffffff;
     background-color: #2d7c2e;
@@ -29,17 +29,17 @@ div.paginacaoBtn button{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-div.paginacaoBtn button:hover{
+.PagUploadExcel div.paginacaoBtn button:hover{
     background-color: #164217;
 }
 
 
-.cabecalho-upload {
+.PagUploadExcel .cabecalho-upload {
     margin-bottom: 20px;
     text-align: center;
 }
 
-.area-upload {
+.PagUploadExcel .area-upload {
     border: 2px dashed #4caf50; 
     padding: 20px;
     border-radius: 10px;
@@ -51,7 +51,7 @@ div.paginacaoBtn button:hover{
     flex-direction: column;
 }
 
-.areaInput{
+.PagUploadExcel .areaInput{
     display: flex;
     align-items: center;
     justify-content: center; 
@@ -59,17 +59,17 @@ div.paginacaoBtn button:hover{
     margin: 10px;
 }
 
-.areaInput input{
+.PagUploadExcel .areaInput input{
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.area-upload:hover {
+.PagUploadExcel .area-upload:hover {
     background-color: #f0f8e0; 
 }
 
-.btn-upload {
+.PagUploadExcel .btn-upload {
     background-color: #4caf50;
     color: white;
     border: none; 
@@ -79,46 +79,46 @@ div.paginacaoBtn button:hover{
     transition: background-color 0.3s; 
 }
 
-.btn-upload:hover {
+.PagUploadExcel .btn-upload:hover {
     background-color: #45a049; 
 }
 
-.tabela-dados {
+.PagUploadExcel .tabela-dados {
     margin: 10px 10px;
     width: 98%; 
     overflow-x: auto; 
 }
 
-.tabela-dados table {
+.PagUploadExcel .tabela-dados table {
     width: 100%; 
     border-collapse: collapse; 
 }
 
-.tabela-dados th, .tabela-dados td {
+.PagUploadExcel .tabela-dados th, .tabela-dados td {
     border: 1px solid #ddd;
     padding: 8px; 
     text-align: left; 
 }
 
-.tabela-dados th {
+.PagUploadExcel .tabela-dados th {
     background-color: #4caf50;
     color: white;
 }
 
-.tabela-dados tr:nth-child(even) {
+.PagUploadExcel .tabela-dados tr:nth-child(even) {
     background-color: #f2f2f2; 
 }
 
-.tabela-dados tr:hover {
+.PagUploadExcel .tabela-dados tr:hover {
     background-color: #ddd; 
 }
 
-.nome-arquivo {
+.PagUploadExcel .nome-arquivo {
     margin-top: 10px;
     font-style: italic; 
 }
 
-.btn-deletar {
+.PagUploadExcel .btn-deletar {
     background-color: #f44034; 
     color: white; 
     border: none; 
@@ -131,15 +131,15 @@ div.paginacaoBtn button:hover{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.btn-deletar:hover {
+.PagUploadExcel .btn-deletar:hover {
     background-color: #811d1a;
 }
 
-.btn-deletar:active {
+.PagUploadExcel .btn-deletar:active {
     background-color: #ac2925; 
 }
 
-.btn-limpar {
+.PagUploadExcel .btn-limpar {
     background-color: #4caf50;
     color: white;
     border: none; 
@@ -149,21 +149,21 @@ div.paginacaoBtn button:hover{
     transition: background-color 0.3s;
 }
 
-.btn-limpar:hover {
+.PagUploadExcel .btn-limpar:hover {
     background-color: #45a049; 
 }
 
-.tabela-dados-expandida {
+.PagUploadExcel .tabela-dados-expandida {
     margin-top: 20px;
 }
 
-.botao-container {
+.PagUploadExcel .botao-container {
     display: flex; 
     justify-content: flex-end; 
     margin-top: 10px;
 }
 
-.btn-fechar {
+.PagUploadExcel .btn-fechar {
     background-color: #f44034; 
     color: white; 
     border: none; 
@@ -181,11 +181,11 @@ div.paginacaoBtn button:hover{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.btn-fechar:hover {
+.PagUploadExcel .btn-fechar:hover {
     background-color: #590d0d;
 }
 
-button.voltar{
+.PagUploadExcel button.voltar{
     padding: 10px;
     border-radius: 3px;
     background-color: #e04d18;
@@ -199,7 +199,7 @@ button.voltar{
     margin-left: 10px;
 }
 
-.PagUploadExcel h3{
+.PagUploadExcel .TextoH3 h3{
     display: flex;
     align-items: center;
     justify-content: center;

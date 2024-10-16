@@ -67,7 +67,7 @@ const Notificacao = () => {
         let styleCustom = {}
         switch (ChaveMsg) {
             case "URGENTE!!":
-                styleCustom = {
+                    styleCustom = {
                     display: 'inline-block',
                     backgroundColor: 'red',
                     minWidth: '7vw',
