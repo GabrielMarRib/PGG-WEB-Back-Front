@@ -22,8 +22,7 @@
     border: none;
     border-radius: 5px;
     font-size: 16px;
-    width: 6%;
-    height: 30%;
+    padding: 5px;
     cursor: pointer;
     transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -31,6 +30,8 @@
 
 .PagUploadExcel div.paginacaoBtn button:hover{
     background-color: #164217;
+    transform: translateY(-2px);
+    transition: background-color 0.3s, transform 0.2s; 
 }
 
 
@@ -60,10 +61,12 @@
 }
 
 .PagUploadExcel .areaInput input{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border: none;
+    cursor: pointer;
+    display: none;
 }
+
+
 
 .PagUploadExcel .area-upload:hover {
     background-color: #f0f8e0; 
@@ -77,10 +80,14 @@
     border-radius: 5px; 
     cursor: pointer; 
     transition: background-color 0.3s; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 10px;
 }
 
 .PagUploadExcel .btn-upload:hover {
-    background-color: #45a049; 
+    background-color: #1e5220; 
+    transform: translateY(-2px);
+    transition: background-color 0.3s, transform 0.2s; 
 }
 
 .PagUploadExcel .tabela-dados {
@@ -114,10 +121,21 @@
 }
 
 .PagUploadExcel .nome-arquivo {
-    margin-top: 10px;
+    margin: 10px;
     font-style: italic; 
 }
 
+
+.PagUploadExcel .nome-arquivo button{
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, transform 0.2s; 
+}
+
+.PagUploadExcel .nome-arquivo button:hover{
+    transform: translateY(-2px);
+}
 .PagUploadExcel .btn-deletar {
     background-color: #f44034; 
     color: white; 
@@ -133,6 +151,8 @@
 
 .PagUploadExcel .btn-deletar:hover {
     background-color: #811d1a;
+    transform: translateY(-2px);
+    transition: background-color 0.3s, transform 0.2s; 
 }
 
 .PagUploadExcel .btn-deletar:active {
@@ -150,7 +170,7 @@
 }
 
 .PagUploadExcel .btn-limpar:hover {
-    background-color: #45a049; 
+    background-color: #18461a; 
 }
 
 .PagUploadExcel .tabela-dados-expandida {
@@ -183,6 +203,8 @@
 
 .PagUploadExcel .btn-fechar:hover {
     background-color: #590d0d;
+    transform: translateY(-2px);
+    transition: background-color 0.3s, transform 0.2s; 
 }
 
 .PagUploadExcel button.voltar{
@@ -197,6 +219,12 @@
     margin-top: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin-left: 10px;
+    transition: background-color 0.3s, transform 0.2s; 
+}
+
+.PagUploadExcel button.voltar:hover{
+    background-color: #893010;
+    transform: translateY(-2px);
 }
 
 .PagUploadExcel .TextoH3 h3{
@@ -235,7 +263,7 @@
 
 /* Estilo do botão de ação ao passar o mouse */
 .PagUploadExcel .popup-conteudo button:hover {
-    background-color: #45a049; /* Cor do botão ao passar o mouse */
+    background-color: #134916; /* Cor do botão ao passar o mouse */
 }
 
 /* Centraliza os botões na parte inferior do conteúdo */
@@ -265,4 +293,22 @@
 /* Estilo do botão de fechar ao passar o mouse */
 .PagUploadExcel .fechar-popup:hover {
     background-color: #ff4d4d; /* Cor do botão ao passar o mouse */
+}
+
+.PagUploadExcel .areaInput label{
+    background-color: #4CAF50; /* Cor de fundo */
+    color: white; /* Cor do texto */
+    border: none; /* Sem borda */
+    padding: 12px 24px; /* Espaçamento interno */
+    font-size: 16px; /* Tamanho da fonte */
+    cursor: pointer; /* Muda o cursor ao passar o mouse */
+    border-radius: 5px; /* Cantos arredondados */
+    transition: background-color 0.3s, transform 0.2s; /* Transições suaves */
+    display: inline-block; /* Para que o padding funcione corretamente */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra do botão */
+}
+
+.PagUploadExcel .areaInput label:hover{
+    background-color: #18431b; 
+    transform: translateY(-2px); 
 }

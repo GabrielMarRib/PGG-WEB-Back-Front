@@ -332,16 +332,19 @@ function PagUploadExcel() {
                 <div className="area-upload">
                     <div className="areaLbl">
                         <label htmlFor="upload-arquivo" className="custom-file-upload">
-                            <span>Selecione a Planilha</span>
+                            <span>Selecione a Planilha clicando no botão abaixo</span>
                         </label>
                     </div>
                     <div className="areaInput">
-                        <input
+                        <input 
                             id="upload-arquivo"
+                            className='btnInput'
                             type="file"
                             accept=".xlsx, .xls"
                             onChange={lidarComUploadArquivo}
                         />
+                        <label for="upload-arquivo" class="botao-upload">Selecionar Arquivo</label>
+                        
                     </div>
                 </div>
 
