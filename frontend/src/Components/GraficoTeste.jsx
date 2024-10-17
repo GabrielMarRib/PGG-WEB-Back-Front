@@ -48,7 +48,7 @@ function GraficoTeste() {
       <br></br>
       <br></br>
       <br></br>
-      <ResponsiveContainer width={625} height={300}>
+      <ResponsiveContainer width={625} height={200}>
         <ComposedChart data={vendasInfo}>
           <XAxis dataKey="name" />  
           <YAxis domain={[0, raw]} tickCount={10} />

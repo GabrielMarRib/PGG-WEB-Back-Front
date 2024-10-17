@@ -5,6 +5,7 @@ import ImageABC from '../../Assets/curvaABC.png';
 import ImageLote from '../../Assets/loteEconomico.png';
 import ImagePEPS from '../../Assets/PEPS.png';
 import ImagePedido from '../../Assets/pontodePedido.png';
+import ExcelIcon from '../../Assets/exceliconcolor.png';
 import ImageMedio from '../../Assets/custoMedio.png';
 import ImageCaixa from '../../Assets/caixa.png';
 import historia from '../../Assets/historia.png';
@@ -80,14 +81,17 @@ function PagHome() {
         <div className="card">
           <h3 className="card-title">Importar Planilha Excel</h3>
           <p className="card-text">
-            <span className="destaque-texto">Novo!</span> Importe seus dados de maneira fácil e rápida.
+            <span className="destaque-texto">Novo!</span> Importe seus dados do excel de maneira fácil e rápida.
           </p>
+          <center>
+            <center><img src={ExcelIcon} className="button-image" style={{ height: '50px', width: '50px' }} /> </center>
           <button
             onClick={() => navigate("/PagUploadExcel")}
             className="btn-padrao"
-          >
+            >
             Iniciar Importação
           </button>
+          </center>
         </div>
       )
     },
@@ -112,7 +116,7 @@ function PagHome() {
     { title: "Estoque", img: ImageCaixa, link: "/PagEscolhaProdutos" },
     { title: "Curva ABC", img: ImageABC, link: "/PagEscolhaCurvaABC", access: 1 },
     { title: "Ponto de Pedido", img: ImagePedido, link: "/PagPontoPedido" },
-    { title: "PEPS", img: ImagePEPS, link: "/PEPS" },
+    { title: "PEPS", img: ImagePEPS, link: "/PagMovimentos" },
     { title: "Lote Econômico", img: ImageLote, link: "/PagLoteEconomico" },
     { title: "Logs", img: historia, link: "/PagHistorico" },
     { title: "Options", img: OptionIcon, link: "/PagPerfil" }
