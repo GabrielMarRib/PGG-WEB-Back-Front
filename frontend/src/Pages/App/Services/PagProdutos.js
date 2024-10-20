@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, memo } from "react";
 import CabecalhoHome from "../../../Components/CabecalhoHome.js";
 import BuscaCategoriasComponentes from "../../../Components/BuscaCategoriasComponente.js";
+import BuscaCategoriasComponenteCopia from "../../../Components/BuscaCategoriasComponenteCopia.js";
 import FiltragemComponente from "../../../Components/FiltragemComponente.js";
 import "../../../Styles/PagProdutos.css";
 import axios from "axios";
@@ -382,7 +383,7 @@ function PagProdutos() {
 
 
                   <div className="grupo-input">
-                    <label htmlFor="valorCompra">Valor da Compra: <span style={{ color: "red" }}> *</span></label>
+                    <label htmlFor="valorCompra">Valor da Compra (Unitário): <span style={{ color: "red" }}> *</span></label>
                     <input
                       type="number"
                       id="valorCompra"
@@ -398,7 +399,7 @@ function PagProdutos() {
 
                   <div className="grupo-input">
                     <label htmlFor="valorVenda">
-                      Valor da Venda: <span style={{ color: "red" }}> *</span>
+                      Valor da Venda (Unitário): <span style={{ color: "red" }}> *</span>
                     </label>
                     <input
                       type="number"
@@ -426,7 +427,7 @@ function PagProdutos() {
               <h2>Produtos cadastrados</h2>
               <div className="barra-pesquisa">
                 <div className="teste">
-                  <FiltragemComponente setFiltroSelecionado={setFiltroSelecionado} FiltroSelecionado={FiltroSelecionado} />
+                  <BuscaCategoriasComponenteCopia setFiltroSelecionado={setFiltroSelecionado} FiltroSelecionado={FiltroSelecionado} />
                 </div>
                 <input
                   type="text"

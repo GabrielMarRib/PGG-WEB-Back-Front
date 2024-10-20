@@ -1,4 +1,4 @@
-import React, { useState, memo, useEffect, useContext } from 'react';
+import React, { useState, memo, useEffect, useContext, useRef } from 'react';
 import { UserContext } from '../Context/UserContext.js';
 import '../Styles/Components/ProdutosModal.css';
 import axios from 'axios';
@@ -7,6 +7,7 @@ import AlertaNotificação from "./AlertaNotificação.js";
 import ConfirmaModal from './ConfirmaModal.js';
 import { Link } from 'react-router-dom';
 import BuscaCategoriasComponentes from "../Components/BuscaCategoriasComponente.js";
+import QRCode from 'qrcode';
 
 const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atualiza }) { // teoricamente faria não ter reRender, mas ta tendo, ou seja, fds
 
@@ -45,13 +46,16 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
   //Curva ABC
   const [qtConsumo, setQtConsumo] = useState('');
 
-
-
   //Categoria select
   const [categoriaSelecionada, setCategoriaSelecionada] = useState();
   const [overwriteCat, setOverWriteCat] = useState(false);
 
+  //lote
+  const [lote, setLote] = useState(null);
 
+  //extras
+  const canvasRef = useRef(null);
+  const [qrGerado, setQrGerado] = useState(false);
   useEffect(() => {
     const pegaProdutosCat = async () => {
       try {
@@ -60,7 +64,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
           {
             funcao: "pegaprodutosporcategoria",
             senha: "@7h$Pz!q2X^vR1&K",
-            codcategoria: overwriteCat ? categoriaSelecionada.id_categorias : produtoOBJ.categoria 
+            codcategoria: overwriteCat ? categoriaSelecionada.id_categorias : produtoOBJ.categoria
           }
         );
         setProdutosEmCat(response.data);
@@ -268,7 +272,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
         id_produto: produtoOBJ.id_produtos // itens que são necessários enviar para o banco de dados
       }
       setOverWriteCat(true);
-      await atualizaDadosUniversal(funcao, [setRefreshTudo,SetRefreshProdCat])
+      await atualizaDadosUniversal(funcao, [setRefreshTudo, SetRefreshProdCat])
       setQtConsumo('');
       atualiza();
       setShowConfirma(false)
@@ -297,7 +301,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
               <h2>{tudoOLD.categoria ? tudoOLD.categoria + ' - ' + tudoOLD.nomeCat : "Não possui categoria"}</h2>
               <hr />
               Escolha a nova categoria do item:
-                <center> <BuscaCategoriasComponentes setCategoriaSelecionada={setCategoriaSelecionada} categoriaSelecionada={categoriaSelecionada} /> </center>
+              <center> <BuscaCategoriasComponentes setCategoriaSelecionada={setCategoriaSelecionada} categoriaSelecionada={categoriaSelecionada} /> </center>
               <button className='botao-testar' >Atualizar</button>
             </form>
           </div>
@@ -312,16 +316,16 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
 
       if (response.status === 200) {
         Alerta(2, "Alterado com Sucesso");
-        
-        if(Array.isArray(setRefresh)){
-          setRefresh.forEach((set)=>{
+
+        if (Array.isArray(setRefresh)) {
+          setRefresh.forEach((set) => {
             console.log("passou aqui no array")
             set(prevState => !prevState)
           })
-        }else{
-          if (setRefresh) 
+        } else {
+          if (setRefresh)
             setRefresh(prevState => !prevState)
-        } 
+        }
       } else {
         Alerta(3, "Erro na alteração");
       }
@@ -430,66 +434,92 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
           <hr />
           <div className='divConteudo'>
             <form className='formCat'>
-              <label>
-                Data de compra:
-                <input
-                  style={{
-                    cursor: 'not-allowed',
-                    opacity: 0.5,
-                    filter: 'grayscale(100%)',
-                  }}
-                  placeholder={tudoOLD.dt_compra ? tudoOLD.dt_compra : 'Não possui'}
-                  readOnly
-                />
-              </label>
-              <label>
-                Data de validade:
-                <input
-                  style={{
-                    cursor: 'not-allowed',
-                    opacity: 0.5,
-                    filter: 'grayscale(100%)',
-                  }}
-                  placeholder={tudoOLD.dt_validade ? tudoOLD.dt_validade : "Não possui/Não se aplica"}
-                  readOnly
-                />
-              </label>
-              <label>
-                Quantidade:
-                <input
-                  style={{
-                    cursor: 'not-allowed',
-                    opacity: 0.5,
-                    filter: 'grayscale(100%)',
-                  }}
-                  placeholder={tudoOLD.qtde ? tudoOLD.qtde : "0"}
-                  readOnly
-                />
-              </label>
-              <label>
-                Valor de compra:
-                <input placeholder={tudoOLD.vlr_compra ? tudoOLD.vlr_compra : "Não possui"}
-                  style={{
-                    cursor: 'not-allowed',
-                    opacity: 0.5,
-                    filter: 'grayscale(100%)',
-                  }} readOnly
-                  />
-              </label>
-              <label>
-                Valor de venda:
-                <input placeholder={tudoOLD.vlr_venda ? tudoOLD.vlr_venda : "Não possui"}
-                  style={{
-                    cursor: 'not-allowed',
-                    opacity: 0.5,
-                    filter: 'grayscale(100%)',
-                    
-                  }} 
-                  readOnly
-                  />
-                  
-              </label>
-              <p className="instrucao">Deseja alterar as informações de lote? Clique <Link to="/PagGerirLotes">AQUI</Link> e vá para a página de gereciamento de LOTE para um controle mais detalhado</p>
+              <select className='selectLote' onChange={(e) => setLote(e.target.value)}>
+                <option value={""}>Selecionar Lote</option>
+                {tudoOLD.numerolotes.split(',').map((lote, index) => (
+                  <option value={index}>Lote id: '{lote.trim()}' - Fornecedor: {tudoOLD.fornecedores.split(',')[index]}</option>
+                ))}
+              </select>
+
+              {lote ?
+                <>
+                  <label>
+                    Fornecedor:
+                    <input
+                      style={{
+                        cursor: 'not-allowed',
+                        opacity: 2
+                      }}
+                      placeholder={tudoOLD.fornecedores.split(',')[lote] ? tudoOLD.fornecedores.split(',')[lote].trim() : 'Não possui'}
+                      readOnly
+                    />
+                  </label>
+
+                  <label>
+                    Data de compra:
+                    <input
+                      style={{
+                        cursor: 'not-allowed',
+                        opacity: 1,
+                        filter: 'grayscale(100%)',
+                      }}
+                      placeholder={tudoOLD.dt_compra.split(',')[lote] ? tudoOLD.dt_compra.split(',')[lote].trim() : 'Não possui'}
+                      readOnly
+                    />
+                  </label>
+                  <label>
+                    Data de validade:
+                    <input
+                      style={{
+                        cursor: 'not-allowed',
+                        opacity: 1,
+                        filter: 'grayscale(100%)',
+                      }}
+                      placeholder={tudoOLD.dt_validade ? tudoOLD.dt_validade.split(',')[lote].trim() : "Não possui/Não se aplica"}
+                      readOnly
+                    />
+                  </label>
+                  <label>
+                    Quantidade:
+                    <input
+                      style={{
+                        cursor: 'not-allowed',
+                        opacity: 1,
+                        filter: 'grayscale(100%)',
+                      }}
+                      placeholder={tudoOLD.qtde.split(',')[lote] ? tudoOLD.qtde.split(',')[lote].trim() : "0"}
+                      readOnly
+                    />
+                  </label>
+                  <label>
+                    Valor de compra (unitário):
+                    <input placeholder={tudoOLD.vlr_compra.split(',')[lote] ? tudoOLD.vlr_compra.split(',')[lote].trim() : "Não possui"}
+                      style={{
+                        cursor: 'not-allowed',
+                        opacity: 1,
+                        filter: 'grayscale(100%)',
+                      }} readOnly
+                    />
+                  </label>
+                  <label>
+                    Valor de venda (unitário):
+                    <input placeholder={tudoOLD.vlr_venda.split(',')[lote] ? tudoOLD.vlr_venda.split(',')[lote].trim() : "Não possui"}
+                      style={{
+                        cursor: 'not-allowed',
+                        opacity: 1,
+                        filter: 'grayscale(100%)',
+
+                      }}
+                      readOnly
+                    />
+
+                  </label>
+                  <p className="instrucao">Deseja alterar as informações de lote? Clique <Link to="/PagGerirLotes">AQUI</Link> e vá para a página de gereciamento de LOTE para um controle mais detalhado</p>
+                </>
+                : (
+                  <p>Selecione um lote</p>
+                )}
+
             </form>
           </div>
         </div>
@@ -760,13 +790,13 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
               </label>
               <label>
                 Custo do Pedido:
-                <input placeholder={tudoOLD.custo_pedido? tudoOLD.custo_pedido : "Não possui"}
+                <input placeholder={tudoOLD.custo_pedido ? tudoOLD.custo_pedido : "Não possui"}
                   style={{
                     cursor: 'not-allowed',
                     opacity: 0.5,
                     filter: 'grayscale(100%)',
                   }} readOnly
-                  />
+                />
               </label>
               <label>
                 Custo de armazenagem:
@@ -775,11 +805,11 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
                     cursor: 'not-allowed',
                     opacity: 0.5,
                     filter: 'grayscale(100%)',
-                    
-                  }} 
+
+                  }}
                   readOnly
-                  />
-                  
+                />
+
               </label>
               <label>
                 Cálculo Lote Econômico:
@@ -788,13 +818,13 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
                     cursor: 'not-allowed',
                     opacity: 0.5,
                     filter: 'grayscale(100%)',
-                    
-                  }} 
+
+                  }}
                   readOnly
-                  />
-                  
+                />
+
               </label>
-              <p style={{fontSize: '15px'}}className="instrucao">Deseja alterar as informações de Lote Econômico? Clique <Link to="/PagLoteEconomico">AQUI</Link> e vá para a página de gereciamento de LOTE ECONÔMICO para um controle mais detalhado</p>
+              <p style={{ fontSize: '15px' }} className="instrucao">Deseja alterar as informações de Lote Econômico? Clique <Link to="/PagLoteEconomico">AQUI</Link> e vá para a página de gereciamento de LOTE ECONÔMICO para um controle mais detalhado</p>
             </form>
           </div>
         </div>
@@ -802,6 +832,116 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
     )
   }
 
+  const Extras = () => {
+    const generateQR = async text => {
+      try {
+        const canvas = canvasRef.current;
+        await QRCode.toCanvas(canvas, text, { errorCorrectionLevel: 'M' });
+        if (canvas)
+          setQrGerado(true)
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    const handlePrint = () => {
+      const canvas = canvasRef.current; // Get the reference to the canvas
+      const dataUrl = canvas.toDataURL(); // Convert canvas content to a data URL
+
+      // Create an iframe
+      const iframe = document.createElement('iframe');
+      iframe.style.position = 'absolute';
+      iframe.style.width = '0';
+      iframe.style.height = '0';
+      iframe.style.border = 'none';
+      document.body.appendChild(iframe); // Append the iframe to the body
+
+      // Write the canvas data to the iframe
+      const iframeDoc = iframe.contentWindow.document;
+      iframeDoc.open();
+      iframeDoc.write(`
+        <html>
+          <head>
+            <title>QR Code Gerado</title>
+            <style>
+              body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                background-color: #f4f4f4; /* Light background for contrast */
+                font-family: 'Arial', sans-serif; /* Consistent font style */
+              }
+              .info {
+                text-align: center; /* Center text inside info div */
+                background: white; /* White background for the info container */
+                padding: 20px; /* Space inside the container */
+                border-radius: 8px; /* Rounded corners for the container */
+                max-width: 600px; /* Max width for larger screens */
+                width: 90%; /* Responsive width for smaller screens */
+              }
+              h1 {
+                font-size: 24px; /* Font size for the heading */
+                color: #333; /* Darker text color */
+                margin-bottom: 20px; /* Space below the heading */
+              }
+              img {
+                min-width: 60%;
+                max-width: 100%; /* Ensure the image doesn't exceed container width */
+                height: auto; /* Maintain aspect ratio */
+                border: 1px solid #000; /* Border for the QR code */
+                border-radius: 8px; /* Rounded corners for the image */
+              }
+            </style>
+          </head>
+          <body>
+            <div class="info">
+              <h1>QR code com informações do produto: '${produtoOBJ.nome}'</h1>
+              <img src="${dataUrl}" alt="QR Code" />
+              <h1>Código produto: '${produtoOBJ.id_produtos}'</h1>
+            </div>
+          </body>
+        </html>
+      `);
+      iframeDoc.close(); // Close the document to finish loading
+
+      // Wait for the iframe to load, then print
+      iframe.contentWindow.onload = () => {
+        iframe.contentWindow.print(); // Trigger the print dialog
+        document.body.removeChild(iframe); // Remove the iframe after printing
+      };
+    };
+
+
+    return (
+      <div className='divSub'>
+        <h2 className='Titulo'> Informações <u>Extras</u> do item</h2>
+        <div className='subTitulo'>
+          <h3>'{produtoOBJ.nome}'</h3>
+          <hr />
+          <div className='divConteudo'>
+            <label>
+              Gerar QR code com informações do produto:
+            </label>
+            <button className='botao-testar' style={{ minWidth: '100px' }} onClick={() => generateQR(`{ "id_produtos": ${produtoOBJ.id_produtos}}`)}>Gerar QR code</button>
+            <div className='QR'>
+              {qrGerado && (
+                <>
+                  <p>QR code:</p>
+                </>
+              )}
+              <canvas className='canvasQR' ref={canvasRef}></canvas>
+              {qrGerado && (
+                <>
+                  <button onClick={handlePrint}>Imprimir</button>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
   return (
     <div className='ProdutosModal'>
       <AlertaNotificação />
@@ -850,6 +990,12 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
           >
             Mover <u>Produto</u> para Outra Categoria
           </button>
+          <button
+            className={`botao-aba ${abaAtiva === 'Extras' ? 'ativa' : ''}`}
+            onClick={() => handleClickAba('Extras')}
+          >
+            Extras
+          </button>
 
           <button onClick={fechar} className='botao-fechar'>X</button>
         </div>
@@ -864,6 +1010,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
               case 'Lote': return infoLote();
               case 'InfoCatPertencentes': return InfoCatPertencentes();
               case 'InfoCatProduto': return InfoCatProduto();
+              case 'Extras': return Extras();
               default: return "erro nos props... veja se o parametro opcao está correto";
             }
           }

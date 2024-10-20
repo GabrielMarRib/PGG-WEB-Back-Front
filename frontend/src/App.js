@@ -6,6 +6,7 @@ import { AlertaProvider } from './Context/AlertaContext';
 //npm i primereact
 //npm i recharts
 //npm install xlsx
+//npm i qrcode
 function App() {
   return (
     <AlertaProvider>
