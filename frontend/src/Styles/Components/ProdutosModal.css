@@ -16,8 +16,8 @@
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-    width: 1000px; 
-    height: 700px; 
+    width: 1100px;
+    height: 700px;
     display: flex;
     flex-direction: column;
 }
@@ -32,41 +32,43 @@
 }
 
 .ProdutosModal .botao-aba {
-    background-color: #f1f1f1;   
+    background-color: #f1f1f1;
     border: 1px solid #ccc;
     min-height: 100%;
     padding: 10px 20px;
-    border-radius: 5px 5px 0 0; 
+    border-radius: 5px 5px 0 0;
     cursor: pointer;
     margin-right: 5px;
     transition: background-color 0.3s, border-color 0.3s, transform 0.3s;
     font-size: 16px;
-    font-weight: bold; 
+    font-weight: bold;
 }
-.ProdutosModal .Titulo{
+
+.ProdutosModal .Titulo {
     width: 100%;
     text-align: center;
 }
 
-.ProdutosModal .subTitulo{
+.ProdutosModal .subTitulo {
     width: 100%;
     text-align: center;
 }
+
 .ProdutosModal .botao-aba:hover {
     background-color: #ddd;
     border-color: #bbb;
-    transform: translateY(-2px); 
+    transform: translateY(-2px);
 }
 
 .ProdutosModal .botao-aba.ativa {
-    background-color: #fff; 
+    background-color: #fff;
     border-color: #fff;
-    color: #333; 
+    color: #333;
     box-shadow: none;
-    border-bottom: 1px solid transparent; 
+    border-bottom: 1px solid transparent;
     position: relative;
-    z-index: 2; 
-    transform: translateY(0); 
+    z-index: 2;
+    transform: translateY(0);
 }
 
 .ProdutosModal .botao-aba.ativa:hover {
@@ -74,6 +76,7 @@
     border-color: #fff;
     transform: none;
 }
+
 .ProdutosModal .botao-fechar {
     border: none;
     font-size: 30px;
@@ -105,12 +108,16 @@
 .ProdutosModal ul {
     margin: 0;
 }
+
 .ProdutosModal .divSub {
     border: 1px solid #ddd;
     border-radius: 10px;
-    padding: 20px; /* Added padding to ensure content doesn't touch the border */
-    box-sizing: border-box; /* Include padding and border in element's total width and height */
-    min-height: 100%; /* Ensure it grows with its content */
+    padding: 20px;
+    /* Added padding to ensure content doesn't touch the border */
+    box-sizing: border-box;
+    /* Include padding and border in element's total width and height */
+    min-height: 100%;
+    /* Ensure it grows with its content */
     display: flex;
     flex-direction: column;
 }
@@ -136,7 +143,7 @@
 
 
 
-.ProdutosModal .formCat{
+.ProdutosModal .formCat {
     margin-top: 30px;
 }
 
@@ -182,7 +189,7 @@
     color: #fff;
     font-size: 16px;
     margin-top: 20px;
-    margin-right: 1500px; 
+    margin-right: 1500px;
 }
 
 .ProdutosModal .botao-ANAL {
@@ -206,20 +213,20 @@
     color: #fff;
     font-size: 16px;
     margin-top: 20px;
-    margin-right: 1500px; 
+    margin-right: 1500px;
 }
 
 .ProdutosModal .botoes-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 250px; 
+    margin-top: 250px;
 }
 
 .ProdutosModal .botoes-container .botao-ANAL,
 .ProdutosModal .botoes-container .botao-SEXO {
-    margin: 0 20px; 
-    margin-right: 0; 
+    margin: 0 20px;
+    margin-right: 0;
 }
 
 .ProdutosModal .botao-fecharInner {
@@ -245,7 +252,74 @@
     background-color: red;
 }
 
-.ProdutosModal .instrucao{
+.ProdutosModal .instrucao {
     margin-top: 30px;
     font-size: 13px;
+}
+
+.ProdutosModal .QR {
+    display: flex;
+    /* Use flexbox for alignment */
+    flex-direction: column;
+    /* Stack items vertically */
+    align-items: center;
+    /* Center items horizontally */
+    margin: 20px;
+    /* Add some margin around the container */
+    padding: 20px;
+    /* Add padding inside the container */
+    border: 1px solid #ccc;
+    /* Light border around the section */
+    border-radius: 8px;
+    /* Rounded corners */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow for depth */
+    background-color: #f9f9f9;
+    /* Light background color */
+}
+
+.ProdutosModal .QR p {
+    font-size: 18px;
+    /* Font size for QR code label */
+    margin-bottom: 10px;
+    /* Space below the label */
+    color: #333;
+    /* Dark color for the text */
+}
+
+.ProdutosModal .QR canvas {
+    margin: 10px 0;
+    /* Margin above and below the canvas */
+    border: 1px solid #ddd;
+    /* Border around the canvas */
+    background-color: #fff;
+    /* White background for the canvas */
+    width: 200px;
+    /* Fixed width for the canvas */
+    height: 200px;
+    /* Fixed height for the canvas */
+}
+
+.ProdutosModal .QR button {
+    padding: 10px 20px;
+    /* Padding for the button */
+    border: none;
+    /* Remove default border */
+    border-radius: 4px;
+    /* Rounded corners for the button */
+    background-color: #e04d18;
+    /* Primary color for the button */
+    color: white;
+    /* White text color */
+    font-size: 16px;
+    /* Font size for button text */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+    transition: background-color 0.3s;
+    /* Smooth transition for hover effect */
+}
+
+.ProdutosModal .QR button:hover {
+    background-color: #d34f1b;
+    /* Darker shade on hover */
 }

@@ -331,6 +331,7 @@ function PagHome() {
           </button>
           {showEstoqueOptions && (
             <div className="estoque-options">
+              <button className="option-button" onClick={() => navigate("/PagInventario")}>Inventário</button>
               <button className="option-button" onClick={() => navigate("/PagProdutos")}>Gerir/Add Produtos</button>
               <button className="option-button" onClick={() => navigate("/PagVenderProduto")}>Dar Baixa Produtos</button>
               <button className="option-button" onClick={() => navigate("/PagGerirCategoria")}>Gerir Categorias</button>

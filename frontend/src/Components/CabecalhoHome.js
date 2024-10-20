@@ -94,6 +94,8 @@ const CabecalhoHome = () => {
 
 
             <ul className="dropdown">
+            <li> <a onClick={() => { navigate("/PagInventario") }}
+                className="paginas"> Inventário </a> </li>
               <li> <a onClick={() => { navigate("/PagProdutos") }}
                 className="paginas"> Gerir/Add Produtos </a> </li>
               <li> <a onClick={() => { navigate("/PagVenderProduto") }}

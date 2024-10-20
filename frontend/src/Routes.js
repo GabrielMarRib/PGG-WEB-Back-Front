@@ -33,6 +33,7 @@ import PagUploadExcel from './Pages/App/Services/PagUploadExcel';
 import PagEscolhaPontoDePedido from './Pages/App/Services/PagEscolhaPontoDePedido';
 
 
+import PagInventario from './Pages/App/Services/PagInventario';
 
 const Mobile = IsMobile();
 
@@ -75,6 +76,7 @@ function AppRoutes() {
             <Route path="/PagPesquisaFornecedor" element={<PrivateRoute element={<PagPesquisaFornecedor />} />} />
             <Route path="/PagUploadExcel" element={<PrivateRoute element={<PagUploadExcel />} />} />
             <Route path="/PagEscolhaPontoDePedido" element={<PrivateRoute element={<PagEscolhaPontoDePedido />} />} />
+            <Route path="/PagInventario" element={<PrivateRoute element={<PagInventario />} />} />
 
             
           </>
