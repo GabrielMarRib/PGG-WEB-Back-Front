@@ -1,0 +1,131 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+
+.PagEscolhaCurvaABC * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    font-family: 'JetBrains Mono', monospace; 
+}
+
+.PagEscolhaCurvaABC .conteudoPaginaMaster {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: #ffffff;
+    height: 89.5%;
+}
+
+.PagEscolhaCurvaABC h1 {
+    margin-top: 10%;
+    background-color: #ffffff;
+    border: 1px solid #000;
+    min-width: 100px;
+    width: 96%;
+    border-radius: 10px;
+    text-align: center; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+}
+
+.PagEscolhaCurvaABC .ag-format-container {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.PagEscolhaCurvaABC .ag-courses_box {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 100px 0;
+    justify-content: center;
+}
+
+.PagEscolhaCurvaABC .ag-courses_item {
+    flex-basis: calc(33.33% - 30px);
+    cursor: pointer;
+    margin: 0 15px 30px;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.PagEscolhaCurvaABC .ag-courses_item:hover {
+    transform: translateY(-10px);
+}
+
+.PagEscolhaCurvaABC .ag-courses-item_link {
+    display: block;
+    padding: 20px;
+    background-color: #f8f9fa;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+}
+
+.PagEscolhaCurvaABC .ag-courses-item_title {
+    min-height: 50px;
+    margin: 0 0 15px;
+    font-weight: bold;
+    font-size: 20px;
+    color: #333;
+    z-index: 2;
+    position: relative;
+}
+
+.PagEscolhaCurvaABC .ag-courses-item_bg {
+    height: 50px;
+    width: 50px;
+    z-index: 1;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border-radius: 50%;
+}
+
+.PagEscolhaCurvaABC .ag-courses_item:nth-child(1) .ag-courses-item_bg {
+    background-color: #03b5fc;
+}
+
+.PagEscolhaCurvaABC .ag-courses_item:nth-child(2) .ag-courses-item_bg {
+    background-color: #ff0000;
+}
+
+.PagEscolhaCurvaABC .ag-courses_item:nth-child(3) .ag-courses-item_bg {
+    background-color: #8a02e4;
+}
+
+@media only screen and (max-width: 979px) {
+    .PagEscolhaCurvaABC .ag-courses_item {
+        flex-basis: calc(50% - 30px);
+    }
+    .PagEscolhaCurvaABC .ag-courses-item_title {
+        font-size: 24px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .PagEscolhaCurvaABC .ag-format-container {
+        width: 96%;
+    }
+}
+
+@media only screen and (max-width: 639px) {
+    .PagEscolhaCurvaABC .ag-courses_item {
+        flex-basis: 100%;
+    }
+    .PagEscolhaCurvaABC .ag-courses-item_title {
+        min-height: 72px;
+        line-height: 1;
+        font-size: 24px;
+    }
+    .PagEscolhaCurvaABC .ag-courses-item_link {
+        padding: 22px 40px;
+    }
+    .PagEscolhaCurvaABC .ag-courses-item_date-box {
+        font-size: 16px;
+    }
+}

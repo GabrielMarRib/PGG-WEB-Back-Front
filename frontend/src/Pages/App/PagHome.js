@@ -6,6 +6,8 @@ import ImageLote from '../../Assets/loteEconomico.png';
 import ImagePEPS from '../../Assets/PEPS.png';
 import ImagePedido from '../../Assets/pontodePedido.png';
 import ExcelIcon from '../../Assets/exceliconcolor.png';
+import custoMedio from '../../Assets/custoMedio.png';
+import PEPS from '../../Assets/PEPS.png';
 import ImageMedio from '../../Assets/custoMedio.png';
 import ImageCaixa from '../../Assets/caixa.png';
 import historia from '../../Assets/historia.png';
@@ -36,6 +38,7 @@ function PagHome() {
   const [categorias, setCategorias] = useState([])
   const [totalCompras, setTotalCompras] = useState(0);
   const [totalVendas, setTotalVendas] = useState(0);
+  const [produtosProximosVencimento, setProdutosProximosVencimento] = useState([]);
 
   // ()=> {}
   // function() {}
@@ -74,6 +77,25 @@ function PagHome() {
     obterTotais();
   }, []);
 
+  useEffect(() => {
+    const obterProdutosProximosVencimento = async () => {
+      try {
+        const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
+          funcao: 'verificaProdutosProximosVencimento',
+          senha: '@7h$Pz!q2X^vR1&K'
+        });
+
+        if (response.data.message) {
+          setProdutosProximosVencimento(response.data.message);
+        }
+      } catch (error) {
+        console.log("Erro ao obter produtos próximos ao vencimento: " + error);
+      }
+    };
+
+    obterProdutosProximosVencimento();
+  }, []);
+
   const sections = [
     {
       title: "",
@@ -85,12 +107,12 @@ function PagHome() {
           </p>
           <center>
             <center><img src={ExcelIcon} className="button-image" style={{ height: '50px', width: '50px' }} /> </center>
-          <button
-            onClick={() => navigate("/PagUploadExcel")}
-            className="btn-padrao"
+            <button
+              onClick={() => navigate("/PagUploadExcel")}
+              className="btn-padrao"
             >
-            Iniciar Importação
-          </button>
+              Iniciar Importação
+            </button>
           </center>
         </div>
       )
@@ -104,10 +126,80 @@ function PagHome() {
         </div>
       ),
     },
-    { title: "Capacidade de Armazenagem Utilizada", content: "Utilização dos armazéns: 78%", isSameHeight: true },
+    {
+      title: "",
+      content: (
+        <div className="card">
+          <h3 className="card-title">Cálculo do Custo Médio</h3>
+          <p className="card-text">
+            Selecione "Custo Médio" no filtro e o produto para ver o cálculo com base nos movimentos.
+          </p>
+          <center><img src={custoMedio} className="button-image" style={{ height: '50px', width: '50px' }} /> </center>
+          <center>
+            <button
+              onClick={() => navigate("/PagMovimentos")}
+              className="btn-padrao"
+            >
+              Ir para Movimentos
+            </button>
+          </center>
+        </div>
+      )
+    },
     { title: "Ponto de Pedido", content: <DashboardPP /> },
-    { title: "Baixas de produto", content: "20 baixas efetuadas hoje" },
-    { title: "Satisfação do Cliente", content: "Nível de satisfação dos clientes: 92%" },
+    {
+      title: "",
+      content: (
+        <div className="card">
+          <h3 className="card-title">Cálculo PEPS (Em Breve)</h3>
+          <p className="card-text">
+            Selecione "PEPS" no filtro e o produto para ver o cálculo baseado no método de Primeiro a Entrar, Primeiro a Sair.
+          </p>
+          <center><img src={PEPS} className="button-image" style={{ height: '50px', width: '50px' }} /> </center>
+          <center>
+            <button
+              onClick={() => navigate("/PagMovimentos")}
+              className="btn-padrao"
+            >
+              Ir para Movimentos
+            </button>
+          </center>
+        </div>
+      )
+    },
+    {
+      title: "Produtos Próximos ao Vencimento",
+      content: (
+        <div>
+          <p className="card-title">Produtos que Vencem em Até 30 Dias.</p>
+          <p className="contador">
+            {produtosProximosVencimento.filter(produto => new Date(produto.dt_validade) < new Date()).length} Produtos Vencidos.
+          </p>
+          {produtosProximosVencimento.length > 0 ? (
+            <div className="produtos-vencimento">
+              <ul>
+                {produtosProximosVencimento.map(produto => {
+                  const produtoVencido = new Date(produto.dt_validade) < new Date();
+                  return (
+                    <li key={produto.numerolote} className="produto-item">
+                      <div className="produto-nome">{produto.nome}</div>
+                      <div className="produto-detalhes">
+                        <span className={produtoVencido ? "produto-vencido" : ""}>
+                          Vencimento em: <strong>{new Intl.DateTimeFormat('pt-BR').format(new Date(produto.dt_validade))}</strong>
+                        </span>
+                        <span> Lote: <strong>{produto.numerolote}</strong></span>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ) : (
+            <p className="alerta">Não há produtos próximos ao vencimento.</p>
+          )}
+        </div>
+      )
+    },
     { title: "Evolução de Vendas", content: "Análise Mensal da Evolução de Vendas", isChart: true },
 
   ];
@@ -296,7 +388,7 @@ function PagHome() {
             <div
               key={index}
               className={`grid-item ${section.title === "Evolução de Vendas" ? "evolucao-vendas" :
-                  section.title === "Linha de Produto" ? "linha-produto" : ""
+                section.title === "Linha de Produto" ? "linha-produto" : ""
                 }`}
             >
               <h2>{section.title}</h2>

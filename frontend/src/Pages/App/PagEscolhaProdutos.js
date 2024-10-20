@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import Cabecalho from "../../Components/CabecalhoHome.js";
-import "../../Styles/App/PagEscolhaProdutos.css"
+import "../../Styles/App/PagEscolhaProdutos.css";
 import { useContext } from "react";
 import { UserContext } from "../../Context/UserContext";
+
 
 
 function PagEscolhaProdutos() {

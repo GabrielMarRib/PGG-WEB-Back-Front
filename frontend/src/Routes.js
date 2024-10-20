@@ -30,6 +30,8 @@ import PagCadastroFornecedor from './Pages/App/Services/PagCadastroFornecedor';
 import PagHistorico from './Pages/App/Services/PagHistorico'; 
 import PagPesquisaFornecedor from './Pages/App/Services/PagPesquisaFornecedor';
 import PagUploadExcel from './Pages/App/Services/PagUploadExcel'; 
+import PagEscolhaPontoDePedido from './Pages/App/Services/PagEscolhaPontoDePedido';
+
 
 
 const Mobile = IsMobile();
@@ -72,6 +74,7 @@ function AppRoutes() {
             <Route path="/PagHistorico" element={<PrivateRoute element={<PagHistorico />} />} />
             <Route path="/PagPesquisaFornecedor" element={<PrivateRoute element={<PagPesquisaFornecedor />} />} />
             <Route path="/PagUploadExcel" element={<PrivateRoute element={<PagUploadExcel />} />} />
+            <Route path="/PagEscolhaPontoDePedido" element={<PrivateRoute element={<PagEscolhaPontoDePedido />} />} />
 
             
           </>

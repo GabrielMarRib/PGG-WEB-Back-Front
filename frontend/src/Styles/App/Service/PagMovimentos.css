@@ -105,3 +105,24 @@
     font-family: 'JetBrains Mono'; 
     transition: border-color 0.3s ease;
 }
+
+.PagMovimentos .Voltar {
+    padding: 10px;
+    border-radius: 3px;
+    background-color: #e04d18;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
+    font-family: 'JetBrains Mono';
+    margin-top: 10px;
+    margin-right: 1800px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.PagAddCategoria .voltar {
+    align-items: center;
+    margin-left: 10px;
+    margin-top: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

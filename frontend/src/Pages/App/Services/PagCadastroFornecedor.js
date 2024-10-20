@@ -130,7 +130,7 @@ function PagVenderProduto() {
         <Titulo tituloMsg="Cadastro de fornecedor" />
         <AlertaNotificação />
         <div className="enquadramento">
-          <button className="voltar" onClick={() => navigate("/PagEscolhaProdutos")}>
+          <button className="voltar" onClick={() => navigate("/PagEscolhaPontoDePedido")}>
             Voltar
           </button>
           <div className="container-tela-cad_Fornecedor">

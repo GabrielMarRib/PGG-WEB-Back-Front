@@ -331,3 +331,43 @@
     border-color: transparent;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+/* Card de Produtos Próximos ao Vencimento */
+
+.produtos-vencimento {
+    max-height: 195px; 
+    overflow-y: auto; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    padding: 10px; 
+  }
+  
+  .produto-item {
+    margin-bottom: 1rem;
+    padding: 5px; 
+    border-radius: 4px; 
+  }
+  
+  .produto-nome {
+    font-weight: bold; 
+  }
+  
+  .produto-detalhes {
+    font-size: 0.9rem; 
+    color: #555; 
+  }
+  
+  .alerta {
+    color: green; 
+    font-weight: bold;
+  }
+
+  .produto-vencido {
+    color: red;
+  }
+
+  .contador {
+    color: red; /* Cor para chamar atenção */
+    font-weight: bold; 
+    margin-bottom: 5px; /* Espaço entre o contador e a lista de produtos */
+  }

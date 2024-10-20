@@ -52,7 +52,7 @@ function PagPontoPedido() {
                 tituloMsg='Gestão de Ponto de Pedido'
             />
             <div className="btn">
-                <button className="Voltar" onClick={() => { navigate("/PagHome") }}>
+                <button className="Voltar" onClick={() => { navigate("/PagEscolhaPontoDePedido") }}>
                     Voltar
                 </button>
             </div>

@@ -123,7 +123,7 @@ const [showPopup, setShowPopup] = useState(false);
       <button
         className="voltar"
         onClick={() => {
-          navigate("/");
+          navigate("/PagEscolhaProdutos");
         }}
       >
         Voltar

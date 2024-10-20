@@ -168,7 +168,7 @@ function PagPesquisaFornecedor() {
 
                 <Titulo tituloMsg="Pesquisa de Produtos" />
                 <AlertaNotificação />
-                <button className="voltar" onClick={() => { navigate("/PagEscolhaProdutos"); }}>
+                <button className="voltar" onClick={() => { navigate("/PagEscolhaPontoDePedido"); }}>
                     Voltar
                 </button>
 

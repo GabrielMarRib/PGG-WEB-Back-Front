@@ -140,6 +140,11 @@ const PagMovimentos = () => {
       </div>
       <Titulo tituloMsg='Visualização de Movimentos (Ficha de estoque)' />
       {erro && <p style={{ color: 'red' }}>{erro}</p>}
+      <div className="btn">
+        <button className="Voltar" onClick={() => navigate("/PagEscolhaProdutos")}>
+          Voltar
+        </button>
+      </div>
 
       <div className="filtro-section">
         <label htmlFor="filtro">Filtrar por: </label>
