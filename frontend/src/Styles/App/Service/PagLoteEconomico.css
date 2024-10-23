@@ -261,4 +261,22 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
   
-  
+.Select-loteEconomico {
+  width: 50%; 
+  padding: 10px; 
+  margin: 10px 0;
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
+  font-size: 16px; 
+  background-color: #fff; 
+  transition: border-color 0.3s ease; 
+}
+
+.Select-loteEconomico:focus {
+  border-color: #000000;
+  outline: none; 
+}
+
+.Select-loteEconomico option {
+  padding: 10px; 
+}

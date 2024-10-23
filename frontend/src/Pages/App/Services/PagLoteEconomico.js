@@ -66,6 +66,7 @@ function PagLoteEconomico() {
         demanda_anual: demandaAnualConvertida,
         Quantia_Produtos_Estocados: quantiaEstocadaConvertida,
         Numero_Pedidos_Anuais: pedidosAnuaisConvertidos,
+        periodo: periodo,
         idProduto,
       });
 
@@ -192,7 +193,7 @@ function PagLoteEconomico() {
 
               <div className="grupo-input">
                 <label htmlFor="periodo">Período:</label>
-                <select value={periodo} onChange={(e) => setPeriodo(e.target.value)}>
+                <select className="Select-loteEconomico" value={periodo} onChange={(e) => setPeriodo(e.target.value)}>
                   {periodos.map((periodo) => (
                     <option key={periodo.id} value={periodo.id}>
                       {periodo.nome}
