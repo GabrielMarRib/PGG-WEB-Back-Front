@@ -138,6 +138,7 @@ const PagMovimentos = () => {
 
   return (
     <div className='PagMovimentos'>
+      
       <div className="CabecalhoHome">
         <CabecalhoHome />
       </div>
@@ -158,12 +159,14 @@ const PagMovimentos = () => {
             />
           )}
         </div>
+        <div className='flex'>
       
       <div className="btn">
         <button className="Voltar" onClick={() => navigate("/PagEscolhaProdutos")}>
           Voltar
         </button>
       </div>
+
 
       <div className="filtro-section">
         <label htmlFor="filtro">Filtrar por: </label>
@@ -246,6 +249,7 @@ const PagMovimentos = () => {
           ))}
         </tbody>
       </table>
+      </div>   
     </div>
   );
 };

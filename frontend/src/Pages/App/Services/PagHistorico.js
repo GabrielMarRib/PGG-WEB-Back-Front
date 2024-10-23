@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import AlertaNotificação from "../../../Components/AlertaNotificação.js";
 import Titulo from "../../../Components/Titulo";
 import axios from "axios";
+import BtnAjuda from "../../../Components/BtnAjuda.js";
 
 function PagHistorico() {
   const navigate = useNavigate();
@@ -15,6 +16,8 @@ function PagHistorico() {
   const [adicionaisCurva, setAdicionaisCurva] = useState([]);
   const [adicionaisLote, setAdicionaisLote] = useState([]);
   const [tabelasUnicas, setTabelasUnicas] = useState([])
+  const [showPopup, setShowPopup] = useState(false); // variaveis para o btnAjuda
+
   useEffect(() => {
     const pegaHistorico = async () => { // função existe para separar async do useEffect...
       try {
@@ -127,6 +130,22 @@ function PagHistorico() {
       </div>
       <AlertaNotificação />
       <Titulo tituloMsg="Logs" />
+
+      <header className="cabecalhoBtnAjuda">
+      <div className="Botaoajuda" onClick={() => {setShowPopup(true)}}> {/*crie um botão que no onClick faz o setShowPopup ficar true */}
+      Ajuda
+      </div>
+      </header>
+
+      <div className="BtnAjuda">
+      {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
+          <BtnAjuda /* chama o btnAjuda */
+          fechar={() => {setShowPopup(false)}} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
+          msgChave={"LOGS"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
+          />
+      )}
+      </div> 
+
       <div className="btn">
         <button className="Voltar" onClick={() => navigate("/PagHome")}>
           Voltar

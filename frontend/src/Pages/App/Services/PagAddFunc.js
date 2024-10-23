@@ -10,6 +10,7 @@ import { handleAdicionarUser } from "../../../Functions/Functions";
 import { useAlerta } from "../../../Context/AlertaContext.js";
 import AlertaNotificação from "../../../Components/AlertaNotificação.js";
 import Titulo from "../../../Components/Titulo";
+import BtnAjuda from "../../../Components/BtnAjuda.js";
 
 function PagAddFunc() {
   const { Alerta } = useAlerta(); // alertinha...
@@ -23,6 +24,8 @@ function PagAddFunc() {
 
   const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
   const User = UserOBJ.User; //Pega só o User....
+
+  const [showPopup, setShowPopup] = useState(false); // variaveis para o btnAjuda
 
   RedirectAcesso(User,2);
 
@@ -59,17 +62,36 @@ function PagAddFunc() {
       <Titulo
                 tituloMsg='Adição de funcionários'
             />
+
+      <header className="cabecalhoBtnAjuda">
+      <div className="Botaoajuda" onClick={() => {setShowPopup(true)}}> {/*crie um botão que no onClick faz o setShowPopup ficar true */}
+      Ajuda
+      </div>
+      </header>
+
+      <div className="BtnAjuda">
+      {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
+          <BtnAjuda /* chama o btnAjuda */
+          fechar={() => {setShowPopup(false)}} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
+          msgChave={"ADDFUNCIONARIOS"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
+          />
+      )}
+      </div> 
+
       <div className="btn">
         <button className="Voltar" onClick={() => { navigate("/PagPerfil") }}>
             Voltar
         </button>
       </div>
+
+
+
       {User &&
       User.userData &&
       User.userData.Nivel_acesso &&
       User.userData.Nivel_acesso >= 2 ? (
         <form className="formAddFunc" onSubmit={(e) => handleSubmit(e)}>
-          <h1>Cadastro de Funcionário</h1>
+          <h1 className="tituloca">Cadastro de Funcionário</h1>
           <br />
           <p>
             <h2>Nome:</h2>

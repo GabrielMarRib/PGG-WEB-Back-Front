@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import Titulo from "../../../Components/Titulo.jsx";
 import ImgAtivo from "../../../Assets/GreenCheckMark.png";
 import ImgInativo from "../../../Assets/ReadCheckMark.png";
+import BtnAjuda from "../../../Components/BtnAjuda.js";
 
 const formatCNPJ = (value) => {
   // Remove caracteres não numéricos
@@ -45,6 +46,8 @@ function PagVenderProduto() {
   const UserOBJ = useContext(UserContext);
   const User = UserOBJ.User;
   const { Alerta } = useAlerta();
+
+  const [showPopup, setShowPopup] = useState(false); // variaveis para o btnAjuda
 
   const PegarFornecedores = async () => {
     try {
@@ -129,6 +132,20 @@ function PagVenderProduto() {
         </div>
         <Titulo tituloMsg="Cadastro de fornecedor" />
         <AlertaNotificação />
+        <header className="cabecalhoBtnAjuda">
+          <div className="Botaoajuda" onClick={() => {setShowPopup(true)}}> {/*crie um botão que no onClick faz o setShowPopup ficar true */}
+          Ajuda
+          </div>
+        </header>
+
+        <div className="BtnAjuda">
+          {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
+            <BtnAjuda /* chama o btnAjuda */
+              fechar={() => {setShowPopup(false)}} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
+              msgChave={"CADASTROFORNECEDOR"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
+            />
+          )}
+        </div> 
         <div className="enquadramento">
           <button className="voltar" onClick={() => navigate("/PagEscolhaPontoDePedido")}>
             Voltar
