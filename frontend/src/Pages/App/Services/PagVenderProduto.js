@@ -359,7 +359,7 @@ function PagVenderProduto() {
   };
   // heeheheh testesinho
 
-  const [showPopup, setShowPopup] = useState(false); 
+  const [showPopup, setShowPopup] = useState(false); // variaveis para o btnAjuda
 
   return (
     <div className="PagVenderProduto">

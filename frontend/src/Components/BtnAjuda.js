@@ -203,6 +203,46 @@ const BtnAjuda = ({ msgChave, fechar }) => {
         </>
 
           ) 
+
+          case 'INVENTARIO':
+            return (
+              <> {/* TEM q ter esse baguio vazio englobando tudo (<>) pq o react é chato */}
+              <h1>Guia de Ajuda - Tela de Inventário de Produtos</h1>
+
+              <h1>Visão Geral</h1>
+              <p>Nesta tela, você pode gerenciar o inventário de produtos, incluindo a pesquisa por fornecedor, categoria, ou nome de produto. Além disso, há opções para editar produtos específicos. Vamos ver como funciona!</p>
+
+              <h1>Como Usar</h1>
+
+              <h2>1. Voltar para a Tela Anterior</h2>
+              <p>Se precisar retornar à página anterior, basta clicar no botão "Voltar", localizado no canto superior esquerdo. Ele vai te redirecionar para a tela de navegação anterior.</p>
+
+              <h2>2. Pesquisar Fornecedor, Categoria ou Produto</h2>
+              <p>No topo da lista de produtos, você encontrará três campos de pesquisa:</p>
+              <ul>
+                <li><strong>Pesquisar fornecedor</strong>: Permite filtrar produtos com base em seus fornecedores.</li>
+                <li><strong>Pesquisar categoria</strong>: Use este campo para buscar produtos pertencentes a uma categoria específica.</li>
+                <li><strong>Pesquisar produto</strong>: Insira o nome do produto que você deseja localizar diretamente.</li>
+              </ul>
+              <p>Esses campos facilitam a busca de produtos específicos sem a necessidade de rolar a lista manualmente.</p>
+
+              <h2>3. Editar Produtos</h2>
+              <p>Cada produto listado na tela apresenta as seguintes informações:</p>
+              <ul>
+                <li>Nome do produto</li>
+                <li>Código do produto</li>
+              </ul>
+              <p>Para editar um produto, clique no botão laranja "Editar Produto" correspondente. Isso te levará à página de edição, onde você pode modificar as informações do produto.</p>
+
+              <h1>Dicas Finais</h1>
+              <ul>
+                <li>Utilize os campos de pesquisa para economizar tempo na busca de produtos específicos.</li>
+                <li>Sempre verifique as informações antes de clicar em "Editar Produto" para garantir que está fazendo as alterações no item correto.</li>
+                <li>Caso tenha dúvidas, clique no botão "Ajuda" para visualizar informações de suporte diretamente na tela.</li>
+              </ul>
+            </>
+    
+              ) 
         
       default:
         return (
@@ -224,5 +264,25 @@ const BtnAjuda = ({ msgChave, fechar }) => {
     </div>
   );
 };
+
+// const [showPopup, setShowPopup] = useState(false); // variaveis para o btnAjuda
+// import BtnAjuda from "../../../Components/BtnAjuda.js";
+/* 
+        <header className="cabecalhoBtnAjuda">
+          <div className="Botaoajuda" onClick={() => {setShowPopup(true)}}> {/*crie um botão que no onClick faz o setShowPopup ficar true}
+          Ajuda
+          </div>
+        </header>
+
+        <div className="BtnAjuda">
+          {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
+            <BtnAjuda /* chama o btnAjuda 
+              fechar={() => {setShowPopup(false)}} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
+              msgChave={"BAIXASPRODUTOS"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
+            />
+          )}
+        </div> 
+
+*/
 
 export default BtnAjuda;

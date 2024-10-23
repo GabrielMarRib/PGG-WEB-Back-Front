@@ -10,6 +10,9 @@ import Titulo from "../../../Components/Titulo.jsx";
 import FiltragemFornecedor from '../../../Components/FiltragemFornecedor.js';
 import BuscaCategoriasComponenteCopia from "../../../Components/BuscaCategoriasComponenteCopia.js";
 import ProdutosModal from "../../../Components/ProdutosModal.js";
+import BtnAjuda from "../../../Components/BtnAjuda.js";
+
+
 // Componente Modal
 
 function PagInventario() {
@@ -142,6 +145,10 @@ function PagInventario() {
         setProdutoSelecionado(produtofiltrado)
       }
 
+
+    const [showPopup, setShowPopup] = useState(false); 
+
+
     return (
         <div className="Produtos">
             <div className="DivForms">
@@ -159,10 +166,28 @@ function PagInventario() {
                 }
 
                 <Titulo tituloMsg="Inventário" />
+
+                <header className="cabecalhoBtnAjuda">
+                    <div className="Botaoajuda" onClick={() => {setShowPopup(true)}}> {/*crie um botão que no onClick faz o setShowPopup ficar true*/}
+                        Ajuda
+                    </div>
+                </header>
+
+                <div className="BtnAjuda">
+                    {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
+                        <BtnAjuda /* chama o btnAjuda */
+                        fechar={() => {setShowPopup(false)}} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
+                        msgChave={"INVENTARIO"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
+                        />
+                    )}
+                </div>
+                
                 <AlertaNotificação />
                 <button className="voltar" onClick={() => { navigate("/PagEscolhaProdutos"); }}>
                     Voltar
                 </button>
+
+                
 
                 <div className="telaInteira">
                     <div className="TelaConteudo">
