@@ -437,7 +437,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
               <select className='selectLote' onChange={(e) => setLote(e.target.value)}>
                 <option value={""}>Selecionar Lote</option>
                 {tudoOLD.numerolotes.split(',').map((lote, index) => (
-                  <option value={index}>Lote id: '{lote.trim()}' - Fornecedor: {tudoOLD.fornecedores.split(',')[index]}</option>
+                  <option value={index}>Lote id: '{lote.trim()}' - Fornecedor: {tudoOLD.fornecedores ? tudoOLD.fornecedores.split(',')[index] : "Não possui"}</option>
                 ))}
               </select>
 
@@ -450,7 +450,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
                         cursor: 'not-allowed',
                         opacity: 2
                       }}
-                      placeholder={tudoOLD.fornecedores.split(',')[lote] ? tudoOLD.fornecedores.split(',')[lote].trim() : 'Não possui'}
+                      placeholder={tudoOLD.fornecedores ? tudoOLD.fornecedores.split(',')[lote].trim() : 'Não possui'}
                       readOnly
                     />
                   </label>
@@ -942,6 +942,27 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
       </div>
     )
   }
+
+  const DeletarProduto = () => {
+
+    return (
+      <div className='divSub'>
+        <h2 className='Titulo'> <u style={{color: 'red'}}>DELETAR</u> Produto</h2>
+        <div className='subTitulo'>
+          <h3>'{produtoOBJ.nome}'</h3>
+          <hr />
+          <div className='divConteudo'>
+            <label>
+              Gerar QR code com informações do produto:
+            </label>
+            <button className='botao-testar' style={{ minWidth: '100px' }}>Gerar QR code</button>
+            <div className='QR'>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
   return (
     <div className='ProdutosModal'>
       <AlertaNotificação />
@@ -996,6 +1017,12 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
           >
             Extras
           </button>
+          <button
+            className={`botao-aba ${abaAtiva === 'Deletar' ? 'ativa' : ''}`}
+            onClick={() => handleClickAba('Deletar')}
+          >
+            Deletar Produto
+          </button>
 
           <button onClick={fechar} className='botao-fechar'>X</button>
         </div>
@@ -1011,6 +1038,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
               case 'InfoCatPertencentes': return InfoCatPertencentes();
               case 'InfoCatProduto': return InfoCatProduto();
               case 'Extras': return Extras();
+              case 'Deletar': return DeletarProduto();
               default: return "erro nos props... veja se o parametro opcao está correto";
             }
           }
