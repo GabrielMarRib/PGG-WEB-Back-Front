@@ -244,6 +244,360 @@ const BtnAjuda = ({ msgChave, fechar }) => {
     
               ) 
         
+      case 'CURVAABCVALOR':
+        return (
+          <> {/* TEM q ter esse baguio vazio englobando tudo (<>) pq o react é chato */}
+          <h1>Guia de Ajuda - Visualização de Curva ABC (Valor)</h1>
+
+          <h1>Visão Geral</h1>
+          <p>Esta tela exibe a análise da Curva ABC dos produtos com base no seu valor monetário. A Curva ABC por valor classifica os produtos de acordo com o impacto financeiro que eles têm no estoque, ajudando a identificar quais itens são mais valiosos em termos de custo total.</p>
+          <p>A visualização inclui um gráfico que demonstra a porcentagem acumulada dos valores dos produtos e uma tabela detalhada com os dados da classificação de cada item.</p>
+
+          <h1>Como Usar</h1>
+
+          <h2>1. Voltar para a Tela Anterior</h2>
+          <p>Se precisar retornar à página anterior, clique no botão laranja "Voltar" no canto superior esquerdo da tela. Ele te levará de volta à página anterior do sistema.</p>
+
+          <h2>2. Selecione uma Categoria</h2>
+          <p>Acima do gráfico, há uma caixa de seleção para escolher a categoria de produtos que você deseja visualizar. Isso permite filtrar os produtos por categoria e exibir apenas os dados relevantes.</p>
+          <ul>
+            <li><strong>Categoria</strong>: Selecione a categoria desejada no dropdown. A categoria selecionada será exibida no gráfico e na tabela abaixo.</li>
+          </ul>
+
+          <h2>3. Visualização do Gráfico</h2>
+          <p>O gráfico exibe a participação de valor dos produtos dentro da categoria selecionada, mostrando a <strong>porcentagem acumulada</strong> em azul e os <strong>pontos de porcentagem acumulada</strong> destacados em vermelho.</p>
+          <ul>
+            <li><strong>Porcentagem Acumulada</strong>: Representa o valor acumulado dos produtos em relação ao valor total em estoque.</li>
+          </ul>
+
+          <h2>4. Análise da Tabela de Produtos</h2>
+          <p>Logo abaixo do gráfico, há uma tabela detalhada que exibe as seguintes informações:</p>
+          <ul>
+            <li><strong>Id</strong>: Identificação numérica do produto.</li>
+            <li><strong>Nome</strong>: Nome do produto.</li>
+            <li><strong>Qtd. Con.</strong>: Quantidade consumida do produto no período analisado.</li>
+            <li><strong>Custo Unitário</strong>: Custo unitário do produto.</li>
+            <li><strong>Valor Total</strong>: Cálculo do valor total, ou seja, <strong>Qtd. Con.</strong> multiplicada pelo <strong>Custo Unitário</strong>.</li>
+            <li><strong>%</strong>: Percentual que esse produto representa no valor total dos produtos no estoque.</li>
+            <li><strong>% Acumulada</strong>: Porcentagem acumulada que esse produto contribui, considerando os produtos acima dele na lista.</li>
+            <li><strong>Classificação</strong>: Classificação ABC do produto (<strong>A</strong>, <strong>B</strong> ou <strong>C</strong>), onde:
+              <ul>
+                <li><strong>A</strong>: Produtos de alta prioridade que representam a maior parte do valor total acumulado do estoque.</li>
+                <li><strong>B</strong>: Produtos de importância média em termos de valor.</li>
+                <li><strong>C</strong>: Produtos de menor impacto no valor total do estoque, geralmente de baixo valor.</li>
+              </ul>
+            </li>
+          </ul>
+          <p>A tabela resume os dados dos produtos com base no valor financeiro, facilitando a visualização de quais produtos têm o maior impacto no estoque em termos de custo total.</p>
+
+          <h2>5. Informações Adicionais</h2>
+          <p>No rodapé da tabela, há um resumo total do valor consumido de todos os produtos exibidos.</p>
+
+          <h1>Dicas Finais</h1>
+          <ul>
+            <li>Utilize o filtro de categoria para analisar diferentes tipos de produtos de acordo com o seu valor financeiro.</li>
+            <li>Produtos classificados como "A" devem ser monitorados de perto, pois eles representam a maior parte do valor financeiro em estoque.</li>
+            <li>Utilize a Curva ABC por valor para otimizar a gestão de estoque, focando nos itens que têm mais impacto financeiro para o negócio.</li>
+          </ul>
+
+
+        </>
+
+    ) 
+
+    case 'CURVAABC':
+        return (
+          <> {/* TEM q ter esse baguio vazio englobando tudo (<>) pq o react é chato */}
+          <h1>Guia de Ajuda - Visualização de Curva ABC (Frequência)</h1>
+
+            <h1>Visão Geral</h1>
+            <p>Esta tela exibe a análise da Curva ABC dos produtos com base na sua frequência de movimentação no estoque. A Curva ABC é uma ferramenta que classifica os produtos de acordo com a sua importância, com o objetivo de priorizar os itens mais relevantes.</p>
+            <p>A visualização inclui um gráfico que demonstra a porcentagem acumulada dos produtos, e uma tabela detalhada com os dados da classificação de cada item.</p>
+
+            <h1>Como Usar</h1>
+
+            <h2>1. Voltar para a Tela Anterior</h2>
+            <p>Se precisar retornar à página anterior, clique no botão laranja "Voltar" no canto superior esquerdo da tela. Ele te levará de volta à página anterior do sistema.</p>
+
+            <h2>2. Selecione uma Categoria</h2>
+            <p>Acima do gráfico, há uma caixa de seleção para escolher a categoria de produtos que você deseja visualizar. Isso permite filtrar os produtos por categoria e exibir apenas os dados relevantes.</p>
+            <ul>
+              <li><strong>Categoria</strong>: Selecione a categoria desejada no dropdown. A categoria selecionada será exibida no gráfico e na tabela abaixo.</li>
+            </ul>
+
+            <h2>3. Visualização do Gráfico</h2>
+            <p>O gráfico exibe a frequência de consumo dos produtos dentro da categoria selecionada, mostrando a <strong>porcentagem acumulada</strong> em azul e os <strong>pontos de porcentagem acumulada</strong> destacados em vermelho.</p>
+            <ul>
+              <li><strong>Porcentagem Acumulada</strong>: Representa o consumo acumulado dos produtos conforme o número total de movimentações.</li>
+            </ul>
+
+            <h2>4. Análise da Tabela de Produtos</h2>
+            <p>Logo abaixo do gráfico, há uma tabela detalhada que exibe as seguintes informações:</p>
+            <ul>
+              <li><strong>Id</strong>: Identificação numérica do produto.</li>
+              <li><strong>Nome</strong>: Nome do produto.</li>
+              <li><strong>Qtd. Con.</strong>: Quantidade consumida do produto no período analisado.</li>
+              <li><strong>Custo Unitário</strong>: Custo unitário do produto.</li>
+              <li><strong>%</strong>: Percentual que esse produto representa no total de consumo.</li>
+              <li><strong>% Acumulada</strong>: Porcentagem acumulada que esse produto contribui, considerando os produtos acima dele na lista.</li>
+              <li><strong>Classificação</strong>: Classificação ABC do produto (<strong>A</strong>, <strong>B</strong> ou <strong>C</strong>), onde:
+                <ul>
+                  <li><strong>A</strong>: Produtos de alta prioridade e que representam a maior parte do consumo acumulado.</li>
+                  <li><strong>B</strong>: Produtos de importância média.</li>
+                  <li><strong>C</strong>: Produtos de menor impacto no total de consumo, geralmente de baixo consumo.</li>
+                </ul>
+              </li>
+            </ul>
+            <p>A tabela resume os dados dos produtos de acordo com a sua classificação ABC e consumo, permitindo uma análise detalhada de quais itens merecem maior atenção.</p>
+
+            <h2>5. Informações Adicionais</h2>
+            <p>No rodapé da tabela, há um resumo total da quantidade consumida de todos os produtos exibidos.</p>
+
+            <h1>Dicas Finais</h1>
+            <ul>
+              <li>Utilize o filtro de categoria para analisar diferentes tipos de produtos com mais precisão.</li>
+              <li>Observe a coluna "Classificação" para entender quais produtos são mais críticos em termos de consumo e foco de reposição.</li>
+              <li>A Curva ABC pode te ajudar a tomar decisões estratégicas sobre o estoque, alocando recursos para os produtos mais importantes.</li>
+            </ul>
+        </>
+
+    ) 
+
+    case 'CADASTROFORNECEDOR':
+        return (
+          <> {/* TEM q ter esse baguio vazio englobando tudo (<>) pq o react é chato */}
+          <h1>Guia de Ajuda - Cadastro de Fornecedor</h1>
+
+        <h1>Visão Geral</h1>
+        <p>Esta tela permite o cadastro de fornecedores no sistema, bem como a visualização da lista de fornecedores já cadastrados. O cadastro inclui informações básicas como nome, CNPJ, endereço, telefone, email, e status do fornecedor (ativo ou inativo).</p>
+
+        <h1>Como Usar</h1>
+
+        <h2>1. Voltar para a Tela Anterior</h2>
+        <p>Para retornar à página anterior, clique no botão laranja "Voltar", localizado no canto superior esquerdo da tela. Esse botão o levará de volta à interface anterior do sistema.</p>
+
+        <h2>2. Cadastro de um Novo Fornecedor</h2>
+        <p>No lado esquerdo da tela, há um formulário para o cadastro de novos fornecedores. Você precisará preencher as seguintes informações:</p>
+        <ul>
+          <li><strong>Nome do Fornecedor</strong>: Informe o nome completo do fornecedor. Exemplo: "Fornecedor ABC".</li>
+          <li><strong>CNPJ</strong>: Digite o CNPJ do fornecedor no formato 00.000.000/0000-00.</li>
+          <li><strong>Endereço</strong>: Informe o endereço completo do fornecedor, incluindo número e bairro. Exemplo: "Av. Brasil, 0000 - Centro".</li>
+          <li><strong>Telefone</strong>: Insira o telefone de contato no formato (00) 00000-0000.</li>
+          <li><strong>Email</strong>: Preencha o email de contato do fornecedor.</li>
+          <li><strong>Status</strong>: O status pode ser configurado como <strong>Ativo</strong> ou <strong>Inativo</strong>, dependendo da situação do fornecedor.</li>
+        </ul>
+        <p>Após preencher todos os campos, clique no botão laranja "Cadastrar Fornecedor" para salvar as informações no sistema.</p>
+
+        <h2>3. Visualização da Lista de Fornecedores</h2>
+        <p>No lado direito da tela, você encontrará uma lista de fornecedores já cadastrados. As informações exibidas incluem:</p>
+        <ul>
+          <li><strong>Nome do Fornecedor</strong>: O nome do fornecedor cadastrado.</li>
+          <li><strong>CNPJ</strong>: O CNPJ do fornecedor.</li>
+          <li><strong>Endereço</strong>: O endereço do fornecedor.</li>
+          <li><strong>Email</strong>: O email de contato do fornecedor.</li>
+          <li><strong>Telefone</strong>: O telefone de contato do fornecedor.</li>
+          <li><strong>Status</strong>: O status atual do fornecedor (Ativo/Inativo).</li>
+        </ul>
+
+        <h1>Dicas Finais</h1>
+        <ul>
+          <li>Certifique-se de preencher todas as informações obrigatórias no formulário de cadastro para garantir o correto registro no sistema.</li>
+          <li>Use a funcionalidade de status para gerenciar fornecedores ativos e inativos de forma eficiente.</li>
+          <li>Verifique os dados dos fornecedores na lista à direita para assegurar que estão corretos e atualizados.</li>
+        </ul>
+
+        </>
+
+    ) 
+
+    case 'PESQUISAPRODUTO':
+        return (
+          <> {/* TEM q ter esse baguio vazio englobando tudo (<>) pq o react é chato */}
+          <h1>Guia de Ajuda - Pesquisa de Produtos</h1>
+
+        <h1>Visão Geral</h1>
+        <p>Esta tela permite realizar a busca de produtos disponíveis, filtrados por fornecedores, categorias ou pelo nome do produto. Além disso, é possível visualizar a lista de produtos com seus respectivos códigos e solicitar um pedido diretamente pela interface.</p>
+
+        <h1>Como Usar</h1>
+
+        <h2>1. Voltar para a Tela Anterior</h2>
+        <p>Para retornar à página anterior, clique no botão laranja "Voltar" no canto superior esquerdo da tela. Isso o levará de volta à página anterior no sistema.</p>
+
+        <h2>2. Pesquisa de Produtos</h2>
+        <p>No topo da tela, há três opções de pesquisa disponíveis:</p>
+        <ul>
+          <li><strong>Pesquisar Fornecedor</strong>: Utilize esta opção para filtrar os produtos de acordo com o fornecedor específico.</li>
+          <li><strong>Pesquisar Categorias</strong>: Esta opção permite filtrar os produtos conforme sua categoria, como eletrônicos, acessórios, etc.</li>
+          <li><strong>Pesquisar Produto</strong>: Utilize o campo de busca para procurar um produto específico pelo nome.</li>
+        </ul>
+
+        <h2>3. Lista de Produtos</h2>
+        <p>Na parte central da tela, você encontrará a lista de produtos disponíveis para pedido. Para cada produto, são exibidas as seguintes informações:</p>
+        <ul>
+          <li><strong>Nome do Produto</strong>: Exemplo - "Monitor Gamer 144hz".</li>
+          <li><strong>Código</strong>: Cada produto tem um código único. Exemplo - "Código: 1".</li>
+        </ul>
+        <p>Para solicitar um produto, clique no botão laranja "Pedir produto" correspondente ao item desejado.</p>
+
+        <h1>Dicas Finais</h1>
+        <ul>
+          <li>Certifique-se de utilizar os filtros de pesquisa para localizar o produto correto de maneira eficiente.</li>
+          <li>Antes de solicitar um produto, confira o código para garantir que é o item certo.</li>
+          <li>Utilize o botão "Voltar" sempre que quiser navegar para a tela anterior.</li>
+        </ul>
+
+        </>
+
+    ) 
+
+    case 'GESTAOLOTEECONOMICO':
+        return (
+          <> {/* TEM q ter esse baguio vazio englobando tudo (<>) pq o react é chato */}
+      <h1>Guia de Ajuda - Gestão do Lote Econômico</h1>
+
+      <h1>Visão Geral</h1>
+      <p>Esta tela permite gerenciar o cálculo do Lote Econômico de Compra (LEC) para os produtos listados. O LEC é utilizado para determinar a quantidade ideal de compra de um produto, minimizando os custos totais relacionados ao pedido e ao estoque. A interface também permite editar valores relacionados aos produtos e visualizar detalhes específicos.</p>
+
+      <h1>Como Usar</h1>
+
+      <h2>1. Voltar para a Tela Anterior</h2>
+      <p>Para retornar à página anterior, clique no botão laranja "Voltar" no canto superior esquerdo. Isso o levará de volta à página anterior no sistema.</p>
+
+      <h2>2. Pesquisa de Produtos</h2>
+      <p>No topo da lista de produtos, há um campo de busca onde você pode procurar um produto específico pelo nome. Basta digitar o nome do produto no campo "Pesquisar produto..." e a lista será filtrada automaticamente.</p>
+
+      <h2>3. Lista de Produtos</h2>
+      <p>Na parte esquerda da tela, você verá uma lista de produtos. Cada produto exibe as seguintes informações:</p>
+      <ul>
+        <li><strong>Nome do Produto</strong>: O nome do item, como "Monitor Gamer 144hz".</li>
+        <li><strong>CP (Custo de Pedido)</strong>: O custo associado ao pedido do produto. Exemplo: "CP: 1.82".</li>
+        <li><strong>CA (Custo de Armazenamento)</strong>: O custo associado ao armazenamento do produto. Exemplo: "CA: 0.87".</li>
+        <li><strong>LEC (Lote Econômico de Compra)</strong>: O valor do lote econômico calculado para o produto. Exemplo: "LEC: 174.57".</li>
+      </ul>
+      <p>Para editar os valores do produto, clique no botão laranja "Editar Valor" correspondente ao item desejado.</p>
+
+      <h2>4. Detalhes do Produto Selecionado</h2>
+      <p>Ao clicar em "Editar Valor" para um produto, os detalhes serão exibidos na parte direita da tela. Você poderá ajustar os seguintes campos:</p>
+      <ul>
+        <li><strong>Período</strong>: Selecione o período de cálculo (Anual, Semestral, etc.).</li>
+        <li><strong>Valor de Despesas (Anual)</strong>: Insira o valor das despesas relacionadas ao produto para o período selecionado.</li>
+        <li><strong>Quantidade de Produtos Estocados (Anual)</strong>: Informe a quantidade de produtos atualmente em estoque para o período escolhido.</li>
+        <li><strong>Número de Pedidos (Anual)</strong>: Insira o número total de pedidos feitos para o produto no período.</li>
+        <li><strong>Demanda (Anual)</strong>: Defina a demanda total do produto para o período selecionado.</li>
+      </ul>
+      <p>Após preencher ou ajustar os valores, clique no botão laranja "Atualizar" para salvar as alterações ou no botão "Fechar" para cancelar e voltar à lista de produtos.</p>
+
+      <h1>Dicas Finais</h1>
+      <ul>
+        <li>Use a funcionalidade de pesquisa para localizar rapidamente o produto desejado.</li>
+        <li>Mantenha os dados de custos de pedido e armazenamento atualizados para obter cálculos de LEC precisos.</li>
+        <li>Ao editar os detalhes de um produto, certifique-se de revisar todos os campos antes de clicar em "Atualizar" para garantir a precisão das informações.</li>
+      </ul>
+
+        </>
+
+    ) 
+
+    case 'LOGS':
+        return (
+          <> {/* TEM q ter esse baguio vazio englobando tudo (<>) pq o react é chato */}
+      <h1>Guia de Ajuda - Logs de Consumo</h1>
+
+      <h1>Visão Geral</h1>
+      <p>Esta tela apresenta os logs relacionados ao consumo de produtos, categorizados por tipos de visão, como "Curva ABC". É possível verificar dados de consumo de produtos antigos e novos, bem como visualizar informações sobre autores, datas e justificativas para alterações.</p>
+
+      <h1>Como Usar</h1>
+
+      <h2>1. Voltar para a Tela Anterior</h2>
+      <p>Assim como nas outras páginas, o botão laranja "Voltar" no canto superior esquerdo leva de volta à página anterior no sistema.</p>
+
+      <h2>2. Filtro de Tipo de Visão</h2>
+      <p>No topo da tabela de logs, você pode selecionar o tipo de visão que deseja visualizar usando o menu suspenso ao lado do texto "Filtrar por tipo de visão:". Exemplo de tipo de visão: "curvaabc". Ao selecionar uma visão, a tabela é filtrada automaticamente para mostrar apenas os registros correspondentes a essa visão.</p>
+
+      <h2>3. Tabela de Logs</h2>
+      <p>A tabela de logs mostra uma lista detalhada de registros para os produtos consumidos. Cada linha contém as seguintes colunas:</p>
+      <ul>
+        <li><strong>Tipo de Visão</strong>: Indica o tipo de visão, como "curvaabc", relacionada ao produto exibido.</li>
+        <li><strong>Produto</strong>: Exibe detalhes do produto, como:
+          <ul>
+            <li><strong>Nome do Produto</strong>: Exemplo, "Monitor Gamer 144hz".</li>
+            <li><strong>Id do Produto</strong>: Exemplo, "Id: 1".</li>
+            <li><strong>Categoria</strong>: O número da categoria e a descrição. Exemplo, "1 - Periféricos".</li>
+          </ul>
+        </li>
+        <li><strong>Quantidade de Consumo</strong>: Exibe a quantidade de produtos consumidos, separando os valores para "Antigos" e "Novos". Os valores antigos que não possuem dados aparecem com a mensagem "Não possui". Exemplo:
+          <ul>
+            <li><strong>Antigos:</strong> "Não possui" (em vermelho).</li>
+            <li><strong>Novos:</strong> "100" (em verde).</li>
+          </ul>
+        </li>
+        <li><strong>Autor</strong>: Exibe o nome da pessoa que fez a alteração ou inclusão do registro. Exemplo: "Ana Silva".</li>
+        <li><strong>Data</strong>: A data e hora em que o log foi registrado. Exemplo: "2024-09-23 20:28:59".</li>
+        <li><strong>Justificativa</strong>: Exibe uma justificativa opcional para o registro, como "Conforme observado por Miguel Lima".</li>
+      </ul>
+
+      <h2>4. Interpretação dos Valores</h2>
+      <p>Na coluna "Quantidade de Consumo", você verá duas categorias de produtos: </p>
+      <ul>
+        <li><strong>Antigos:</strong> Indica o consumo de produtos que já estavam no sistema.</li>
+        <li><strong>Novos:</strong> Indica o consumo de produtos que foram recentemente adicionados ou atualizados no sistema.</li>
+      </ul>
+      <p>Essas informações são destacadas em cores diferentes (vermelho para antigos e verde para novos) para facilitar a visualização rápida.</p>
+
+      <h1>Dicas Finais</h1>
+      <ul>
+        <li>Utilize o filtro "Tipo de Visão" para concentrar sua análise em um grupo específico de produtos ou visão.</li>
+        <li>Verifique as justificativas e datas para entender melhor o contexto de alterações nos registros de consumo.</li>
+        <li>Mantenha os dados de consumo atualizados para que os logs reflitam informações precisas e úteis para a tomada de decisão.</li>
+      </ul>
+
+        </>
+
+    ) 
+
+    case 'ADDFUNCIONARIOS':
+      return (
+        <> {/* TEM q ter esse baguio vazio englobando tudo (<>) pq o react é chato */}
+    <h1>Guia de Ajuda - Tela de Adição de Funcionários</h1>
+
+    <h1>Visão Geral</h1>
+    <p>Nesta tela, você pode adicionar novos funcionários ao sistema preenchendo informações básicas como nome, CPF, email, telefone, e o nível de acesso. A tela é simples e direta, facilitando o cadastro de novos colaboradores. Vamos ver como usá-la!</p>
+
+    <h1>Como Usar</h1>
+
+    <h2>1. Voltar à Página Anterior</h2>
+    <p>Se precisar retornar à página anterior sem salvar o cadastro, clique no botão vermelho "Voltar". Isso te levará de volta sem realizar nenhuma ação no sistema.</p>
+
+    <h2>2. Preenchendo as Informações</h2>
+    <p>Preencha os campos solicitados com as seguintes informações:</p>
+    <ul>
+      <li><strong>Nome:</strong> Digite o nome completo do funcionário.</li>
+      <li><strong>CPF:</strong> Insira o CPF do funcionário no formato correto (___ . ___. ___ - __).</li>
+      <li><strong>Email:</strong> Informe o email que será usado para contato e comunicação.</li>
+      <li><strong>Telefone:</strong> Coloque o número de telefone no formato adequado para facilitar o contato (com DDD).</li>
+    </ul>
+
+    <h2>3. Definindo o Nível de Acesso</h2>
+    <p>Você verá duas opções de nível de acesso:</p>
+    <ul>
+      <li><strong>Acesso 0:</strong> Esse nível é para funcionários com permissões básicas no sistema.</li>
+      <li><strong>Acesso 1:</strong> Esse nível é para funcionários com permissões administrativas ou maiores responsabilidades.</li>
+    </ul>
+    <p>Selecione o nível apropriado de acordo com as funções do funcionário.</p>
+
+    <h2>4. Enviando os Dados</h2>
+    <p>Depois de preencher todas as informações corretamente, clique no botão laranja "Enviar" para cadastrar o funcionário no sistema.</p>
+    <p>Verifique se todos os dados estão corretos antes de enviar, pois qualquer erro pode comprometer o cadastro do funcionário.</p>
+
+    <h1>Dicas Finais</h1>
+    <p>Revise os dados antes de enviar, especialmente o CPF e email, para evitar possíveis problemas de cadastro.</p>
+    <p>Se cometer algum erro, basta corrigir antes de enviar ou voltar à página anterior para começar novamente.</p>
+
+
+      </>
+
+  ) 
+
       default:
         return (
           <>

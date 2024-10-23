@@ -9,6 +9,8 @@ import { UserContext } from "../../../Context/UserContext.js";
 import Titulo from "../../../Components/Titulo.jsx";
 import FiltragemFornecedor from '../../../Components/FiltragemFornecedor';
 import FiltragemCategoria from "../../../Components/FiltragemCategoria";
+import BtnAjuda from "../../../Components/BtnAjuda.js";
+
 
 // Componente Modal
 function Modal({ show, handleClose, produto, onConfirm }) {
@@ -60,6 +62,8 @@ function PagPesquisaFornecedor() {
     const [FiltroCategoria, setFiltroCategoriaSelecionada] = useState('sem filtro');
     const [mensagemVazia, setMensagemVazia] = useState(false); 
     const [showModal, setShowModal] = useState(false);
+
+    const [showPopup, setShowPopup] = useState(false); // variaveis para o btnAjuda
 
     // Função para agrupar produtos por fornecedor
     const agruparProdutosPorFornecedores = (produtos, fornecedores) => {
@@ -168,6 +172,21 @@ function PagPesquisaFornecedor() {
 
                 <Titulo tituloMsg="Pesquisa de Produtos" />
                 <AlertaNotificação />
+
+                <header className="cabecalhoBtnAjuda">
+                <div className="Botaoajuda" onClick={() => {setShowPopup(true)}}> {/*crie um botão que no onClick faz o setShowPopup ficar true */}
+                Ajuda
+                </div>
+                </header>
+
+                <div className="BtnAjuda">
+                {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
+                    <BtnAjuda /* chama o btnAjuda */
+                    fechar={() => {setShowPopup(false)}} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
+                    msgChave={"PESQUISAPRODUTO"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
+                    />
+                )}
+                </div> 
                 <button className="voltar" onClick={() => { navigate("/PagEscolhaPontoDePedido"); }}>
                     Voltar
                 </button>

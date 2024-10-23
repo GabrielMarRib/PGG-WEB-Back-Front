@@ -7,6 +7,8 @@ import { UserContext } from "../../../Context/UserContext";
 import RedirectAcesso from "../../../Functions/RedirectAcesso";
 import axios from "axios";
 import Titulo from "../../../Components/Titulo";
+import BtnAjuda from "../../../Components/BtnAjuda.js";
+
 function CurvaABC() {
     const [dadosCurvaABC, setDadosCurvaABC] = useState([]);
     const [carregando, setCarregando] = useState(false);
@@ -17,6 +19,8 @@ function CurvaABC() {
     const UserOBJ = useContext(UserContext);
     const User = UserOBJ.User;
     const navigate = useNavigate();
+
+    const [showPopup, setShowPopup] = useState(false); // variaveis para o btnAjuda
 
     RedirectAcesso(User, 1);
 
@@ -151,6 +155,22 @@ function CurvaABC() {
             <Titulo
                 tituloMsg='Visualização de Curva ABC (Frequência)'
             />
+
+            <header className="cabecalhoBtnAjuda">
+                <div className="Botaoajuda" onClick={() => {setShowPopup(true)}}> {/*crie um botão que no onClick faz o setShowPopup ficar true*/}
+                Ajuda
+                </div>
+            </header>
+
+            <div className="BtnAjuda">
+            {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
+                <BtnAjuda /* chama o btnAjuda */
+                fechar={() => {setShowPopup(false)}} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
+                msgChave={"CURVAABCFREQUENCIA"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
+                />
+            )}
+            </div> 
+
             <div className="btn">
                 <button className="Voltar" onClick={() => navigate("/PagEscolhaCurvaABC")}>
                     Voltar

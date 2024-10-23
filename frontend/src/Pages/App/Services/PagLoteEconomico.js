@@ -8,6 +8,7 @@ import AlertaNotificação from "../../../Components/AlertaNotificação";
 import { useAlerta } from "../../../Context/AlertaContext";
 import { useNavigate } from "react-router-dom";
 import Tooltip from '../../../Components/Dica.js'; // Importando o componente Tooltip
+import BtnAjuda from "../../../Components/BtnAjuda.js";
 
 function PagLoteEconomico() {
   const [DadosLoteEconomico, setDadosLoteEconomico] = useState([]);
@@ -26,6 +27,8 @@ function PagLoteEconomico() {
   const [Quantia_Produtos_Estocados, setQuantia_Produtos_Estocados] = useState("");
   const [Numero_Pedidos_Anuais, setNumero_Pedidos_Anuais] = useState("");
   const [demanda_anual, setdemanda_anual] = useState("");
+
+  const [showPopup, setShowPopup] = useState(false); // variaveis para o btnAjuda
 
   const [periodo, setPeriodo] = useState("anual"); // Adicionando estado para o período
 
@@ -160,6 +163,21 @@ function PagLoteEconomico() {
         <CabecalhoHome />
       </div>
       <Titulo tituloMsg='Gestão do Lote Econômico' />
+
+      <header className="cabecalhoBtnAjuda">
+          <div className="Botaoajuda" onClick={() => {setShowPopup(true)}}> {/*crie um botão que no onClick faz o setShowPopup ficar true */}
+          Ajuda
+          </div>
+        </header>
+
+        <div className="BtnAjuda">
+          {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
+            <BtnAjuda /* chama o btnAjuda */
+              fechar={() => {setShowPopup(false)}} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
+              msgChave={"GESTAOLOTEECONOMICO"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
+            />
+          )}
+        </div> 
       <div className="btn">
         <button className="Voltar" onClick={() => navigate("/PagHome")}>
           Voltar

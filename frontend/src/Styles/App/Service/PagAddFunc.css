@@ -1,8 +1,4 @@
-.PagAddFunc *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'JetBrains Mono';
+.PagAddFunc *{ 
   }
   
   .PagAddFunc div.btn{
@@ -30,7 +26,7 @@
     text-align: left;
   }
   
-  .PagAddFunc h1{
+  .PagAddFunc .titulocadastro h1{
     text-align: center;
   }
   
