@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import CabecalhoHome from "../../../Components/CabecalhoHome";
 import "../../../Styles/App/Service/PagLoteEconomico.css";
 import lupa from "../../../Assets/lupa.png";
@@ -14,6 +14,7 @@ function PagLoteEconomico() {
   const navigate = useNavigate();
   const [pesquisaProduto, setPesquisaProduto] = useState("");
   const { Alerta } = useAlerta();
+  const [periodoSelecionado, setPeriodoSelecionado] = useState("anual");
 
   const [respostaPesquisa, setRespostaPesquisa] = useState({});
   const [isVisibleForms, setIsVisibleForms] = useState(false);
@@ -26,20 +27,45 @@ function PagLoteEconomico() {
   const [Numero_Pedidos_Anuais, setNumero_Pedidos_Anuais] = useState("");
   const [demanda_anual, setdemanda_anual] = useState("");
 
+  const [periodo, setPeriodo] = useState("anual"); // Adicionando estado para o período
+
+  const periodos = [
+    { id: "semanal", nome: "Semanal" },
+    { id: "mensal", nome: "Mensal" },
+    { id: "anual", nome: "Anual" }
+  ];
+
+  const converterParaAnual = (valor) => {
+    switch (periodo) {
+      case "semanal":
+        return valor * 52;
+      case "mensal":
+        return valor * 12;
+      default:
+        return valor;
+    }
+  };
+
   const CalcularLoteEconomico = async () => {
     if (Valor_despesas_Anuais === "" || Quantia_Produtos_Estocados === "" || Numero_Pedidos_Anuais === "" || demanda_anual === "") {
       Alerta(1, "Campos não preenchidos");
       return;
     }
 
+    // Convertendo os valores para formato anual
+    const despesasAnuaisConvertidas = converterParaAnual(Valor_despesas_Anuais);
+    const quantiaEstocadaConvertida = converterParaAnual(Quantia_Produtos_Estocados);
+    const pedidosAnuaisConvertidos = converterParaAnual(Numero_Pedidos_Anuais);
+    const demandaAnualConvertida = converterParaAnual(demanda_anual);
+
     try {
       const response = await axios.post("http://pggzettav3.mooo.com/api/index.php", {
         funcao: "atualizaLoteEconomico",
         senha: "@7h$Pz!q2X^vR1&K",
-        Valor_despesas_Anuais,
-        demanda_anual,
-        Quantia_Produtos_Estocados,
-        Numero_Pedidos_Anuais,
+        Valor_despesas_Anuais: despesasAnuaisConvertidas,
+        demanda_anual: demandaAnualConvertida,
+        Quantia_Produtos_Estocados: quantiaEstocadaConvertida,
+        Numero_Pedidos_Anuais: pedidosAnuaisConvertidos,
         idProduto,
       });
 
@@ -56,7 +82,7 @@ function PagLoteEconomico() {
     }
   };
 
-  const mostrarForms = (item, hashAtual, Existe) => {
+  const mostrarForms = (item, hashAtual) => {
     if (ItemAtual === item) {
       setIsVisibleForms(!isVisibleForms);
     }
@@ -64,16 +90,14 @@ function PagLoteEconomico() {
     setIdProduto(hashAtual);
   };
   
-const FecharJanela = () => {
+  const FecharJanela = () => {
     setIsVisibleForms(!isVisibleForms);
-}
+  };
 
   const pegaProdutos = (item) => {
     let CP = item.custoPedido === null ? "Nenhum valor ainda" : Math.sqrt(item.custoPedido).toFixed(2);
     let CA = item.custoArmazem === null ? "Nenhum valor ainda" : Math.sqrt(item.custoArmazem).toFixed(2);
     let LE = item.calculoLote === null ? "Nenhum valor ainda" : Math.sqrt(item.calculoLote).toFixed(2); 
-
-    
 
     return (
       <div key={item.idProduto} className="DivsItens">
@@ -96,15 +120,9 @@ const FecharJanela = () => {
               </Tooltip>
             </div>
             <br />
-            {respostaPesquisa[item.idProduto]?.RespostaExiste === true ? (
-              <button onClick={() => mostrarForms(item.produtoNome, item.idProduto)}>
-                Editar item
-              </button>
-            ) : (
-              <button onClick={() => mostrarForms(item.produtoNome, item.idProduto, false)}>
-                Editar Valor  
-              </button>
-            )}
+            <button onClick={() => mostrarForms(item.produtoNome, item.idProduto)}>
+              Editar Valor
+            </button>
           </div>
         </div>
       </div>
@@ -119,7 +137,6 @@ const FecharJanela = () => {
       });
       if (response.status === 200) {
         setDadosLoteEconomico(response.data);
-        console.log(response);
       } else {
         console.log("Erro 500: deu ruim");
       }
@@ -141,9 +158,7 @@ const FecharJanela = () => {
       <div className="CabecalhoHome">
         <CabecalhoHome />
       </div>
-      <Titulo
-        tituloMsg='Gestão do Lote Econômico'
-      />
+      <Titulo tituloMsg='Gestão do Lote Econômico' />
       <div className="btn">
         <button className="Voltar" onClick={() => navigate("/PagHome")}>
           Voltar
@@ -168,19 +183,26 @@ const FecharJanela = () => {
           </ul>
         </div>
 
-        <div
-          className={isVisibleForms
-            ? "ContainerFormularioLoteEconomicoShow"
-            : "ContainerFormularioLoteEconomico"
-          }
-        >
+        <div className={isVisibleForms ? "ContainerFormularioLoteEconomicoShow" : "ContainerFormularioLoteEconomico"}>
           <div className="container-tela-produtos">
             <div className="grupo-input-produto">
               <center>
                 <h2>Lote Economico: {ItemAtual}</h2>
               </center>
+
               <div className="grupo-input">
-                <label htmlFor="ValorDespeza">Valor de despesas anuais</label>
+                <label htmlFor="periodo">Período:</label>
+                <select value={periodo} onChange={(e) => setPeriodo(e.target.value)}>
+                  {periodos.map((periodo) => (
+                    <option key={periodo.id} value={periodo.id}>
+                      {periodo.nome}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="grupo-input">
+                <label htmlFor="ValorDespeza">Valor de despesas ({periodo})</label>
                 <input
                   type="number"
                   id="InputValorDespeza"
@@ -188,20 +210,19 @@ const FecharJanela = () => {
                   onChange={(e) => setValor_despesas_Anuais(e.target.value)}
                 />
               </div>
+
               <div className="grupo-input">
-                <label htmlFor="QtdProdutoEstocado">
-                  Quantia de produtos estocados anuais
-                </label>
+                <label htmlFor="ValorEstoque">Quantia de produtos estocados ({periodo})</label>
                 <input
                   type="number"
-                  id="InputQtdProdutoEstocado"
+                  id="InputQuantiaProdutos"
                   value={Quantia_Produtos_Estocados}
                   onChange={(e) => setQuantia_Produtos_Estocados(e.target.value)}
                 />
               </div>
 
               <div className="grupo-input">
-                <label htmlFor="NumeroPedidos">Número de pedidos anuais</label>
+                <label htmlFor="ValorPedidos">Número de pedidos ({periodo})</label>
                 <input
                   type="number"
                   id="InputNumeroPedidos"
@@ -209,8 +230,9 @@ const FecharJanela = () => {
                   onChange={(e) => setNumero_Pedidos_Anuais(e.target.value)}
                 />
               </div>
+
               <div className="grupo-input">
-                <label htmlFor="demanda_anual">Demanda Anual</label>
+                <label htmlFor="demanda_anual">Demanda ({periodo})</label>
                 <input
                   type="number"
                   id="Inputdemanda_anual"
