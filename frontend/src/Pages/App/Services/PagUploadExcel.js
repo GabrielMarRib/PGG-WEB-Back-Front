@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import "../../../Styles/App/Service/PagUploadExcel.css";
 import CabecalhoHome from "../../../Components/CabecalhoHome.js";
 import Titulo from "../../../Components/Titulo.jsx";
@@ -7,6 +7,7 @@ import axios from 'axios';
 import * as XLSX from 'xlsx'; // Novo pacote npm no Front para manipular arquivos Excel (npm install xlsx)
 import AlertaNotificação from "../../../Components/AlertaNotificação.js";
 import { useAlerta } from "../../../Context/AlertaContext.js";
+import { UserContext } from "../../../Context/UserContext";
 
 function PagUploadExcel() {
     const { Alerta } = useAlerta();
@@ -22,7 +23,8 @@ function PagUploadExcel() {
     const [mostrarPopup, setMostrarPopup] = useState(false);
     const [importacaoParaDeletar, setImportacaoParaDeletar] = useState(null);
     const [nomeArquivoDeletar, setNomeArquivoDeletar] = useState(""); // Estado para armazenar o nome do arquivo a ser deletado
-
+    const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
+    const User = UserOBJ.User; //Pega só o User....
 
     const navigate = useNavigate();
 
@@ -60,32 +62,48 @@ function PagUploadExcel() {
     const lidarComUploadArquivo = (evento) => {
         const arquivo = evento.target.files[0]; // Captura o arquivo selecionado
         if (!arquivo) return;
-
+    
         const extensaoArquivo = arquivo.name.split('.').pop().toLowerCase();
         if (!['xls', 'xlsx'].includes(extensaoArquivo)) {
             Alerta(1, "Formato de arquivo inválido. Por favor, envie um arquivo .xls ou .xlsx.");
             return;
         }
+        
         if (arquivo) {
             setNomeArquivo(arquivo.name); // Armazena o nome do arquivo
             const leitor = new FileReader();
-
+    
             // Quando o leitor termina de carregar o arquivo, processa os dados
             leitor.onload = (e) => {
                 const binaryStr = e.target.result;
                 const workbook = XLSX.read(binaryStr, { type: 'binary' }); // Lê o arquivo como binário
                 const worksheet = workbook.Sheets[workbook.SheetNames[0]]; // Pega a primeira aba da planilha
-                const dadosDaPlanilha = XLSX.utils.sheet_to_json(worksheet, { header: 1 }); // Converte para JSON com cabeçalho
+                let dadosDaPlanilha = XLSX.utils.sheet_to_json(worksheet, { header: 1 }); // Converte para JSON com cabeçalho
+                
                 // Verifique se a primeira linha está duplicada
                 if (dadosDaPlanilha.length > 1 && JSON.stringify(dadosDaPlanilha[0]) === JSON.stringify(dadosDaPlanilha[1])) {
                     dadosDaPlanilha.shift(); // Remove a primeira linha de cabeçalhos duplicados
                 }
+    
+                // Converte dt_compra para formato YYYY-MM-DD
+                for (let i = 1; i < dadosDaPlanilha.length; i++) { // Começa em 1 para ignorar o cabeçalho
+                    const row = dadosDaPlanilha[i];
+                    if (row[5]) { // Verifica se a data existe na coluna dt_compra (índice 5)
+                        const excelTimestamp = row[5];
+                        const date = new Date((excelTimestamp - (25567 + 2)) * 86400 * 1000);
+                        const formattedDate = date.toISOString().split('T')[0]; // Converte para YYYY-MM-DD
+                        row[5] = formattedDate; // Atualiza a data na linha
+                    }
+                }
+    
                 console.log(dadosDaPlanilha);
                 setDadosImportados(dadosDaPlanilha); // Armazena os dados importados no estado
             };
+    
             leitor.readAsBinaryString(arquivo); // Lê o arquivo como string binária
         }
     };
+    
 
     // Função que envia os dados da planilha importada para o servidor
     const lidarComSubmit = async () => {
@@ -156,7 +174,8 @@ function PagUploadExcel() {
             const resposta = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
                 senha: "@7h$Pz!q2X^vR1&K",
                 funcao: "inserirProdutosJson",
-                dados: JSON.parse(importacao.dados)
+                id_importacoes: id,
+                id_usuario: User.id
             });
 
             Alerta(2, "Dados enviados para o estoque com sucesso!");
