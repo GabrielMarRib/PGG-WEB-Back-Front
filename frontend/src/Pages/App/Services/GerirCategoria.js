@@ -91,7 +91,7 @@ function GerirCategoria() {
 
   }, []);
   useEffect(() => {
-    SetCodigoDisponivel(categorias.length + 1);
+    SetCodigoDisponivel(categorias.length + 2);
   }, [categorias]);
 
   useEffect(() => {
