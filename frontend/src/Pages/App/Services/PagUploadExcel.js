@@ -148,6 +148,24 @@ function PagUploadExcel() {
         }
     };
 
+    const enviarParaEstoque = async (id) => {
+        const importacao = importacoes.find(importacao => importacao.id === id);
+        if (!importacao) return;
+
+        try {
+            const resposta = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
+                senha: "@7h$Pz!q2X^vR1&K",
+                funcao: "inserirProdutosJson",
+                dados: JSON.parse(importacao.dados)
+            });
+
+            Alerta(2, "Dados enviados para o estoque com sucesso!");
+        } catch (error) {
+            Alerta(3, "Erro ao enviar dados para o estoque.");
+            console.log("Erro ao enviar para o estoque:", error.response ? error.response.data : error.message);
+        }
+    };
+
     const cancelarDelecao = () => {
         setMostrarPopup(false);
         setImportacaoParaDeletar(null);
@@ -175,13 +193,13 @@ function PagUploadExcel() {
         setRegistrosPorPagina(Number(e.target.value));
         setPaginaAtual(1);
     };
-    
+
     // Função que renderiza a tabela expandida com paginação
     const formatarDadosImportacao = (dados) => {
         if (dados.length === 0) return null; // Não renderiza nada se não houver dados
-    
+
         const dadosPaginados = calcularDadosPaginados(dados, paginaAtualExpandida, registrosPorPaginaExpandida);
-    
+
         return (
             <div>
                 <table>
@@ -337,7 +355,7 @@ function PagUploadExcel() {
                         </label>
                     </div>
                     <div className="areaInput">
-                        <input 
+                        <input
                             id="upload-arquivo"
                             className='btnInput'
                             type="file"
@@ -345,7 +363,7 @@ function PagUploadExcel() {
                             onChange={lidarComUploadArquivo}
                         />
                         <label for="upload-arquivo" class="botao-upload">Selecionar Arquivo</label>
-                        
+
                     </div>
                 </div>
 
@@ -370,20 +388,25 @@ function PagUploadExcel() {
                 )}
 
                 <div className="tabela-dados">
-                {importacaoExpandida && (
-                                <div className="tabela-dados-expandida">
-                                    <h3 style={{ flex: 1 }}>
-                                        Dados da Importação -
-                                        <span style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline', marginLeft: '8px' }}>
-                                            {importacoes.find(importacao => importacao.id === importacaoExpandida).nome_arquivo}
-                                        </span>
-                                    </h3>
-                                    <button className="btn-fechar" onClick={() => setImportacaoExpandida(null)}>
-                                        X
-                                    </button>
-                                    {formatarDadosImportacao(JSON.parse(importacoes.find(importacao => importacao.id === importacaoExpandida).dados))}
-                                </div>
-                            )}
+                    {importacaoExpandida && (
+                        <div className="tabela-dados-expandida">
+                            <h3 style={{ flex: 1 }}>
+                                Dados da Importação -
+                                <span style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline', marginLeft: '8px' }}>
+                                    {importacoes.find(importacao => importacao.id === importacaoExpandida).nome_arquivo}
+                                </span>
+                            </h3>
+                            <button className="btn-fechar" onClick={() => setImportacaoExpandida(null)}>
+                                X
+                            </button>
+
+                            {formatarDadosImportacao(JSON.parse(importacoes.find(importacao => importacao.id === importacaoExpandida).dados))}
+
+                            <button className="btn-enviar-estoque" onClick={() => enviarParaEstoque(importacaoExpandida)}>
+                                Enviar para Estoque
+                            </button>
+                        </div>
+                    )}
                     <h3 className='TextoH3'>Importações Salvas</h3>
                     {carregando ? (
                         <p>Carregando...</p>
@@ -409,7 +432,7 @@ function PagUploadExcel() {
                                             >
                                                 {importacao.nome_arquivo}
                                             </td>
-                                            <td>{ Date(excelBaseDate.getTime() + (importacao.data_importacao - 1) * 24 * 60 * 60 * 1000) }</td>
+                                            <td>{new Date(importacao.data_importacao).toLocaleString()}</td>
                                             <td>
                                                 <button className="btn-deletar" onClick={() => lidarComDeletar(importacao.id)}>Deletar</button>
                                             </td>
@@ -417,7 +440,7 @@ function PagUploadExcel() {
                                     ))}
                                 </tbody>
                             </table>
-                            
+
                         </div>
                     )}
                 </div>
