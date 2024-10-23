@@ -309,6 +309,7 @@ function PagUploadExcel() {
             setImportacaoExpandida(id); // Expande a tabela
         }
     };
+    const excelBaseDate = new Date(Date.UTC(1900, 0, 1));
     return (
         <div className="PagUploadExcel">
             <CabecalhoHome />
@@ -369,6 +370,20 @@ function PagUploadExcel() {
                 )}
 
                 <div className="tabela-dados">
+                {importacaoExpandida && (
+                                <div className="tabela-dados-expandida">
+                                    <h3 style={{ flex: 1 }}>
+                                        Dados da Importação -
+                                        <span style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline', marginLeft: '8px' }}>
+                                            {importacoes.find(importacao => importacao.id === importacaoExpandida).nome_arquivo}
+                                        </span>
+                                    </h3>
+                                    <button className="btn-fechar" onClick={() => setImportacaoExpandida(null)}>
+                                        X
+                                    </button>
+                                    {formatarDadosImportacao(JSON.parse(importacoes.find(importacao => importacao.id === importacaoExpandida).dados))}
+                                </div>
+                            )}
                     <h3 className='TextoH3'>Importações Salvas</h3>
                     {carregando ? (
                         <p>Carregando...</p>
@@ -394,7 +409,7 @@ function PagUploadExcel() {
                                             >
                                                 {importacao.nome_arquivo}
                                             </td>
-                                            <td>{new Date(importacao.data_importacao).toLocaleString()}</td>
+                                            <td>{ Date(excelBaseDate.getTime() + (importacao.data_importacao - 1) * 24 * 60 * 60 * 1000) }</td>
                                             <td>
                                                 <button className="btn-deletar" onClick={() => lidarComDeletar(importacao.id)}>Deletar</button>
                                             </td>
@@ -402,20 +417,7 @@ function PagUploadExcel() {
                                     ))}
                                 </tbody>
                             </table>
-                            {importacaoExpandida && (
-                                <div className="tabela-dados-expandida">
-                                    <h3 style={{ flex: 1 }}>
-                                        Dados da Importação -
-                                        <span style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline', marginLeft: '8px' }}>
-                                            {importacoes.find(importacao => importacao.id === importacaoExpandida).nome_arquivo}
-                                        </span>
-                                    </h3>
-                                    <button className="btn-fechar" onClick={() => setImportacaoExpandida(null)}>
-                                        X
-                                    </button>
-                                    {formatarDadosImportacao(JSON.parse(importacoes.find(importacao => importacao.id === importacaoExpandida).dados))}
-                                </div>
-                            )}
+                            
                         </div>
                     )}
                 </div>
