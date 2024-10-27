@@ -13,6 +13,7 @@ function FiltragemCategoria({ setFiltroSelecionado, FiltroSelecionado }) {
     const [CategoriasFiltradas, setCategoriasFiltradas] = useState(false);
     const [I, setI] = useState(true);
     const [Montador, setMontador] = useState(true);
+    
   
   
     const ColhendoCategoria = async (setOBJ) => {

@@ -194,6 +194,7 @@ function PagPesquisaFornecedor() {
                 <div className="telaInteira">
                     <div className="TelaConteudo">
                         <div className="terminal">
+                            
                             <div className="barra-pesquisa">
 
                                 <div className="teste">
