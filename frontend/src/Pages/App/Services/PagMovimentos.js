@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import Titulo from "../../../Components/Titulo.jsx";
 import BtnAjuda from "../../../Components/BtnAjuda.js";
+import PEPS from '../../../Components/PEPS/PEPS.jsx';
 
 const PagMovimentos = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const PagMovimentos = () => {
   const [erro, setErro] = useState('');
   const [codigosUnicos, setCodigosUnicos] = useState([]);
   const [autoresUnicos, setAutoresUnicos] = useState([]);
-
+  const [peps, setPeps] = useState(false);
   useEffect(() => {
     const fetchMovimentos = async () => {
       try {
@@ -53,8 +54,9 @@ const PagMovimentos = () => {
     setValorFiltro(e.target.value);
   };
 
-  const handleCustoMedioChange = (e) => {
+  const handleSelectVisualizacao = (e) => {
     setMostrarCustoMedio(e.target.value === 'custoMedio');
+    setPeps(e.target.value === 'peps')
   };
 
   useEffect(() => {
@@ -87,7 +89,7 @@ const PagMovimentos = () => {
   const calcularCustoMedio = (movimentoAtual) => {
     const totalValor = CalcularValorTotal(movimentoAtual);
     const totalQuantidade = CalcularQuantidadeTotal(movimentoAtual);
-  
+
     if (totalQuantidade > 0) {
       return (totalValor / totalQuantidade).toFixed(2);
     }
@@ -97,18 +99,18 @@ const PagMovimentos = () => {
   const CalcularValorTotal = (movimentoAtual) => {
     let totalValorlet = 0;
     let produtoId = movimentoAtual.produto;
-  
+
     const movimentacoesProduto = movimentos
       .filter(mov => mov.produto === produtoId)
       .sort((a, b) => new Date(a.data) - new Date(b.data));
-  
+
     movimentacoesProduto.forEach((movimento) => {
-      const valor = parseFloat(movimento.valor);  
+      const valor = parseFloat(movimento.valor);
       const quantidade = parseInt(movimento.qtde);
-  
-      if (movimento.mov === 'E') { 
+
+      if (movimento.mov === 'E') {
         totalValorlet += quantidade * valor;
-      } else if (movimento.mov === 'S') { 
+      } else if (movimento.mov === 'S') {
         totalValorlet -= quantidade * valor;
       }
     });
@@ -118,11 +120,11 @@ const PagMovimentos = () => {
   const CalcularQuantidadeTotal = (movimentoAtual) => {
     let totalQuantidadelet = 0;
     let produtoId = movimentoAtual.produto;
-  
+
     const movimentacoesProduto = movimentos
       .filter(mov => mov.produto === produtoId)
       .sort((a, b) => new Date(a.data) - new Date(b.data));
-  
+
     movimentacoesProduto.forEach((movimento) => {
       const quantidade = parseInt(movimento.qtde, 10);
       if (movimento.mov === 'E') {
@@ -136,9 +138,71 @@ const PagMovimentos = () => {
 
   const [showPopup, setShowPopup] = useState(false); // variaveis para o btnAjuda
 
+  //aula para pedro henrique ramos carrion:
+  const montaTabela = (chave, movimento) => {
+    let movTraduzido = []
+    if (movimento) {
+      movTraduzido = JSON.parse(movimento);
+    }
+    switch (chave) {
+      case "custoMedio": return {
+        head:
+          (<>
+            <th>Produto Nome</th>
+            <th>Autor</th>
+            <th>Custo Médio</th>
+          </>),
+        body: (
+          <>
+
+            <td>{movTraduzido.produtosNome}</td>
+            <td>{movTraduzido.Autor}</td>
+            <td>R$ {calcularCustoMedio(movTraduzido)}</td>
+          </>
+        )
+      }
+      case "peps": return {
+        head: (
+          <>
+            KKKKKKKKKKKKKKKKKKKKK
+          </>
+        ), body: (
+          <>
+            <PEPS></PEPS>
+          </>
+        )
+      }
+      default: return {
+        head: (
+          <>
+            <th>Código do Produto</th>
+            <th>Produto Nome</th>
+            <th>Data</th>
+            <th>Quantidade</th>
+            <th>Custo</th>
+            <th>Movimento</th>
+            <th>Cliente</th>
+            <th>Autor</th>
+          </>),
+        body: (
+          <>
+            <td>{movTraduzido.produtosNome}</td>
+            <td>{movTraduzido.produto}</td>
+            <td>{movTraduzido.data}</td>
+            <td>{movTraduzido.qtde}</td>
+            <td>{movTraduzido.valor}</td>
+            <td>{movTraduzido.mov}</td>
+            <td>{movTraduzido.cliente}</td>
+            <td>{movTraduzido.Autor}</td>
+          </>
+        )
+      }
+    }
+  }
+
   return (
     <div className='PagMovimentos'>
-      
+
       <div className="CabecalhoHome">
         <CabecalhoHome />
       </div>
@@ -146,110 +210,80 @@ const PagMovimentos = () => {
       {erro && <p style={{ color: 'red' }}>{erro}</p>}
 
       <header className="cabecalhoBtnAjuda">
-          <div className="Botaoajuda" onClick={() => {setShowPopup(true)}}> {/*crie um botão que no onClick faz o setShowPopup ficar true*/}
-            Ajuda
-          </div>
-        </header>
-
-        <div className="BtnAjuda">
-          {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
-            <BtnAjuda /* chama o btnAjuda */
-              fechar={() => {setShowPopup(false)}} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
-              msgChave={"BAIXASPRODUTOS"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
-            />
-          )}
+        <div className="Botaoajuda" onClick={() => { setShowPopup(true) }}> {/*crie um botão que no onClick faz o setShowPopup ficar true*/}
+          Ajuda
         </div>
-        <div className='flex'>
-      
-      <div className="btn">
-        <button className="Voltar" onClick={() => navigate("/PagEscolhaProdutos")}>
-          Voltar
-        </button>
+      </header>
+
+      <div className="BtnAjuda">
+        {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
+          <BtnAjuda /* chama o btnAjuda */
+            fechar={() => { setShowPopup(false) }} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
+            msgChave={"BAIXASPRODUTOS"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
+          />
+        )}
       </div>
+      <div className='flex'>
+
+        <div className="btn">
+          <button className="Voltar" onClick={() => navigate("/PagEscolhaProdutos")}>
+            Voltar
+          </button>
+        </div>
 
 
-      <div className="filtro-section">
-        <label htmlFor="filtro">Filtrar por: </label>
-        <select id="filtro" value={filtro} onChange={handleFiltroChange}>
-          <option value="">Selecione um filtro</option>
-          <option value="codigo">Código do Produto</option>
-          <option value="data">Data</option>
-          <option value="quantidade">Quantidade</option>
-          <option value="valor">Valor</option>
-          <option value="cliente">Cliente</option>
-        </select>
+        <div className="filtro-section">
+          <label htmlFor="filtro">Filtrar por: </label>
+          <select id="filtro" value={filtro} onChange={handleFiltroChange}>
+            <option value="">Selecione um filtro</option>
+            <option value="codigo">Código do Produto</option>
+            <option value="data">Data</option>
+            <option value="quantidade">Quantidade</option>
+            <option value="valor">Valor</option>
+            <option value="cliente">Cliente</option>
+          </select>
 
-        <label htmlFor="custoMedio"></label>
-        <select id="custoMedio" onChange={handleCustoMedioChange}>
-          <option value="">Selecione</option>
-          <option value="custoMedio">Custo Médio</option>
-          <option value="peps">PEPS</option>
-        </select>
-      </div>
-
-      {filtro === 'codigo' && (
-        <div className="select-produto-section">
-          <label htmlFor="produto">Selecione um Produto: </label>
-          <select id="produto" value={valorFiltro} onChange={handleValorFiltroChange}>
-            <option value="">Selecione um produto</option>
-            {codigosUnicos.map(codigo => (
-              <option key={codigo} value={codigo}>
-                {codigo} - {movimentos.find(mov => mov.produto === codigo)?.produtosNome}
-              </option>
-            ))}
+          <label htmlFor="custoMedio"></label>
+          <select id="selectVisu" onChange={handleSelectVisualizacao}>
+            <option value="">Selecione</option>
+            <option value="custoMedio">Custo Médio</option>
+            <option value="peps">PEPS</option>
           </select>
         </div>
-      )}
 
-      <table>
-        <thead>
-          <tr>
-            {mostrarCustoMedio ? (
-              <>
-                <th>Produto Nome</th>
-                <th>Autor</th>
-                <th>Custo Médio</th>
-              </>
-            ) : (
-              <>
-                <th>Código do Produto</th>
-                <th>Produto Nome</th>
-                <th>Data</th>
-                <th>Quantidade</th>
-                <th>Custo</th>
-                <th>Movimento</th>
-                <th>Cliente</th>
-                <th>Autor</th>                
-              </>
-            )}
-          </tr>
-        </thead>
-        <tbody>
-          {movimentosFiltrados.map(movimento => (
-            <tr key={movimento.id_mov}>
-              {mostrarCustoMedio ? (
-                <>
-                  <td>{movimento.produtosNome}</td>
-                  <td>{movimento.Autor}</td>
-                  <td>R$ {calcularCustoMedio(movimento)}</td>
-                </>
-              ) : (
-                <>
-                  <td>{movimento.produto}</td>
-                  <td>{movimento.produtosNome}</td>
-                  <td>{movimento.data}</td>
-                  <td>{movimento.qtde}</td>
-                  <td>{movimento.valor}</td>
-                  <td>{movimento.mov}</td>
-                  <td>{movimento.cliente}</td>
-                  <td>{movimento.Autor}</td>
-                </>
-              )}
+        {filtro === 'codigo' && (
+          <div className="select-produto-section">
+            <label htmlFor="produto">Selecione um Produto: </label>
+            <select id="produto" value={valorFiltro} onChange={handleValorFiltroChange}>
+              <option value="">Selecione um produto</option>
+              {codigosUnicos.map(codigo => (
+                <option key={codigo} value={codigo}>
+                  {codigo} - {movimentos.find(mov => mov.produto === codigo)?.produtosNome}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+        <table>
+          <thead>
+            <tr>
+              {mostrarCustoMedio && montaTabela('custoMedio').head}
+              {!mostrarCustoMedio && !peps && montaTabela('default').head}
+              {peps && montaTabela('peps').head}
             </tr>
-          ))}
-        </tbody>
-      </table>
-      </div>   
+          </thead>
+          <tbody>
+            {movimentosFiltrados.map(movimento => (
+              <tr key={movimento.id_mov}>
+                {mostrarCustoMedio && montaTabela('custoMedio', JSON.stringify(movimento)).body}
+                {!mostrarCustoMedio && !peps && montaTabela('default', JSON.stringify(movimento)).body}
+              </tr>
+            ))}
+
+            {peps && montaTabela('peps').body}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
