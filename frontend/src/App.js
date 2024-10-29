@@ -7,6 +7,7 @@ import { AlertaProvider } from './Context/AlertaContext';
 //npm i recharts
 //npm install xlsx
 //npm i qrcode
+//npm i file-saver
 function App() {
   return (
     <AlertaProvider>

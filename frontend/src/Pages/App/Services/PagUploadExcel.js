@@ -8,7 +8,7 @@ import * as XLSX from 'xlsx'; // Novo pacote npm no Front para manipular arquivo
 import AlertaNotificação from "../../../Components/AlertaNotificação.js";
 import { useAlerta } from "../../../Context/AlertaContext.js";
 import { UserContext } from "../../../Context/UserContext";
-
+import DownloadExcel from '../../../Components/Excel_Download/DownloadExcel.jsx';
 function PagUploadExcel() {
     const { Alerta } = useAlerta();
     const [nomeArquivo, setNomeArquivo] = useState(""); // Estado para armazenar o nome do arquivo Excel
@@ -347,6 +347,7 @@ function PagUploadExcel() {
         }
     };
     const excelBaseDate = new Date(Date.UTC(1900, 0, 1));
+    const dadosPlanilha = importacoes.find(importacao => importacao.id === importacaoExpandida)
     return (
         <div className="PagUploadExcel">
             <CabecalhoHome />
@@ -418,12 +419,12 @@ function PagUploadExcel() {
                             <button className="btn-fechar" onClick={() => setImportacaoExpandida(null)}>
                                 X
                             </button>
-
-                            {formatarDadosImportacao(JSON.parse(importacoes.find(importacao => importacao.id === importacaoExpandida).dados))}
-
+                            {formatarDadosImportacao(JSON.parse(dadosPlanilha.dados))}
                             <button className="btn-enviar-estoque" onClick={() => enviarParaEstoque(importacaoExpandida)}>
                                 Enviar para Estoque
                             </button>
+
+                            <DownloadExcel jsonData={JSON.parse(dadosPlanilha.dados)} nomeArquivo={dadosPlanilha.nome_arquivo}/> 
                         </div>
                     )}
                     <h3 className='TextoH3'>Importações Salvas</h3>
