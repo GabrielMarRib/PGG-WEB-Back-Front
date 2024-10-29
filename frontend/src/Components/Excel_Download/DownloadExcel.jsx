@@ -1,6 +1,7 @@
 import React from 'react';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import "../../Styles/Components/DownloadExcel.css";
 
 function DownloadExcel({jsonData, nomeArquivo}) {
 
@@ -17,7 +18,7 @@ function DownloadExcel({jsonData, nomeArquivo}) {
 
   return (
     <div>
-      <button onClick={() => exportJSONToExcel(jsonData, nomeArquivo.includes('xlsx') ? `${nomeArquivo}` : `${nomeArquivo}.xlsx`)}>
+      <button className="btn-DownloadExcel" onClick={() => exportJSONToExcel(jsonData, nomeArquivo.includes('xlsx') ? `${nomeArquivo}` : `${nomeArquivo}.xlsx`)}>
         Download Excel
       </button>
     </div>
