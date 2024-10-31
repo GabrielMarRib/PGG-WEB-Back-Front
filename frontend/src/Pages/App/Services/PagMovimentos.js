@@ -21,6 +21,7 @@ const PagMovimentos = () => {
   const [codigosUnicos, setCodigosUnicos] = useState([]);
   const [autoresUnicos, setAutoresUnicos] = useState([]);
   const [peps, setPeps] = useState(false);
+  const [produtoSelecionado, setProdutoSelecionado] = useState([]);
   useEffect(() => {
     const fetchMovimentos = async () => {
       try {
@@ -164,11 +165,18 @@ const PagMovimentos = () => {
       case "peps": return {
         head: (
           <>
-            KKKKKKKKKKKKKKKKKKKKK
-          </>
+          {valorFiltro}  
+        </> 
         ), body: (
+          filtro === "codigo"?
           <>
-            <PEPS></PEPS>
+            <PEPS produto={movimentos.find(mov => mov.produto === valorFiltro)}>
+            
+            </PEPS>
+          
+          </>:
+          <>
+          Selecione um produto para consultar o PEPS
           </>
         )
       }
@@ -258,7 +266,7 @@ const PagMovimentos = () => {
               <option value="">Selecione um produto</option>
               {codigosUnicos.map(codigo => (
                 <option key={codigo} value={codigo}>
-                  {codigo} - {movimentos.find(mov => mov.produto === codigo)?.produtosNome}
+                  {codigo} - {movimentos.find(mov => mov.produto === codigo)?.produtosNome} 
                 </option>
               ))}
             </select>
