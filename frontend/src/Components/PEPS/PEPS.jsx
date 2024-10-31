@@ -25,11 +25,15 @@ function PEPS({ produto }) {
 
   // Estrutura do calendário manual para o mês
   const diaValidade = produto && produto?.dataVenda && produto.dataVenda.split("-")[2] //O gostoso do thiago pediu pra por isso aqui: Teoricamente deveria ter ano e mes na validade também, mas fodasi (nois q voa bruxao)
+  const mesValidade = produto && produto?.dataVenda && produto.dataVenda.split("-")[1] //O gostoso do thiago pediu pra por isso aqui: Teoricamente deveria ter ano e mes na validade também, mas fodasi (nois q voa bruxao)
+  const AnoValidade = produto && produto?.dataVenda && produto.dataVenda.split("-")[0] //O gostoso do thiago pediu pra por isso aqui: Teoricamente deveria ter ano e mes na validade também, mas fodasi (nois q voa bruxao)
 
   const diaCompra = produto && produto?.dataCompra && produto.dataCompra.split("-")[2]
   const mesCompra = produto && produto?.dataCompra && produto.dataCompra.split("-")[1]
   const AnoCompra = produto && produto?.dataCompra && produto.dataCompra.split("-")[0]
-  const bissexto = (0 == AnoCompra % 4) && (0 != AnoCompra % 100) || (0 == AnoCompra % 400)
+  
+  const bissexto = (Ano) => (Ano % 4 === 0 && Ano % 100 !== 0) || (Ano % 400 === 0);
+
   const meses = {
     "01": "Janeiro",
     "02": "Fevereiro",
@@ -54,7 +58,7 @@ function PEPS({ produto }) {
       8, 9, 10, 11, 12, 13, 14,
       15, 16, 17, 18, 19, 20, 21,
       22, 23, 24, 25, 26, 27, 28,
-      bissexto ? 29 : null],
+      bissexto(AnoCompra) ? 29 : null], // mudar depois
     "03": [1, 2, 3, 4, 5, 6, 7,
       8, 9, 10, 11, 12, 13, 14,
       15, 16, 17, 18, 19, 20, 21,
@@ -115,20 +119,21 @@ function PEPS({ produto }) {
       return styles.diaValidade
     else return styles.day
   } 
-  const renderCalendar = () => {
+  const renderCalendar = () => { // mostra o calendário
     return (
       <div style={styles.calendarContainer}>
         <h2 style={styles.title}>{meses[mesCompra]}</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '5px' }}>
           {dias[mesCompra].map(day => (
-
             <div key={day} style={pegaCor(day)}>{day}</div>
           ))}
         </div>
       </div>
     )
-
   };
+  //pra colocar o outro calendário, duplica ou altera o renderCalendar 
+  // muda de meses[mesCompra] pra meses[mesValidade]
+  // muito fácil viu
 
   // Definindo estilos inline
   const styles = {
