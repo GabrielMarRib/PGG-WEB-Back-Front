@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import '../../../Styles/App/Service/PagCurvaABC.css';
 import { ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
@@ -8,6 +8,7 @@ import RedirectAcesso from "../../../Functions/RedirectAcesso";
 import axios from "axios";
 import Titulo from "../../../Components/Titulo.jsx";
 import BtnAjuda from "../../../Components/BtnAjuda.js";
+import ModalCurvaABC from "../../../Components/ModalCurvaABCValor.js";
 
 function CurvaABCPorValor() {
     const [dadosCurvaABC, setDadosCurvaABC] = useState([]);
@@ -15,6 +16,16 @@ function CurvaABCPorValor() {
     const [categorias, setCategorias] = useState([]);
     const [categoriaSelecionada, setCategoriaSelecionada] = useState(null);
     const [qtdTotalCusto, setQtdTotalCusto] = useState(null);
+    const [limiteA, setLimiteA] = useState(() => 
+        Number(localStorage.getItem('limiteA')) || 50
+    );
+    const [limiteB, setLimiteB] = useState(() => 
+        Number(localStorage.getItem('limiteB')) || 80
+    );
+    const [repescagem, setRepescagem] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const handleOpenModal = () => setShowModal(true); 
+    const handleCloseModal = () => setShowModal(false); 
 
     const UserOBJ = useContext(UserContext);
     const User = UserOBJ.User;
@@ -24,6 +35,10 @@ function CurvaABCPorValor() {
 
     RedirectAcesso(User, 1);
 
+    const handleChangeClassificao = useCallback((valor, set) => {
+        set(valor);
+        setRepescagem(prevState => !prevState); 
+    }, []);
 
     useEffect(() => {
         const pegaTudo = async () => {
@@ -52,8 +67,8 @@ function CurvaABCPorValor() {
                             acumulado += parseFloat(produto.porcentagem);
 
                             let classificacao = '';
-                            if(acumulado <= 50) classificacao = 'A'
-                            else if (acumulado <= 80) classificacao = 'B'
+                            if(acumulado <= limiteA) classificacao = 'A'
+                            else if (acumulado <= limiteB) classificacao = 'B'
                             else classificacao = 'C'
                             return { ...produto, porcentagemAcumulada: acumulado.toFixed(2), classificacao };
                         });
@@ -72,7 +87,7 @@ function CurvaABCPorValor() {
         };
 
         pegaTudo();
-    }, [categoriaSelecionada]);
+    }, [categoriaSelecionada, repescagem]);
 
     useEffect(() => {
         const pegaCategorias = async () => {
@@ -88,6 +103,14 @@ function CurvaABCPorValor() {
         };
         pegaCategorias();
     }, []);
+
+    useEffect(() => {
+        localStorage.setItem('limiteA', limiteA);
+    }, [limiteA]);
+
+    useEffect(() => {
+        localStorage.setItem('limiteB', limiteB);
+    }, [limiteB]);
 
     const pegaCorClassificacao = (classificacao) => {
         switch (classificacao) {
@@ -186,6 +209,16 @@ function CurvaABCPorValor() {
                     ))}
                 </select>
             </div>
+
+            <ModalCurvaABC
+            isOpen={showModal}
+            onClose={handleCloseModal}
+            limiteA={limiteA}
+            setLimiteA={setLimiteA}
+            limiteB={limiteB}
+            setLimiteB={setLimiteB}
+            handleChangeClassificao={handleChangeClassificao}
+            />
             <div id="ParteSuperior">
                 <div className="CurvaABCGrafico">
                     {carregando ? (
@@ -193,6 +226,8 @@ function CurvaABCPorValor() {
                     ) : (
                         dadosCurvaABC.msg ? (dadosCurvaABC.msg) : (
                             dadosCurvaABC.length > 0 && (
+                                <>
+                                <button onClick={handleOpenModal}>Valores sobre classificações</button>
                                 <ResponsiveContainer width="100%" height={400}>
                                     <ComposedChart
                                         data={dadosCurvaABC}
@@ -212,6 +247,7 @@ function CurvaABCPorValor() {
                                         <Line type="monotone" dataKey="porcentagemAcumulada" stroke="#FF4D00" />
                                     </ComposedChart>
                                 </ResponsiveContainer>
+                                </>
                             )
                         ))}
                 </div>

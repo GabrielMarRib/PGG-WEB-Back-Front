@@ -330,3 +330,9 @@
 .btn-enviar-estoque:hover {
     background-color: #45a049;
 }
+
+.container-botoes {
+    display: flex;
+    gap: 10px; 
+    align-items: center; 
+}

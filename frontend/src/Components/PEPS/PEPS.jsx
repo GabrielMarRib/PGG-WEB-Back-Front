@@ -50,6 +50,7 @@ function PEPS({ produto }) {
     },
   };
 
+function PEPS({produto}) {
   return (
     <>
     
@@ -61,5 +62,5 @@ function PEPS({ produto }) {
     </>
   );
 }
-
+}
 export default PEPS;

@@ -8,7 +8,7 @@ import * as XLSX from 'xlsx'; // Novo pacote npm no Front para manipular arquivo
 import AlertaNotificação from "../../../Components/AlertaNotificação.js";
 import { useAlerta } from "../../../Context/AlertaContext.js";
 import { UserContext } from "../../../Context/UserContext";
-
+import DownloadExcel from '../../../Components/Excel_Download/DownloadExcel.jsx';
 function PagUploadExcel() {
     const { Alerta } = useAlerta();
     const [nomeArquivo, setNomeArquivo] = useState(""); // Estado para armazenar o nome do arquivo Excel
@@ -62,29 +62,29 @@ function PagUploadExcel() {
     const lidarComUploadArquivo = (evento) => {
         const arquivo = evento.target.files[0]; // Captura o arquivo selecionado
         if (!arquivo) return;
-    
+
         const extensaoArquivo = arquivo.name.split('.').pop().toLowerCase();
         if (!['xls', 'xlsx'].includes(extensaoArquivo)) {
             Alerta(1, "Formato de arquivo inválido. Por favor, envie um arquivo .xls ou .xlsx.");
             return;
         }
-        
+
         if (arquivo) {
             setNomeArquivo(arquivo.name); // Armazena o nome do arquivo
             const leitor = new FileReader();
-    
+
             // Quando o leitor termina de carregar o arquivo, processa os dados
             leitor.onload = (e) => {
                 const binaryStr = e.target.result;
                 const workbook = XLSX.read(binaryStr, { type: 'binary' }); // Lê o arquivo como binário
                 const worksheet = workbook.Sheets[workbook.SheetNames[0]]; // Pega a primeira aba da planilha
                 let dadosDaPlanilha = XLSX.utils.sheet_to_json(worksheet, { header: 1 }); // Converte para JSON com cabeçalho
-                
+
                 // Verifique se a primeira linha está duplicada
                 if (dadosDaPlanilha.length > 1 && JSON.stringify(dadosDaPlanilha[0]) === JSON.stringify(dadosDaPlanilha[1])) {
                     dadosDaPlanilha.shift(); // Remove a primeira linha de cabeçalhos duplicados
                 }
-    
+
                 // Converte dt_compra para formato YYYY-MM-DD
                 for (let i = 1; i < dadosDaPlanilha.length; i++) { // Começa em 1 para ignorar o cabeçalho
                     const row = dadosDaPlanilha[i];
@@ -95,15 +95,15 @@ function PagUploadExcel() {
                         row[5] = formattedDate; // Atualiza a data na linha
                     }
                 }
-    
+
                 console.log(dadosDaPlanilha);
                 setDadosImportados(dadosDaPlanilha); // Armazena os dados importados no estado
             };
-    
+
             leitor.readAsBinaryString(arquivo); // Lê o arquivo como string binária
         }
     };
-    
+
 
     // Função que envia os dados da planilha importada para o servidor
     const lidarComSubmit = async () => {
@@ -347,6 +347,7 @@ function PagUploadExcel() {
         }
     };
     const excelBaseDate = new Date(Date.UTC(1900, 0, 1));
+    const dadosPlanilha = importacoes.find(importacao => importacao.id === importacaoExpandida)
     return (
         <div className="PagUploadExcel">
             <CabecalhoHome />
@@ -418,12 +419,17 @@ function PagUploadExcel() {
                             <button className="btn-fechar" onClick={() => setImportacaoExpandida(null)}>
                                 X
                             </button>
-
-                            {formatarDadosImportacao(JSON.parse(importacoes.find(importacao => importacao.id === importacaoExpandida).dados))}
+                            {formatarDadosImportacao(JSON.parse(dadosPlanilha.dados))}
+                            
+                            <div class="container-botoes">
 
                             <button className="btn-enviar-estoque" onClick={() => enviarParaEstoque(importacaoExpandida)}>
                                 Enviar para Estoque
                             </button>
+
+                            <DownloadExcel jsonData={JSON.parse(dadosPlanilha.dados)} nomeArquivo={dadosPlanilha.nome_arquivo} />
+                            
+                            </div>
                         </div>
                     )}
                     <h3 className='TextoH3'>Importações Salvas</h3>
