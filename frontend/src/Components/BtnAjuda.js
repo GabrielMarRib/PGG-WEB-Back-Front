@@ -305,7 +305,7 @@ const BtnAjuda = ({ msgChave, fechar }) => {
 
     ) 
 
-    case 'CURVAABC':
+    case 'CURVAABCFREQUENCIA':
         return (
           <> {/* TEM q ter esse baguio vazio englobando tudo (<>) pq o react é chato */}
           <h1>Guia de Ajuda - Visualização de Curva ABC (Frequência)</h1>
@@ -597,6 +597,221 @@ const BtnAjuda = ({ msgChave, fechar }) => {
       </>
 
   ) 
+
+  case 'LISTAGEMFUNCIONARIOS':
+      return (
+        <> {/* TEM q ter esse baguio vazio englobando tudo (<>) pq o react é chato */}
+    <h1>Guia de Ajuda - Tela de Listagem de Funcionários</h1>
+
+    <h1>Visão Geral</h1>
+    <p>Essa tela permite visualizar informações detalhadas sobre cada funcionário, como dados pessoais e nível de acesso. Além disso, é possível pesquisar funcionários e imprimir as informações exibidas na tela.</p>
+
+    <h1>Como Usar</h1>
+
+    <h2>1. Voltar à Página Anterior</h2>
+    <p>Para retornar à página anterior sem fazer nenhuma ação, clique no botão vermelho "Voltar" no canto superior esquerdo.</p>
+
+    <h2>2. Pesquisar Funcionários</h2>
+    <p>Use o campo "Pesquisar funcionários" para localizar rapidamente o funcionário desejado. Basta digitar o nome ou parte do nome do funcionário. Os resultados serão filtrados automaticamente enquanto você digita.</p>
+
+    <h2>3. Selecionar Funcionário</h2>
+    <p>Clique no nome de um funcionário na lista à esquerda para exibir suas informações detalhadas no painel à direita.</p>
+
+    <h2>4. Visualizar Informações Pessoais</h2>
+    <p>Após selecionar um funcionário, as seguintes informações pessoais são exibidas:</p>
+    <ul>
+      <li><strong>Nome:</strong> Nome completo do funcionário.</li>
+      <li><strong>Email:</strong> Endereço de email utilizado para contato.</li>
+      <li><strong>Telefone:</strong> Número de telefone com DDD.</li>
+      <li><strong>CPF:</strong> CPF do funcionário.</li>
+    </ul>
+
+    <h2>5. Visualizar Informações de Acesso</h2>
+    <p>Abaixo das informações pessoais, você encontrará o <strong>Nível de Acesso</strong> do funcionário, que indica o tipo de permissão que ele possui no sistema. Exemplo de níveis de acesso:</p>
+    <ul>
+      <li><strong>Nível de Acesso 0:</strong> Permissão básica.</li>
+      <li><strong>Nível de Acesso 1:</strong> Permissão administrativa.</li>
+    </ul>
+
+    <h2>6. Fechar e Imprimir</h2>
+    <ul>
+      <li><strong>Fechar:</strong> Clique no botão "Fechar" para ocultar as informações detalhadas do funcionário selecionado.</li>
+      <li><strong>Imprimir:</strong> Clique no botão "Imprimir" para gerar uma impressão das informações exibidas na tela.</li>
+    </ul>
+
+    <h1>Dicas Finais</h1>
+    <p>Utilize o campo de pesquisa para encontrar rapidamente o funcionário desejado, especialmente se houver uma lista longa de funcionários.</p>
+    <p>Revise as informações antes de imprimir para garantir que todos os dados estão corretos.</p>
+
+
+
+      </>
+
+  ) 
+
+
+  case 'VISUALIZACAORELATORIO':
+    return (
+      <> {/* TEM q ter esse baguio vazio englobando tudo (<>) pq o react é chato */}
+    <h1>Guia de Ajuda - Tela de Visualização de Relatórios</h1>
+
+    <h1>Visão Geral</h1>
+    <p>Essa tela permite ao usuário visualizar relatórios específicos sobre vendas, incluindo detalhes de produtos, quantidades vendidas e informações sobre o responsável pela venda. É possível selecionar diferentes relatórios de vendas e imprimir ou deletar um relatório específico.</p>
+
+    <h1>Como Usar</h1>
+
+    <h2>1. Voltar à Página Anterior</h2>
+    <p>Para retornar à página anterior sem realizar nenhuma ação, clique no botão vermelho "Voltar" no canto superior esquerdo.</p>
+
+    <h2>2. Selecionar o Tipo de Relatório</h2>
+    <p>No campo "Tipo de relatório", selecione o tipo de relatório desejado. No exemplo, está selecionado "Relatórios de Vendas". Isso ajustará a lista de relatórios exibidos na coluna esquerda para o tipo de relatório escolhido.</p>
+
+    <h2>3. Visualizar um Relatório</h2>
+    <p>Após selecionar o tipo de relatório, uma lista de relatórios disponíveis será exibida. Clique em qualquer relatório para visualizar seus detalhes no painel à direita.</p>
+
+    <h2>4. Detalhes do Relatório de Vendas</h2>
+    <p>Ao selecionar um relatório de vendas, as seguintes informações serão exibidas:</p>
+    <ul>
+      <li><strong>Data:</strong> Data e hora da venda registrada.</li>
+      <li><strong>Item:</strong> Nome do item vendido, com os detalhes do produto, incluindo:</li>
+      <ul>
+        <li><strong>Código do produto:</strong> Identificação única do produto.</li>
+        <li><strong>Quantidade Antes da venda:</strong> Quantidade disponível antes da venda.</li>
+        <li><strong>Quantidade Vendida:</strong> Número de unidades vendidas.</li>
+        <li><strong>Quantidade Atual:</strong> Estoque restante após a venda.</li>
+        <li><strong>Custo unitário:</strong> Preço unitário do produto.</li>
+        <li><strong>Receita Total:</strong> Valor total gerado pela venda.</li>
+      </ul>
+      <li><strong>Dados sobre o responsável pela venda:</strong> Nome e ID do responsável pela venda.</li>
+    </ul>
+
+    <h2>5. Fechar Relatório</h2>
+    <p>Clique no botão vermelho "Fechar relatório" para ocultar os detalhes do relatório selecionado e retornar à lista de relatórios.</p>
+
+    <h2>6. Imprimir e Deletar Relatório</h2>
+    <ul>
+      <li><strong>Imprimir Relatório:</strong> Clique no botão "Imprimir Relatório" para gerar uma impressão dos detalhes exibidos do relatório.</li>
+      <li><strong>Deletar relatório:</strong> Clique no botão "Deletar relatório" para remover o relatório selecionado do sistema. Tenha cuidado, pois essa ação é irreversível.</li>
+    </ul>
+
+    <h1>Dicas Finais</h1>
+    <p>Utilize o seletor de "Tipo de relatório" para navegar entre diferentes relatórios, caso estejam disponíveis.</p>
+    <p>Revise as informações com atenção antes de deletar um relatório, pois essa ação não poderá ser desfeita.</p>
+
+    </>
+
+) 
+
+case 'VISUALIZACAORELATORIO':
+  return (
+    <> {/* TEM q ter esse baguio vazio englobando tudo (<>) pq o react é chato */}
+    <h1>Guia de Ajuda - Tela de Visualização de Relatórios</h1>
+
+    <h1>Visão Geral</h1>
+    <p>Essa tela permite ao usuário visualizar relatórios específicos sobre vendas, incluindo detalhes de produtos, quantidades vendidas e informações sobre o responsável pela venda. É possível selecionar diferentes relatórios de vendas e imprimir ou deletar um relatório específico.</p>
+
+    <h1>Como Usar</h1>
+
+    <h2>1. Voltar à Página Anterior</h2>
+    <p>Para retornar à página anterior sem realizar nenhuma ação, clique no botão vermelho "Voltar" no canto superior esquerdo.</p>
+
+    <h2>2. Selecionar o Tipo de Relatório</h2>
+    <p>No campo "Tipo de relatório", selecione o tipo de relatório desejado. No exemplo, está selecionado "Relatórios de Vendas". Isso ajustará a lista de relatórios exibidos na coluna esquerda para o tipo de relatório escolhido.</p>
+
+    <h2>3. Visualizar um Relatório</h2>
+    <p>Após selecionar o tipo de relatório, uma lista de relatórios disponíveis será exibida. Clique em qualquer relatório para visualizar seus detalhes no painel à direita.</p>
+
+    <h2>4. Detalhes do Relatório de Vendas</h2>
+    <p>Ao selecionar um relatório de vendas, as seguintes informações serão exibidas:</p>
+    <ul>
+      <li><strong>Data:</strong> Data e hora da venda registrada.</li>
+      <li><strong>Item:</strong> Nome do item vendido, com os detalhes do produto, incluindo:</li>
+      <ul>
+        <li><strong>Código do produto:</strong> Identificação única do produto.</li>
+        <li><strong>Quantidade Antes da venda:</strong> Quantidade disponível antes da venda.</li>
+        <li><strong>Quantidade Vendida:</strong> Número de unidades vendidas.</li>
+        <li><strong>Quantidade Atual:</strong> Estoque restante após a venda.</li>
+        <li><strong>Custo unitário:</strong> Preço unitário do produto.</li>
+        <li><strong>Receita Total:</strong> Valor total gerado pela venda.</li>
+      </ul>
+      <li><strong>Dados sobre o responsável pela venda:</strong> Nome e ID do responsável pela venda.</li>
+    </ul>
+
+    <h2>5. Fechar Relatório</h2>
+    <p>Clique no botão vermelho "Fechar relatório" para ocultar os detalhes do relatório selecionado e retornar à lista de relatórios.</p>
+
+    <h2>6. Imprimir e Deletar Relatório</h2>
+    <ul>
+      <li><strong>Imprimir Relatório:</strong> Clique no botão "Imprimir Relatório" para gerar uma impressão dos detalhes exibidos do relatório.</li>
+      <li><strong>Deletar relatório:</strong> Clique no botão "Deletar relatório" para remover o relatório selecionado do sistema. Tenha cuidado, pois essa ação é irreversível.</li>
+    </ul>
+
+    <h1>Dicas Finais</h1>
+    <p>Utilize o seletor de "Tipo de relatório" para navegar entre diferentes relatórios, caso estejam disponíveis.</p>
+    <p>Revise as informações com atenção antes de deletar um relatório, pois essa ação não poderá ser desfeita.</p>
+
+    </>
+
+) 
+
+case 'PLANILHAEXCEL':
+  return (
+    <> {/* TEM q ter esse baguio vazio englobando tudo (<>) pq o react é chato */}
+    <h1>Guia de Ajuda - Tela de Importação de Planilha Excel</h1>
+
+    <h1>Visão Geral</h1>
+    <p>Essa tela permite ao usuário fazer o upload de planilhas Excel, visualizar os dados importados e salvá-los no estoque. Além disso, é possível baixar os dados em formato Excel e visualizar importações anteriores.</p>
+
+    <h1>Como Usar</h1>
+
+    <h2>1. Voltar à Página Anterior</h2>
+    <p>Para retornar à página anterior sem realizar nenhuma ação, clique no botão vermelho "Voltar" no canto superior esquerdo.</p>
+
+    <h2>2. Enviar Planilha</h2>
+    <ul>
+      <li><strong>Selecionar Arquivo:</strong> Clique no botão verde "Selecionar Arquivo" para escolher uma planilha Excel (extensão .xlsx) do seu dispositivo.</li>
+      <li><strong>Enviar Planilha:</strong> Após selecionar o arquivo, clique no botão verde "Enviar Planilha" para fazer o upload. Os dados importados serão exibidos na seção "Dados da Importação".</li>
+    </ul>
+
+    <h2>3. Visualizar e Editar Dados da Importação</h2>
+    <p>Após o envio da planilha, os dados contidos no arquivo serão exibidos na tabela central com as seguintes colunas:</p>
+    <ul>
+      <li><strong>Descrição:</strong> Descrição do item.</li>
+      <li><strong>Nome:</strong> Nome do produto.</li>
+      <li><strong>Código de Barras:</strong> Código de barras do produto.</li>
+      <li><strong>ID Produto:</strong> Identificação única do produto.</li>
+      <li><strong>Categoria:</strong> Categoria a qual o produto pertence.</li>
+      <li><strong>Data de Compra:</strong> Data em que o produto foi comprado.</li>
+      <li><strong>Quantidade:</strong> Quantidade do produto.</li>
+      <li><strong>Valor de Compra:</strong> Valor unitário de compra.</li>
+      <li><strong>Valor de Venda:</strong> Valor unitário de venda.</li>
+    </ul>
+
+    <h2>4. Configurações de Paginação</h2>
+    <p>No canto inferior direito da tabela, é possível ajustar a quantidade de registros exibidos por página e navegar entre as páginas usando os botões "Anterior" e "Próximo".</p>
+
+    <h2>5. Enviar para Estoque</h2>
+    <p>Para salvar os dados importados no estoque do sistema, clique no botão verde "Enviar para Estoque".</p>
+
+    <h2>6. Download Excel</h2>
+    <p>Clique no botão verde "Download Excel" para baixar uma cópia dos dados importados em formato Excel.</p>
+
+    <h2>7. Importações Salvas</h2>
+    <p>Abaixo da tabela de importação, está a seção "Importações Salvas", que lista as planilhas importadas anteriormente. Esta tabela exibe:</p>
+    <ul>
+      <li><strong>ID:</strong> Identificação única da importação.</li>
+      <li><strong>Nome do Arquivo:</strong> Nome da planilha importada.</li>
+      <li><strong>Data de Importação:</strong> Data e hora da importação.</li>
+      <li><strong>Ações:</strong> Botão vermelho "Deletar" para excluir o registro de uma importação.</li>
+    </ul>
+
+    <h1>Dicas Finais</h1>
+    <p>Certifique-se de revisar os dados importados antes de enviá-los para o estoque para evitar erros.</p>
+    <p>Para manter o sistema organizado, você pode deletar importações antigas que não são mais necessárias, usando o botão "Deletar" na seção "Importações Salvas".</p>
+
+    </>
+
+) 
 
       default:
         return (

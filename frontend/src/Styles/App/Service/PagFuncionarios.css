@@ -1,4 +1,8 @@
 .PagFuncionarios {
+    
+}
+
+.PagFuncionarios .conteudoPagina {
     display: flex;
     flex-direction: column;
     font-family: 'JetBrains Mono', sans-serif;

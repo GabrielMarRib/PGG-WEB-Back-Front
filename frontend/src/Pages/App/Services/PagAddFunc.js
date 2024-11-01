@@ -91,7 +91,9 @@ function PagAddFunc() {
       User.userData.Nivel_acesso &&
       User.userData.Nivel_acesso >= 2 ? (
         <form className="formAddFunc" onSubmit={(e) => handleSubmit(e)}>
+          <div className="teste">
           <h1 className="tituloca">Cadastro de Funcionário</h1>
+          
           <br />
           <p>
             <h2>Nome:</h2>
@@ -105,7 +107,6 @@ function PagAddFunc() {
               }}
             />
           </p>
-          <br />
 
           <p>
             <h2>CPF:</h2>
@@ -119,7 +120,6 @@ function PagAddFunc() {
               mask="999.999.999-99"
             />
           </p>
-          <br />
           <p>
             <h2>Email:</h2>
             <input
@@ -133,7 +133,6 @@ function PagAddFunc() {
               mask="999.999.999-99"
             />
           </p>
-          <br />
           <p>
             <h2>Telefone:</h2>
             <InputMask
@@ -146,7 +145,6 @@ function PagAddFunc() {
               mask="(99)99999-9999"
             />
           </p>
-          <br />
           <p>
             <h2>Nível de acesso:</h2>
             <input
@@ -172,11 +170,13 @@ function PagAddFunc() {
           <br />
 
           <button className="enviar">Enviar</button>
+          </div>
         </form>
       ) : (
         <>Sem autorização</>
       )}
     </div>
+    
   );
 }
 

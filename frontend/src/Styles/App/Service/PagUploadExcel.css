@@ -1,4 +1,4 @@
-*{
+.PagUploadExcel *{
     font-family: 'JetBrains Mono', sans-serif;
 }
 
@@ -234,7 +234,7 @@
 }
 
 /* Estilo do conteúdo do popup */
-.PagUploadExcel .popup-conteudo {
+.PagUploadExcel .poppup-conteudo {
     background-color: #ffffff; /* Cor de fundo do popup */
     padding: 30px; /* Aumenta o espaçamento interno */
     border-radius: 10px; /* Bordas mais arredondadas */
@@ -249,7 +249,7 @@
 }
 
 /* Estilo do botão de ação */
-.PagUploadExcel .popup-conteudo button {
+.PagUploadExcel .poppup-conteudo button {
     display: inline-block; /* Permite centralizar os botões */
     background-color: #4caf50; /* Cor de fundo do botão de ação */
     color: white; /* Cor do texto */
@@ -262,12 +262,12 @@
 }
 
 /* Estilo do botão de ação ao passar o mouse */
-.PagUploadExcel .popup-conteudo button:hover {
+.PagUploadExcel .poppup-conteudo button:hover {
     background-color: #134916; /* Cor do botão ao passar o mouse */
 }
 
 /* Centraliza os botões na parte inferior do conteúdo */
-.PagUploadExcel .popup-conteudo .botao-container {
+.PagUploadExcel .poppup-conteudo .botao-container {
     display: flex; /* Usar flexbox para o layout dos botões */
     justify-content: center; /* Centraliza os botões */
     margin-top: 20px; /* Margem superior */

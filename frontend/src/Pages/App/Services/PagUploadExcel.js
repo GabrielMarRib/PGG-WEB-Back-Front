@@ -9,6 +9,8 @@ import AlertaNotificação from "../../../Components/AlertaNotificação.js";
 import { useAlerta } from "../../../Context/AlertaContext.js";
 import { UserContext } from "../../../Context/UserContext";
 import DownloadExcel from '../../../Components/Excel_Download/DownloadExcel.jsx';
+import BtnAjuda from "../../../Components/BtnAjuda.js";
+
 function PagUploadExcel() {
     const { Alerta } = useAlerta();
     const [nomeArquivo, setNomeArquivo] = useState(""); // Estado para armazenar o nome do arquivo Excel
@@ -25,6 +27,7 @@ function PagUploadExcel() {
     const [nomeArquivoDeletar, setNomeArquivoDeletar] = useState(""); // Estado para armazenar o nome do arquivo a ser deletado
     const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
     const User = UserOBJ.User; //Pega só o User....
+    const [showPopup, setShowPopup] = useState(false); // variaveis para o btnAjuda
 
     const navigate = useNavigate();
 
@@ -354,6 +357,21 @@ function PagUploadExcel() {
             <AlertaNotificação />
             <Titulo tituloMsg='Importação de Planilha Excel' />
 
+            <header className="cabecalhoBtnAjuda">
+          <div className="Botaoajuda" onClick={() => {setShowPopup(true)}}> {/*crie um botão que no onClick faz o setShowPopup ficar true */}
+          Ajuda
+          </div>
+        </header>
+
+        <div className="BtnAjuda">
+          {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
+            <BtnAjuda /* chama o btnAjuda */
+              fechar={() => {setShowPopup(false)}} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
+              msgChave={"PLANILHAEXCEL"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
+            />
+          )}
+        </div> 
+
             <button
                 className="voltar"
                 onClick={() => {
@@ -472,7 +490,7 @@ function PagUploadExcel() {
             </div>
             {mostrarPopup && (
                 <div className="popup">
-                    <div className="popup-conteudo">
+                    <div className="poppup-conteudo">
                         <h4>Confirmar Exclusão</h4>
                         <p>Você tem certeza que deseja deletar a importação do arquivo <strong>{nomeArquivoDeletar}</strong>?</p>
                         <div className="botao-container">
