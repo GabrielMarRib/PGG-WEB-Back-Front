@@ -24,15 +24,16 @@ function PEPS({ produto }) {
   }, []);
 
   // Estrutura do calendário manual para o mês
-  const diaValidade = produto && produto?.dataVenda && produto.dataVenda.split("-")[2] //O gostoso do thiago pediu pra por isso aqui: Teoricamente deveria ter ano e mes na validade também, mas fodasi (nois q voa bruxao)
-  const mesValidade = produto && produto?.dataVenda && produto.dataVenda.split("-")[1] //O gostoso do thiago pediu pra por isso aqui: Teoricamente deveria ter ano e mes na validade também, mas fodasi (nois q voa bruxao)
-  const AnoValidade = produto && produto?.dataVenda && produto.dataVenda.split("-")[0] //O gostoso do thiago pediu pra por isso aqui: Teoricamente deveria ter ano e mes na validade também, mas fodasi (nois q voa bruxao)
+  const diaValidade = produto && produto?.dataValidade && produto.dataValidade.split("-")[2] //O gostoso do thiago pediu pra por isso aqui: Teoricamente deveria ter ano e mes na validade também, mas fodasi (nois q voa bruxao)
+  const mesValidade = produto && produto?.dataValidade && produto.dataValidade.split("-")[1] //O gostoso do thiago pediu pra por isso aqui: Teoricamente deveria ter ano e mes na validade também, mas fodasi (nois q voa bruxao)
+  const AnoValidade = produto && produto?.dataValidade && produto.dataValidade.split("-")[0] //O gostoso do thiago pediu pra por isso aqui: Teoricamente deveria ter ano e mes na validade também, mas fodasi (nois q voa bruxao)
 
   const diaCompra = produto && produto?.dataCompra && produto.dataCompra.split("-")[2]
   const mesCompra = produto && produto?.dataCompra && produto.dataCompra.split("-")[1]
   const AnoCompra = produto && produto?.dataCompra && produto.dataCompra.split("-")[0]
-  
-  const bissexto = (Ano) => (Ano % 4 === 0 && Ano % 100 !== 0) || (Ano % 400 === 0);
+
+  const bissextoCompra = (AnoCompra % 4 === 0 && AnoCompra % 100 !== 0) || (AnoCompra % 400 === 0);
+  const bissextoValidade = (AnoValidade % 4 === 0 && AnoValidade % 100 !== 0) || (AnoValidade % 400 === 0);
 
   const meses = {
     "01": "Janeiro",
@@ -58,7 +59,7 @@ function PEPS({ produto }) {
       8, 9, 10, 11, 12, 13, 14,
       15, 16, 17, 18, 19, 20, 21,
       22, 23, 24, 25, 26, 27, 28,
-      bissexto(AnoCompra) ? 29 : null], // mudar depois
+      bissextoCompra ? 29 : null], // mudar depois
     "03": [1, 2, 3, 4, 5, 6, 7,
       8, 9, 10, 11, 12, 13, 14,
       15, 16, 17, 18, 19, 20, 21,
@@ -112,25 +113,69 @@ function PEPS({ produto }) {
   };
 
   // Função que renderiza os dias do calendário
-  const pegaCor = (dia) => {
-    if (dia == diaCompra)
+  const pegaCor = (dia, compra, data) => {
+    if ((dia == diaCompra) && compra)
       return styles.diaCompra
-    else if(dia == diaValidade)
+    else if (dia == diaValidade && !compra)
       return styles.diaValidade
-    else return styles.day
-  } 
-  const renderCalendar = () => { // mostra o calendário
+    else if (dia == diaValidade && Array.isArray(data.dia))
+      return styles.diaValidade 
+    else
+      return styles.day
+  }
+
+  const defineCalendario = () => {
+    if (mesCompra == mesValidade) {
+      return renderCalendar(true, { dia: [diaCompra, diaValidade], mes: [mesCompra, mesValidade], ano: [AnoCompra, AnoValidade] }, true)
+    } else {
+      return [
+        renderCalendar(false, { dia: diaCompra, mes: mesCompra, ano: AnoCompra }, true),
+        renderCalendar(false, { dia: diaValidade, mes: mesValidade, ano: AnoValidade }, false)
+      ]
+    }
+  }
+
+  const renderCalendar = (mesmoMes, objData, compra) => { // mostra o calendário
     return (
       <div style={styles.calendarContainer}>
-        <h2 style={styles.title}>{meses[mesCompra]}</h2>
+        {compra ?
+          mesmoMes ?
+            <>
+              Compra: {objData.dia[0]}/{objData.mes[0]}/{objData.ano[0]}
+              <br></br>
+              Validade: {objData.dia[1]}/{objData.mes[1]}/{objData.ano[1]}
+            </> :
+
+            <>
+              Compra: {objData.dia}/{objData.mes}/{objData.ano}
+            </> :
+          objData.dia ?
+          <>
+            Validade: {objData.dia}/{objData.mes}/{objData.ano}
+          </>
+          :
+          <>
+            Produto sem validade
+          </>
+        }
+        <br></br>
+
+        <h2 style={styles.title}>{meses[Array.isArray(objData.mes) ? objData.mes[0] : objData.mes]}</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '5px' }}>
-          {dias[mesCompra].map(day => (
-            <div key={day} style={pegaCor(day)}>{day}</div>
-          ))}
+  
+             {objData.mes ? (
+               dias[Array.isArray(objData.mes) ? objData.mes[0] : objData.mes].map(day => (
+                <div key={day} style={pegaCor(day, compra, objData)}>{day}</div>
+                ))
+              ): null
+          } 
+
+        
         </div>
       </div>
     )
   };
+
   //pra colocar o outro calendário, duplica ou altera o renderCalendar 
   // muda de meses[mesCompra] pra meses[mesValidade]
   // muito fácil viu
@@ -192,8 +237,8 @@ function PEPS({ produto }) {
       fontWeight: 'bold',
     },
 
-    diaCompra:  {
-      color:"green",
+    diaCompra: {
+      color: "green",
       padding: '10px',
       border: '1px solid #ccc',
       textAlign: 'center',
@@ -202,8 +247,8 @@ function PEPS({ produto }) {
       fontSize: '16px',
       margin: '2px',
     },
-    diaValidade:{
-      color:"red",
+    diaValidade: {
+      color: "red",
       padding: '10px',
       border: '1px solid #ccc',
       textAlign: 'center',
@@ -211,15 +256,15 @@ function PEPS({ produto }) {
       backgroundColor: '#FF7E7E',
       fontSize: '16px',
       margin: '2px',
-    }  
+    }
   };
 
   return (
     <div style={styles.container}>
       {
-        produto && renderCalendar()
+        produto && defineCalendario()
       }
-      <button onClick={() => console.log(mesCompra)}>Sexo</button>
+      {/* <button onClick={() => console.log(mesCompra)}>Testar BD</button> */}
       <div style={styles.produtosContainer}>
         <p className="card-title">Produtos que Vencem em Até 30 Dias.</p>
         <p className="contador">

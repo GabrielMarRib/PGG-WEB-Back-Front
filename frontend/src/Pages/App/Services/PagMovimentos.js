@@ -136,6 +136,95 @@ const PagMovimentos = () => {
     });
     return totalQuantidadelet;
   };
+  let ValorTotal = 0
+  let QuantidadeTotal = 0
+  let idProduto = 0
+  let CustoMedio = 0
+
+  const MapearCustoMedio = (Movimento, index) => {
+    if (index == 0) {
+      QuantidadeTotal = Movimento.qtde
+      ValorTotal = Movimento.qtde * Movimento.valor
+      idProduto = Movimento.produto
+      CustoMedio = ValorTotal / QuantidadeTotal
+
+      return (
+        <tr key={Movimento.id_mov}>
+          <td>{Movimento.data}</td>
+          <td>{Movimento.produtosNome}</td>
+          <td>{Movimento.Autor}</td>
+          <td>{Movimento.mov}</td>
+          <td>{Movimento.qtde}</td>
+          <td>{Movimento.valor}</td> {/* Custo unitario */}
+          <td>{Movimento.qtde * Movimento.valor}</td>  {/* VALOR */}
+          <td>{QuantidadeTotal}</td>
+          <td>{ValorTotal}</td>
+          <td>{CustoMedio.toFixed(2)}</td>
+        </tr>
+      )
+    } else {
+      if (idProduto == Movimento.produto) {
+
+        if (Movimento.mov == 'E') {
+          QuantidadeTotal = parseInt(QuantidadeTotal) + parseInt(Movimento.qtde)
+          ValorTotal = parseInt(ValorTotal) + parseInt((Movimento.qtde * Movimento.valor))
+          CustoMedio = parseInt(ValorTotal) / parseInt(QuantidadeTotal)
+        } else if (Movimento.mov == 'S') {
+          QuantidadeTotal = parseInt(QuantidadeTotal) - parseInt(Movimento.qtde)
+          ValorTotal = parseInt(ValorTotal) - parseInt((Movimento.qtde * Movimento.valor))
+          CustoMedio = parseInt(ValorTotal) / parseInt(QuantidadeTotal)
+        }
+
+        return (
+          <tr key={Movimento.id_mov}>
+            <td>{Movimento.data}</td>
+            <td>{Movimento.produtosNome}</td>
+            <td>{Movimento.Autor}</td>
+            <td>{Movimento.mov}</td>
+            <td>{Movimento.qtde}</td>
+            <td>{Movimento.valor}</td> {/* Custo unitario */}
+            <td>{Movimento.qtde * Movimento.valor}</td>  {/* VALOR */}
+            <td>{QuantidadeTotal}</td>
+            <td>{ValorTotal}</td>
+            <td>{CustoMedio.toFixed(2)}</td>
+          </tr>
+        )
+      } else {
+        QuantidadeTotal = Movimento.qtde
+        ValorTotal = Movimento.qtde * Movimento.valor
+        idProduto = Movimento.produto
+
+        return (
+          <tr key={Movimento.id_mov}>
+            <td>{Movimento.data}</td>
+            <td>{Movimento.produtosNome}</td>
+            <td>{Movimento.Autor}</td>
+            <td>{Movimento.mov}</td>
+            <td>{Movimento.qtde}</td>
+            <td>{Movimento.valor}</td> {/* Custo unitario */}
+            <td>{Movimento.qtde * Movimento.valor}</td>  {/* VALOR */}
+            <td>{QuantidadeTotal}</td>
+            <td>{ValorTotal}</td>
+            <td>{(Movimento.qtde * Movimento.valor) / Movimento.qtde}</td>
+          </tr>
+        )
+      }
+    }
+  } 
+  const CustoMedio2 = () => {
+    //contagem de loops:
+    movimentosFiltrados.map((mov) => ( // 1 loop
+      movimentos.filter(mov2 => mov2.produto === mov.produto).sort((a, b) => new Date(a.data) - new Date(b.data))
+    ))          // 2 loops                                    // 3 LOOPS!???
+
+    return (
+      movimentosFiltrados.map((Movimento, index) => ( // 4 LOOPS
+        MapearCustoMedio(Movimento, index, ValorTotal, QuantidadeTotal, idProduto)
+      ))  // 5 LOOOPSSS
+
+    )
+  }
+
 
   const [showPopup, setShowPopup] = useState(false); // variaveis para o btnAjuda
 
@@ -148,36 +237,35 @@ const PagMovimentos = () => {
     switch (chave) {
       case "custoMedio": return {
         head:
-          (<>
+          <>
+            <th>Data</th>
             <th>Produto Nome</th>
             <th>Autor</th>
+            <th>Movimento</th>
+            <th>Quantidade</th>
+            <th>Custo Unitario</th>
+            <th>valor</th>
+            <th>Quantidade Total</th>
+            <th>Valor Total</th>
             <th>Custo Médio</th>
-          </>),
+          </>,
         body: (
-          <>
-
-            <td>{movTraduzido.produtosNome}</td>
-            <td>{movTraduzido.Autor}</td>
-            <td>R$ {calcularCustoMedio(movTraduzido)}</td>
-          </>
+            CustoMedio2()
         )
       }
       case "peps": return {
         head: (
           <>
-          {valorFiltro}  
-        </> 
-        ), body: (
-          filtro === "codigo"?
-          <>
-            <PEPS produto={movimentos.find(mov => mov.produto === valorFiltro)}>
-            
-            </PEPS>
-          
-          </>:
-          <>
-          Selecione um produto para consultar o PEPS
+            {valorFiltro}
           </>
+        ), body: (
+          filtro === "codigo" ?
+            <>
+              <PEPS produto={movimentos.find(mov => mov.produto === valorFiltro)}/>
+            </> :
+            <>
+              Selecione um produto para consultar o PEPS
+            </>
         )
       }
       default: return {
@@ -266,7 +354,7 @@ const PagMovimentos = () => {
               <option value="">Selecione um produto</option>
               {codigosUnicos.map(codigo => (
                 <option key={codigo} value={codigo}>
-                  {codigo} - {movimentos.find(mov => mov.produto === codigo)?.produtosNome} 
+                  {codigo} - {movimentos.find(mov => mov.produto === codigo)?.produtosNome}
                 </option>
               ))}
             </select>
@@ -283,11 +371,10 @@ const PagMovimentos = () => {
           <tbody>
             {movimentosFiltrados.map(movimento => (
               <tr key={movimento.id_mov}>
-                {mostrarCustoMedio && montaTabela('custoMedio', JSON.stringify(movimento)).body}
                 {!mostrarCustoMedio && !peps && montaTabela('default', JSON.stringify(movimento)).body}
               </tr>
             ))}
-
+            {mostrarCustoMedio && montaTabela('custoMedio').body}
             {peps && montaTabela('peps').body}
           </tbody>
         </table>
