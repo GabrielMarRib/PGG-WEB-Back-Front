@@ -30,6 +30,8 @@ function Modal({ show, handleClose, produto, onConfirm }) {
                 {/* Campo de input para a quantidade */}
                 <div>
                     <label>Quantidade: </label>
+                    <br></br>
+                    <br></br>
                     <input
                         type="number"
                         value={quantidade}
@@ -38,6 +40,7 @@ function Modal({ show, handleClose, produto, onConfirm }) {
                     />
                 </div>
                 
+                <br></br>
                 <button onClick={handleClose}>Fechar</button>
                 <button onClick={() => onConfirm(quantidade, dataAtual)}>Confirmar Pedido</button> {/* Confirma o pedido */}
             </div>
@@ -157,9 +160,27 @@ function PagPesquisaFornecedor() {
         handleModal(true);
     };
 
-    const handleConfirmarPedido = (quantidade, dataAtual) => {
-        console.log(`Pedido confirmado: Produto ${produtoSelecionado.nome}, Quantidade: ${quantidade}, Data: ${dataAtual}`);
-        Alerta(2, "Pedido confirmado");
+    const handleConfirmarPedido = async (quantidade, dataAtual) => {
+        if (!produtoSelecionado) return;
+    
+        try {
+             await axios.post('http://pggzettav3.mooo.com/api/index.php', {
+                funcao: 'enviarPedido',
+                senha: '@7h$Pz!q2X^vR1&K',
+                nome_produto: produtoSelecionado.nome,
+                codigo: produtoSelecionado.id_produtos,
+                data_pedido: dataAtual,
+                quantidade: quantidade,     
+                email: User.userData.Email,
+                nome: User.userData.Nome,
+            });
+            Alerta(2, "Pedido confirmado e enviado ao fornecedor");
+                               
+        } catch (error) {
+            console.error("Erro ao enviar o pedido: ", error);
+            Alerta(3, "Erro ao enviar o pedido: " + error);
+        }
+    
         handleModal(false);
     };
 
