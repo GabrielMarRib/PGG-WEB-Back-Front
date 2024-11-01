@@ -1,7 +1,11 @@
 .PagRelatorios {
+   
+}
+
+.PagRelatorios .conteudorelatorio{
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 800px;
     font-family: 'JetBrains Mono', sans-serif;
     align-items: center;
     justify-content: flex-start; /* Align items to the top */
@@ -101,7 +105,7 @@
 .PagRelatorios .btnFecharRel {
     float: right;
     margin-right: 5%;
-    margin-top: -10%;
+    margin-top: 0px;
 }
 
 .PagRelatorios .selectRelatorio {
@@ -124,8 +128,6 @@
     flex-grow: 1; /* Allow main content to grow */
     padding: 10px;
     display: flex;
-    align-items: center;
-    justify-content: center;
     min-width: 40%; /* Adjust min-width as needed */
     overflow-x: hidden;
     overflow-y: auto;

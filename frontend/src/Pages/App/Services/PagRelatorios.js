@@ -10,6 +10,8 @@ import ConfirmaModal from "../../../Components/ConfirmaModal";
 import AlertaNotificação from "../../../Components/AlertaNotificação.js";
 import { useAlerta } from "../../../Context/AlertaContext.js";
 import Titulo from "../../../Components/Titulo.jsx";
+import BtnAjuda from "../../../Components/BtnAjuda.js";
+
 function PagRelatorios() {
     const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
     const User = UserOBJ.User; //Pega só o User....
@@ -27,6 +29,8 @@ function PagRelatorios() {
     // Referente a update e delete:
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [forceUpdate, setForceUpdate] = useState(false);
+
+    const [showPopup, setShowPopup] = useState(false); // variaveis para o btnAjuda
 
     const handleRelatorioClick = (relatorio) => {
         console.log(relatorio);
@@ -278,11 +282,30 @@ function PagRelatorios() {
                     styles={'STYLE2'}
                 />
             )}
+
+            <header className="cabecalhoBtnAjuda">
+            <div className="Botaoajuda" onClick={() => {setShowPopup(true)}}> {/*crie um botão que no onClick faz o setShowPopup ficar true*/}
+            Ajuda
+            </div>
+            </header>
+
+            <div className="BtnAjuda">
+            {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
+                <BtnAjuda /* chama o btnAjuda */ 
+                fechar={() => {setShowPopup(false)}} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
+                msgChave={"VISUALIZACAORELATORIO"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
+                />
+            )}
+            </div> 
+
+            <div className="conteudorelatorio">
             <div className="btn">
                 <button className="Voltar" onClick={() => navigate("/PagPerfil")}>
                     Voltar
                 </button>
             </div>
+
+            
             <div className="Conteudo">
                 <div className="BarraLateral">
                     <label htmlFor="relatorios">Tipo de relatório:</label>
@@ -307,6 +330,7 @@ function PagRelatorios() {
                 </div>
             </div>
         </div>
+     </div>
     );
 }
 
