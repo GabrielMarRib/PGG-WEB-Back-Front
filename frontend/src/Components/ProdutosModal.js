@@ -592,7 +592,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
               </label>
 
               <label>
-                Tempo de Reposição:
+                Tempo de Reposição (Dias):
                 <input placeholder={tudoOLD.tempo_reposicao ? tudoOLD.tempo_reposicao : "Não possui"}
                   value={TR}
                   onChange={(e) => {
@@ -605,7 +605,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
               </label>
 
               <label>
-                Tempo Estimado de Entrega:
+                Tempo Estimado de Entrega (Dias):
                 <input placeholder={tudoOLD.tempo_entrega ? tudoOLD.tempo_entrega : "Não possui"}
                   value={TE}
                   onChange={(e) => {

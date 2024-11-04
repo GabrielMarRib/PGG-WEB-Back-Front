@@ -93,6 +93,7 @@ function PagUploadExcel() {
                     const row = dadosDaPlanilha[i];
                     if (row[5]) { // Verifica se a data existe na coluna dt_compra (índice 5)
                         const excelTimestamp = row[5];
+                        console.log(excelTimestamp)
                         const date = new Date((excelTimestamp - (25567 + 2)) * 86400 * 1000);
                         const formattedDate = date.toISOString().split('T')[0]; // Converte para YYYY-MM-DD
                         row[5] = formattedDate; // Atualiza a data na linha

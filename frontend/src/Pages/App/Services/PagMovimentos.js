@@ -256,7 +256,7 @@ const PagMovimentos = () => {
       case "peps": return {
         head: (
           <>
-            {valorFiltro}
+            {/* {valorFiltro} */}
           </>
         ), body: (
           filtro === "codigo" ?
@@ -282,8 +282,8 @@ const PagMovimentos = () => {
           </>),
         body: (
           <>
-            <td>{movTraduzido.produtosNome}</td>
             <td>{movTraduzido.produto}</td>
+            <td>{movTraduzido.produtosNome}</td>
             <td>{movTraduzido.data}</td>
             <td>{movTraduzido.qtde}</td>
             <td>{movTraduzido.valor}</td>
