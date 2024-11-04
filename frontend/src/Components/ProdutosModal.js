@@ -952,12 +952,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
           <h3>'{produtoOBJ.nome}'</h3>
           <hr />
           <div className='divConteudo'>
-            <label>
-              Gerar QR code com informações do produto:
-            </label>
-            <button className='botao-testar' style={{ minWidth: '100px' }}>Gerar QR code</button>
-            <div className='QR'>
-            </div>
+   
           </div>
         </div>
       </div>
