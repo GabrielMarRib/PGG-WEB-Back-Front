@@ -151,7 +151,7 @@ function PagHome() {
       title: "",
       content: (
         <div className="card">
-          <h3 className="card-title">Cálculo PEPS (Em Breve)</h3>
+          <h3 className="card-title">Cálculo PEPS</h3>
           <p className="card-text">
             Selecione "PEPS" no filtro e o produto para ver o cálculo baseado no método de Primeiro a Entrar, Primeiro a Sair.
           </p>
