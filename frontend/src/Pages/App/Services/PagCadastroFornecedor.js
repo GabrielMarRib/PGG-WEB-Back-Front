@@ -11,6 +11,15 @@ import ImgAtivo from "../../../Assets/GreenCheckMark.png";
 import ImgInativo from "../../../Assets/ReadCheckMark.png";
 import BtnAjuda from "../../../Components/BtnAjuda.js";
 
+const formatCep = (value) => {
+  value = value.replace(/\D/g, ''); // Remove tudo que não for número
+  if (value.length <= 5) {
+    return value.replace(/(\d{5})(\d)/, '$1-$2');
+  } else {
+    return value.replace(/(\d{5})(\d{3})/, '$1-$2');
+  }
+};
+
 const formatCNPJ = (value) => {
   // Remove caracteres não numéricos
   value = value.replace(/\D/g, '');
@@ -43,6 +52,8 @@ function PagVenderProduto() {
   const [FornecedoresTabela, setFornecedoresTabela] = useState([]);
   const [inputCep, setInputCep] = useState('');  // Estado para o CEP
   const [cepData, setCepData] = useState({});  // Estado para os dados do CEP
+  const [cepError, setCepError] = useState(''); // Estado para erro de CEP
+
 
   const navigate = useNavigate();
   const UserOBJ = useContext(UserContext);
@@ -69,23 +80,35 @@ function PagVenderProduto() {
   }, []);
 
   async function handleCepSearch() {
-    if (inputCep.length !== 8) {
-      setCepData({});  // Limpa os dados do CEP se o CEP não tiver 8 caracteres
-      return;  // Não faz a busca se o CEP não tiver 8 caracteres
+    const cepSemMascara = inputCep.replace(/\D/g, ''); // Remove a máscara (hífen e outros caracteres)
+
+    if (cepSemMascara.length !== 8) {
+      setCepData({});  // Limpa os dados do CEP se não tiver 8 caracteres
+      setCepError('CEP inválido. O CEP deve ter 8 dígitos.');
+      return;  // Não faz a requisição se o CEP não for válido
     }
+
     try {
-      const response = await axios.get(`https://viacep.com.br/ws/${inputCep}/json/`);
-      setCepData(response.data);  // Atualiza os dados do CEP
-      setEndereco(response.data.logradouro);  // Preenche automaticamente o endereço
+      const response = await axios.get(`https://viacep.com.br/ws/${cepSemMascara}/json/`);
+      if (response.data.erro) {
+        setCepData({});
+        setCepError('Sem informações para o CEP fornecido.');
+      } else {
+        setCepData(response.data);  // Atualiza os dados do CEP
+        setCepError('');  // Limpa qualquer erro
+        setEndereco(response.data.logradouro);  // Atualiza o campo de endereço com a rua
+      }
     } catch (error) {
-      setCepData({});  // Limpa os dados caso ocorra algum erro
-      alert("Erro ao buscar o CEP");
+      setCepData({});
+      setCepError('Erro ao buscar o CEP. Tente novamente.');
     }
   }
 
   useEffect(() => {
-    handleCepSearch();  // Chama a função ao digitar
-  }, [inputCep]);
+    if (inputCep.length === 9) {  // Chamando apenas se o CEP estiver com 9 caracteres (com a máscara)
+      handleCepSearch();
+    }
+  }, [inputCep]); // Dependência de `inputCep`
 
 
   const handleSubmit = async (e) => {
@@ -200,11 +223,12 @@ function PagVenderProduto() {
                     className="controle-formulario"
                     type="text"
                     value={inputCep}
-                    onChange={(e) => setInputCep(e.target.value)}
+                    onChange={(e) => setInputCep(formatCep(e.target.value))}
                     placeholder="EX: 01299-029"
+                    maxLength={9} // Permite a entrada de até 9 caracteres (com a máscara)
                   />
                   {/* Exibindo as informações do CEP em tempo real */}
-                  {cepData && Object.keys(cepData).length > 0 && (
+                  {inputCep.length === 9 && !cepError && cepData && Object.keys(cepData).length > 0 ? (
                     <div className="teste">
                     <div className="cep-info">
                       <p><strong>Rua:</strong> {cepData.logradouro}</p>
@@ -213,6 +237,12 @@ function PagVenderProduto() {
                       <p><strong>UF:</strong> {cepData.uf}</p>
                     </div>
                     </div>
+                  ) : (
+                    inputCep.length === 9 && cepError && (
+                      <div className="teste">
+                      <p className="cep-error">{cepError}</p>
+                      </div>
+                    )
                   )}
                   <label>Telefone:</label>
                   <input
@@ -221,6 +251,7 @@ function PagVenderProduto() {
                     value={Telefone}
                     onChange={(e) => setTelefone(formatTelefone(e.target.value))}
                     placeholder="Ex: (00) 00000-0000"
+                    maxLength={15}
                   />
                   <label>Email:</label>
                   <input
