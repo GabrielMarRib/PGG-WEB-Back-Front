@@ -17,9 +17,9 @@ const formatCNPJ = (value) => {
   // Aplica a máscara
   if (value.length <= 14) {
     return value.replace(/(\d{2})(\d)/, '$1.$2')
-                .replace(/(\d{3})(\d)/, '$1.$2')
-                .replace(/(\d{3})(\d{4})/, '$1/$2')
-                .replace(/(\d{4})(\d{2})$/, '$1-$2');
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d{4})/, '$1/$2')
+      .replace(/(\d{4})(\d{2})$/, '$1-$2');
   }
   return value;
 };
@@ -28,7 +28,7 @@ const formatTelefone = (value) => {
   value = value.replace(/\D/g, '');
   if (value.length <= 11) {
     return value.replace(/(\d{2})(\d)/, '($1) $2')
-                .replace(/(\d{5})(\d)/, '$1-$2');
+      .replace(/(\d{5})(\d)/, '$1-$2');
   }
   return value;
 };
@@ -39,8 +39,10 @@ function PagVenderProduto() {
   const [Endereco, setEndereco] = useState('');
   const [Telefone, setTelefone] = useState('');
   const [Email, setEmail] = useState('');
-  const [Status, setStatus] = useState(false); // Status como booleano
+  const [Status, setStatus] = useState(false);
   const [FornecedoresTabela, setFornecedoresTabela] = useState([]);
+  const [inputCep, setInputCep] = useState('');  // Estado para o CEP
+  const [cepData, setCepData] = useState({});  // Estado para os dados do CEP
 
   const navigate = useNavigate();
   const UserOBJ = useContext(UserContext);
@@ -66,14 +68,34 @@ function PagVenderProduto() {
     PegarFornecedores();
   }, []);
 
+  async function handleCepSearch() {
+    if (inputCep.length !== 8) {
+      setCepData({});  // Limpa os dados do CEP se o CEP não tiver 8 caracteres
+      return;  // Não faz a busca se o CEP não tiver 8 caracteres
+    }
+    try {
+      const response = await axios.get(`https://viacep.com.br/ws/${inputCep}/json/`);
+      setCepData(response.data);  // Atualiza os dados do CEP
+      setEndereco(response.data.logradouro);  // Preenche automaticamente o endereço
+    } catch (error) {
+      setCepData({});  // Limpa os dados caso ocorra algum erro
+      alert("Erro ao buscar o CEP");
+    }
+  }
+
+  useEffect(() => {
+    handleCepSearch();  // Chama a função ao digitar
+  }, [inputCep]);
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!NomeForcedor || !CNPJ || !Endereco || !Telefone || !Email) {
       Alerta(3, "Todos os campos devem ser preenchidos.");
       return;
     }
-    
-    
+
+
     console.log({ NomeForcedor, CNPJ, Endereco, Telefone, Email, Status });
     try {
       const Response = await axios.post("http://pggzettav3.mooo.com/api/index.php", {
@@ -81,7 +103,7 @@ function PagVenderProduto() {
         senha: "@7h$Pz!q2X^vR1&K",
         nome: NomeForcedor,
         cnpj: CNPJ,
-        endereco: Endereco,
+        endereco: cepData.logradouro,
         telefone: Telefone,
         email: Email,
         status: Status ? 'ativo' : 'inativo', // Convertendo booleano para string
@@ -93,13 +115,14 @@ function PagVenderProduto() {
       setEndereco('');
       setTelefone('');
       setEmail('');
+      setInputCep('');
       setStatus(false); // Resetando o Status para inativo
       PegarFornecedores();
     } catch (error) {
       console.error("Erro ao cadastrar fornecedor:", error);
       Alerta(3, "Erro ao cadastrar fornecedor.");
     }
-  
+
 
   };
 
@@ -133,19 +156,20 @@ function PagVenderProduto() {
         <Titulo tituloMsg="Cadastro de fornecedor" />
         <AlertaNotificação />
         <header className="cabecalhoBtnAjuda">
-          <div className="Botaoajuda" onClick={() => {setShowPopup(true)}}> {/*crie um botão que no onClick faz o setShowPopup ficar true */}
-          Ajuda
+          <div className="Botaoajuda" onClick={() => { setShowPopup(true) }}>
+            Ajuda
           </div>
         </header>
 
         <div className="BtnAjuda">
-          {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
-            <BtnAjuda /* chama o btnAjuda */
-              fechar={() => {setShowPopup(false)}} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
-              msgChave={"CADASTROFORNECEDOR"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
+          {showPopup && (
+            <BtnAjuda
+              fechar={() => { setShowPopup(false) }}
+              msgChave={"CADASTROFORNECEDOR"}
             />
           )}
-        </div> 
+        </div>
+
         <div className="enquadramento">
           <button className="voltar" onClick={() => navigate("/PagEscolhaPontoDePedido")}>
             Voltar
@@ -169,16 +193,27 @@ function PagVenderProduto() {
                     value={CNPJ}
                     onChange={(e) => setCNPJ(formatCNPJ(e.target.value))}
                     placeholder="Ex: 00.000.000/0000-00"
-                    maxLength={18} 
+                    maxLength={18}
                   />
-                  <label>Endereço:</label>
+                  <label>CEP:</label>
                   <input
                     className="controle-formulario"
                     type="text"
-                    value={Endereco}
-                    placeholder="Ex: Av. Brasil, 0000 - Centro"
-                    onChange={(e) => setEndereco(e.target.value)}
+                    value={inputCep}
+                    onChange={(e) => setInputCep(e.target.value)}
+                    placeholder="EX: 01299-029"
                   />
+                  {/* Exibindo as informações do CEP em tempo real */}
+                  {cepData && Object.keys(cepData).length > 0 && (
+                    <div className="teste">
+                    <div className="cep-info">
+                      <p><strong>Rua:</strong> {cepData.logradouro}</p>
+                      <p><strong>Bairro:</strong> {cepData.bairro}</p>
+                      <p><strong>Cidade:</strong> {cepData.localidade}</p>
+                      <p><strong>UF:</strong> {cepData.uf}</p>
+                    </div>
+                    </div>
+                  )}
                   <label>Telefone:</label>
                   <input
                     className="controle-formulario"
