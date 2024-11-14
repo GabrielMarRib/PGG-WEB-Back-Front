@@ -63,7 +63,20 @@ function Home() {
                 </div>
                 <br></br>
                 {mensagem && Style && <p className={Style}>{mensagem}</p>}
-                <form>
+                <form onSubmit={(e) => {
+                  (async () => {
+                    e.preventDefault();
+                    if (CheckCamposVazios([email, password])) {
+                      exibeMsg(setMensagem, camposNaoPreenchidos(true), 4000, true, SetStyle);
+                      return;
+                    }
+                    const [userData, erro, msg] = await handleLogin(email, password);
+                    await exibeMsg(setMensagem, msg, 2000, erro, SetStyle);
+                    console.log("userData NOVO!!! " + JSON.stringify(userData));
+                    setUser(userData);
+                    localStorage.setItem('User', JSON.stringify(userData));
+                  })()
+                }}>
                   <div className="grupo-formulario">
                     <label htmlFor="email">Digite seu Email:</label>
                     <input
@@ -85,21 +98,6 @@ function Home() {
                     />
                   </div>
                   <button
-                    type="button"
-                    onClick={() => {
-                      (async () => {
-                        if (CheckCamposVazios([email, password])) {
-                          exibeMsg(setMensagem, camposNaoPreenchidos(true), 4000, true, SetStyle);
-                          return;
-                        }
-                        const [userData, erro, msg] = await handleLogin(email, password);
-                        await exibeMsg(setMensagem, msg, 2000, erro, SetStyle);
-                        console.log("userData NOVO!!! " + JSON.stringify(userData));
-                        setUser(userData);
-                        localStorage.setItem('User', JSON.stringify(userData));
-                        
-                      })();
-                    }}
                   >
                     Enviar
                   </button>
