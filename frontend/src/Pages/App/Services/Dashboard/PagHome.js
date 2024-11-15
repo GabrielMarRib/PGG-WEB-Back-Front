@@ -337,7 +337,9 @@ function PagHome() {
               <button className="option-button" onClick={() => navigate("/PagGerirCategoria")}>Gerir Categorias</button>
               <button className="option-button" onClick={() => navigate("/PagGerirLotes")}>Gerir lotes</button>
               <button className="option-button" onClick={() => navigate("/PagMovimentos")}>Mostrar Movimentos</button>
-              <button className="option-button" onClick={() => { navigate('/PagUploadExcel') }}> Importar Planilha</button>
+              <button className="option-button" onClick={() => { navigate('/PagUploadExcel') }}>Importar Planilha</button>
+              <button className="option-button" onClick={() => navigate("/PagCadFornecedor")}>Cadastro de Fornecedor</button>
+              <button className="option-button" onClick={() => navigate("/PagPesquisaFornecedor")}>Pesquisa de Produtos</button>
             </div>
           )}
 
@@ -361,8 +363,6 @@ function PagHome() {
           {showPontoPedido && (
             <div className="estoque-options">
               <button className="option-button" onClick={() => navigate("/PagPontoPedido")}>Ponto de pedido</button>
-              <button className="option-button" onClick={() => navigate("/PagCadFornecedor")}>Cadastro de fornecedor</button>
-              <button className="option-button" onClick={() => navigate("/PagPesquisaFornecedor")}>Pesquisa de produtos</button>
             </div>
           )}
 

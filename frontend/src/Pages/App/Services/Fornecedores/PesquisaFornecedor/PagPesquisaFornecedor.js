@@ -208,7 +208,7 @@ function PagPesquisaFornecedor() {
                     />
                 )}
                 </div> 
-                <button className="voltar" onClick={() => { navigate("/PagEscolhaPontoDePedido"); }}>
+                <button className="voltar" onClick={() => { navigate("/PagHome"); }}>
                     Voltar
                 </button>
 
