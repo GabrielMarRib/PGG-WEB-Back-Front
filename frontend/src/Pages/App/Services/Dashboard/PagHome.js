@@ -356,15 +356,13 @@ function PagHome() {
           )}
 
 
-          <button className={isSelectPontoPedido ? "menu-button-Select" : "menu-button"} onClick={handlePontoPedidoClick}>
+          <button
+            className="menu-button"
+            onClick={() => navigate("/PagPontoPedido")}
+          >
             <img src={buttons[2].img} alt={buttons[2].title} className="button-image" />
             <span className="button-title">{buttons[2].title}</span>
           </button>
-          {showPontoPedido && (
-            <div className="estoque-options">
-              <button className="option-button" onClick={() => navigate("/PagPontoPedido")}>Ponto de pedido</button>
-            </div>
-          )}
 
           {buttons.slice(3).map((button, index) => (
             <button key={index} className="menu-button" onClick={() => navigate(button.link)}>
