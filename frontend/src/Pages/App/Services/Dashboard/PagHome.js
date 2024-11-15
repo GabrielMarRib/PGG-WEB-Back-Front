@@ -380,7 +380,7 @@ function PagHome() {
       <div className="content">
         <div className="header">
           <div className="date-box">
-            <p>- Zetta -</p>
+            <p>- Pequeno Grande Gestor -</p>
           </div>
         </div>
 
