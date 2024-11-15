@@ -15,10 +15,6 @@
     width: 100%;
     justify-content: center;
 }
-.teste{
-    background-color: rgb(236, 236, 236);
-}
-
 
 .PagVenderProduto .voltar {
     padding: 10px;
@@ -147,6 +143,17 @@
 
 
 /* Pagina Cadastro fornecedor */
+
+.PagVenderProduto .teste {
+    background-color: rgba(214, 214, 214, 0.6);
+    border-radius: 8px; 
+    padding: 10px; 
+    margin: 16px 0; 
+    border: 1px solid rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-height: 100px; 
+    height: auto; 
+}
 
 .toggle-switch {
     display: flex;
