@@ -5,8 +5,12 @@ import { useContext } from 'react';
 import { UserContext } from './Context/UserContext';
 
 const PrivateRoute = ({ element: Component, ...rest }) => {
-  const { User } = useContext(UserContext);
+  const { User, isLoading } = useContext(UserContext);
   const location = useLocation();
+
+  if (isLoading) {
+    return <div>Carregando...</div>;
+  }
 
   if (User) {
     return Component;

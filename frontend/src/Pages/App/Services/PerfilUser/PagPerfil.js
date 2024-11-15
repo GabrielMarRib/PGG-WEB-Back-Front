@@ -63,6 +63,10 @@ function PagPerfil() {
                         <button className="botao-func" onClick={() => { navigate('/PagUploadExcel') }}>
                             <img src={excel} alt="UploadExel" /> Importar Planilha
                         </button>
+                        <button className="botao-func" onClick={() => { navigate('/DefGrupoAcesso') }}>
+                            <img src={excel} alt="UploadExel" /> Gerenciar Grupos de acesso
+                        </button>
+
                     </div>
                 )}
             </div>
