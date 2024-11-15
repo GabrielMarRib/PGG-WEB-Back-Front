@@ -1,39 +1,60 @@
 // src/Routes.js
 import React from 'react';
 import { BrowserRouter, Routes as RouterRoutes, Route, Navigate } from 'react-router-dom';
-import PagLogin from './Pages/PagLogin';
+
+// Login
+import PagLogin from './Pages/App/Login/PagLogin';
 import PagLoginMobile from './Mobile/PagLogin-Mobile';
-import PagHome from './Pages/App/PagHome';
-import PagPerfil from './Pages/App/PagPerfil';
+
+// Dashboard
+import PagHome from './Pages/App/Services/Dashboard/PagHome';
+
+// Perfil
+import PagPerfil from './Pages/App/Services/PerfilUser/PagPerfil';
+
+//Atividade Administrativa
+import PagAddFunc from './Pages/App/Services/AtividadeAdministrativa/Funcionarios/AddFuncionarios/PagAddFunc';
+import PagFuncionarios from './Pages/App/Services/AtividadeAdministrativa/Funcionarios/ListaFuncionarios/PagFuncionarios';
+import PagRelatorios from './Pages/App/Services/AtividadeAdministrativa/Relatorios/PagRelatorios';
+import PagHistorico from './Pages/App/Services/AtividadeAdministrativa/Logs/PagHistorico';
+
+// Fornecedores 
+import PagCadastroFornecedor from './Pages/App/Services/Fornecedores/CadastroFornecedor/PagCadastroFornecedor';
+import PagPesquisaFornecedor from './Pages/App/Services/Fornecedores/PesquisaFornecedor/PagPesquisaFornecedor';
+
+// Estoque 
+import PagProdutos from './Pages/App/Services/Estoque/AddProdutos/PagProdutos';
+import PagVenderProduto from './Pages/App/Services/Estoque/BaixaProdutos/PagVenderProduto';
+import PagMovimentos from './Pages/App/Services/Estoque/Movimento/PagMovimentos';
+import GerirLotes from './Pages/App/Services/Estoque/GerirLotes/GerirLotes';
+import GerirCategoria from './Pages/App/Services/Estoque/GerirCategorias/GerirCategoria';
+import PagUploadExcel from './Pages/App/Services/Estoque/Excel/PagUploadExcel';
+import PagInventario from './Pages/App/Services/Estoque/Inventario/PagInventario';
+
+// Curva ABC 
+import PagCurvaABC from './Pages/App/Services/CurvaABC/Curva_Frequencia/PagCurvaABC';
+import PagCurvaABCPorValor from './Pages/App/Services/CurvaABC/Curva_Valor/PagCurvaABCPorValor';
+
+// Lote Econômico 
+import PagLoteEconomico from './Pages/App/Services/LoteEconomico/PagLoteEconomico';
+
+// Ponto de Pedido
+import PagPontoPedido from './Pages/App/Services/PontoDePedido/PagPontoPedido';
+
+// Escolha (Deprecated)
+import PagEscolhaProdutos from './Pages/App/Services/PaginasEscolha(DEPRECATED)/Produtos/PagEscolhaProdutos';
+import PagEscolhaCurvaABC from './Pages/App/Services/PaginasEscolha(DEPRECATED)/CurvaABC/PagEscolhaCurvaABC';
+import PagEscolhaPontoDePedido from './Pages/App/Services/PaginasEscolha(DEPRECATED)/PagEscolhaPontoDePedido';
+
+// Testes
+import PagTeste from './Pages/App/Services/Tests/PagTeste';
+import TesteDashboard from './Pages/App/Services/Tests/DashboardTeste/TesteDashboard';
+import PagTesteInsercao from './Pages/App/Services/Tests/PagTesteInsercao';
+import PagTesteInsercaoDD from './Pages/App/Services/Tests/PagTesteInsercaoDD';
+
+// Funcoes
 import { IsMobile } from './Functions/Functions';
-import PagAddFunc from './Pages/App/Services/PagAddFunc';
-import PagProdutos from './Pages/App/Services/PagProdutos';
-import PagEscolhaProdutos from './Pages/App/PagEscolhaProdutos';    
-import PagVenderProduto from './Pages/App/Services/PagVenderProduto'; 
-import PagLoteEconomico from './Pages/App/Services/PagLoteEconomico'; 
-import PagEscolhaCurvaABC from './Pages/App/PagEscolhaCurvaABC'; 
-import PagCurvaABC from './Pages/App/Services/PagCurvaABC';
-import PagCurvaABCPorValor from './Pages/App/Services/PagCurvaABCPorValor'; 
-import PagPontoPedido from './Pages/App/Services/PagPontoPedido'; 
-
-import PagRelatorios from './Pages/App/Services/PagRelatorios';
-import PagFuncionarios from './Pages/App/Services/PagFuncionarios'; 
-import PagTeste from './Pages/App/Services/PagTeste';
-import TesteDashboard from './Pages/App/Services/TesteDashboard';
-import GerirCategoria from './Pages/App/Services/GerirCategoria';
-import PagTesteInsercao from './Pages/App/Services/PagTesteInsercao'; 
-import PagTesteInsercaoDD from './Pages/App/Services/PagTesteInsercaoDD';
 import PrivateRoute from './PrivateRoute';
-import GerirLotes from './Pages/App/Services/GerirLotes';
-import PagMovimentos from './Pages/App/Services/PagMovimentos';
-import PagCadastroFornecedor from './Pages/App/Services/PagCadastroFornecedor'; 
-import PagHistorico from './Pages/App/Services/PagHistorico'; 
-import PagPesquisaFornecedor from './Pages/App/Services/PagPesquisaFornecedor';
-import PagUploadExcel from './Pages/App/Services/PagUploadExcel'; 
-import PagEscolhaPontoDePedido from './Pages/App/Services/PagEscolhaPontoDePedido';
-
-
-import PagInventario from './Pages/App/Services/PagInventario';
 
 const Mobile = IsMobile();
 
