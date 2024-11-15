@@ -337,6 +337,7 @@ function PagHome() {
               <button className="option-button" onClick={() => navigate("/PagGerirCategoria")}>Gerir Categorias</button>
               <button className="option-button" onClick={() => navigate("/PagGerirLotes")}>Gerir lotes</button>
               <button className="option-button" onClick={() => navigate("/PagMovimentos")}>Mostrar Movimentos</button>
+              <button className="option-button" onClick={() => { navigate('/PagUploadExcel') }}> Importar Planilha</button>
             </div>
           )}
 

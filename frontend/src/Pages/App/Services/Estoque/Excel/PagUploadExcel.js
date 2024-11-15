@@ -376,7 +376,7 @@ function PagUploadExcel() {
             <button
                 className="voltar"
                 onClick={() => {
-                    navigate("/PagPerfil");
+                    navigate("/PagHome");
                 }}
             >
                 Voltar

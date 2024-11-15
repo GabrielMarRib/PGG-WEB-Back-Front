@@ -260,6 +260,11 @@
     margin-top: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+.LoteEconomico .AtuaFechar{
+  justify-content: center;
+  gap: 10px;
+}
   
 .Select-loteEconomico {
   width: 50%; 

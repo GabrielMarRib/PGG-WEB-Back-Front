@@ -259,10 +259,10 @@ function PagLoteEconomico() {
                   onChange={(e) => setdemanda_anual(e.target.value)}
                 />
               </div>
-              <did className="">
+              <div className="AtuaFechar">
               <button onClick={CalcularLoteEconomico}>Atualizar</button>
               <button onClick={() => FecharJanela()} >fechar</button>
-              </did>
+              </div>
             </div>
           </div>
         </div>
