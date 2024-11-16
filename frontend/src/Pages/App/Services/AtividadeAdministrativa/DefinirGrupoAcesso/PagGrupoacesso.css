@@ -1,0 +1,138 @@
+.PagGrupoacesso .conteudoPagina {
+    display: flex;
+    flex-direction: column;
+    font-family: 'JetBrains Mono', sans-serif;
+    align-items: center;
+    justify-content: center;
+}
+
+.PagGrupoacesso .btn {
+    margin-right: 67%;
+}
+
+.PagGrupoacesso .CabecalhoHome {
+    width: 100%;
+}
+
+.PagGrupoacesso .Conteudo {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    height: 600px;
+    
+}
+
+.PagGrupoacesso .btn button {
+    background-color: #C53D0F;
+    border-color: transparent;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 18px;
+    padding: 3px;
+    cursor: pointer;
+    margin: 10px auto;
+    width: 80px;
+    font-family: 'JetBrains Mono';
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.PagGrupoacesso .BarraLateral {
+    width: 100%;
+    border-right: 1px solid #ccc;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.PagGrupoacesso .BarraLateral input[type="text"] {
+    width: 580px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    
+}
+
+.PagGrupoacesso .ItemGrupo {
+    width: calc(100% - 40px);
+    padding: 10px;
+    margin: 5px 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+
+.PagGrupoacesso .ItemGrupo:hover {
+    background-color: #f0f0f0;
+}
+
+.PagGrupoacesso .ConteudoPrincipal {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+   
+}
+
+.PagGrupoacesso .dados-grupo {
+    width: 500px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.PagGrupoacesso .dados-grupo h2 {
+    margin: 10px 0;
+}
+
+.PagGrupoacesso .dados-grupo h2:first-child {
+    margin-top: 0;
+}
+
+.PagGrupoacesso .dados-grupo h2:last-child {
+    margin-bottom: 0;
+}
+
+.PagGrupoacesso .adicionarGrupo {
+    position: fixed; 
+    bottom: 20px;  
+    left: 50%;       
+    transform: translateX(-50%); 
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    border: 1px solid #ccc;  
+    border-radius: 4px;      
+    background-color: transparent;  
+    cursor: pointer;
+    transition: border-color 0.3s;
+    background-color: #C53D0F; 
+}
+
+.PagGrupoacesso .adicionarGrupo:hover {
+    background-color: #a23a09; 
+}
+  
+.PagGrupoacesso .dados-grupo {
+    position: relative;
+  }
+.PagGrupoacesso .Fechar {
+    position: absolute;  
+    top: 10px;           
+    right: 10px;         
+    padding: 8px 12px;
+    font-size: 16px;
+    background-color: #C53D0F; 
+    color: white;         
+    border: 1px solid #C53D0F; 
+    cursor: pointer;
+}
+  
+.PagGrupoacesso .Fechar:hover {
+    background-color: #a23a09; 
+}

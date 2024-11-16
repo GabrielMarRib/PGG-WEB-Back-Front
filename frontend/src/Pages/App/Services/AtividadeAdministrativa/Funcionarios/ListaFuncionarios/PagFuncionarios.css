@@ -1,7 +1,3 @@
-.PagFuncionarios {
-    
-}
-
 .PagFuncionarios .conteudoPagina {
     display: flex;
     flex-direction: column;
