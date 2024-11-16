@@ -57,6 +57,15 @@
     outline: none;
     transition: border-color 0.3s;
 }
+.ModalAtualizarLote select {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 9px;
+    min-width: 95%;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
 .ModalAtualizarLote .conteudo-modal label {
     margin-left: 20px;
     font-size: 1rem;
