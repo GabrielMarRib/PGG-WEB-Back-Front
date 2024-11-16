@@ -17,7 +17,7 @@ import PagAddFunc from './Pages/App/Services/AtividadeAdministrativa/Funcionario
 import PagFuncionarios from './Pages/App/Services/AtividadeAdministrativa/Funcionarios/ListaFuncionarios/PagFuncionarios';
 import PagRelatorios from './Pages/App/Services/AtividadeAdministrativa/Relatorios/PagRelatorios';
 import PagHistorico from './Pages/App/Services/AtividadeAdministrativa/Logs/PagHistorico';
-
+import PagGrupoacesso from './Pages/App/Services/AtividadeAdministrativa/DefinirGrupoAcesso/PagGrupoacesso';
 // Fornecedores 
 import PagCadastroFornecedor from './Pages/App/Services/Fornecedores/CadastroFornecedor/PagCadastroFornecedor';
 import PagPesquisaFornecedor from './Pages/App/Services/Fornecedores/PesquisaFornecedor/PagPesquisaFornecedor';
@@ -98,6 +98,7 @@ function AppRoutes() {
             <Route path="/PagUploadExcel" element={<PrivateRoute element={<PagUploadExcel />} />} />
             <Route path="/PagEscolhaPontoDePedido" element={<PrivateRoute element={<PagEscolhaPontoDePedido />} />} />
             <Route path="/PagInventario" element={<PrivateRoute element={<PagInventario />} />} />
+            <Route path="/DefGrupoAcesso" element={<PrivateRoute element={<PagGrupoacesso />} />} />
 
             
           </>

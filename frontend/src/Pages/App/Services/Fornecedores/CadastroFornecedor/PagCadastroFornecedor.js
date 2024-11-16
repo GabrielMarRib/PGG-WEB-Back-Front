@@ -194,7 +194,7 @@ function PagVenderProduto() {
         </div>
 
         <div className="enquadramento">
-          <button className="voltar" onClick={() => navigate("/PagEscolhaPontoDePedido")}>
+          <button className="voltar" onClick={() => navigate("/PagHome")}>
             Voltar
           </button>
           <div className="container-tela-cad_Fornecedor">

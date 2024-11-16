@@ -7,6 +7,8 @@ import NivelAcesso from '../../../../Assets/userProfile/CHAVE.png';
 import Telefone from '../../../../Assets/userProfile/TELEFONE.png'; 
 import Cpf from '../../../../Assets/userProfile/CPF.png';
 import excel from '../../../../Assets/excel.png';  
+import pessoas from '../../../../Assets/pessoas.png'; 
+import grupos from '../../../../Assets/grupos.png';
 import AddPerfil from '../../../../Assets/add-userWhite.png';
 import IconListaFunc from '../../../../Assets/ListaFunc.png';
 import { UserContext } from '../../../../Context/UserContext.js';
@@ -60,9 +62,10 @@ function PagPerfil() {
                         <button className="botao-func" onClick={() => { navigate('/PagRelatorios') }}>
                             <img src={IconListaFunc} alt="Relatórios" /> Relatórios
                         </button>
-                        <button className="botao-func" onClick={() => { navigate('/PagUploadExcel') }}>
-                            <img src={excel} alt="UploadExel" /> Importar Planilha
+                        <button className="botao-func" onClick={() => { navigate('/DefGrupoAcesso') }}>
+                            <img src={grupos} alt="Grupos" /> Gerenciar Grupos de acesso
                         </button>
+
                     </div>
                 )}
             </div>

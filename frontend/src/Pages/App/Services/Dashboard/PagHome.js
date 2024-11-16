@@ -337,6 +337,9 @@ function PagHome() {
               <button className="option-button" onClick={() => navigate("/PagGerirCategoria")}>Gerir Categorias</button>
               <button className="option-button" onClick={() => navigate("/PagGerirLotes")}>Gerir lotes</button>
               <button className="option-button" onClick={() => navigate("/PagMovimentos")}>Mostrar Movimentos</button>
+              <button className="option-button" onClick={() => { navigate('/PagUploadExcel') }}>Importar Planilha</button>
+              <button className="option-button" onClick={() => navigate("/PagCadFornecedor")}>Cadastro de Fornecedor</button>
+              <button className="option-button" onClick={() => navigate("/PagPesquisaFornecedor")}>Pesquisa de Produtos</button>
             </div>
           )}
 
@@ -353,17 +356,13 @@ function PagHome() {
           )}
 
 
-          <button className={isSelectPontoPedido ? "menu-button-Select" : "menu-button"} onClick={handlePontoPedidoClick}>
+          <button
+            className="menu-button"
+            onClick={() => navigate("/PagPontoPedido")}
+          >
             <img src={buttons[2].img} alt={buttons[2].title} className="button-image" />
             <span className="button-title">{buttons[2].title}</span>
           </button>
-          {showPontoPedido && (
-            <div className="estoque-options">
-              <button className="option-button" onClick={() => navigate("/PagPontoPedido")}>Ponto de pedido</button>
-              <button className="option-button" onClick={() => navigate("/PagCadFornecedor")}>Cadastro de fornecedor</button>
-              <button className="option-button" onClick={() => navigate("/PagPesquisaFornecedor")}>Pesquisa de produtos</button>
-            </div>
-          )}
 
           {buttons.slice(3).map((button, index) => (
             <button key={index} className="menu-button" onClick={() => navigate(button.link)}>
@@ -380,7 +379,7 @@ function PagHome() {
       <div className="content">
         <div className="header">
           <div className="date-box">
-            <p>- Zetta -</p>
+            <p>- Pequeno Grande Gestor -</p>
           </div>
         </div>
 
