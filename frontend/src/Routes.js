@@ -51,6 +51,7 @@ import PagTeste from './Pages/App/Services/Tests/PagTeste';
 import TesteDashboard from './Pages/App/Services/Tests/DashboardTeste/TesteDashboard';
 import PagTesteInsercao from './Pages/App/Services/Tests/PagTesteInsercao';
 import PagTesteInsercaoDD from './Pages/App/Services/Tests/PagTesteInsercaoDD';
+import NavBar from './Components/NavBar/NavBar';
 
 // Funcoes
 import { IsMobile } from './Functions/Functions';
@@ -99,6 +100,7 @@ function AppRoutes() {
             <Route path="/PagEscolhaPontoDePedido" element={<PrivateRoute element={<PagEscolhaPontoDePedido />} />} />
             <Route path="/PagInventario" element={<PrivateRoute element={<PagInventario />} />} />
             <Route path="/DefGrupoAcesso" element={<PrivateRoute element={<PagGrupoacesso />} />} />
+            <Route path="/PagNavBar" element={<PrivateRoute element={<NavBar />} />} />
 
             
           </>
