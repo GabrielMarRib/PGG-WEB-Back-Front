@@ -27,8 +27,6 @@ function PagAddFunc() {
 
   const [showPopup, setShowPopup] = useState(false); // variaveis para o btnAjuda
 
-  RedirectAcesso(User,2);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     // consistencia ja foi feita na pagina pelo gustavo, mlk é monstro poupou meu tempo
@@ -86,10 +84,7 @@ function PagAddFunc() {
 
 
 
-      {User &&
-      User.userData &&
-      User.userData.Nivel_acesso &&
-      User.userData.Nivel_acesso >= 2 ? (
+      {User && (
         <form className="formAddFunc" onSubmit={(e) => handleSubmit(e)}>
           <div className="teste">
           <h1 className="tituloca">Cadastro de Funcionário</h1>
@@ -172,8 +167,6 @@ function PagAddFunc() {
           <button className="enviar">Enviar</button>
           </div>
         </form>
-      ) : (
-        <>Sem autorização</>
       )}
     </div>
     

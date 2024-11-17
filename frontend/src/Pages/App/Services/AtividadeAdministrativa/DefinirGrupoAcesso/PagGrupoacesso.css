@@ -21,7 +21,6 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
     height: 600px;
-    
 }
 
 .PagGrupoacesso .btn button {
@@ -53,7 +52,6 @@
     margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    
 }
 
 .PagGrupoacesso .ItemGrupo {
@@ -75,7 +73,6 @@
     width: 100%;
     padding: 20px;
     display: flex;
-   
 }
 
 .PagGrupoacesso .dados-grupo {
@@ -84,6 +81,7 @@
     border-radius: 5px;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
 .PagGrupoacesso .dados-grupo h2 {
@@ -117,14 +115,12 @@
 .PagGrupoacesso .adicionarGrupo:hover {
     background-color: #a23a09; 
 }
-  
-.PagGrupoacesso .dados-grupo {
-    position: relative;
-  }
+
 .PagGrupoacesso .Fechar {
     position: absolute;  
     top: 10px;           
     right: 10px;         
+    border-radius: 5px;
     padding: 8px 12px;
     font-size: 16px;
     background-color: #C53D0F; 
@@ -135,4 +131,41 @@
   
 .PagGrupoacesso .Fechar:hover {
     background-color: #a23a09; 
+}
+
+/* Styles for <ul> and <li> elements */
+.PagGrupoacesso .dados-grupo ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    background-color: #f9f9f9;
+}
+
+.PagGrupoacesso .dados-grupo ul li {
+    padding: 10px 15px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #333;
+}
+
+.PagGrupoacesso .dados-grupo ul li:last-child {
+    border-bottom: none;
+}
+
+.PagGrupoacesso .dados-grupo ul li p {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.PagGrupoacesso .dados-grupo ul li:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
 }

@@ -11,13 +11,14 @@ import FiltragemFornecedor from '../../../../../Components/BuscaFornecedor/Filtr
 import BuscaCategoriasComponenteCopia from "../../../../../Components/BuscaCategoria/BuscaCategoriasComponenteCopia.js";
 import ProdutosModal from "../../../../../Components/Modais/ProdutosModal/ProdutosModal.js";
 import BtnAjuda from "../../../../../Components/BotaoAjuda/BtnAjuda.js";
-
-
+import { PermissoesContext } from "../../../../../Context/PermissoesContext.js";
+import { checaPermissaoVisualizacao } from "../../../../../Config/Permissoes.js";
 // Componente Modal
 
 function PagInventario() {
     const { Alerta } = useAlerta(); // Usa o hook useAlerta
     const UserOBJ = useContext(UserContext);
+    const Permissoes = useContext(PermissoesContext);
     const User = UserOBJ.User;
     const navigate = useNavigate();
     const [carregando, setCarregando] = useState(true);
@@ -188,7 +189,7 @@ function PagInventario() {
                 </button>
 
                 
-
+                <button onClick={()=>{checaPermissaoVisualizacao(Permissoes.Permissoes.data, Permissoes.Permissoes.nome, 'PagAddFunc' )}}>aa</button>
                 <div className="telaInteira">
                     <div className="TelaConteudo">
                         <div className="terminal">

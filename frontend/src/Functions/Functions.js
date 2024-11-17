@@ -145,10 +145,17 @@ export const handleRedefinirSenha = async (email) => {
         return [msg, true];
     }
 }
+
+const NullifyLocalStorage = (itens) =>{
+    itens.forEach((item) =>{
+        localStorage.setItem(item,null)
+    })
+}
+
 export const handleLogOut = (navigate) => {
     console.log("Deslogando . . . . ");
     setTimeout(() => {
-        localStorage.setItem('User', null);
+        NullifyLocalStorage(['User','Permissoes','classeA','classeB','limiteA','limiteB','userAvatar'])
         window.location.reload();
     }, 1);
     navigate('/PagLogin');

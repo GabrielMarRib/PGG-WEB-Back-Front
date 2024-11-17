@@ -1,41 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Titulo from '../../../../../Components/Titulo/Titulo';
 import CabecalhoHome from '../../../../../Components/Cabecalho/CabecalhoHome';
 import { useNavigate } from 'react-router-dom';
 import './PagGrupoacesso.css';
+import { pegaPermissoesTotais } from '../../../../../Config/Permissoes';
 
 function PagGrupoacesso() {
   const navigate = useNavigate();
-  const [textoPesquisa, setTextoPesquisa] = useState(""); 
-  const [grupos, setGrupos] = useState([
-    { 
-      id: 1, 
-      nome: 'grupo 1', 
-      funcionarios: ['JuJu', 'Milena', 'Pedro'] 
-    },
-    { 
-      id: 2, 
-      nome: 'grupo 2', 
-      funcionarios: ['Blue', 'Sarah'] 
-    },
-    {  
-      id: 3, 
-      nome: 'grupo 69', 
-      funcionarios: ['Mari A', 'Japa'] 
+  const [grupos, setGrupos] = useState([])
+  const [carregando, setCarregando] = useState(true);
+
+  useEffect(() => {
+    const pegaGrupos = async () => {
+      const response = await pegaPermissoesTotais();
+      setGrupos(response)
+      setCarregando(false)
     }
-  ]);
-  const [grupoSelecionado, setGrupoSelecionado] = useState(null); 
+    pegaGrupos();
+  }, [])
+
+  const [textoPesquisa, setTextoPesquisa] = useState("");
+  const [grupoSelecionado, setGrupoSelecionado] = useState(null);
 
   const handleChangePesquisa = (event) => {
     setTextoPesquisa(event.target.value);
   };
 
   const gruposFiltrados = grupos.filter(grupo =>
-    grupo.nome.toLowerCase().includes(textoPesquisa.toLowerCase())
+    grupo.nome_grupo.toLowerCase().includes(textoPesquisa.toLowerCase())
   );
 
   const selecionarGrupo = (id) => {
-    const grupo = grupos.find(grupo => grupo.id === id);
+    const grupo = grupos.find(grupo => grupo.id_grupo === id);
     setGrupoSelecionado(grupo);
   };
 
@@ -59,34 +55,39 @@ function PagGrupoacesso() {
               value={textoPesquisa}
               onChange={handleChangePesquisa}
             />
-            {gruposFiltrados.map((grupo) => (
-              <div
-                key={grupo.id}
-                className={`ItemGrupo ${grupoSelecionado?.id === grupo.id ? 'selecionado' : ''}`}
-                onClick={() => selecionarGrupo(grupo.id)}
-              >
-                {grupo.nome}
-              </div>
-            ))}
+            {carregando ?
+              <>Carregando...</>
+              : gruposFiltrados.map((grupo) => (
+                <div
+                  key={grupo.id_grupo}
+                  className={`ItemGrupo ${grupoSelecionado?.id === grupo.id_grupo ? 'selecionado' : ''}`}
+                  onClick={() => selecionarGrupo(grupo.id_grupo)}
+                >
+                  {grupo.nome_grupo}
+                </div>
+              ))
+            }
           </div>
 
           <div className="ConteudoPrincipal">
             {grupoSelecionado ? (
               <div className="dados-grupo">
+                <button onClick={() => { console.log(grupoSelecionado.nomes_usuarios.split(',')) }}>a</button>
                 <h1>Detalhes do Grupo</h1>
-                <p><strong>Nome:</strong> {grupoSelecionado.nome}</p>
-                <p><strong>Descrição:</strong> {grupoSelecionado.descricao || 'Não disponível'}</p>
+                <p><strong>Nome:</strong> {grupoSelecionado.nome_grupo}</p>
+                <p><strong>Descrição:</strong> {grupoSelecionado.descricao_grupo || 'Não disponível'}</p>
                 <p><strong>Funcionários:</strong></p>
-                <ul>
-                  {grupoSelecionado.funcionarios.length > 0 ? (
-                    grupoSelecionado.funcionarios.map((funcionario, index) => (
-                      <li key={index}>{funcionario}</li>
-                    ))
-                  ) : (
-                    <li>Não há funcionários cadastrados.</li>
-                  )}
+                <ul className='left-20'>
+                  {grupoSelecionado.nomes_usuarios.split(',').map((user, index) => (
+                    <li>
+                      <span>{user}</span>
+                      <span>id: {grupoSelecionado.ids_usuarios.split(',')[index]}</span>
+                    </li>
+                  ))}
                 </ul>
-                <button className="Fechar" onClick={() => setGrupoSelecionado(null)}>Fechar</button>
+                <p><strong>Permissões:</strong></p>
+                
+                <button className="Fechar" onClick={() => setGrupoSelecionado(null)}>X</button>
               </div>
             ) : (
               <div>

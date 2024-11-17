@@ -4,10 +4,11 @@ import Logo from "../../../Assets/FundoLoginWeb1921x1416.png";
 import { TrocarloginEsquecerSenha, CheckCamposVazios, exibeMsg, apagarCampos, handleRedefinirSenha, handleLogin } from "../../../Functions/Functions.js";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../../Context/UserContext.js";
+import { PermissoesContext } from "../../../Context/PermissoesContext.js";
 import { camposNaoPreenchidos } from "../../../Messages/Msg.js"
 import { useAlerta } from "../../../Context/AlertaContext.js";
 import AlertaNotificação from "../../../Components/NotificacaoAlert/AlertaNotificação.js";
-
+import { pegaPermissoesWHERE } from "../../../Config/Permissoes.js";
 function Home() {
   const [email, setEmail] = useState("");
   const { Alerta } = useAlerta();
@@ -24,12 +25,40 @@ function Home() {
   const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
   const User = UserOBJ.User; //Pega só o User...
 
+  const {setPermissoes} = useContext(PermissoesContext);
 
   useLayoutEffect(() => {
     if (User != null) {
       navigate('/PagHome');
     }
   }, [User,navigate]);
+
+  const HandleFormLogin = async (e) =>{
+    e.preventDefault();
+
+    if (CheckCamposVazios([email, password])) {
+      exibeMsg(setMensagem, camposNaoPreenchidos(true), 4000, true, SetStyle);
+      return;
+    }
+
+    //login:
+    const [userData, erro, msg] = await handleLogin(email, password);
+    await exibeMsg(setMensagem, msg, 2000, erro, SetStyle); // msg login
+
+    console.log("userData NOVO!!! " + JSON.stringify(userData)); // debug
+    
+    setUser(userData); // context (USER)
+    localStorage.setItem('User', JSON.stringify(userData)); // ls
+
+    // Permissões:
+    const id_grupo = userData.userData.Grupo_Acesso // id_grupo (sim é userData.userData mesmo, estúpido, sim eu sei)
+
+    const permissoes_OBJ = await pegaPermissoesWHERE(id_grupo, true)
+    console.log(permissoes_OBJ) // debug
+
+    setPermissoes(permissoes_OBJ) // context (Permissoes)
+    localStorage.setItem('Permissoes', JSON.stringify(permissoes_OBJ))
+  }
 
   return (
     <div className="PagLogin">
@@ -63,20 +92,7 @@ function Home() {
                 </div>
                 <br></br>
                 {mensagem && Style && <p className={Style}>{mensagem}</p>}
-                <form onSubmit={(e) => {
-                  (async () => {
-                    e.preventDefault();
-                    if (CheckCamposVazios([email, password])) {
-                      exibeMsg(setMensagem, camposNaoPreenchidos(true), 4000, true, SetStyle);
-                      return;
-                    }
-                    const [userData, erro, msg] = await handleLogin(email, password);
-                    await exibeMsg(setMensagem, msg, 2000, erro, SetStyle);
-                    console.log("userData NOVO!!! " + JSON.stringify(userData));
-                    setUser(userData);
-                    localStorage.setItem('User', JSON.stringify(userData));
-                  })()
-                }}>
+                <form onSubmit={(e) => {HandleFormLogin(e)}}>
                   <div className="grupo-formulario">
                     <label htmlFor="email">Digite seu Email:</label>
                     <input
