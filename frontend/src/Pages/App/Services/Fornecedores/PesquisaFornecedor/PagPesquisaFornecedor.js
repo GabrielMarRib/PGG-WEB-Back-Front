@@ -191,7 +191,7 @@ function PagPesquisaFornecedor() {
                     <CabecalhoHome />
                 </div>
 
-                <Titulo tituloMsg="Pesquisa de Produtos" />
+                <Titulo tituloMsg="Encomenda de Produtos" />
                 <AlertaNotificação />
 
                 <header className="cabecalhoBtnAjuda">
