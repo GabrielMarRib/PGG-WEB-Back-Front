@@ -3,13 +3,18 @@ import Titulo from '../../../../../Components/Titulo/Titulo';
 import CabecalhoHome from '../../../../../Components/Cabecalho/CabecalhoHome';
 import { useNavigate } from 'react-router-dom';
 import './PagGrupoacesso.css';
-import { pegaPermissoesTotais } from '../../../../../Config/Permissoes';
+import { pegaPermissoesTotais, pegaPermissoesWHERE } from '../../../../../Config/Permissoes';
+import PermissoesModal from '../../../../../Components/Modais/PermissoesModal/PermissoesModal';
 
 function PagGrupoacesso() {
   const navigate = useNavigate();
   const [grupos, setGrupos] = useState([])
   const [carregando, setCarregando] = useState(true);
+  const [permissoesGrupo, setPermissoesGrupo] = useState([]);
+  const [carregandoPermissoes, setCarregandoPermissoes] = useState(true);
 
+  //modal
+  const [showModal, setShowModal] = useState(false);
   useEffect(() => {
     const pegaGrupos = async () => {
       const response = await pegaPermissoesTotais();
@@ -18,6 +23,8 @@ function PagGrupoacesso() {
     }
     pegaGrupos();
   }, [])
+
+
 
   const [textoPesquisa, setTextoPesquisa] = useState("");
   const [grupoSelecionado, setGrupoSelecionado] = useState(null);
@@ -34,6 +41,45 @@ function PagGrupoacesso() {
     const grupo = grupos.find(grupo => grupo.id_grupo === id);
     setGrupoSelecionado(grupo);
   };
+  useEffect(() => {
+    const pegaExclusivo = async () => {
+      if (grupoSelecionado) {
+        const response = await pegaPermissoesWHERE(grupoSelecionado.id_grupo, false);
+        setPermissoesGrupo(response)
+        setCarregandoPermissoes(false);
+      }
+    }
+    pegaExclusivo();
+  }, [grupoSelecionado])
+
+  const handleGrupos = (grupoSelecionado) => {
+    console.log(grupoSelecionado)
+    if (grupoSelecionado.nomes_usuarios && grupoSelecionado.nomes_usuarios.indexOf(',') != -1) {
+      return (
+        <>
+          {grupoSelecionado.nomes_usuarios.split(',').map((user, index) => (
+            <>
+              <li>
+                <span>{user}</span>
+                <span>id: {grupoSelecionado.ids_usuarios.split(',')[index]}</span>
+              </li>
+
+            </>
+          ))}
+        </>
+      )
+    } else {
+      return (
+        <>
+          <li>
+            <span>{grupoSelecionado.nomes_usuarios ? grupoSelecionado.nomes_usuarios : "Sem funcionários"}</span>
+            <span>{grupoSelecionado.ids_usuarios ? "id: " + grupoSelecionado.ids_usuarios : null}</span>
+          </li>
+        </>
+      )
+    }
+  }
+
 
   return (
     <div className="PagGrupoacesso">
@@ -41,6 +87,11 @@ function PagGrupoacesso() {
       <Titulo tituloMsg="Gerenciar Grupos de Acesso" />
 
       <div className="conteudoPagina">
+        {showModal && 
+        <PermissoesModal
+          fechar={()=>{setShowModal(false)}}
+          grupoOBJ={permissoesGrupo}
+        />}
         <div className="btn">
           <button className="voltar" onClick={() => navigate("/PagHome")}>
             Voltar
@@ -72,21 +123,25 @@ function PagGrupoacesso() {
           <div className="ConteudoPrincipal">
             {grupoSelecionado ? (
               <div className="dados-grupo">
-                <button onClick={() => { console.log(grupoSelecionado.nomes_usuarios.split(',')) }}>a</button>
                 <h1>Detalhes do Grupo</h1>
+                <p><strong>Id:</strong> {grupoSelecionado.id_grupo}</p>
                 <p><strong>Nome:</strong> {grupoSelecionado.nome_grupo}</p>
                 <p><strong>Descrição:</strong> {grupoSelecionado.descricao_grupo || 'Não disponível'}</p>
                 <p><strong>Funcionários:</strong></p>
-                <ul className='left-20'>
-                  {grupoSelecionado.nomes_usuarios.split(',').map((user, index) => (
-                    <li>
-                      <span>{user}</span>
-                      <span>id: {grupoSelecionado.ids_usuarios.split(',')[index]}</span>
-                    </li>
-                  ))}
-                </ul>
+                <div className='conteudo-gerado'>
+                  <ul>
+                    {handleGrupos(grupoSelecionado)}
+                  </ul>
+                </div>
+
                 <p><strong>Permissões:</strong></p>
-                
+                {carregandoPermissoes ?
+                  <>Carregando...</> :
+                  <>
+                    <div className="h-[20%] flex items-center justify-center border border-gray-300 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                      <button className="botaoPermissao" onClick={() => { setShowModal(true) }}>Visualizar ou Editar permissões</button>
+                    </div>
+                  </>}
                 <button className="Fechar" onClick={() => setGrupoSelecionado(null)}>X</button>
               </div>
             ) : (

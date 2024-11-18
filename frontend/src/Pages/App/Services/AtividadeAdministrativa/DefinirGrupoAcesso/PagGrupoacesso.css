@@ -76,7 +76,7 @@
 }
 
 .PagGrupoacesso .dados-grupo {
-    width: 500px;
+    width: 100%;
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 20px;
@@ -147,6 +147,7 @@
 
 .PagGrupoacesso .dados-grupo ul li {
     padding: 10px 15px;
+    height: 70px;
     border-bottom: 1px solid #ddd;
     display: flex;
     justify-content: space-between;
@@ -168,4 +169,36 @@
 .PagGrupoacesso .dados-grupo ul li:hover {
     background-color: #f1f1f1;
     cursor: pointer;
+}
+
+.PagGrupoacesso .conteudo-gerado{
+    max-height: 32%;
+    overflow-y: auto;
+}
+
+.PagGrupoacesso .botaoPermissao {
+    background-color: #C53D0F; /* Main color */
+    color: white; /* Text color */
+    font-size: 16px; /* Font size */
+    font-weight: bold; /* Bold text */
+    padding: 12px 24px; /* Padding for size */
+    border: none; /* Remove default border */
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.PagGrupoacesso .botaoPermissao:hover {
+    background-color: #a13b0b; /* Darker shade for hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+.PagGrupoacesso .botaoPermissao:active {
+    background-color: #8a2f0a; /* Even darker shade when pressed */
+    transform: translateY(0); /* Button returns to normal when pressed */
+}
+
+.PagGrupoacesso .botaoPermissao:focus {
+    outline: none; /* Remove focus outline */
+    box-shadow: 0 0 5px rgba(197, 61, 15, 0.6); /* Subtle glow effect on focus */
 }
