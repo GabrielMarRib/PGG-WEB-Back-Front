@@ -13,7 +13,7 @@
 
 .PermissoesModal .conteudo-modal {
     background-color: #fff;
-    top: 4%;
+    top: 3%;
     padding: 30px;
     border-radius: 0 0 12px 12px; 
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
@@ -122,4 +122,15 @@
 
 .permissao-section li span {
     font-size: 1.3rem;
+}
+
+
+.PermissoesModal .botao {
+    border: none;
+    font-weight: bold;
+    background-color: #C53D0F;
+    cursor: pointer;
+    transition: color 0.3s, background-color 0.3s;
+    padding: 8px;
+    border-radius: 10%;
 }

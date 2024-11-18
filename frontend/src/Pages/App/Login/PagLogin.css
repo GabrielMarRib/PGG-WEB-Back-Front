@@ -4,6 +4,12 @@
   display: none;
 }
 
+.PagLogin {
+  display: flex;  
+  align-items: end;
+}
+
+
 @media  screen and (max-width: 550px) {
  
   .PagLogin .container-imagem{
