@@ -88,11 +88,11 @@ function PagGrupoacesso() {
       <Titulo tituloMsg="Gerenciar Grupos de Acesso" />
 
       <div className="conteudoPagina">
-        {showModal && 
-        <PermissoesModal
-          fechar={()=>{setShowModal(false)}}
-          grupoOBJ={permissoesGrupo}
-        />}
+        {showModal &&
+          <PermissoesModal
+            fechar={() => { setShowModal(false) }}
+            grupoOBJ={permissoesGrupo}
+          />}
         <div className="btn">
           <button className="voltar" onClick={() => navigate("/PagHome")}>
             Voltar
@@ -112,7 +112,7 @@ function PagGrupoacesso() {
               : gruposFiltrados.map((grupo) => (
                 <div
                   key={grupo.id_grupo}
-                  className={grupoSelecionado?.id_grupo === grupo.id_grupo ? 'ItemGrupoSelecionado' : 'ItemGrupo' }
+                  className={grupoSelecionado?.id_grupo === grupo.id_grupo ? 'ItemGrupoSelecionado' : 'ItemGrupo'}
                   onClick={() => selecionarGrupo(grupo.id_grupo)}
                 >
                   {grupo.nome_grupo}
@@ -125,7 +125,7 @@ function PagGrupoacesso() {
             {grupoSelecionado ? (
               <div className="dados-grupo">
                 <h1>Detalhes do Grupo</h1>
-                <br/>
+                <br />
                 <p><strong>Id:</strong> {grupoSelecionado.id_grupo}</p>
                 <p><strong>Nome:</strong> {grupoSelecionado.nome_grupo}</p>
                 <p><strong>Descrição:</strong> {grupoSelecionado.descricao_grupo || 'Não disponível'}</p>
@@ -140,7 +140,7 @@ function PagGrupoacesso() {
                 {carregandoPermissoes ?
                   <>Carregando...</> :
                   <>
-                    <div className="h-[20%] flex items-center justify-center border border-gray-300 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <div className='conteudoBotao'>
                       <button className="botaoPermissao" onClick={() => { setShowModal(true) }}>Visualizar ou Editar permissões</button>
                     </div>
                   </>}

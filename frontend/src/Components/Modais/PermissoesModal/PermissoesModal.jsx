@@ -39,8 +39,8 @@ function PermissoesModal({ fechar, grupoOBJ }) {
 
   return (
     <div className="PermissoesModal">
-      <div className="header-content">
-        {true &&
+      <div className='Header-e-conteudo'>
+        <div className="header-content">
           <div className='header'>
             <div className='subHeader'>
               <h2>Visualização de Permissões do Grupo de Acesso: <u>{grupoOBJ.id_grupo} - {grupoOBJ.nome_grupo}</u></h2>
@@ -48,23 +48,22 @@ function PermissoesModal({ fechar, grupoOBJ }) {
             </div>
             <button onClick={fechar} className="botao-fechar">X</button>
           </div>
-        }
-
-      </div>
-
-      <div className="conteudo-modal">
-        {showModal &&
-          <PermissoesSubModal
-            fechar={() => { setShowModal(false) }}
-          />}
-        {/* Edição Section */}
-        <div className="permissao-section">
-          {beautifyJSON(permissoes_visualizacao, "Visualização")}
         </div>
 
-        {/* Visualização Section */}
-        <div className="permissao-section">
-          {beautifyJSON(permissoes_edicao, "Edição")}
+        <div className="conteudo-modal">
+          {showModal &&
+            <PermissoesSubModal
+              fechar={() => { setShowModal(false) }}
+            />}
+          {/* Edição Section */}
+          <div className="permissao-section">
+            {beautifyJSON(permissoes_visualizacao, "Visualização")}
+          </div>
+
+          {/* Visualização Section */}
+          <div className="permissao-section">
+            {beautifyJSON(permissoes_edicao, "Edição")}
+          </div>
         </div>
       </div>
     </div>
