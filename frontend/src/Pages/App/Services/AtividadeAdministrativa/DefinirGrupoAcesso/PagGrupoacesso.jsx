@@ -6,6 +6,7 @@ import './PagGrupoacesso.css';
 import { pegaPermissoesTotais, pegaPermissoesWHERE } from '../../../../../Config/Permissoes';
 import PermissoesModal from '../../../../../Components/Modais/PermissoesModal/PermissoesModal';
 
+
 function PagGrupoacesso() {
   const navigate = useNavigate();
   const [grupos, setGrupos] = useState([])
@@ -33,7 +34,7 @@ function PagGrupoacesso() {
     setTextoPesquisa(event.target.value);
   };
 
-  const gruposFiltrados = grupos.filter(grupo =>
+  const gruposFiltrados = grupos?.filter(grupo =>
     grupo.nome_grupo.toLowerCase().includes(textoPesquisa.toLowerCase())
   );
 
@@ -111,7 +112,7 @@ function PagGrupoacesso() {
               : gruposFiltrados.map((grupo) => (
                 <div
                   key={grupo.id_grupo}
-                  className={`ItemGrupo ${grupoSelecionado?.id === grupo.id_grupo ? 'selecionado' : ''}`}
+                  className={grupoSelecionado?.id_grupo === grupo.id_grupo ? 'ItemGrupoSelecionado' : 'ItemGrupo' }
                   onClick={() => selecionarGrupo(grupo.id_grupo)}
                 >
                   {grupo.nome_grupo}
@@ -124,6 +125,7 @@ function PagGrupoacesso() {
             {grupoSelecionado ? (
               <div className="dados-grupo">
                 <h1>Detalhes do Grupo</h1>
+                <br/>
                 <p><strong>Id:</strong> {grupoSelecionado.id_grupo}</p>
                 <p><strong>Nome:</strong> {grupoSelecionado.nome_grupo}</p>
                 <p><strong>Descrição:</strong> {grupoSelecionado.descricao_grupo || 'Não disponível'}</p>

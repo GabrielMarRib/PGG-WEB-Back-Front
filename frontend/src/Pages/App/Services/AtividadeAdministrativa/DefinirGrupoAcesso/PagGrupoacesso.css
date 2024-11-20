@@ -65,6 +65,17 @@
     text-align: center;
 }
 
+.PagGrupoacesso .ItemGrupoSelecionado {
+    width: calc(100% - 40px);
+    padding: 10px;
+    margin: 5px 20px;
+    border: 1px solid #C53D0F;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+
 .PagGrupoacesso .ItemGrupo:hover {
     background-color: #f0f0f0;
 }

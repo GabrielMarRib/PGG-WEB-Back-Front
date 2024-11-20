@@ -64,6 +64,13 @@
     border-radius: 10%;
 }
 
+.PermissoesModal .subHeader{
+    display: flex;
+    gap: 30px;
+    padding: 2px;
+    flex-direction: row;
+}
+
 .PermissoesModal .botao-fechar:hover {
     background-color: #f44336;
     color: #fff;
@@ -106,6 +113,7 @@
     border-radius: 6px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s;
+    overflow-x: hidden;
 }
 
 .permissao-section li:hover {
@@ -129,8 +137,23 @@
     border: none;
     font-weight: bold;
     background-color: #C53D0F;
+    color:#fff ;
     cursor: pointer;
     transition: color 0.3s, background-color 0.3s;
     padding: 8px;
-    border-radius: 10%;
+    border-radius: 5px;
+}
+
+.PermissoesModal .botaoInativo {
+    border: none;
+    font-weight: bold;
+    background-color: #352e2b;
+    cursor: pointer;
+    transition: color 0.3s, background-color 0.3s;
+    padding: 8px;
+    border-radius: 5px;
+    color: #FFFFFF;           
+    cursor: not-allowed;      
+    opacity: 0.6;            
+    transition: none;        
 }
