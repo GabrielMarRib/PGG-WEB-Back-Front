@@ -1,26 +1,26 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Sidebar */
 .sidebar {
-  height: 100vh;  /* A sidebar ocupa toda a altura da tela */
-  overflow-y: auto;  /* Ativa a rolagem vertical quando necessário */
+  height: 100vh; 
+  overflow-y: auto;  
 }
 
-/* Esconde as barras de rolagem na sidebar */
+/* 
 .sidebar::-webkit-scrollbar {
-  display: none;  /* Remove a barra de rolagem */
+  display: none;  
 }
 
-/* Submenu */
+
 .submenu {
-  max-height: 1000px; /* Ajuste a altura máxima para o submenu */
-  overflow-y: auto;  /* Habilita a rolagem no submenu */
+  max-height: 1000px;
+  overflow-y: auto;  
 }
 
-/* Esconde as barras de rolagem no submenu */
+
 .submenu::-webkit-scrollbar {
-  display: none;  /* Remove a barra de rolagem */
+  display: none;  
 }
 
+ */

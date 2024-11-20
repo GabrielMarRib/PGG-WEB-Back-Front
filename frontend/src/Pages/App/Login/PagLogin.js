@@ -47,17 +47,22 @@ function Home() {
 
     console.log("userData NOVO!!! " + JSON.stringify(userData)); // debug
     
-    setUser(userData); // context (USER)
-    localStorage.setItem('User', JSON.stringify(userData)); // ls
+    if(userData){
+      setUser(userData); // context (USER)
+      localStorage.setItem('User', JSON.stringify(userData)); // ls
+  
+      // Permissões:
+      const id_grupo = userData.userData.Grupo_Acesso // id_grupo (sim é userData.userData mesmo, estúpido, sim eu sei)
+  
+      const permissoes_OBJ = await pegaPermissoesWHERE(id_grupo, true)
+      console.log(permissoes_OBJ) // debug
+  
+      setPermissoes(permissoes_OBJ) // context (Permissoes)
+      localStorage.setItem('Permissoes', JSON.stringify(permissoes_OBJ))
+    }else{
+      await exibeMsg(setMensagem, "erro ao logar", 2000, true, SetStyle); // msg login
+    }
 
-    // Permissões:
-    const id_grupo = userData.userData.Grupo_Acesso // id_grupo (sim é userData.userData mesmo, estúpido, sim eu sei)
-
-    const permissoes_OBJ = await pegaPermissoesWHERE(id_grupo, true)
-    console.log(permissoes_OBJ) // debug
-
-    setPermissoes(permissoes_OBJ) // context (Permissoes)
-    localStorage.setItem('Permissoes', JSON.stringify(permissoes_OBJ))
   }
 
   return (
