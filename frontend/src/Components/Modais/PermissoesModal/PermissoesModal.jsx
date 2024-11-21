@@ -54,6 +54,7 @@ function PermissoesModal({ fechar, grupoOBJ }) {
           {showModal &&
             <PermissoesSubModal
               fechar={() => { setShowModal(false) }}
+              grupoOBJ={grupoOBJ}
             />}
           {/* Edição Section */}
           <div className="permissao-section">

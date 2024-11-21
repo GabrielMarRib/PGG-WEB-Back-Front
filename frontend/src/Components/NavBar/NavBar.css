@@ -1,26 +1,165 @@
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* General layout and transitions */
+.nav-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
 
 .sidebar {
-  height: 100vh; 
-  overflow-y: auto;  
+  background-color: #1e293b;
+  color: white;
+  height: 100%;
+  width: 18rem; /* Expanded width */
+  transition: width 0.3s ease;
+  position: relative;
 }
 
-/* 
-.sidebar::-webkit-scrollbar {
-  display: none;  
+.sidebar.collapsed {
+  width: 5rem; /* Collapsed width */
 }
 
-
-.submenu {
-  max-height: 1000px;
-  overflow-y: auto;  
+.sidebar * {
+  transition: all 0.3s ease;
 }
 
-
-.submenu::-webkit-scrollbar {
-  display: none;  
+/* Toggle Button */
+.toggle-btn {
+  position: absolute;
+  top: 2rem;
+  right: -1.5rem;
+  background-color: white;
+  color: black;
+  border-radius: 50%;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
- */
+.toggle-btn.rotate {
+  transform: rotate(180deg);
+}
+
+/* Logo Section */
+.logo-section {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+}
+
+.logo {
+  height: 2.5rem;
+  width: 2.5rem;
+  transition: transform 0.3s ease;
+}
+
+.rotate-logo {
+  transform: rotate(360deg);
+}
+
+.logo-text {
+  margin-left: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  transform-origin: left center;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.sidebar.open .logo-text {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.sidebar.collapsed .logo-text {
+  transform: scale(0.5);
+  opacity: 0;
+}
+
+/* Search Box */
+.search-box {
+  margin: 1rem;
+  display: flex;
+  align-items: center;
+  background-color: #334155;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.search-box input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  margin-left: 0.5rem;
+  flex-grow: 1;
+}
+
+.search-box.collapsed-search input {
+  display: none;
+}
+
+/* Menu */
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.menu-item:hover {
+  background-color: #475569;
+}
+
+.menu-icon {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+}
+
+.submenu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-left: 1rem;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease;
+}
+
+.submenu-list.open {
+  max-height: 300px; /* Adjust based on submenu items */
+}
+
+.submenu-item {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.submenu-item:hover {
+  background-color: #64748b;
+}
+
+/* Submenu Arrow */
+.submenu-icon {
+  transition: transform 0.3s ease;
+}
+
+.submenu-icon.rotated {
+  transform: rotate(180deg);
+}
+
+/* Main Content */
+.main-content {
+  flex-grow: 1;
+  padding: 2rem;
+  background-color: #f1f5f9;
+}
