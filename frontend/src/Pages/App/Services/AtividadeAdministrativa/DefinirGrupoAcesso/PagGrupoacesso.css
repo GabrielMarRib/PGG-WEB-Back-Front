@@ -93,6 +93,7 @@
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     position: relative;
+    overflow-y: auto;
 }
 
 .PagGrupoacesso .dados-grupo h2 {
@@ -212,4 +213,14 @@
 .PagGrupoacesso .botaoPermissao:focus {
     outline: none; /* Remove focus outline */
     box-shadow: 0 0 5px rgba(197, 61, 15, 0.6); /* Subtle glow effect on focus */
+}
+
+.PagGrupoacesso .conteudoBotao{
+    background-color: #f0f0f0;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ececec;
+    border-radius: 10px;
 }

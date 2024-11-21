@@ -189,7 +189,7 @@ function PagInventario() {
                 </button>
 
                 
-                <button onClick={()=>{checaPermissaoVisualizacao(Permissoes.Permissoes.data, Permissoes.Permissoes.nome, 'PagAddFunc' )}}>aa</button>
+                {/* <button onClick={()=>{checaPermissaoVisualizacao(Permissoes.Permissoes.data, Permissoes.Permissoes.nome, 'PagAddFunc' )}}>aa</button> */}
                 <div className="telaInteira">
                     <div className="TelaConteudo">
                         <div className="terminal">
