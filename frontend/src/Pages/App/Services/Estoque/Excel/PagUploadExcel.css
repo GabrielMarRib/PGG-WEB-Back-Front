@@ -331,6 +331,16 @@
     background-color: #45a049;
 }
 
+.btn-enviar-estoque:disabled {
+    border: none;
+    font-weight: bold;
+    background-color: #352e2b;
+    cursor: not-allowed; 
+    opacity: 0.6; 
+    color: #FFFFFF;
+    border-radius: 5px;
+}
+
 .container-botoes {
     display: flex;
     gap: 10px; 

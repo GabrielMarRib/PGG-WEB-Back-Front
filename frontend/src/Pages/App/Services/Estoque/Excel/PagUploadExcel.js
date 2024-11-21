@@ -89,14 +89,17 @@ function PagUploadExcel() {
                 }
 
                 // Converte dt_compra para formato YYYY-MM-DD
-                for (let i = 1; i < dadosDaPlanilha.length; i++) { // Começa em 1 para ignorar o cabeçalho
+                for (let i = 1; i < dadosDaPlanilha.length; i++) {
                     const row = dadosDaPlanilha[i];
-                    if (row[5]) { // Verifica se a data existe na coluna dt_compra (índice 5)
+                    if (row[5]) {
                         const excelTimestamp = row[5];
-                        console.log(excelTimestamp)
-                        const date = new Date((excelTimestamp - (25567 + 2)) * 86400 * 1000);
-                        const formattedDate = date.toISOString().split('T')[0]; // Converte para YYYY-MM-DD
-                        row[5] = formattedDate; // Atualiza a data na linha
+                        if (typeof excelTimestamp === "number" && !isNaN(excelTimestamp)) {
+                            const date = new Date((excelTimestamp - (25567 + 2)) * 86400 * 1000);
+                            const formattedDate = date.toISOString().split('T')[0]; // Converte para YYYY-MM-DD
+                            row[5] = formattedDate; // Atualiza a data na linha
+                        } else {
+                            console.error(`Valor inválido na coluna dt_compra: ${excelTimestamp}`);
+                        }
                     }
                 }
 
@@ -182,7 +185,14 @@ function PagUploadExcel() {
                 id_usuario: User.id
             });
 
+            // Atualiza o estado da importação para refletir que foi enviada ao estoque
+            const updatedImportacoes = importacoes.map(importacao =>
+                importacao.id === id ? { ...importacao, importado: 1 } : importacao
+            );
+            setImportacoes([...updatedImportacoes]);  // Atualize o estado
+
             Alerta(2, "Dados enviados para o estoque com sucesso!");
+            console.log("TESTE:", resposta.data);
         } catch (error) {
             Alerta(3, "Erro ao enviar dados para o estoque.");
             console.log("Erro ao enviar para o estoque:", error.response ? error.response.data : error.message);
@@ -359,19 +369,19 @@ function PagUploadExcel() {
             <Titulo tituloMsg='Importação de Planilha Excel' />
 
             <header className="cabecalhoBtnAjuda">
-          <div className="Botaoajuda" onClick={() => {setShowPopup(true)}}> {/*crie um botão que no onClick faz o setShowPopup ficar true */}
-          Ajuda
-          </div>
-        </header>
+                <div className="Botaoajuda" onClick={() => { setShowPopup(true) }}> {/*crie um botão que no onClick faz o setShowPopup ficar true */}
+                    Ajuda
+                </div>
+            </header>
 
-        <div className="BtnAjuda">
-          {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
-            <BtnAjuda /* chama o btnAjuda */
-              fechar={() => {setShowPopup(false)}} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
-              msgChave={"PLANILHAEXCEL"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
-            />
-          )}
-        </div> 
+            <div className="BtnAjuda">
+                {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
+                    <BtnAjuda /* chama o btnAjuda */
+                        fechar={() => { setShowPopup(false) }} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
+                        msgChave={"PLANILHAEXCEL"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
+                    />
+                )}
+            </div>
 
             <button
                 className="voltar"
@@ -439,15 +449,24 @@ function PagUploadExcel() {
                                 X
                             </button>
                             {formatarDadosImportacao(JSON.parse(dadosPlanilha.dados))}
-                            
-                            <div class="container-botoes">
 
-                            <button className="btn-enviar-estoque" onClick={() => enviarParaEstoque(importacaoExpandida)}>
-                                Enviar para Estoque
-                            </button>
-
-                            <DownloadExcel jsonData={JSON.parse(dadosPlanilha.dados)} nomeArquivo={dadosPlanilha.nome_arquivo} />
-                            
+                            <div className="container-botoes">
+                                {Number(dadosPlanilha.importado) === 1 ? (
+                                    <button className="btn-enviar-estoque" disabled>
+                                        <span>Enviar para Estoque</span>
+                                    </button>
+                                ) : (
+                                    <button
+                                        className="btn-enviar-estoque"
+                                        onClick={() => enviarParaEstoque(importacaoExpandida)}
+                                    >
+                                        Enviar para Estoque
+                                    </button>
+                                )}
+                                <DownloadExcel
+                                    jsonData={JSON.parse(dadosPlanilha.dados)}
+                                    nomeArquivo={dadosPlanilha.nome_arquivo}
+                                />
                             </div>
                         </div>
                     )}
@@ -479,6 +498,13 @@ function PagUploadExcel() {
                                             <td>{new Date(importacao.data_importacao).toLocaleString()}</td>
                                             <td>
                                                 <button className="btn-deletar" onClick={() => lidarComDeletar(importacao.id)}>Deletar</button>
+                                                <div style={{ display: 'inline-block', position: 'relative', left: '16px' }}>
+                                                    {Number(importacao.importado) === 1 ? (
+                                                        <span style={{ color: 'green' }}>Enviado ao Estoque</span>
+                                                    ) : (
+                                                        <span style={{ color: 'red' }}>Não Enviado ao Estoque</span>
+                                                    )}
+                                                </div>
                                             </td>
                                         </tr>
                                     ))}

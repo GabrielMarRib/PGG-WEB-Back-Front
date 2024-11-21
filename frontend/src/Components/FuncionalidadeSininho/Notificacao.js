@@ -31,8 +31,6 @@ const Notificacao = () => {
                     const response = await RelatorioPP();
                     setNotificacoes(response);
                     console.log(response.length)
-                    if (User.userData.Nivel_acesso != 2)
-                        return
                     setQtdeNot(response.length)
                 } catch (error) {
                     console.error('Erro ao buscar notificações:', error);
