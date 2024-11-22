@@ -1,0 +1,47 @@
+{
+    "admin": {
+        "permissoes": {
+            "Estoque":{
+                "PagProdutos": {"visualizacao": true, "edicao": true},
+                "PagMovimentos": {"visualizacao": true, "edicao": true},
+                "PagGerirLotes": {"visualizacao": true, "edicao": true},
+                "PagInventario": {"visualizacao": true, "edicao": true},
+                "PagCurvaABC": {"visualizacao": true, "edicao": true},
+                "PagUploadExcel": {"visualizacao": true, "edicao": true},
+                "PagGerirCategoria": {"visualizacao": true, "edicao": true},
+                "PagPontoPedido": {"visualizacao": true, "edicao": true},
+                "PagLoteEconomico": {"visualizacao": true, "edicao": true}
+            },
+            "Dashboard":{
+                "PagHome": {"visualizacao": true, "edicao": true}
+            },
+            "Atividade_Admin": {  
+                "PagHistorico": {"visualizacao": true, "edicao": true},
+                "PagRelatorios": {"visualizacao": true, "edicao": true},
+                "DefGrupoAcesso": {"visualizacao": true, "edicao": true},
+                "PagAddFunc": {"visualizacao": true, "edicao": true},
+                "PagFuncionarios": {"visualizacao": true, "edicao": true}
+            },
+            "Test":{
+                "PagTeste": {"visualizacao": true, "edicao": true},
+                "TesteDashboard": {"visualizacao": true, "edicao": true},
+                "PagTesteInsercao": {"visualizacao": true, "edicao": true}
+            },
+            "Fornecedor":{
+                "PagCadFornecedor": {"visualizacao": true, "edicao": true},
+                "PagPesquisaFornecedor": {"visualizacao": true, "edicao": true}
+            },
+            "Misc": {
+                "PagNavBar": {"visualizacao": true, "edicao": true},
+                "PagEscolhaCurvaABC": {"visualizacao": true, "edicao": true},
+                "PagEscolhaProdutos": {"visualizacao": true, "edicao": true},
+                "PagTesteInsercaoDD": {"visualizacao": true, "edicao": true},
+                "PagEscolhaPontoDePedido": {"visualizacao": true, "edicao": true}
+            },
+            "Perfil":{
+                "PagPerfil": {"visualizacao": true, "edicao": true}
+            }
+        
+        }
+    }
+}
