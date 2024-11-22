@@ -258,7 +258,7 @@ function PagProdutos() {
         <button
           className="voltar"
           onClick={() => {
-            navigate("/PagEscolhaProdutos");
+            navigate("/PagHome");
           }}
         >
           Voltar
