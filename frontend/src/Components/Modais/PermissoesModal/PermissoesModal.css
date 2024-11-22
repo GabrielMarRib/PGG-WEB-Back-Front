@@ -12,7 +12,7 @@
 }
 
 .PermissoesModal .Header-e-conteudo{
-    margin-top: 10%;
+    margin-top: 5%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -50,7 +50,7 @@
     border-radius: 0 0 12px 12px; 
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     width: 90%;
-    max-height: 60%;
+    height: 70%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -115,6 +115,7 @@
     padding: 8px;
     margin: 5px 0;
     font-size: 1.1rem;
+    cursor: pointer;
     background-color: #fff;
     border-radius: 6px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -122,12 +123,63 @@
     overflow-x: hidden;
 }
 
+.permissao-section .subLI{
+    cursor: default;
+    margin-left: 40px;
+    margin-bottom: 5px;
+}
+
+
+/*visualiza e edita:*/
+.permissao-section .subLIEditandotruetrue{ /*1o true = visualizacao, 2o true = edicao */
+    background-color: #e0f8e0;
+    cursor: pointer;
+    margin-left: 40px;
+    margin-bottom: 5px;
+}
+
+.permissao-section .subLIEditandotruetrue:hover {
+    background-color: #4bdb1e;
+}
+
+/*Não visualiza e nem edita:*/
+.permissao-section .subLIEditandofalsefalse{
+    background-color: #f8e0e0;
+    cursor: pointer;
+    margin-left: 40px;
+    margin-bottom: 5px;
+}
+
+
+.permissao-section .subLIEditandofalsefalse:hover {
+    background-color: #e43b3b;
+}
+
+/*Visualiza, mas não edita: */
+.permissao-section .subLIEditandotruefalse{
+    background-color: #f8f6e0;
+    cursor: pointer;
+    margin-left: 40px;
+    margin-bottom: 5px;
+}
+
+.permissao-section .subLIEditandotruefalse:hover {
+    background-color: #f0de42;
+}
+
+
+.permissao-section li:last-child{
+    margin-bottom: 20px;
+}
+
+
+
 .permissao-section li:hover {
     background-color: #f1f1f1;
 }
 
 .permissao-section .checkmark {
-    color: green;
+    color: rgb(184, 184, 184);
 }
 
 .permissao-section .cross {
@@ -150,6 +202,17 @@
     border-radius: 5px;
 }
 
+.PermissoesModal .botaoEditando{
+    border: none;
+    font-weight: bold;
+    background-color: #0b9406;
+    color:#fff ;
+    cursor: pointer;
+    transition: color 0.3s, background-color 0.3s;
+    padding: 8px;
+    border-radius: 5px;
+}
+
 .PermissoesModal .botaoInativo {
     border: none;
     font-weight: bold;
@@ -162,4 +225,11 @@
     cursor: not-allowed;      
     opacity: 0.6;            
     transition: none;        
+}
+
+.PermissoesModal .tituloPermissoes{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
