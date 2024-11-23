@@ -4,7 +4,7 @@ import PermissoesSubModal from '../PermissoesSubModal/PermissoesSubModal';
 
 function PermissoesModal({ fechar, grupoOBJ, updateModalData }) {
   const JSON_permissoes = grupoOBJ.Permissoes;
-  console.log(JSON_permissoes)
+
   const permissoes = JSON.parse(JSON_permissoes)[grupoOBJ.nome_grupo].permissoes;
   const objKeysClasses = Object.keys(permissoes);
   const admin = grupoOBJ.nome_grupo === "admin";
@@ -35,7 +35,7 @@ function PermissoesModal({ fechar, grupoOBJ, updateModalData }) {
     const keys_paginasbyclass = Object.keys(paginasbyclass);
     const Values_paginasbyclass = Object.values(paginasbyclass);
 
-    console.log(Values_paginasbyclass)
+   
     return (
       keys_paginasbyclass.map((pagina_AKA_key, index) => (
         <li key={index} className={editando 

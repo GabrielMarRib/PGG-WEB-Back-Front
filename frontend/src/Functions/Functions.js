@@ -256,20 +256,40 @@ export const pegaCategorias = async (setOBJ) =>{
 }
 
 export const VerificaCategorias = async (SubCat, Result) =>{
-
     try { 
         const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {  // acessa via get (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
                 funcao: 'verificacategorias', 
                 senha: '@7h$Pz!q2X^vR1&K',
                 subCat: SubCat // ( Exemplo: 1, 2 ) Vou pegar por Id
         });
-
         Result(response.data) 
     } catch (error) { 
         console.log("Falha: " + error) 
     }
-    
-   
 }
 
+export const insereHistorico = async (info) =>{
+    try { 
+        if(!info.valores_novo){
+            return false;
+        }
+
+        const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', { 
+            funcao: "insereHistorico",
+            senha: '@7h$Pz!q2X^vR1&K',
+            campos: info.campos,
+            valores_antigo: info.valores_antigo,
+            valores_novo: info.valores_novo,
+            id_user: info.id_user,
+            justificativa: info.justificativa,
+            idTabela: info.idTabela,
+            nomeTabela: info.nomeTabela,
+            aux: info?.aux ?? null
+        });
+        console.log(response)
+        return (response.status === 200)
+    } catch (error) { 
+        console.log("Falha: " + error) 
+    }
+}
 

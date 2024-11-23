@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './PermissoesSubModal.css';
 import axios from 'axios';
+import { insereHistorico } from '../../../Functions/Functions';
+import { UserContext } from '../../../Context/UserContext';
+import { useContext } from 'react';
 
 function PermissoesSubModal({ fechar, grupoOBJ, nome_grupo, classe, alvo, id, updateModalData }) {
+  const { User } = useContext(UserContext);
+  const UserId = User.id;
+
   const permissoesOBJ = grupoOBJ.Permissoes
   const permissoesJson = JSON.parse(permissoesOBJ);
   const permissoes = permissoesJson[nome_grupo].permissoes;
@@ -10,6 +16,8 @@ function PermissoesSubModal({ fechar, grupoOBJ, nome_grupo, classe, alvo, id, up
   const valores = classeObj[alvo];
   const [msg, showMsg] = useState({ show: false, msg: "" })
   const [processando, setProcessando] = useState(false);
+  const [justificativa, setJustificativa] = useState("");
+
   const montaCaminho = (stateV, stateE) => {
     const visualizacao = valores.visualizacao;
     const edicao = valores.edicao;
@@ -34,9 +42,29 @@ function PermissoesSubModal({ fechar, grupoOBJ, nome_grupo, classe, alvo, id, up
     setEdicao((prevState) => !prevState);
   };
 
+  const handleHistorico = async (info) =>{
+    console.log("handleHistorico")
+    console.log(info)
+    const resposta = await insereHistorico(info);
+    console.log(resposta)
+  }
+
   const AtualizaPermissoes = async () => {
+
+    let info = {};
+    info.campos = "visualização,edição";
+    info.valores_antigo = permissoesJson[nome_grupo].permissoes[classe][alvo].visualizacao + "," + permissoesJson[nome_grupo].permissoes[classe][alvo].edicao;
+    info.id_user = UserId;
+    info.justificativa = justificativa ? justificativa : "Não justificado"
+    info.idTabela = id;
+    info.nomeTabela = `Grupo de Acesso ${id} - ${nome_grupo}`;
+    info.aux = classe + "/" + alvo;
+
     permissoesJson[nome_grupo].permissoes[classe][alvo].visualizacao = visualizacao;
     permissoesJson[nome_grupo].permissoes[classe][alvo].edicao = edicao;
+
+    
+
     setProcessando(true);
     let Object = grupoOBJ;
     const newPermissoes = { Permissoes: {...JSON.parse(grupoOBJ.Permissoes), ...(permissoesJson)} };
@@ -60,10 +88,12 @@ function PermissoesSubModal({ fechar, grupoOBJ, nome_grupo, classe, alvo, id, up
       console.error('Error during API call:', error);
       showMsg({ show: true, msg: "Erro interno" });
     } finally {
+      info.valores_novo = permissoesJson[nome_grupo].permissoes[classe][alvo].visualizacao +  "," + permissoesJson[nome_grupo].permissoes[classe][alvo].edicao
+      await handleHistorico(info)
       setProcessando(false);
       RemoveAlerta();
-      RemovePopUp();
       updateModalData(Object);
+      setJustificativa("");
     }
   };
 
@@ -79,10 +109,9 @@ function PermissoesSubModal({ fechar, grupoOBJ, nome_grupo, classe, alvo, id, up
     }, 3000);
   }
 
-  const RemovePopUp = () =>{
-    setTimeout(() => {
-      fechar();
-    }, 3500);
+  const handleChangeInput = (e) =>{
+    console.log("passou aqui")
+      setJustificativa(e.target.value)
   }
 
   return (
@@ -127,6 +156,11 @@ function PermissoesSubModal({ fechar, grupoOBJ, nome_grupo, classe, alvo, id, up
               </label>
             </li>
           )}
+          <span>Justificativa (opcional): </span><input
+            placeholder='Não justificado'
+            onChange={(e) => handleChangeInput(e)}
+            value={justificativa}
+          ></input>
         </ul>
         <button className="save-btn" onClick={AtualizaPermissoes}>
           Salvar

@@ -6,6 +6,7 @@ import AlertaNotificação from "../../../../../Components/NotificacaoAlert/Aler
 import Titulo from "../../../../../Components/Titulo/Titulo.jsx";
 import axios from "axios";
 import BtnAjuda from "../../../../../Components/BotaoAjuda/BtnAjuda.js";
+import { pegaPermissoesTotais } from "../../../../../Config/Permissoes.js";
 
 function PagHistorico() {
   const navigate = useNavigate();
@@ -15,9 +16,9 @@ function PagHistorico() {
   const [departamentoSelecionado, setDepartamentoSelecionado] = useState("curvaabc"); // Porra do filtro de departamento
   const [adicionaisCurva, setAdicionaisCurva] = useState([]);
   const [adicionaisLote, setAdicionaisLote] = useState([]);
-  const [tabelasUnicas, setTabelasUnicas] = useState([])
+  const [tabelasUnicas, setTabelasUnicas] = useState([]);
   const [showPopup, setShowPopup] = useState(false); // variaveis para o btnAjuda
-
+  const [adicionaisPermissoes, setAdicionaisPermissoes] = useState([]);
   useEffect(() => {
     const pegaHistorico = async () => { // função existe para separar async do useEffect...
       try {
@@ -59,7 +60,10 @@ function PagHistorico() {
           }
         );
         setAdicionaisLote(responseLote.data)
-        console.log(responseLote.data)
+        
+        const responsePermissoes = await pegaPermissoesTotais();
+        console.log(responsePermissoes)
+        setAdicionaisPermissoes(responsePermissoes)
       } catch (error) {
         console.log("deu ruim: " + error); // log para sabermos qual foi o erro
       }
@@ -121,6 +125,14 @@ function PagHistorico() {
       return camposDepartamento[departamentoSelecionado];
     }
     return camposVariaveis;
+  };
+
+  const beautifyValor = (valor) => {
+    if (typeof valor === 'string') {
+      if (valor.toLowerCase() === 'true') return '✔️ ';
+      if (valor.toLowerCase() === 'false') return '❌ ';
+    }
+    return valor;
   };
 
   return (
@@ -218,7 +230,18 @@ function PagHistorico() {
                           Nota Fiscal: <span style={{ fontWeight: '700' }}>{achados?.nota_fiscal ? achados?.nota_fiscal : "Não cadastrado"}</span><br />
                         </div>
                       )
-                    } 
+                    } else if (registro?.tabela.split(' ')[0] === 'Grupo'){
+  
+                      const achados = adicionaisPermissoes.find((adicional) => adicional.id_grupo === registro.id_tabela)
+                      return (
+                        <div className="infoAdicional">
+                          <h3> <span style={{ fontWeight: 'normal' }}>Permissão alterada:</span> <span style={{ fontWeight: '700' }}>{registro?.aux}</span></h3>
+                          Id grupo: <span style={{ fontWeight: '700' }}>{achados?.id_grupo}</span><br />
+                          Funcionário(s): <span style={{ fontWeight: '700' }}>{achados?.nomes_usuarios ? achados?.nomes_usuarios : "Sem Funcionários"}</span><br />
+                          Ids Funcionário(s): <span style={{ fontWeight: '700' }}>{achados?.ids_usuarios ? achados?.ids_usuarios : "Sem Funcionários"}</span><br />
+                        </div>
+                      )
+                    }  
                   })()}
                 </td>
                 {obterCamposDepartamento().map((campo) =>
@@ -260,7 +283,7 @@ function PagHistorico() {
                                     <td><span className="tag-antigos">ANTIGOS</span></td>
                                   ) : null}
                                 <td className="TDantigo">
-                                  {registrosAntigos ? "ﾠ" + registrosAntigos : "ﾠNão possui"}
+                                  {registrosAntigos && registrosAntigos != "null"  ? "ﾠ" + beautifyValor(registrosAntigos) : "ﾠNão possui"}
                                 </td>
                               </tr>
                               <tr>
@@ -271,7 +294,7 @@ function PagHistorico() {
                                   : i === 0 ? (
                                     <td><span className="tag-novos">NOVOS</span></td>
                                   ) : null}
-                                <td className="TDnovo">{"ﾠ" + registrosNovos}</td>
+                                <td className="TDnovo">{"ﾠ" + beautifyValor(registrosNovos)}</td>
                               </tr>
                             </tbody>
                           </table>
