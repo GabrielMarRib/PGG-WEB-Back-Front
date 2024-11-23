@@ -154,7 +154,7 @@ function PagGrupoacesso() {
             ) : (
               <div>
                 <h3>Selecione um grupo para ver os detalhes...</h3>
-                <button className="adicionarGrupo">
+                <button className="adicionarGrupo" onClick={()=>{console.log(permissoesGrupo)}}>
                   Adicionar um Grupo Novo
                 </button>
               </div>
