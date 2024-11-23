@@ -6,7 +6,6 @@ import './PagGrupoacesso.css';
 import { pegaPermissoesTotais, pegaPermissoesWHERE } from '../../../../../Config/Permissoes';
 import PermissoesModal from '../../../../../Components/Modais/PermissoesModal/PermissoesModal';
 
-
 function PagGrupoacesso() {
   const navigate = useNavigate();
   const [grupos, setGrupos] = useState([])
@@ -16,6 +15,7 @@ function PagGrupoacesso() {
 
   //modal
   const [showModal, setShowModal] = useState(false);
+
   useEffect(() => {
     const pegaGrupos = async () => {
       const response = await pegaPermissoesTotais();
@@ -25,7 +25,9 @@ function PagGrupoacesso() {
     pegaGrupos();
   }, [])
 
-
+  const updateModalData = (newData) =>{
+    setGrupoSelecionado(newData)
+  }
 
   const [textoPesquisa, setTextoPesquisa] = useState("");
   const [grupoSelecionado, setGrupoSelecionado] = useState(null);
@@ -42,8 +44,10 @@ function PagGrupoacesso() {
     const grupo = grupos.find(grupo => grupo.id_grupo === id);
     setGrupoSelecionado(grupo);
   };
+
   useEffect(() => {
     const pegaExclusivo = async () => {
+      console.log("passou no useEffect")
       if (grupoSelecionado) {
         const response = await pegaPermissoesWHERE(grupoSelecionado.id_grupo, false);
         setPermissoesGrupo(response)
@@ -92,6 +96,7 @@ function PagGrupoacesso() {
           <PermissoesModal
             fechar={() => { setShowModal(false) }}
             grupoOBJ={permissoesGrupo}
+            updateModalData={updateModalData}
           />}
         <div className="btn">
           <button className="voltar" onClick={() => navigate("/PagHome")}>

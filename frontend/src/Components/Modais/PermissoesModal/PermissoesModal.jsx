@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import './PermissoesModal.css';
 import PermissoesSubModal from '../PermissoesSubModal/PermissoesSubModal';
 
-function PermissoesModal({ fechar, grupoOBJ }) {
+function PermissoesModal({ fechar, grupoOBJ, updateModalData }) {
   const JSON_permissoes = grupoOBJ.Permissoes;
+  console.log(JSON_permissoes)
   const permissoes = JSON.parse(JSON_permissoes)[grupoOBJ.nome_grupo].permissoes;
   const objKeysClasses = Object.keys(permissoes);
   const admin = grupoOBJ.nome_grupo === "admin";
@@ -16,10 +17,17 @@ function PermissoesModal({ fechar, grupoOBJ }) {
 
   const [editando, setEditando] = useState(false);
 
+  const [infoModal, setInfoModal] = useState({Id: null, GrupoOBJ: null, Nome_grupo: null, Classe: null, Pagina: null});
+
   const defineIcon = (valor) => {
     if (valor)
       return '✔️ '
     return '❌ '
+  }
+
+  const preparaInfoModal = (id, grupoOBJ, nome_grupo, classe, pagina) =>{
+      setInfoModal({Id: id, GrupoOBJ: grupoOBJ, Nome_grupo: nome_grupo, Classe: classe, Pagina: pagina})
+      setShowModal(true);
   }
 
   const Obtem_classe_children = (Classe_key, JSON_Obj) => {
@@ -33,7 +41,7 @@ function PermissoesModal({ fechar, grupoOBJ }) {
         <li key={index} className={editando 
         ? `subLIEditando${String(Values_paginasbyclass[index].visualizacao)}${String(Values_paginasbyclass[index].edicao)}` 
         : 'subLI'}
-        onClick={() => editando && setShowModal(true)}>
+        onClick={() => editando && preparaInfoModal(grupoOBJ.id_grupo, grupoOBJ, grupoOBJ.nome_grupo, Classe_key, pagina_AKA_key)}>
           <span>{pagina_AKA_key}</span>
           <span>
             Visualização: {defineIcon(Values_paginasbyclass[index].visualizacao)}
@@ -104,7 +112,12 @@ function PermissoesModal({ fechar, grupoOBJ }) {
           {showModal &&
             <PermissoesSubModal
               fechar={() => { setShowModal(false) }}
-              grupoOBJ={null}
+              grupoOBJ={infoModal.GrupoOBJ}
+              nome_grupo={infoModal.Nome_grupo}
+              classe={infoModal.Classe}
+              alvo={infoModal.Pagina}
+              id={infoModal.Id}
+              updateModalData={updateModalData}
             />}
           {/* Edição Section */}
           <div className="permissao-section">
