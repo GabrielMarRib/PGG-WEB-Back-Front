@@ -298,9 +298,6 @@ function PagRelatorios() {
 
             <div className="conteudorelatorio">
             <div className="btn">
-                <button className="Voltar" onClick={() => navigate("/PagPerfil")}>
-                    Voltar
-                </button>
             </div>
 
             

@@ -207,10 +207,6 @@ function PagPesquisaFornecedor() {
                     />
                 )}
                 </div> 
-                <button className="voltar" onClick={() => { navigate("/PagHome"); }}>
-                    Voltar
-                </button>
-
                 <div className="telaInteira">
                     <div className="TelaConteudo">
                         <div className="terminal">

@@ -100,9 +100,6 @@ function PagGrupoacesso() {
             updateModalData={updateModalData}
           />}
         <div className="btn">
-          <button className="voltar" onClick={() => navigate("/PagHome")}>
-            Voltar
-          </button>
         </div>
 
         <div className="Conteudo">

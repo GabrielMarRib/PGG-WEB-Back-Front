@@ -191,9 +191,6 @@ function CurvaABCPorValor() {
             )}
             </div> 
             <div className="btn">
-                <button className="Voltar" onClick={() => navigate("/PagEscolhaCurvaABC")}>
-                    Voltar
-                </button>
             </div>
             <div className="BuscarCategoriaCurvaABC">
                 <h3>Selecione a Categoria</h3>
