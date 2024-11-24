@@ -61,7 +61,7 @@ function PagHistorico() {
           }
         );
         setAdicionaisLote(responseLote.data)
-        
+
         const responsePermissoes = await pegaPermissoesTotais();
         console.log(responsePermissoes)
         setAdicionaisPermissoes(responsePermissoes)
@@ -140,180 +140,174 @@ function PagHistorico() {
     <div className="PagHistorico">
       <NavBar />
       <AlertaNotificação />
-      <div className="marginNavbar"> 
-      <Titulo tituloMsg="Logs" />
+      <div className="marginNavbar">
+        <Titulo tituloMsg="Logs" />
 
-      <header className="cabecalhoBtnAjuda">
-      <div className="Botaoajuda" onClick={() => {setShowPopup(true)}}> {/*crie um botão que no onClick faz o setShowPopup ficar true */}
-      Ajuda
-      </div>
-      </header>
+        <header className="cabecalhoBtnAjuda">
+          <div className="Botaoajuda" style={{color: 'white'}} onClick={() => { setShowPopup(true) }}> {/*crie um botão que no onClick faz o setShowPopup ficar true */}
+            Ajuda
+          </div>
+        </header>
 
-      <div className="BtnAjuda">
-      {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
-          <BtnAjuda /* chama o btnAjuda */
-          fechar={() => {setShowPopup(false)}} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
-          msgChave={"LOGS"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
-          />
-      )}
-      </div> 
+        <div className="BtnAjuda">
+          {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
+            <BtnAjuda /* chama o btnAjuda */
+              fechar={() => { setShowPopup(false) }} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
+              msgChave={"LOGS"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
+            />
+          )}
+        </div>
 
-      <div className="btn">
-        <button className="Voltar" onClick={() => navigate("/PagHome")}>
-          Voltar
-        </button>
-      </div>
-
-      <div className="filtroDepartamento">
-        <label htmlFor="departamento">Filtrar por tipo de visão:</label>
-        <select
-          id="departamento"
-          value={departamentoSelecionado}
-          onChange={(e) => setDepartamentoSelecionado(e.target.value)}
-        >
-          {Object.keys(camposDepartamento).map((tabela) => (
-            <option key={tabela} value={tabela}>
-              {tabela}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div className="historicoVendas">
-        <table className="historicoTable">
-          <thead>
-            <tr>
-              <th>TIPO DE VISÃO</th>
-              {obterCamposDepartamento().map((campo) => (
-                <th key={campo}>{campo}</th>
-              ))}
-              <th>AUTOR</th>
-              <th>DATA</th>
-              <th>JUSTIFICATIVA</th>
-            </tr>
-          </thead>
-          <tbody>
-            {historicoFiltrado.map((registro) => (
-              <tr key={registro.id}>
-                <td>
-                  <div className="paiTabela">
-                    {registro.tabela}
-                  </div>
-                  <br />
-                  {(() => {
-                    if (registro?.tabela === 'curvaabc') {
-                      const achados = adicionaisCurva.find((adicional) => adicional.id_curvaabc === registro.id_tabela)
-                      return (
-                        <div className="infoAdicional">
-                          Produto: <span style={{fontWeight: '700'}}>{achados?.prodNome}</span><br />
-                          Id: <span style={{fontWeight: '700'}}>{achados?.id_produtos}</span><br />
-                          Categoria: <span style={{fontWeight: '700'}}>{achados?.id_categorias} - {achados?.catNome}</span>
-                        </div>
-                      )
-                    } else if (registro?.tabela === 'lote'){
-                      const achados = adicionaisLote.find((adicional) => adicional.numerolote === registro.id_tabela)
-                      return (
-                        <div className="infoAdicional">
-                          Id lote: <span style={{fontWeight: '700'}}>{achados?.numerolote}</span><br />
-                          Produto: <span style={{fontWeight: '700'}}>{achados?.nome}</span><br />
-                          Fornecedor: <span style={{fontWeight: '700'}}>{achados?.fornecedor ? achados?.fornecedor : "Não cadastrado"}</span><br />
-                          Nota Fiscal: <span style={{fontWeight: '700'}}>{achados?.nota_fiscal ? achados?.nota_fiscal : "Não cadastrado"}</span><br />
-                        </div>
-                      )
-                    } else if (registro?.tabela === 'Baixa'){
-                      const achados = adicionaisLote.find((adicional) => adicional.numerolote === registro.id_tabela)
-                      return (
-                        <div className="infoAdicional">
-                          Id lote: <span style={{ fontWeight: '700' }}>{achados?.numerolote}</span><br />
-                          Produto: <span style={{ fontWeight: '700' }}>{achados?.nome}</span><br />
-                          Fornecedor: <span style={{ fontWeight: '700' }}>{achados?.fornecedor ? achados?.fornecedor : "Não cadastrado"}</span><br />
-                          Nota Fiscal: <span style={{ fontWeight: '700' }}>{achados?.nota_fiscal ? achados?.nota_fiscal : "Não cadastrado"}</span><br />
-                        </div>
-                      )
-                    } else if (registro?.tabela.split(' ')[0] === 'Grupo'){
-  
-                      const achados = adicionaisPermissoes.find((adicional) => adicional.id_grupo === registro.id_tabela)
-                      return (
-                        <div className="infoAdicional">
-                          <h3> <span style={{ fontWeight: 'normal' }}>Permissão alterada:</span> <span style={{ fontWeight: '700' }}>{registro?.aux}</span></h3>
-                          Id grupo: <span style={{ fontWeight: '700' }}>{achados?.id_grupo}</span><br />
-                          Funcionário(s): <span style={{ fontWeight: '700' }}>{achados?.nomes_usuarios ? achados?.nomes_usuarios : "Sem Funcionários"}</span><br />
-                          Ids Funcionário(s): <span style={{ fontWeight: '700' }}>{achados?.ids_usuarios ? achados?.ids_usuarios : "Sem Funcionários"}</span><br />
-                        </div>
-                      )
-                    }  
-                  })()}
-                </td>
-                {obterCamposDepartamento().map((campo) =>
-                  registro.campos.includes(campo) ? (
-                    (() => {
-                      let registrosAntigos = "";
-                      let registrosNovos = "";
-                      let registrosRaw = "";
-                      let multiplo = false;
-
-                      if (registro.valores_antigos?.indexOf(",") > 0) {
-                        registrosRaw = registro.valores_antigos.split(",");
-                        multiplo = true;
-                        registrosAntigos = registrosRaw[i];
-                      } else {
-                        registrosAntigos = registro.valores_antigos;
-                      }
-
-                      if (registro.valores_novos?.indexOf(",") > 0) { //repetindo a mesma coisa pq isso NÃO DÁ pra deixar estável em um método por alguma CARALHA de motivo
-                        registrosRaw = registro.valores_novos.split(",");
-                        registrosNovos = registrosRaw[i];
-                      } else {
-                        registrosNovos = registro.valores_novos;
-                      }
-
-                      i++;
-                      if (i > registrosRaw.length - 1) i = 0;
-                      return (
-                        <td className="tdInfernal">
-                          <table className="inner-table">
-                            <tbody>
-                              <tr>
-                                {multiplo
-                                  ? i - 1 === 0 ? (
-                                    <td><span className="tag-antigos">ANTIGOS</span></td>
-                                  ) : null
-
-                                  : i === 0 ? (
-                                    <td><span className="tag-antigos">ANTIGOS</span></td>
-                                  ) : null}
-                                <td className="TDantigo">
-                                  {registrosAntigos && registrosAntigos != "null"  ? "ﾠ" + beautifyValor(registrosAntigos) : "ﾠNão possui"}
-                                </td>
-                              </tr>
-                              <tr>
-                                {multiplo
-                                  ? i - 1 === 0 ? (
-                                    <td><span className="tag-novos">NOVOS</span></td>
-                                  ) : null
-                                  : i === 0 ? (
-                                    <td><span className="tag-novos">NOVOS</span></td>
-                                  ) : null}
-                                <td className="TDnovo">{"ﾠ" + beautifyValor(registrosNovos)}</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </td>
-                      );
-                    })()
-                  ) : (
-                    <td key={campo}></td>
-                  )
-                )}
-                <td className="Autor">{registro.nome_autor}</td>
-                <td className="Data">{registro.data}</td>
-                <td className="justificativa">{registro.justificativa}</td>
-              </tr>
+        <div className="filtroDepartamento">
+          <label htmlFor="departamento">Filtrar por tipo de visão:</label>
+          <select
+            id="departamento"
+            value={departamentoSelecionado}
+            onChange={(e) => setDepartamentoSelecionado(e.target.value)}
+          >
+            {Object.keys(camposDepartamento).map((tabela) => (
+              <option key={tabela} value={tabela}>
+                {tabela}
+              </option>
             ))}
-          </tbody>
-        </table>
+          </select>
+        </div>
+
+        <div className="historicoVendas">
+          <table className="historicoTable">
+            <thead>
+              <tr>
+                <th>TIPO DE VISÃO</th>
+                {obterCamposDepartamento().map((campo) => (
+                  <th key={campo}>{campo}</th>
+                ))}
+                <th>AUTOR</th>
+                <th>DATA</th>
+                <th>JUSTIFICATIVA</th>
+              </tr>
+            </thead>
+            <tbody>
+              {historicoFiltrado.map((registro) => (
+                <tr key={registro.id}>
+                  <td>
+                    <div className="paiTabela">
+                      {registro.tabela}
+                    </div>
+                    <br />
+                    {(() => {
+                      if (registro?.tabela === 'curvaabc') {
+                        const achados = adicionaisCurva.find((adicional) => adicional.id_curvaabc === registro.id_tabela)
+                        return (
+                          <div className="infoAdicional">
+                            Produto: <span style={{ fontWeight: '700' }}>{achados?.prodNome}</span><br />
+                            Id: <span style={{ fontWeight: '700' }}>{achados?.id_produtos}</span><br />
+                            Categoria: <span style={{ fontWeight: '700' }}>{achados?.id_categorias} - {achados?.catNome}</span>
+                          </div>
+                        )
+                      } else if (registro?.tabela === 'lote') {
+                        const achados = adicionaisLote.find((adicional) => adicional.numerolote === registro.id_tabela)
+                        return (
+                          <div className="infoAdicional">
+                            Id lote: <span style={{ fontWeight: '700' }}>{achados?.numerolote}</span><br />
+                            Produto: <span style={{ fontWeight: '700' }}>{achados?.nome}</span><br />
+                            Fornecedor: <span style={{ fontWeight: '700' }}>{achados?.fornecedor ? achados?.fornecedor : "Não cadastrado"}</span><br />
+                            Nota Fiscal: <span style={{ fontWeight: '700' }}>{achados?.nota_fiscal ? achados?.nota_fiscal : "Não cadastrado"}</span><br />
+                          </div>
+                        )
+                      } else if (registro?.tabela === 'Baixa') {
+                        const achados = adicionaisLote.find((adicional) => adicional.numerolote === registro.id_tabela)
+                        return (
+                          <div className="infoAdicional">
+                            Id lote: <span style={{ fontWeight: '700' }}>{achados?.numerolote}</span><br />
+                            Produto: <span style={{ fontWeight: '700' }}>{achados?.nome}</span><br />
+                            Fornecedor: <span style={{ fontWeight: '700' }}>{achados?.fornecedor ? achados?.fornecedor : "Não cadastrado"}</span><br />
+                            Nota Fiscal: <span style={{ fontWeight: '700' }}>{achados?.nota_fiscal ? achados?.nota_fiscal : "Não cadastrado"}</span><br />
+                          </div>
+                        )
+                      } else if (registro?.tabela.split(' ')[0] === 'Grupo') {
+
+                        const achados = adicionaisPermissoes.find((adicional) => adicional.id_grupo === registro.id_tabela)
+                        return (
+                          <div className="infoAdicional">
+                            <h3> <span style={{ fontWeight: 'normal' }}>Permissão alterada:</span> <span style={{ fontWeight: '700' }}>{registro?.aux}</span></h3>
+                            Id grupo: <span style={{ fontWeight: '700' }}>{achados?.id_grupo}</span><br />
+                            Funcionário(s): <span style={{ fontWeight: '700' }}>{achados?.nomes_usuarios ? achados?.nomes_usuarios : "Sem Funcionários"}</span><br />
+                            Ids Funcionário(s): <span style={{ fontWeight: '700' }}>{achados?.ids_usuarios ? achados?.ids_usuarios : "Sem Funcionários"}</span><br />
+                          </div>
+                        )
+                      }
+                    })()}
+                  </td>
+                  {obterCamposDepartamento().map((campo) =>
+                    registro.campos.includes(campo) ? (
+                      (() => {
+                        let registrosAntigos = "";
+                        let registrosNovos = "";
+                        let registrosRaw = "";
+                        let multiplo = false;
+
+                        if (registro.valores_antigos?.indexOf(",") > 0) {
+                          registrosRaw = registro.valores_antigos.split(",");
+                          multiplo = true;
+                          registrosAntigos = registrosRaw[i];
+                        } else {
+                          registrosAntigos = registro.valores_antigos;
+                        }
+
+                        if (registro.valores_novos?.indexOf(",") > 0) { //repetindo a mesma coisa pq isso NÃO DÁ pra deixar estável em um método por alguma CARALHA de motivo
+                          registrosRaw = registro.valores_novos.split(",");
+                          registrosNovos = registrosRaw[i];
+                        } else {
+                          registrosNovos = registro.valores_novos;
+                        }
+
+                        i++;
+                        if (i > registrosRaw.length - 1) i = 0;
+                        return (
+                          <td className="tdInfernal">
+                            <table className="inner-table">
+                              <tbody>
+                                <tr>
+                                  {multiplo
+                                    ? i - 1 === 0 ? (
+                                      <td><span className="tag-antigos">ANTIGOS</span></td>
+                                    ) : null
+
+                                    : i === 0 ? (
+                                      <td><span className="tag-antigos">ANTIGOS</span></td>
+                                    ) : null}
+                                  <td className="TDantigo">
+                                    {registrosAntigos && registrosAntigos != "null" ? "ﾠ" + beautifyValor(registrosAntigos) : "ﾠNão possui"}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  {multiplo
+                                    ? i - 1 === 0 ? (
+                                      <td><span className="tag-novos">NOVOS</span></td>
+                                    ) : null
+                                    : i === 0 ? (
+                                      <td><span className="tag-novos">NOVOS</span></td>
+                                    ) : null}
+                                  <td className="TDnovo">{"ﾠ" + beautifyValor(registrosNovos)}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        );
+                      })()
+                    ) : (
+                      <td key={campo}></td>
+                    )
+                  )}
+                  <td className="Autor">{registro.nome_autor}</td>
+                  <td className="Data">{registro.data}</td>
+                  <td className="justificativa">{registro.justificativa}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
     </div>
   );
 }
