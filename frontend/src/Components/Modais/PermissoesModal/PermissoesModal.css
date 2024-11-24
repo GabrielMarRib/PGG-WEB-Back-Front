@@ -5,14 +5,14 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
-    z-index: 9999;
+    z-index: 99;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .PermissoesModal .Header-e-conteudo{
-    margin-top: 10%;
+    margin-top: 5%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -41,7 +41,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 30px;
-    width: 90%;
+    width: 60%;
 }
 
 .PermissoesModal .conteudo-modal {
@@ -49,8 +49,8 @@
     padding: 30px;
     border-radius: 0 0 12px 12px; 
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    width: 90%;
-    max-height: 60%;
+    width: 60%;
+    height: 70%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -83,7 +83,7 @@
 }
 
 .permissao-section {
-    width: 45%;
+    width: 90%;
     overflow-y: auto;
     padding: 15px;
     background-color: #f9f9f9;
@@ -98,9 +98,10 @@
 }
 
 .permissao-section h3 {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     font-size: 1.5rem;
     color: #333;
+    margin-left: 30px;
 }
 
 .permissao-section ul {
@@ -115,6 +116,7 @@
     padding: 8px;
     margin: 5px 0;
     font-size: 1.1rem;
+    cursor: pointer;
     background-color: #fff;
     border-radius: 6px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -122,12 +124,63 @@
     overflow-x: hidden;
 }
 
+.permissao-section .subLI{
+    cursor: default;
+    margin-left: 40px;
+    margin-bottom: 5px;
+}
+
+
+/*visualiza e edita:*/
+.permissao-section .subLIEditandotruetrue{ /*1o true = visualizacao, 2o true = edicao */
+    background-color: #e0f8e0;
+    cursor: pointer;
+    margin-left: 40px;
+    margin-bottom: 5px;
+}
+
+.permissao-section .subLIEditandotruetrue:hover {
+    background-color: #4bdb1e;
+}
+
+/*Não visualiza e nem edita:*/
+.permissao-section .subLIEditandofalsefalse{
+    background-color: #f8e0e0;
+    cursor: pointer;
+    margin-left: 40px;
+    margin-bottom: 5px;
+}
+
+
+.permissao-section .subLIEditandofalsefalse:hover {
+    background-color: #e43b3b;
+}
+
+/*Visualiza, mas não edita: */
+.permissao-section .subLIEditandotruefalse{
+    background-color: #f8f6e0;
+    cursor: pointer;
+    margin-left: 40px;
+    margin-bottom: 5px;
+}
+
+.permissao-section .subLIEditandotruefalse:hover {
+    background-color: #f0de42;
+}
+
+
+.permissao-section li:last-child{
+    margin-bottom: 20px;
+}
+
+
+
 .permissao-section li:hover {
     background-color: #f1f1f1;
 }
 
 .permissao-section .checkmark {
-    color: green;
+    color: rgb(184, 184, 184);
 }
 
 .permissao-section .cross {
@@ -141,8 +194,21 @@
 
 .PermissoesModal .botao {
     border: none;
+    margin-right: 50px;
     font-weight: bold;
     background-color: #C53D0F;
+    color:#fff ;
+    cursor: pointer;
+    transition: color 0.3s, background-color 0.3s;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.PermissoesModal .botaoEditando{
+    border: none;
+    margin-right: 50px;
+    font-weight: bold;
+    background-color: #0b9406;
     color:#fff ;
     cursor: pointer;
     transition: color 0.3s, background-color 0.3s;
@@ -162,4 +228,16 @@
     cursor: not-allowed;      
     opacity: 0.6;            
     transition: none;        
+}
+
+.PermissoesModal .tituloPermissoes{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky; 
+    top: 0;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: rgb(230, 230, 230);
 }

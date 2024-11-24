@@ -257,12 +257,13 @@ function PagProdutos() {
         <button
           className="voltar"
           onClick={() => {
-            navigate("/PagEscolhaProdutos");
+            navigate("/PagHome");
           }}
         >
           Voltar
         </button>
 
+          <button onClick={()=>{Alerta(1, "Campos não preenchidos");}}>a</button>
         {showModal &&
           <ProdutosModal
             fechar={() => handleModal(false)}

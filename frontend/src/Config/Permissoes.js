@@ -35,3 +35,5 @@ export const checaPermissaoVisualizacao = (permissao, role, intent) =>{
     const check = permissaoParse[role].permissoes[intent.class][intent.intentPage].visualizacao
     return check
 }
+
+

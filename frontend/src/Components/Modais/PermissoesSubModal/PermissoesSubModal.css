@@ -4,24 +4,141 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.6); /* Dark transparent overlay */
+    z-index: 99;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .PermissoesSubModal .conteudo-modal {
-    background-color: #fff;
-    top: 3%;
-    padding: 30px;
-    border-radius: 12px; 
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    width: 90%;
-    height: 80%;
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    overflow: hidden;
-    position: relative; 
+    flex-direction: column;
+    background-color: #fff;
+    padding: 25px;
+    height: 350px;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.4); /* Smooth shadow */
+    width: 400px;
+    max-width: 90%; /* Adjust for smaller screens */
+    animation: fadeIn 0.3s ease-in-out; /* Subtle fade-in animation */
+    text-align: center;
+    overflow: hidden; /* Prevent content overflow */
+}
+
+.PermissoesSubModal .modal-title {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.PermissoesSubModal .acerto{
+    background-color: rgba(15, 235, 15, 0.363);
+    padding: 10px;
+    border-radius: 10px;
+}
+.PermissoesSubModal .erro{
+    background-color: rgba(235, 15, 15, 0.363);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.PermissoesSubModal .permissions-heading {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.PermissoesSubModal .permissions-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+    background-color: #a14c1310;
+    border-radius: 10px;
+    padding: 5px;
+    animation: expandHeight 0.5s ease-in-out forwards;
+
+}
+
+.PermissoesSubModal .permissions-list li {
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: #333;
+}
+
+.PermissoesSubModal label {
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.PermissoesSubModal input[type="checkbox"] {
+    margin-right: 10px;
+    accent-color: #C53D0F; /* Checkbox styled with the desired color */
+    transform: scale(1.5); 
+    margin-left: 20px;
+}
+
+.PermissoesSubModal .close-btn {
+    background: transparent;
+    border: none;
+    font-size: 2.5rem;
+    color: #333;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.PermissoesSubModal .close-btn:hover {
+    color: #C53D0F;
+}
+
+.PermissoesSubModal .animacao {
+    animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+.PermissoesSubModal .save-btn {
+    background-color: #C53D0F; /* Primary button color */
+    color: #fff;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2); /* Subtle button shadow */
+}
+
+.PermissoesSubModal .save-btn:hover {
+    background-color: #a32e0c; /* Slightly darker on hover */
+    transform: translateY(-2px); /* Lift effect */
+}
+
+.PermissoesSubModal .save-btn:active {
+    background-color: #8a260b; /* Even darker on click */
+    transform: translateY(0); /* Reset lift on click */
+}
+
+/* Fade-in animation for modal */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes expandHeight {
+    0% {
+        max-height: 0;
+    }
+    100% {
+        max-height: 500px; /* Adjust based on your content */
+    }
 }

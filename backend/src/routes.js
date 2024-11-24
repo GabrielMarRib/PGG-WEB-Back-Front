@@ -87,9 +87,9 @@ routes.post('/CriarFuncionario', async (req, res) => {
             Email: email,
             CPF: cpf,
             Celular: telefone,
-            Nivel_acesso: acesso
+            Grupo_Acesso: acesso
         });
-        return res.status(200).json({ message: "Usuario adicionado" })
+        return res.status(200).json({ message: "Usuario adicionado", id: userId })
 
     } catch (error) {
         return res.status(500).json({ message: "Erro ao adicionar o usuario", error: error.message });

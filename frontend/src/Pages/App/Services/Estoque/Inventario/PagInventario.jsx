@@ -184,7 +184,7 @@ function PagInventario() {
                 </div>
                 
                 <AlertaNotificação />
-                <button className="voltar" onClick={() => { navigate("/PagEscolhaProdutos"); }}>
+                <button className="voltar" onClick={() => { navigate("/PagHome"); }}>
                     Voltar
                 </button>
 
