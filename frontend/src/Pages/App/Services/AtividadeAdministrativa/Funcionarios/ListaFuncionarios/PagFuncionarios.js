@@ -37,7 +37,7 @@ function PagFuncionarios() {
 
     const selecionarFuncionario = (id) => {
         const funcionarioSelecionado = funcionarios.find(funcionario => funcionario.id === id);
-        setFuncionarioSelecionado(funcionarioSelecionado.data);
+        setFuncionarioSelecionado(funcionarioSelecionado);
     };
 
     const handleChangePesquisa = (event) => {
@@ -156,15 +156,16 @@ function PagFuncionarios() {
                                 <>
                                     <div className="info-section">
                                         <h1 className="centralizar">Informações Pessoais</h1>
-                                        <p><strong>Nome:</strong> {funcionarioSelecionado.Nome}</p>
-                                        <p><strong>Email:</strong> {funcionarioSelecionado.Email}</p>
-                                        <p><strong>Telefone:</strong> {funcionarioSelecionado.Celular}</p>
-                                        <p><strong>CPF:</strong> {funcionarioSelecionado.CPF}</p>
+                                        <p><strong>Id:</strong> {funcionarioSelecionado.id}</p>
+                                        <p><strong>Nome:</strong> {funcionarioSelecionado.data.Nome}</p>
+                                        <p><strong>Email:</strong> {funcionarioSelecionado.data.Email}</p>
+                                        <p><strong>Telefone:</strong> {funcionarioSelecionado.data.Celular}</p>
+                                        <p><strong>CPF:</strong> {funcionarioSelecionado.data.CPF}</p>
                                     </div>
                                     <hr />
                                     <div className="info-section">
                                         <h1 className="centralizar">Informações de Acesso</h1>
-                                        <p><strong>Grupo de Acesso:</strong> {funcionarioSelecionado.Grupo_Acesso}</p>
+                                        <p><strong>Grupo de Acesso:</strong> {funcionarioSelecionado.data.Grupo_Acesso}</p>
                                     </div>
                                     <hr />
                                     <div className="botoes nao-imprimir">
