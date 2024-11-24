@@ -78,10 +78,6 @@ export const pegaDadosPP = async (setDadoOBJ) => {
 export const handleAdicionarUser = async (nome, cpf, email, telefone, acesso, userRequisitado) => {
     if (!userRequisitado)
         return;
-    else if (userRequisitado.userData.Nivel_acesso != 2) {
-        alert("irmao vc nao tem permissao pra isso nao kkkkk")
-        return;
-    }
 
     let msg = "";
     try {
@@ -92,7 +88,19 @@ export const handleAdicionarUser = async (nome, cpf, email, telefone, acesso, us
             telefone: telefone,
             acesso: acesso
         });
-        console.log(response.data.message)
+        const id = response.data.id;
+        
+        const responseMysql = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
+            funcao: 'insereUser', 
+            senha: '@7h$Pz!q2X^vR1&K',
+            id: id,
+            CPF: cpf,
+            Celular: telefone,
+            Email: email,
+            Grupo_Acesso: acesso,
+            Nome: nome
+        });
+
         return [response.data.message, false];
 
     } catch (error) {

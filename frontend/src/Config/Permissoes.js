@@ -11,6 +11,7 @@ export const pegaPermissoesTotais = async () => {
         return(response.data);
     } catch (error) {
         console.log("deu ruim: " + error)
+        return null;
     }
 };
 export const pegaPermissoesWHERE = async (where, context) => {
@@ -25,6 +26,7 @@ export const pegaPermissoesWHERE = async (where, context) => {
             
     } catch (error) {
         console.log("deu ruim: " + error)
+        return null;
     }
 };
 

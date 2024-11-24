@@ -40,22 +40,6 @@ function PagFuncionarios() {
         setFuncionarioSelecionado(funcionarioSelecionado.data);
     };
 
-    const mostrarNivelAcesso = () => {
-        if (Usuario && Usuario.dadosUsuario) {
-            switch (parseInt(Usuario.dadosUsuario.Nivel_acesso)) {
-                case 0:
-                    return "(Funcionário)";
-                case 1:
-                    return "(Funcionário+)";
-                case 2:
-                    return "(Gestor)";
-                default:
-                    return "Nível de Acesso Indefinido";
-            }
-        }
-        return "";
-    };
-
     const handleChangePesquisa = (event) => {
         setTextoPesquisa(event.target.value);
     };
@@ -80,7 +64,7 @@ function PagFuncionarios() {
             <p><strong>CPF:</strong> ${funcionarioSelecionado.CPF}</p>
             <hr/> 
             <h1>Informações de Acesso</h1>
-            <p><strong>Nível de Acesso:</strong> ${funcionarioSelecionado.Nivel_acesso} ${mostrarNivelAcesso()}</p>
+            <p><strong>Nível de Acesso:</strong> ${funcionarioSelecionado.Grupo_Acesso}</p>
             <hr/> 
         `;
         const janelaDeImpressao = window.open('', '_blank');
@@ -180,7 +164,7 @@ function PagFuncionarios() {
                                     <hr />
                                     <div className="info-section">
                                         <h1 className="centralizar">Informações de Acesso</h1>
-                                        <p><strong>Nível de Acesso:</strong> {funcionarioSelecionado.Nivel_acesso} {mostrarNivelAcesso()}</p>
+                                        <p><strong>Grupo de Acesso:</strong> {funcionarioSelecionado.Grupo_Acesso}</p>
                                     </div>
                                     <hr />
                                     <div className="botoes nao-imprimir">
