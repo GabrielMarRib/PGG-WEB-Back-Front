@@ -2,6 +2,10 @@
     font-family: 'JetBrains Mono';
 }
 
+.PagHistorico .marginNavbar{
+    margin-left: 5rem;
+}
+
 .PagHistorico .btn {
     margin-bottom: 20px;
 }

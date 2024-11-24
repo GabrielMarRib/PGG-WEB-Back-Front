@@ -13,6 +13,7 @@ import ProdutosModal from "../../../../../Components/Modais/ProdutosModal/Produt
 import BtnAjuda from "../../../../../Components/BotaoAjuda/BtnAjuda.js";
 import { PermissoesContext } from "../../../../../Context/PermissoesContext.js";
 import { checaPermissaoVisualizacao } from "../../../../../Config/Permissoes.js";
+import NavBar from "../../../../../Components/NavBar/NavBar.js";
 // Componente Modal
 
 function PagInventario() {
@@ -153,9 +154,8 @@ function PagInventario() {
     return (
         <div className="Produtos">
             <div className="DivForms">
-                <div className="CabecalhoHome">
-                    <CabecalhoHome />
-                </div>
+                
+                <NavBar />
 
                 {showModal &&
                     <ProdutosModal

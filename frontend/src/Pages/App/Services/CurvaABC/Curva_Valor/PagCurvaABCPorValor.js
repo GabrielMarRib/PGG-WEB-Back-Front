@@ -8,6 +8,7 @@ import axios from "axios";
 import Titulo from "../../../../../Components/Titulo/Titulo.jsx";
 import BtnAjuda from "../../../../../Components/BotaoAjuda/BtnAjuda.js";
 import ModalCurvaABC from "../../../../../Components/Modais/CurvaABCModal/ModalCurvaABCValor.js";
+import NavBar from "../../../../../Components/NavBar/NavBar.js";
 
 function CurvaABCPorValor() {
     const [dadosCurvaABC, setDadosCurvaABC] = useState([]);
@@ -170,9 +171,7 @@ function CurvaABCPorValor() {
 
     return (
         <div className="CurvaABC">
-            <div className="CabecalhoHome">
-                <CabecalhoHome />
-            </div>
+        <NavBar />
             <Titulo
                 tituloMsg = 'Visualização de Curva ABC (Valor)'
             />

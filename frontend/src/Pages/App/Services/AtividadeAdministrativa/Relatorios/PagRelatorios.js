@@ -11,6 +11,7 @@ import AlertaNotificação from "../../../../../Components/NotificacaoAlert/Aler
 import { useAlerta } from "../../../../../Context/AlertaContext.js";
 import Titulo from "../../../../../Components/Titulo/Titulo.jsx";
 import BtnAjuda from "../../../../../Components/BotaoAjuda/BtnAjuda.js";
+import NavBar from "../../../../../Components/NavBar/NavBar.js";
 
 function PagRelatorios() {
     const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
@@ -264,9 +265,7 @@ function PagRelatorios() {
 
     return (
         <div className="PagRelatorios">
-            <div className="Cabecalho">
-                <Cabecalho />
-            </div>
+            <NavBar />
             <Titulo
                 tituloMsg='Visualização de relatórios'
             />

@@ -10,6 +10,7 @@ import Titulo from "../../../../../Components/Titulo/Titulo.jsx";
 import ImgAtivo from "../../../../../Assets/GreenCheckMark.png";
 import ImgInativo from "../../../../../Assets/ReadCheckMark.png";
 import BtnAjuda from "../../../../../Components/BotaoAjuda/BtnAjuda.js";
+import NavBar from "../../../../../Components/NavBar/NavBar.js";
 
 const formatCep = (value) => {
   value = value.replace(/\D/g, ''); // Remove tudo que não for número
@@ -173,9 +174,7 @@ function PagVenderProduto() {
   return (
     <div className="PagVenderProduto">
       <div className="DivForms">
-        <div className="CabecalhoHome">
-          <CabecalhoHome />
-        </div>
+        <NavBar />
         <Titulo tituloMsg="Cadastro de fornecedor" />
         <AlertaNotificação />
         <header className="cabecalhoBtnAjuda">

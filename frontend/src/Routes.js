@@ -72,35 +72,46 @@ function AppRoutes() {
           <>
             <Route path="/" element={<Navigate to="/PagLogin" />} />
             <Route path="/PagLogin" element={<PagLogin />} />
+            {/* // Dashboard */}
+            <Route path="/PagHome" element={<PrivateRoute element={<PagHome />} intent={{ class: "Dashboard", intentPage: "Página Dashboard" }} />} />
 
-            <Route path="/PagHome" element={<PrivateRoute element={<PagHome />} intent='PagHome' />} />
-            <Route path="/PagPerfil" element={<PrivateRoute element={<PagPerfil />} intent='PagPerfil' />} />
-            <Route path="/PagAddFunc" element={<PrivateRoute element={<PagAddFunc />} intent='PagAddFunc' />} />
-            <Route path="/PagProdutos" element={<PrivateRoute element={<PagProdutos />} intent='PagProdutos' />} />
-            <Route path="/PagLoteEconomico" element={<PrivateRoute element={<PagLoteEconomico />} intent='PagLoteEconomico' />} />
-            <Route path="/PagEscolhaProdutos" element={<PrivateRoute element={<PagEscolhaProdutos />} intent='PagEscolhaProdutos' />} />
-            <Route path="/PagVenderProduto" element={<PrivateRoute element={<PagVenderProduto />} intent='PagVenderProduto' />} />
-            <Route path="/PagEscolhaCurvaABC" element={<PrivateRoute element={<PagEscolhaCurvaABC />} intent='PagEscolhaCurvaABC' />} />
-            <Route path="/PagCurvaABC" element={<PrivateRoute element={<PagCurvaABC />} intent='PagCurvaABC' />} />
-            <Route path="/PagCurvaABCPorValor" element={<PrivateRoute element={<PagCurvaABCPorValor />} intent='PagCurvaABCPorValor' />} />
-            <Route path="/PagPontoPedido" element={<PrivateRoute element={<PagPontoPedido />} intent='PagPontoPedido' />} />
-            <Route path="/PagRelatorios" element={<PrivateRoute element={<PagRelatorios />} intent='PagRelatorios' />} />
-            <Route path="/PagFuncionarios" element={<PrivateRoute element={<PagFuncionarios />} intent='PagFuncionarios' />} />
-            <Route path="/PagTeste" element={<PrivateRoute element={<PagTeste />} intent='PagTeste' />} />
-            <Route path="/PagTesteInsercao" element={<PrivateRoute element={<PagTesteInsercao />} intent='PagTesteInsercao' />} />
-            <Route path="/PagTesteInsercaoDD" element={<PrivateRoute element={<PagTesteInsercaoDD />} intent='PagTesteInsercaoDD' />} />
-            <Route path="/TesteDashboard" element={<PrivateRoute element={<TesteDashboard />} intent='TesteDashboard' />} />
-            <Route path="/PagGerirCategoria" element={<PrivateRoute element={<GerirCategoria />} intent='PagGerirCategoria' />} />
-            <Route path="/PagGerirLotes" element={<PrivateRoute element={<GerirLotes />} intent='PagGerirLotes' />} />
-            <Route path="/PagMovimentos" element={<PrivateRoute element={<PagMovimentos />} intent='PagMovimentos' />} />
-            <Route path="/PagCadFornecedor" element={<PrivateRoute element={<PagCadastroFornecedor />} intent='PagCadFornecedor' />} />
-            <Route path="/PagHistorico" element={<PrivateRoute element={<PagHistorico />} intent='PagHistorico' />} />
-            <Route path="/PagPesquisaFornecedor" element={<PrivateRoute element={<PagPesquisaFornecedor />} intent='PagPesquisaFornecedor' />} />
-            <Route path="/PagUploadExcel" element={<PrivateRoute element={<PagUploadExcel />} intent='PagUploadExcel' />} />
-            <Route path="/PagEscolhaPontoDePedido" element={<PrivateRoute element={<PagEscolhaPontoDePedido />} intent='PagEscolhaPontoDePedido' />} />
-            <Route path="/PagInventario" element={<PrivateRoute element={<PagInventario />} intent='PagInventario' />} />
-            <Route path="/DefGrupoAcesso" element={<PrivateRoute element={<PagGrupoacesso />} intent='DefGrupoAcesso' />} />
-            <Route path="/PagNavBar" element={<PrivateRoute element={<NavBar />} intent='PagNavBar' />} />
+            {/* // Perfil */}
+            <Route path="/PagPerfil" element={<PrivateRoute element={<PagPerfil />} intent={{ class: "Perfil", intentPage: "Página de Perfil" }} />} />
+
+            {/* // Atividade_Admin */}
+            <Route path="/PagAddFunc" element={<PrivateRoute element={<PagAddFunc />} intent={{ class: "Atividade_Admin", intentPage: "Adicionar Funcionário" }} />} />
+            <Route path="/PagRelatorios" element={<PrivateRoute element={<PagRelatorios />} intent={{ class: "Atividade_Admin", intentPage: "Relatórios" }} />} />
+            <Route path="/PagFuncionarios" element={<PrivateRoute element={<PagFuncionarios />} intent={{ class: "Atividade_Admin", intentPage: "Lista de Funcionarios" }} />} />
+            <Route path="/PagHistorico" element={<PrivateRoute element={<PagHistorico />} intent={{ class: "Atividade_Admin", intentPage: "Histórico" }} />} />
+            <Route path="/DefGrupoAcesso" element={<PrivateRoute element={<PagGrupoacesso />} intent={{ class: "Atividade_Admin", intentPage: "Gerenciar Grupos de Acesso" }} />} />
+
+            {/* // Estoque */}
+            <Route path="/PagProdutos" element={<PrivateRoute element={<PagProdutos />} intent={{ class: "Estoque", intentPage: "Adicionar Produtos" }} />} />
+            <Route path="/PagMovimentos" element={<PrivateRoute element={<PagMovimentos />} intent={{ class: "Estoque", intentPage: "Movimento" }} />} />
+            <Route path="/PagGerirLotes" element={<PrivateRoute element={<GerirLotes />} intent={{ class: "Estoque", intentPage: "Gerenciar Lotes" }} />} />
+            <Route path="/PagInventario" element={<PrivateRoute element={<PagInventario />} intent={{ class: "Estoque", intentPage: "Inventário" }} />} />
+            <Route path="/PagCurvaABC" element={<PrivateRoute element={<PagCurvaABC />} intent={{ class: "Estoque", intentPage: "Curva ABC" }} />} />
+            <Route path="/PagCurvaABCPorValor" element={<PrivateRoute element={<PagCurvaABCPorValor />} intent={{ class: "Estoque", intentPage: "Curva ABC Por valor" }} />} />
+            <Route path="/PagUploadExcel" element={<PrivateRoute element={<PagUploadExcel />} intent={{ class: "Estoque", intentPage: "Upload de Excel ao estoque" }} />} />
+            <Route path="/PagGerirCategoria" element={<PrivateRoute element={<GerirCategoria />} intent={{ class: "Estoque", intentPage: "Gerenciar Categorias" }} />} />
+            <Route path="/PagPontoPedido" element={<PrivateRoute element={<PagPontoPedido />} intent={{ class: "Estoque", intentPage: "Ponto de Pedido" }} />} />
+            <Route path="/PagLoteEconomico" element={<PrivateRoute element={<PagLoteEconomico />} intent={{ class: "Estoque", intentPage: "Lote econômico" }} />} />
+
+            {/* // Fornecedor */}
+            <Route path="/PagCadFornecedor" element={<PrivateRoute element={<PagCadastroFornecedor />} intent={{ class: "Fornecedor", intentPage: "Cadastrar Fornecedor" }} />} />
+            <Route path="/PagPesquisaFornecedor" element={<PrivateRoute element={<PagPesquisaFornecedor />} intent={{ class: "Fornecedor", intentPage: "Pesquisar Fornecedor" }} />} />
+
+            {/* // Test */}
+            <Route path="/PagTeste" element={<PrivateRoute element={<PagTeste />} intent={{ class: "Test", intentPage: "PagTeste" }} />} />
+            <Route path="/TesteDashboard" element={<PrivateRoute element={<TesteDashboard />} intent={{ class: "Test", intentPage: "TesteDashboard" }} />} />
+            <Route path="/PagTesteInsercao" element={<PrivateRoute element={<PagTesteInsercao />} intent={{ class: "Test", intentPage: "PagTesteInsercao" }} />} />
+
+            {/* // Misc */}
+            <Route path="/PagEscolhaProdutos" element={<PrivateRoute element={<PagEscolhaProdutos />} intent={{ class: "Misc", intentPage: "PagEscolhaProdutos" }} />} />
+            <Route path="/PagEscolhaCurvaABC" element={<PrivateRoute element={<PagEscolhaCurvaABC />} intent={{ class: "Misc", intentPage: "PagEscolhaCurvaABC" }} />} />
+            <Route path="/PagTesteInsercaoDD" element={<PrivateRoute element={<PagTesteInsercaoDD />} intent={{ class: "Misc", intentPage: "PagTesteInsercaoDD" }} />} />
+            <Route path="/PagEscolhaPontoDePedido" element={<PrivateRoute element={<PagEscolhaPontoDePedido />} intent={{ class: "Misc", intentPage: "PagEscolhaPontoDePedido" }} />} />
+            <Route path="/PagNavBar" element={<PrivateRoute element={<NavBar />} intent={{ class: "Misc", intentPage: "PagNavBar" }} />} />
 
 
           </>

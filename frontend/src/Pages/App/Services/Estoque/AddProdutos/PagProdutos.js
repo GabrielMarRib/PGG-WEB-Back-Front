@@ -15,6 +15,7 @@ import { UserContext } from "../../../../../Context/UserContext.js";
 import ProdutosModal from "../../../../../Components/Modais/ProdutosModal/ProdutosModal.js";
 import Titulo from "../../../../../Components/Titulo/Titulo.jsx";
 import BtnAjuda from "../../../../../Components/BotaoAjuda/BtnAjuda.js";
+import NavBar from "../../../../../Components/NavBar/NavBar.js";
 
 function PagProdutos() {
   const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
@@ -230,9 +231,7 @@ function PagProdutos() {
   return (
     <div className="Produtos">
       <div className="DivForms">
-        <div className="CabecalhoHome">
-          <CabecalhoHome />
-        </div>
+        <NavBar />
 
         <Titulo
           tituloMsg='Gerenciamento de Produtos'

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../../../../../Context/UserContext.js"; 
 import Titulo from "../../../../../../Components/Titulo/Titulo.jsx";
 import BtnAjuda from "../../../../../../Components/BotaoAjuda/BtnAjuda.js";
+import NavBar from "../../../../../../Components/NavBar/NavBar.js";
 
 function PagFuncionarios() {
     
@@ -116,9 +117,7 @@ function PagFuncionarios() {
 
     return (
         <div className="PagFuncionarios">
-            <div className="Cabecalho">
-                <Cabecalho />
-            </div>
+            <NavBar />
             <Titulo
                 tituloMsg='Listagem de funcionários'
             />

@@ -2,6 +2,10 @@
     font-family: 'JetBrains Mono', sans-serif;
 }
 
+.PagUploadExcel {
+    margin-left: 5rem; /* Margem de 5rem na esquerda */
+}
+
 .PagUploadExcel div.paginacaoLbl{
     display: flex;
     align-items: center;

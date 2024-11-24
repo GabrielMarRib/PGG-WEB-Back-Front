@@ -7,6 +7,10 @@
     min-height: 100vh;
 }
 
+.PagPerfil .marginNavbar{
+    margin-left: 5rem;
+}
+
 .Corpo {
     display: flex;
     flex-direction: column;

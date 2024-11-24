@@ -6,6 +6,7 @@ import AlertaNotificação from "../../../../../Components/NotificacaoAlert/Aler
 import Titulo from "../../../../../Components/Titulo/Titulo.jsx";
 import axios from "axios";
 import BtnAjuda from "../../../../../Components/BotaoAjuda/BtnAjuda.js";
+import NavBar from "../../../../../Components/NavBar/NavBar.js";
 
 function PagHistorico() {
   const navigate = useNavigate();
@@ -125,10 +126,9 @@ function PagHistorico() {
 
   return (
     <div className="PagHistorico">
-      <div className="Cabecalho">
-        <CabecalhoHome />
-      </div>
+      <NavBar />
       <AlertaNotificação />
+      <div className="marginNavbar"> 
       <Titulo tituloMsg="Logs" />
 
       <header className="cabecalhoBtnAjuda">
@@ -290,6 +290,7 @@ function PagHistorico() {
           </tbody>
         </table>
       </div>
+    </div>
     </div>
   );
 }

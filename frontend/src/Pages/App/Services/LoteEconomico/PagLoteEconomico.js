@@ -9,6 +9,7 @@ import { useAlerta } from "../../../../Context/AlertaContext.js";
 import { useNavigate } from "react-router-dom";
 import Tooltip from '../../../../Components/Dica(MouseHover)/Dica.js'; // Importando o componente Tooltip
 import BtnAjuda from "../../../../Components/BotaoAjuda/BtnAjuda.js";
+import NavBar from "../../../../Components/NavBar/NavBar.js";
 
 function PagLoteEconomico() {
   const [DadosLoteEconomico, setDadosLoteEconomico] = useState([]);
@@ -159,9 +160,7 @@ function PagLoteEconomico() {
 
   return (
     <div className="LoteEconomico">
-      <div className="CabecalhoHome">
-        <CabecalhoHome />
-      </div>
+      <NavBar />
       <Titulo tituloMsg='Gestão do Lote Econômico' />
 
       <header className="cabecalhoBtnAjuda">

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import './PagGrupoacesso.css';
 import { pegaPermissoesTotais, pegaPermissoesWHERE } from '../../../../../Config/Permissoes';
 import PermissoesModal from '../../../../../Components/Modais/PermissoesModal/PermissoesModal';
+import NavBar from '../../../../../Components/NavBar/NavBar';
 
 
 function PagGrupoacesso() {
@@ -84,7 +85,7 @@ function PagGrupoacesso() {
 
   return (
     <div className="PagGrupoacesso">
-      <CabecalhoHome />
+      <NavBar />
       <Titulo tituloMsg="Gerenciar Grupos de Acesso" />
 
       <div className="conteudoPagina">

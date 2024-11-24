@@ -8,6 +8,11 @@
     margin-top: 20px;
 }
 
+.PagPontoPedido .marginNavbar {
+    margin-left: 5rem;
+}
+
+
 .PagMovimentos .Tabela{
     display: flex;
     justify-content: center;

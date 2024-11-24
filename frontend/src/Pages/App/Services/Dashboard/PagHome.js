@@ -211,8 +211,7 @@ function PagHome() {
     { title: "PEPS", img: ImagePEPS, link: "/PagMovimentos" },
     { title: "Lote Econômico", img: ImageLote, link: "/PagLoteEconomico" },
     { title: "Logs", img: historia, link: "/PagHistorico" },
-    { title: "Options", img: OptionIcon, link: "/PagPerfil" },
-    { title: "Teste NavBar", img: OptionIcon, link: "/PagNavBar" }
+    { title: "Options", img: OptionIcon, link: "/PagPerfil" }
   ];
 
   const handleResize = () => {

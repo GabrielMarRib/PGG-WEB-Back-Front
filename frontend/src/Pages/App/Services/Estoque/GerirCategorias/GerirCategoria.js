@@ -16,6 +16,7 @@ import { useContext } from "react";
 import { UserContext } from "../../../../../Context/UserContext.js";
 import Titulo from "../../../../../Components/Titulo/Titulo.jsx";
 import BtnAjuda from "../../../../../Components/BotaoAjuda/BtnAjuda.js";
+import NavBar from "../../../../../Components/NavBar/NavBar.js";
 
 function GerirCategoria() {
   const navigate = useNavigate();
@@ -387,7 +388,7 @@ function GerirCategoria() {
 
   return (
     <div className="PagAddCategoria">
-      <CabecalhoHome />
+      <NavBar />
       <AlertaNotificação />
       <Titulo
         tituloMsg='Gerenciamento de Categorias'

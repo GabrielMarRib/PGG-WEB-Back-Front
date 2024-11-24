@@ -3,10 +3,13 @@ import { BsArrowLeftShort, BsSearch, BsChevronDown } from "react-icons/bs";
 import { RiDashboardFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import LogoIcon from "../../Assets/logoRigelTech.png";
+import OptionIcon from "../../Assets/OptionsWhite.png"; // Imagem para o botão de sair
+import IconLogOut from "../../Assets/LogOutIconWhite.png"; // Imagem para o ícone de logout
+import Notificacao from "../FuncionalidadeSininho/Notificacao"; // Importe o componente de Notificação
 import "./NavBar.css";
 
 const NavBar = () => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [submenuOpen, setSubmenuOpen] = useState(null);
   const navigate = useNavigate();
 
@@ -27,15 +30,50 @@ const NavBar = () => {
         { title: "Pesquisa de Produtos", path: "/PagPesquisaFornecedor" },
       ],
     },
+    {
+      title: "Curva Abc",
+      submenu: true,
+      submenuItems: [
+        { title: "Por frequência", path: "/PagCurvaABC" },
+        { title: "Por valor", path: "/PagCurvaABCPorValor" },
+      ],
+    },
     { title: "Ponto de Pedido", path: "/PagPontoPedido" },
     { title: "PEPS", path: "/PagMovimentos" },
     { title: "Lote Econômico", path: "/PagLoteEconomico" },
     { title: "LOGS", path: "/PagHistorico" },
+    { title: "Suas Informações", path: "/PagPerfil" },
+    {
+      title: "outros serviços",
+      submenu: true,
+      submenuItems: [
+        { title: "Adicionar Funcionário", path: "/PagAddFunc" },
+        { title: "Lista de Funcionários", path: "/PagFuncionarios" },
+        { title: "Relatórios", path: "/PagRelatorios" },
+        { title: "Gerenciar Grupos de Acessos", path: "/DefGrupoAcesso" },
+      ],
+    },
     { title: "Logout", spacing: true },
   ];
 
   const toggleSubmenu = (index) => {
-    setSubmenuOpen(submenuOpen === index ? null : index);
+    if (open) {
+      setSubmenuOpen(submenuOpen === index ? null : index);
+    }
+  };
+
+  const toggleSidebar = () => {
+    if (open) {
+      setSubmenuOpen(null); // Fecha todos os submenus ao fechar a sidebar
+    }
+    setOpen(!open);
+  };
+
+  const handleLogOut = (navigate) => {
+    // Função de logout
+    console.log("Logout");
+    // Após o logout, redireciona para a página inicial ou de login
+    navigate("/login");
   };
 
   return (
@@ -44,7 +82,7 @@ const NavBar = () => {
       <div className={`sidebar ${open ? "open" : "collapsed"}`}>
         <BsArrowLeftShort
           className={`toggle-btn ${!open ? "rotate" : ""}`}
-          onClick={() => setOpen(!open)}
+          onClick={toggleSidebar}
         />
         <div className="logo-section">
           <img
@@ -71,17 +109,13 @@ const NavBar = () => {
                 {open && <span>{menu.title}</span>}
                 {menu.submenu && open && (
                   <BsChevronDown
-                    className={`submenu-icon ${
-                      submenuOpen === index ? "rotated" : ""
-                    }`}
+                    className={`submenu-icon ${submenuOpen === index ? "rotated" : ""}`}
                   />
                 )}
               </div>
               {menu.submenu && (
                 <ul
-                  className={`submenu-list ${
-                    submenuOpen === index ? "open" : ""
-                  }`}
+                  className={`submenu-list ${submenuOpen === index && open ? "open" : ""}`}
                 >
                   {menu.submenuItems.map((submenuItem, subIndex) => (
                     <li
@@ -97,11 +131,23 @@ const NavBar = () => {
             </li>
           ))}
         </ul>
-      </div>
 
-      {/* Main Content */}
-      <div className="main-content">
-        <h1>Main Content</h1>
+        {/* Footer buttons */}
+        <div className="footer-btns">
+          <div className="btnSair" onClick={() => navigate("/PagPerfil")}>
+            <img src={OptionIcon} alt="Option Icon" />
+          </div>
+
+          <div className="btnNotificacao">
+            <Notificacao />
+          </div>
+
+          <div className="btnSair" onClick={() => { handleLogOut(navigate); }}>
+            <div id="DivNotificação">
+              <img src={IconLogOut} alt="Logout Icon" />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -15,6 +15,8 @@ import { UserContext } from '../../../../Context/UserContext.js';
 import { useNavigate } from "react-router-dom";
 import Titulo from "../../../../Components/Titulo/Titulo.jsx";
 import { PermissoesContext } from "../../../../Context/PermissoesContext.js";
+import NavBar from "../../../../Components/NavBar/NavBar.js";
+
 
 function PagPerfil() {
     const UserOBJ = useContext(UserContext);
@@ -26,10 +28,11 @@ function PagPerfil() {
 
     return (
         <div className="PagPerfil">
-            <CabecalhoHome />
+            <NavBar />
             <Titulo
                 tituloMsg='Gerenciamento de Informações'
             />
+            <div className="marginNavbar"> 
             {User &&
                 <div className="Corpo">
                     <div className="dados-usuario">
@@ -60,6 +63,7 @@ function PagPerfil() {
                 </div>
    
             }
+        </div>
         </div>
     );
 }

@@ -21,6 +21,7 @@ import IconAddLote from "../../../../../Assets/IconAddLote.png";
 import IconSeta from "../../../../../Assets/IconSeta.png";
 import BtnAjuda from "../../../../../Components/BotaoAjuda/BtnAjuda.js";
 import BuscaCategorias from "../../../../../Components/BuscaCategoria/BuscaCategoriasComponente.js";
+import NavBar from "../../../../../Components/NavBar/NavBar.js";
 
 function GerirLotes() {
   const { User } = useContext(UserContext);
@@ -277,7 +278,7 @@ function GerirLotes() {
 
   return (
     <div className="PagGerirLotes">
-      <CabecalhoHome />
+      <NavBar />
       <AlertaNotificação />
       <Titulo tituloMsg="Gerenciamento de lotes" />
 

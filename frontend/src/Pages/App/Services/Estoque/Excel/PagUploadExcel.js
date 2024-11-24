@@ -10,6 +10,7 @@ import { useAlerta } from "../../../../../Context/AlertaContext.js";
 import { UserContext } from "../../../../../Context/UserContext.js";
 import DownloadExcel from '../../../../../Components/Excel_Download/DownloadExcel.jsx';
 import BtnAjuda from "../../../../../Components/BotaoAjuda/BtnAjuda.js";
+import NavBar from '../../../../../Components/NavBar/NavBar.js';
 
 function PagUploadExcel() {
     const { Alerta } = useAlerta();
@@ -364,7 +365,7 @@ function PagUploadExcel() {
     const dadosPlanilha = importacoes.find(importacao => importacao.id === importacaoExpandida)
     return (
         <div className="PagUploadExcel">
-            <CabecalhoHome />
+            <NavBar />
             <AlertaNotificação />
             <Titulo tituloMsg='Importação de Planilha Excel' />
 

@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import Titulo from '../../../../Components/Titulo/Titulo.jsx';
 import BuscaCategoriasComponentes from "../../../../Components/BuscaCategoria/BuscaCategoriasComponente.js";
+import NavBar from '../../../../Components/NavBar/NavBar.js';
 
 function PagPontoPedido() {
     const navigate = useNavigate();
@@ -45,9 +46,8 @@ function PagPontoPedido() {
 
     return (
         <div className="PagPontoPedido">
-            <div className="CabecalhoHome">
-                <CabecalhoHome />
-            </div>
+            <NavBar />
+            <div className="marginNavbar"> 
             <Titulo
                 tituloMsg='Gestão de Ponto de Pedido'
             />
@@ -107,6 +107,7 @@ function PagPontoPedido() {
                         </tbody>
                     </table>
                 </div>
+            </div>
             </div>
         </div>
     );

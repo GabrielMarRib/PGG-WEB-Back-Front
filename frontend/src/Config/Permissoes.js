@@ -11,6 +11,7 @@ export const pegaPermissoesTotais = async () => {
         return(response.data);
     } catch (error) {
         console.log("deu ruim: " + error)
+        return null;
     }
 };
 export const pegaPermissoesWHERE = async (where, context) => {
@@ -22,17 +23,15 @@ export const pegaPermissoesWHERE = async (where, context) => {
         });
         if(context) return({data: response.data[0].Permissoes, nome: response.data[0].nome_grupo });
         return response.data[0]
-            
+
     } catch (error) {
         console.log("deu ruim: " + error)
+        return null;
     }
 };
 
-export const checaPermissaoVisualizacao = (permissao, chavePermissao, intent) =>{
+export const checaPermissaoVisualizacao = (permissao, role, intent) =>{
     const permissaoParse = JSON.parse(permissao)
-    const possivel = permissaoParse[chavePermissao].visualizacao[intent];
-    console.log(possivel)
-    return possivel
+    const check = permissaoParse[role].permissoes[intent.class][intent.intentPage].visualizacao
+    return check
 }
-
-

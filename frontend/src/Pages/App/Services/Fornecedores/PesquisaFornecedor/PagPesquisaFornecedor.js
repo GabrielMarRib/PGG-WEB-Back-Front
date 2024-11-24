@@ -10,6 +10,7 @@ import Titulo from "../../../../../Components/Titulo/Titulo.jsx";
 import FiltragemFornecedor from '../../../../../Components/BuscaFornecedor/FiltragemFornecedor.js';
 import FiltragemCategoria from "../../../../../Components/BuscaCategoria/FiltragemCategoria.js";
 import BtnAjuda from "../../../../../Components/BotaoAjuda/BtnAjuda.js";
+import NavBar from "../../../../../Components/NavBar/NavBar.js";
 
 
 // Componente Modal
@@ -187,9 +188,7 @@ function PagPesquisaFornecedor() {
     return (
         <div className="Produtos">
             <div className="DivForms">
-                <div className="CabecalhoHome">
-                    <CabecalhoHome />
-                </div>
+                <NavBar />
 
                 <Titulo tituloMsg="Encomenda de Produtos" />
                 <AlertaNotificação />

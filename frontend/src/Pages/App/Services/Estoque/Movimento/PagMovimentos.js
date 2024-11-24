@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Titulo from "../../../../../Components/Titulo/Titulo.jsx";
 import BtnAjuda from "../../../../../Components/BotaoAjuda/BtnAjuda.js";
 import PEPS from '../../../../../Components/PEPS/PEPS.jsx';
+import NavBar from '../../../../../Components/NavBar/NavBar.js';
 
 const PagMovimentos = () => {
   const navigate = useNavigate();
@@ -299,12 +300,11 @@ const PagMovimentos = () => {
   return (
     <div className='PagMovimentos'>
 
-      <div className="CabecalhoHome">
-        <CabecalhoHome />
-      </div>
+      <NavBar />
       <Titulo tituloMsg='Visualização de Movimentos (Ficha de estoque)' />
       {erro && <p style={{ color: 'red' }}>{erro}</p>}
 
+      <div className="marginNavbar">
       <header className="cabecalhoBtnAjuda">
         <div className="Botaoajuda" onClick={() => { setShowPopup(true) }}> {/*crie um botão que no onClick faz o setShowPopup ficar true*/}
           Ajuda
@@ -379,6 +379,7 @@ const PagMovimentos = () => {
           </tbody>
         </table>
       </div>
+    </div>
     </div>
   );
 };

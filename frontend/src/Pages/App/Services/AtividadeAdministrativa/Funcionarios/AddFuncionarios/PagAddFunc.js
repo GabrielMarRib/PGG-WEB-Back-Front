@@ -11,6 +11,7 @@ import { useAlerta } from "../../../../../../Context/AlertaContext.js";
 import AlertaNotificação from "../../../../../../Components/NotificacaoAlert/AlertaNotificação.js";
 import Titulo from "../../../../../../Components/Titulo/Titulo.jsx";
 import BtnAjuda from "../../../../../../Components/BotaoAjuda/BtnAjuda.js";
+import NavBar from "../../../../../../Components/NavBar/NavBar.js";
 
 function PagAddFunc() {
   const { Alerta } = useAlerta(); // alertinha...
@@ -53,9 +54,7 @@ function PagAddFunc() {
 
   return (
     <div className="PagAddFunc">
-      <div className="Cabecalho">
-        <CabecalhoHome />
-      </div>
+      <NavBar />
       <AlertaNotificação />
       <Titulo
                 tituloMsg='Adição de funcionários'
