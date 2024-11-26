@@ -184,10 +184,6 @@ function PagInventario() {
                 </div>
                 
                 <AlertaNotificação />
-                <button className="voltar" onClick={() => { navigate("/PagHome"); }}>
-                    Voltar
-                </button>
-
                 
                 {/* <button onClick={()=>{checaPermissaoVisualizacao(Permissoes.Permissoes.data, Permissoes.Permissoes.nome, 'PagAddFunc' )}}>aa</button> */}
                 <div className="telaInteira">

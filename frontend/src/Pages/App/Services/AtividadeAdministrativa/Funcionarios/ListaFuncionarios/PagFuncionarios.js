@@ -123,9 +123,6 @@ function PagFuncionarios() {
 
         <div className="conteudoPagina"> 
             <div className="btn">
-                <button className="Voltar" onClick={() => { navegar("/PagPerfil") }}>
-                    Voltar
-                </button>
             </div>
         
             <div className="Conteudo">

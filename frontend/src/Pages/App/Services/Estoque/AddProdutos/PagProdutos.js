@@ -253,17 +253,6 @@ function PagProdutos() {
         </div>
 
         <AlertaNotificação />
-
-        <button
-          className="voltar"
-          onClick={() => {
-            navigate("/PagHome");
-          }}
-        >
-          Voltar
-        </button>
-
-          <button onClick={()=>{Alerta(1, "Campos não preenchidos");}}>a</button>
         {showModal &&
           <ProdutosModal
             fechar={() => handleModal(false)}

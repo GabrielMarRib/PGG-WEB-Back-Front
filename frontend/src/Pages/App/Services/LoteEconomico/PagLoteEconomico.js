@@ -178,9 +178,6 @@ function PagLoteEconomico() {
           )}
         </div> 
       <div className="btn">
-        <button className="Voltar" onClick={() => navigate("/PagHome")}>
-          Voltar
-        </button>
       </div>
       <div className="ConteudoDaPagina">
         <div className={isVisibleForms ? "terminalShow" : "terminal"}>

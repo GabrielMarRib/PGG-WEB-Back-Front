@@ -2,12 +2,13 @@
   justify-content: right;
   position: absolute;
   padding: 10px;
-  background-color: rgba(30, 41, 59, 0.8);
+  background-color: #1e293b;
   cursor: pointer;
   margin-top: 10px;
   border-radius: 15px;
   max-width: 70px;
   font-size: 17px;
+  color: white;
 }
 
 .BtnAjuda .popup {

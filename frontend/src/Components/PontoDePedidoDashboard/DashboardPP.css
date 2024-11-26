@@ -33,18 +33,13 @@
     margin: 8px 0;
     padding: 6px 10px; /* Reduzido para deixar o botão mais compacto */
     font-size: 14px; /* Tamanho da fonte já ajustado */
-    background-color: #dc430c;
+    background-color: rgba(30, 41, 59, 0.9);
     color: white;
     border-radius: 5px;
     cursor: pointer;
     border-color: transparent;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
-  
-  .DashPP .BotaoAcao:hover {
-    background-color: #b23507;
-  }
-  
   .DashPP span{
     margin: 10px 0px;
   }

@@ -88,9 +88,6 @@ function PagAddFunc() {
       </div>
 
       <div className="btn">
-        <button className="Voltar" onClick={() => { navigate("/PagPerfil") }}>
-          Voltar
-        </button>
       </div>
 
       {User && (

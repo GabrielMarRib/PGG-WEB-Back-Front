@@ -73,7 +73,7 @@
 .Produtos .container-tela-produtos button {
   padding: 10px;
   border-radius: 3px;
-  background-color: #e04d18;
+  background-color: #1e293b;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border: none;
   cursor: pointer;
@@ -85,7 +85,7 @@
 }
 
 .Produtos .container-tela-produtos button:hover {
-  background-color: #da3e00;
+  background-color: #283a57;
 }
 
 .Produtos .Resultado-select {
@@ -96,7 +96,7 @@
 .Produtos .terminal button {
   padding: 10px;
   border-radius: 3px;
-  background-color: #e04d18;
+  background-color: #1e293b;
   border: none;
   cursor: pointer;
   color: #fff;
@@ -108,7 +108,7 @@
 
 
 .Produtos .terminal button:hover {
-  background-color: #da3e00;
+  background-color: #304464;
   border-color: #bbb;
 }
 
@@ -315,7 +315,7 @@
 .Produtos .DivForms button.voltar{
   padding: 10px;
   border-radius: 3px;
-  background-color: #e04d18;
+  background-color: #1e293b;
   border: none;
   cursor: pointer;
   color: #fff;

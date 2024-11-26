@@ -1,6 +1,5 @@
 .PagMovimentos {
     font-family: 'JetBrains Mono', monospace; 
-    text-align: center; 
     flex-direction: column;
 }
 
@@ -11,6 +10,7 @@
 .PagMovimentos .flex{
     flex-direction: column;
     display: flex;
+    text-align: center; 
 }
 
 .PagMovimentos .btn {
@@ -40,7 +40,7 @@
 }
 
 .PagMovimentos th {
-    background-color: #e04d18;
+    background-color: #1e293b;
     color: white;
 }
 
@@ -49,7 +49,7 @@
 }
 
 .PagMovimentos .atencao {
-    background-color: #fa3d2f;
+    background-color: #1e293b;
     color: white;
     padding: 5px 10px;
     border-radius: 3px;

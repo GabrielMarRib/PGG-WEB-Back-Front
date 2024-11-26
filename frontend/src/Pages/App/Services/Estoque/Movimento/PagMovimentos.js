@@ -322,9 +322,6 @@ const PagMovimentos = () => {
       <div className='flex'>
 
         <div className="btn">
-          <button className="Voltar" onClick={() => navigate("/PagHome")}>
-            Voltar
-          </button>
         </div>
 
 

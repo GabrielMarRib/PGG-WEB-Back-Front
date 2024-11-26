@@ -38,6 +38,9 @@
   color: white;
   height: 100%; /* Garante que a sidebar ocupe 100% da altura */
   width: 18rem; /* Expanded width */
+  display: flex;
+  flex-direction: column; /* Organiza os elementos verticalmente */
+  overflow: hidden; /* Previne overflow geral */
   transition: width 0.3s ease;
 }
 
@@ -86,7 +89,7 @@
   height: 2.5rem;
   width: 2.5rem;
   transition: transform 0.3s ease;
-  margin-top: 19px;
+  margin-top: 18px;
 }
 
 .nav-container .rotate-logo {
@@ -116,11 +119,11 @@
 /* Search Box */
 .nav-container .search-box {
   margin: 1rem;
-  display: flex;
   align-items: center;
   background-color: #334155;
   padding: 0.5rem;
   border-radius: 0.5rem;
+  display: flex;
 }
 
 .nav-container .search-box input {
@@ -137,6 +140,11 @@
 }
 
 /* Menu */
+.nav-container .menu-container {
+  flex-grow: 1; /* Garante que a área de menu ocupe todo o espaço disponível */
+  overflow-y: auto; /* Adiciona barra de rolagem vertical se necessário */
+}
+
 .nav-container .menu-list {
   list-style: none;
   padding: 0;
@@ -217,50 +225,32 @@
   background-color: #64748b;
 }
 
-/* Impede a rolagem do conteúdo do body quando a sidebar está fixa */
-.nav-container body.sidebar-open {
-  overflow: hidden; /* Impede a rolagem */
-}
-
-.nav-container #btnNotificacao, .nav-container .btnSair img {
-  height: 50px;
-  width: 50px;
-}
-
-/* Footer buttons section */
-/* Footer buttons section */
+/* Rodapé fixo */
 .nav-container .footer-btns {
-  position: absolute; /* Posiciona em relação à sidebar */
-  bottom: 1rem; /* Garante distância do final da sidebar */
-  left: 0;
-  width: 100%; /* Ocupa toda a largura da sidebar */
+  padding: 1rem;
+  background-color: #1e293b; /* Garante que o rodapé seja visível */
+  border-top: 1px solid #334155; /* Adiciona separação visual do menu */
   display: flex;
-  flex-direction: row; /* Alinha itens em linha horizontal */
-  justify-content: center; /* Centraliza os botões horizontalmente */
-  gap: 1rem; /* Espaçamento padrão no modo colapsado */
+  flex-direction: row;
+  justify-content: center;
+  gap: 3rem;
 }
 
 .nav-container .footer-btns .btnSair img,
 .nav-container .footer-btns .btnNotificacao {
-  height: 40px; /* Define altura consistente para os ícones */
-  width: 40px;
+  height: 30px;
+  width: 30px;
 }
 
 /* Ajustes para o modo colapsado */
 .nav-container .sidebar.collapsed .footer-btns {
-  flex-direction: column; /* Alinha itens verticalmente no modo fechado */
-  align-items: center; /* Centraliza os botões horizontalmente */
-  width: 5rem; /* Limita a largura ao estado colapsado */
-  gap: 1rem; /* Espaçamento menor no modo fechado */
-}
-
-.nav-container .sidebar:not(.collapsed) .footer-btns {
-  gap: 3rem; /* Espaçamento maior quando a navbar está aberta */
+  flex-direction: column; /* Alinha os botões verticalmente no modo fechado */
+  align-items: center;
+  gap: 1rem;
 }
 
 .nav-container .sidebar.collapsed .footer-btns .btnSair img,
 .nav-container .sidebar.collapsed .footer-btns .btnNotificacao {
-  height: 30px; /* Reduz tamanho dos ícones no modo fechado */
+  height: 30px;
   width: 30px;
 }
-

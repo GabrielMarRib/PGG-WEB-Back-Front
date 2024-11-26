@@ -52,9 +52,6 @@ function PagPontoPedido() {
                 tituloMsg='Gestão de Ponto de Pedido'
             />
             <div className="btn">
-                <button className="Voltar" onClick={() => { navigate("/PagHome") }}>
-                    Voltar
-                </button>
             </div>
             <div className="conteudoPaginaMaster">
                 <div className='BuscarCategoria'>

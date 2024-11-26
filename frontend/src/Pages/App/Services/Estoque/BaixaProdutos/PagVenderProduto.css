@@ -19,7 +19,7 @@
 .PagVenderProduto .voltar {
     padding: 10px;
     border-radius: 3px;
-    background-color: #e04d18;
+    background-color: #1e293b;
     border: none;
     cursor: pointer;
     color: #fff;
@@ -100,7 +100,7 @@
 .PagVenderProduto .container-tela-produtos button {
     padding: 10px;
     border-radius: 3px;
-    background-color: #e04d18;
+    background-color: #1e293b;
     border: none;
     cursor: pointer;
     color: #fff;
@@ -191,20 +191,20 @@
   }
 
   .container-tela-cad_Fornecedor{
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: start;
-    -ms-flex-align: start;
-    align-items: flex-start;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    padding: 10px 0px;
+    justify-content: center; 
+    align-items: center;
+    height: 70vh; 
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    position: relative;
+    transform: translateX(1%); 
   }
   .container-tela-cad_Fornecedor button{
     padding: 10px;
     border-radius: 3px;
-    background-color: #e04d18;
+    background-color: #1e293b;
     border: none;
     cursor: pointer;
     color: #fff;

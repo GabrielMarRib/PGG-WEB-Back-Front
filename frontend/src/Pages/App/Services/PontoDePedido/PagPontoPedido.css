@@ -1,6 +1,5 @@
 .PagPontoPedido *, .PagMovimentos *  {
     font-family: 'JetBrains Mono', monospace; 
-    text-align: center; 
 }
 
 .PagPontoPedido .btn {
@@ -34,7 +33,7 @@
 .PagPontoPedido .btn button {
     padding: 10px;
     border-radius: 3px;
-    background-color: #e04d18;
+    background-color: #1e293b;
     border: none;
     cursor: pointer;
     color: #fff;
@@ -81,7 +80,7 @@
 }
 
 .PagPontoPedido th {
-    background-color: #e04d18;
+    background-color: rgba(59, 72, 102, 0.9);
     color: white;
 }
 
@@ -108,7 +107,7 @@
     text-transform: uppercase;
 }
 
-.filtro-selecionado {
+.PagPontoPedido .filtro-selecionado {
     color: chartreuse;
   }
   

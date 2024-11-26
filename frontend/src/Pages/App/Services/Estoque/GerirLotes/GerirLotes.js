@@ -304,15 +304,6 @@ function GerirLotes() {
             msgChave={"GERENCIAMENTOLOTES"} // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
           />
         )}
-
-        <button
-          className="voltar"
-          onClick={() => {
-            navigate("/PagHome");
-          }}
-        >
-          Voltar
-        </button>
       </div>
 
       {ShowModal ? (

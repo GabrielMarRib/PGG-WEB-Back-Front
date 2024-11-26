@@ -2,7 +2,7 @@ import React from 'react'
 
 function Titulo({ tituloMsg }) {
     return (
-        <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(30, 41, 59, 0.9)',borderRadius: '0px 0px 20px 20px' }}>
+        <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(30,41,59)'}}>
             <h1 style={{color: 'white'}}>{tituloMsg}</h1>
         </div>
     )
