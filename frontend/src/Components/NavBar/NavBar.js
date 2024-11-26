@@ -7,6 +7,7 @@ import OptionIcon from "../../Assets/OptionsWhite.png"; // Imagem para o botão 
 import IconLogOut from "../../Assets/LogOutIconWhite.png"; // Imagem para o ícone de logout
 import Notificacao from "../FuncionalidadeSininho/Notificacao"; // Importe o componente de Notificação
 import "./NavBar.css";
+import Notificacaodois from "../FuncionalidadeSininho/Notificacao2";
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
@@ -54,6 +55,7 @@ const NavBar = () => {
       ],
     },
     { title: "Logout", spacing: true },
+    { title: "Ajuda da Página", spacing: true },
   ];
 
   const toggleSubmenu = (index) => {
@@ -139,7 +141,7 @@ const NavBar = () => {
           </div>
 
           <div className="btnNotificacao">
-            <Notificacao />
+            <Notificacaodois />
           </div>
 
           <div className="btnSair" onClick={() => { handleLogOut(navigate); }}>

@@ -239,7 +239,7 @@
 
 .nav-container .sidebar.collapsed .footer-btns .btnSair img,
 .nav-container .sidebar.collapsed .footer-btns .btnNotificacao {
-  height: 30px; /* Reduz tamanho dos ícones no modo fechado */
-  width: 30px;
+  height: 40px; /* Reduz tamanho dos ícones no modo fechado */
+  width: 40px;
 }
 
