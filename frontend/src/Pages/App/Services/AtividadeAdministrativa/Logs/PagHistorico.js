@@ -14,7 +14,7 @@ function PagHistorico() {
 
   const [historico, setHistorico] = useState([]);
   const [camposVariaveis, setCamposVariaveis] = useState([]);
-  const [departamentoSelecionado, setDepartamentoSelecionado] = useState("curvaabc"); // Porra do filtro de departamento
+  const [departamentoSelecionado, setDepartamentoSelecionado] = useState("Curva ABC"); // Porra do filtro de departamento
   const [adicionaisCurva, setAdicionaisCurva] = useState([]);
   const [adicionaisLote, setAdicionaisLote] = useState([]);
   const [tabelasUnicas, setTabelasUnicas] = useState([]);
@@ -195,7 +195,7 @@ function PagHistorico() {
                     </div>
                     <br />
                     {(() => {
-                      if (registro?.tabela === 'curvaabc') {
+                      if (registro?.tabela === 'Curva ABC') {
                         const achados = adicionaisCurva.find((adicional) => adicional.id_curvaabc === registro.id_tabela)
                         return (
                           <div className="infoAdicional">

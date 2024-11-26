@@ -135,7 +135,7 @@ function GerirLotes() {
        <div className="DivDadosLote">
           <p className="pp"> <strong> Data de compra:   </strong>{item.dt_compra} / <strong> Data de validade: </strong>{item.dt_validade}</p>
           <p className="p"> <strong> Valor da venda:   </strong>{item.vlr_venda} / <strong> Valor da compra: </strong>{item.vlr_compra}</p>
-          <p className="p"> <strong> Valor da compra: </strong>{item.vlr_compra} </p>
+          <p className="p"> <strong> Quantidade: </strong>{item.qtde} </p>
        </div>
 
     </div>
