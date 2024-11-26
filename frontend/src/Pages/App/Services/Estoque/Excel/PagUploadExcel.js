@@ -383,16 +383,6 @@ function PagUploadExcel() {
                     />
                 )}
             </div>
-
-            <button
-                className="voltar"
-                onClick={() => {
-                    navigate("/PagHome");
-                }}
-            >
-                Voltar
-            </button>
-
             <div className="container-upload">
                 <div className="cabecalho-upload">
                     <h2>Envio de Arquivo Excel</h2>

@@ -45,7 +45,7 @@ const NavBar = () => {
     { title: "LOGS", path: "/PagHistorico" },
     { title: "Suas Informações", path: "/PagPerfil" },
     {
-      title: "outros serviços",
+      title: "Outros Serviços",
       submenu: true,
       submenuItems: [
         { title: "Adicionar Funcionário", path: "/PagAddFunc" },
@@ -54,7 +54,6 @@ const NavBar = () => {
         { title: "Gerenciar Grupos de Acessos", path: "/DefGrupoAcesso" },
       ],
     },
-    { title: "Logout", spacing: true },
     { title: "Ajuda da Página", spacing: true },
   ];
 
