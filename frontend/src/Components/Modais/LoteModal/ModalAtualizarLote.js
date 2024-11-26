@@ -92,7 +92,7 @@ const LoteMemo = memo(function ModalAtualizarLote({ LoteSelecionado, fechar, IdU
         <AlertaNotificação />
     <div className='conteudo-modal'>
       <div className='cabecalho-modal'>
-      <h1>Editar lote</h1>
+      <h1 className='textoCentro'>Editar lote</h1>
       <button onClick={fechar} className='botao-fechar'>X</button>
       </div>
     <center><h1> {LoteSelecionado.nome} </h1></center>
