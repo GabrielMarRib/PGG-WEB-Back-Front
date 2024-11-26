@@ -148,6 +148,7 @@ function PagGrupoacesso() {
                     </div>
                   </>}
                 <button className="Fechar" onClick={() => setGrupoSelecionado(null)}>X</button>
+                
               </div>
             ) : (
               <div>

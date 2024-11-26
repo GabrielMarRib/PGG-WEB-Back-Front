@@ -153,7 +153,7 @@ function PagAddFunc() {
                   <option key={permissao.id_grupo} value={permissao.id_grupo}>Grupo: {permissao.id_grupo} - {permissao.nome_grupo}</option>
                 ))}
               </select>
-              <div style={{marginTop: "10px", color:"gray"}}>Para adicionar Grupos de Acesso e visualizar permissões, clique <span style={{color: "blue", cursor: "pointer", textDecoration: "underline"}} onClick={()=>{navigate("/DefGrupoAcesso")}}>AQUI</span> para acessar a página de controle de acesso</div>
+              <div style={{marginTop: "10px", color:"gray"}}>Para adicionar Grupos de Acesso e visualizar permissões, clique <span style={{color: "blue", cursor: "pointer", textDecoration: "underline"}} onClick={()=>{navigate("/DefGrupoAcesso")}}>AQUI</span> para acessar a página de controle de acesso...</div>
             </p>
             <br />
 

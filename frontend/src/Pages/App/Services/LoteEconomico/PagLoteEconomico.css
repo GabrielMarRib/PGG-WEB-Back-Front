@@ -12,7 +12,7 @@
   
   .LoteEconomico .ConteudoDaPagina button {
     border-radius: 3px;
-    background-color: #e04d18;
+    background-color: #1e293b;
     border: none;
     cursor: pointer;
     color: #fff;
@@ -25,7 +25,7 @@
   }
   .LoteEconomico .grupo-input-produto button {
     border-radius: 3px;
-    background-color: #e04d18;
+    background-color: #1e293b;
     border: none;
     cursor: pointer;
     color: #fff;
@@ -252,7 +252,7 @@
   width: 100px;
     padding: 10px;
     border-radius: 3px;
-    background-color: #e04d18;
+    background-color: #1e293b;
     border: none;
     cursor: pointer;
     color: #fff;
@@ -265,6 +265,7 @@
 .LoteEconomico .AtuaFechar{
   justify-content: center;
   gap: 10px;
+  
 }
   
 .Select-loteEconomico {

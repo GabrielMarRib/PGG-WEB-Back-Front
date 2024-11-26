@@ -4,6 +4,7 @@
     font-family: 'JetBrains Mono', sans-serif;
     align-items: center;
     justify-content: center;
+    margin-top: 40px;
 }
 
 .PagFuncionarios .btn {
@@ -24,7 +25,7 @@
 }
 
 .PagFuncionarios .btn button {
-    background-color: #C53D0F;
+    background-color: #1e293b;
     border-color: transparent;
     color: #fff;
     border-radius: 4px;
@@ -103,7 +104,7 @@
 }
 
 .PagFuncionarios .botoes button {
-    background-color: #C53D0F;
+    background-color: #1e293b;
     border: none;
     color: #fff;
     border-radius: 4px;
@@ -119,9 +120,6 @@
     outline: none;
 }
 
-.PagFuncionarios .botoes button:hover {
-    background-color: #a4310b;
-}
 
 @media print {
     body * {
