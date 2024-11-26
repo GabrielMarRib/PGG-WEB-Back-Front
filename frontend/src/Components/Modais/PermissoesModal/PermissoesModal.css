@@ -219,6 +219,7 @@
 .PermissoesModal .botaoInativo {
     border: none;
     font-weight: bold;
+    margin-right: 50px;
     background-color: #352e2b;
     cursor: pointer;
     transition: color 0.3s, background-color 0.3s;

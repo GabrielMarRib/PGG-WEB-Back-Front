@@ -7,6 +7,8 @@
                 "Gerenciar Lotes": { "visualizacao": true, "edicao": true },
                 "Inventário": { "visualizacao": true, "edicao": true },
                 "Curva ABC": { "visualizacao": true, "edicao": true },
+                "Curva ABC Por valor": { "visualizacao": true, "edicao": true },
+                "Página de Baixa": { "visualizacao": true, "edicao": true },
                 "Upload de Excel ao estoque": { "visualizacao": true, "edicao": true },
                 "Gerenciar Categorias": { "visualizacao": true, "edicao": true },
                 "Ponto de Pedido": { "visualizacao": true, "edicao": true },
@@ -15,7 +17,7 @@
             "Dashboard": {
                 "Página Dashboard": { "visualizacao": true, "edicao": true }
             },
-            "Atividade_Admin": {  
+            "Atividade Administrativa": {  
                 "Histórico": { "visualizacao": true, "edicao": true },
                 "Relatórios": { "visualizacao": true, "edicao": true },
                 "Gerenciar Grupos de Acesso": { "visualizacao": true, "edicao": true },
@@ -54,6 +56,8 @@
       "Gerenciar Lotes": {"visualizacao": true, "edicao": true},
       "Inventário": {"visualizacao": true, "edicao": true},
       "Curva ABC": {"visualizacao": false, "edicao": false},
+      "Curva ABC Por valor": { "visualizacao": true, "edicao": true },
+      "Página de Baixa": { "visualizacao": true, "edicao": true },
       "Upload de Excel ao estoque": {"visualizacao": false, "edicao": false},
       "Gerenciar Categorias": {"visualizacao": false, "edicao": false},
       "Ponto de Pedido": {"visualizacao": false, "edicao": false},
@@ -62,7 +66,7 @@
     "Dashboard": {
       "Página Dashboard": {"visualizacao": true, "edicao": true}
     },
-    "Atividade_Admin": {
+    "Atividade Administrativa": {
       "Histórico": {"visualizacao": false, "edicao": false},
       "Relatórios": {"visualizacao": false, "edicao": false},
       "Gerenciar Grupos de Acesso": {"visualizacao": false, "edicao": false},
