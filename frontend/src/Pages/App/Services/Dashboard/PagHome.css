@@ -13,7 +13,7 @@
 
 .PagHome .sidebar {
     width: 20%;
-    background-color: #ff9b3f;
+    background-color: rgba(30, 41, 59, 0.9);
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -93,7 +93,7 @@
 .PagHome .user-name {
     font-size: 20px;
     font-weight: bold;
-    color: #333;
+    color: #ffffff;
 }
 
 .PagHome .menu {
@@ -155,7 +155,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #ff9b3f;
+    background-color: rgba(30, 41, 59, 0.9);
     height: 80px;
     border-radius: 5px;
     color: #ffffff;
@@ -324,7 +324,7 @@
     margin: 8px 0;
     padding: 6px 10px;
     font-size: 14px; 
-    background-color: #dc430c;
+    background-color: rgba(30, 41, 59, 0.9);
     color: white;
     border-radius: 5px;
     cursor: pointer;
