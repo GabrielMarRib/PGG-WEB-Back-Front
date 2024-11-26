@@ -151,13 +151,13 @@ const NavBar = () => {
           </ul>
 
           <div className="footer-btns">
-            <div className="btnSair" onClick={() => navigate("/PagPerfil")}>
+            <div className="btnSair" style={{cursor: 'pointer'}} onClick={() => navigate("/PagPerfil")}>
               <img src={OptionIcon} alt="Option Icon" />
             </div>
             <div className="btnNotificacao">
               <Notificacaodois />
             </div>
-            <div className="btnSair" onClick={() => handleLogOut(navigate)}>
+            <div className="btnSair" style={{cursor: 'pointer'}} onClick={() => handleLogOut(navigate)}>
               <div id="DivNotificação">
                 <img src={IconLogOut} alt="Logout Icon" />
               </div>
