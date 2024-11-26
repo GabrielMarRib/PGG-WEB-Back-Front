@@ -32,7 +32,7 @@
   }
   
   .PagAddFunc .btn button, .PagAddFunc .formAddFunc button{
-    background-color: #C53D0F;
+    background-color: #1e293b;
     border-color: transparent;
     color: #fff;
     border-radius: 4px;
@@ -40,10 +40,4 @@
     padding: 3px;
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .PagAddFunc button.enviar:hover{
-    background-color: #86290a;
-    transition: 0.6s;
-    transform: scale(1.05);
   }
