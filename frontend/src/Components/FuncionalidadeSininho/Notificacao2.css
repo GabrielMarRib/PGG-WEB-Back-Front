@@ -118,7 +118,7 @@
     position: absolute;
     top: 10px;
     right: 10px;
-    background: #ff5f5f;
+    background-color: #1e293b;
     color: white;
     border: none;
     border-radius: 50%;
@@ -132,7 +132,7 @@
   }
   
   .Notificacao2 .close-popup:hover {
-    background: #ff1f1f;
+    background-color: #1e293b;
   }
   
   .Notificacao2 .popup h2 {
@@ -149,7 +149,7 @@
     margin-top: 2vh;
     min-width: 8vw;
     min-height: 3.5vh;
-    background-color: #eb6c3e;
+    background-color: #1e293b;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     
@@ -157,9 +157,5 @@
     color:#f0eded ;
     border-color: transparent;
     font-size: 16px;
-  }
-  
-  .Notificacao2 .BotaoAcao:hover {
-    background-color: #d6501f;
   }
   

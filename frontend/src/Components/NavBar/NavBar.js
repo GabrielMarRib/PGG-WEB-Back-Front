@@ -8,6 +8,8 @@ import IconLogOut from "../../Assets/LogOutIconWhite.png";
 import Notificacao from "../FuncionalidadeSininho/Notificacao";
 import "./NavBar.css";
 import Notificacaodois from "../FuncionalidadeSininho/Notificacao2";
+import { handleLogOut } from "../../Functions/Functions";
+
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
@@ -69,11 +71,6 @@ const NavBar = () => {
       setSubmenuOpen(null);
     }
     setOpen(!open);
-  };
-
-  const handleLogOut = (navigate) => {
-    console.log("Logout");
-    navigate("/login");
   };
 
   const filteredMenus = Menus.filter((menu) => {

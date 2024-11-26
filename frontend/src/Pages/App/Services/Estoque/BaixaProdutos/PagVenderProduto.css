@@ -19,7 +19,7 @@
 .PagVenderProduto .voltar {
     padding: 10px;
     border-radius: 3px;
-    background-color: #e04d18;
+    background-color: #1e293b;
     border: none;
     cursor: pointer;
     color: #fff;
@@ -100,7 +100,7 @@
 .PagVenderProduto .container-tela-produtos button {
     padding: 10px;
     border-radius: 3px;
-    background-color: #e04d18;
+    background-color: #1e293b;
     border: none;
     cursor: pointer;
     color: #fff;
@@ -204,7 +204,7 @@
   .container-tela-cad_Fornecedor button{
     padding: 10px;
     border-radius: 3px;
-    background-color: #e04d18;
+    background-color: #1e293b;
     border: none;
     cursor: pointer;
     color: #fff;

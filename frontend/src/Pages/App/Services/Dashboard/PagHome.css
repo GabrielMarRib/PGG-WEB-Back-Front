@@ -232,7 +232,7 @@
     font-size: 24px;
     padding-left: 10px;
     text-align: left;
-    margin-top: 15px;
+    margin-top: 20px;
     background-color: rgba(21, 34, 55, 0.9);
     border-radius: 2px;
     box-shadow: rgba(30, 41, 59, 0.9);
@@ -244,7 +244,7 @@
     /* border: 2px solid black; */
     border-radius: 5px;
     display: flex;
-    background-color: rgba(49, 73, 111, 0.9);
+    background-color: rgba(30, 41, 59, 0.9);
     align-items: center;
     justify-content: center;
     cursor: pointer;
