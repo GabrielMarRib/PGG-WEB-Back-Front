@@ -52,7 +52,7 @@
 }
 
 .PagHistorico .historicoTable th {
-    background-color: #1e293b;
+    background-color: rgba(59, 72, 102, 0.9);
     color: white;
     font-weight: bold;
     text-transform: uppercase;
