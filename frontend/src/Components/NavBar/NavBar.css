@@ -1,5 +1,27 @@
 /* General layout and transitions */
-.nav-container {
+.principalOpen {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  position: fixed; /* Fixado na viewport */
+  top: 0;
+  left: 0;
+  width: 18rem; /* Largura inicial da sidebar */
+  z-index: 100; /* Certifica-se que fique sobre o conteúdo */
+}
+.principalClosed {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  position: fixed; /* Fixado na viewport */
+  top: 0;
+  left: 0;
+  width: 5rem; /* Largura inicial da sidebar */
+  z-index: 100; /* Certifica-se que fique sobre o conteúdo */
+   transition: 0.5s ease-in;
+}
+
+.nav-container-open{
   display: flex;
   height: 100vh;
   overflow: hidden;
@@ -41,7 +63,6 @@
   padding: 0.5rem;
   font-size: 1.5rem;
   cursor: pointer;
-  transition: transform 0.3s ease, left 0.3s ease;
   z-index: 15; /* Garantir que a seta fique acima de outros elementos */
 }
 
@@ -159,7 +180,7 @@
 .nav-container .menu-item span {
   flex-grow: 1; /* Faz o texto ocupar o espaço necessário */
   text-align: left;
-  transition: opacity 0.3s ease; /* Animação para esconder o texto */
+  transition: opacity 1s ease; /* Animação para esconder o texto */
   opacity: 1;
 }
 
@@ -172,7 +193,7 @@
 .nav-container .submenu-icon {
   font-size: 1rem;
   margin-left: auto; /* Posiciona o ícone à direita */
-  transition: transform 0.3s ease;
+  /* transition: transform 0.3s ease; */
 }
 
 .nav-container .sidebar.collapsed .submenu-icon {
