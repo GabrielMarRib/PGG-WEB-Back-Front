@@ -78,12 +78,12 @@ function AppRoutes() {
             {/* // Perfil */}
             <Route path="/PagPerfil" element={<PrivateRoute element={<PagPerfil />} intent={{ class: "Perfil", intentPage: "Página de Perfil" }} />} />
 
-            {/* // Atividade_Admin */}
-            <Route path="/PagAddFunc" element={<PrivateRoute element={<PagAddFunc />} intent={{ class: "Atividade_Admin", intentPage: "Adicionar Funcionário" }} />} />
-            <Route path="/PagRelatorios" element={<PrivateRoute element={<PagRelatorios />} intent={{ class: "Atividade_Admin", intentPage: "Relatórios" }} />} />
-            <Route path="/PagFuncionarios" element={<PrivateRoute element={<PagFuncionarios />} intent={{ class: "Atividade_Admin", intentPage: "Lista de Funcionarios" }} />} />
-            <Route path="/PagHistorico" element={<PrivateRoute element={<PagHistorico />} intent={{ class: "Atividade_Admin", intentPage: "Histórico" }} />} />
-            <Route path="/DefGrupoAcesso" element={<PrivateRoute element={<PagGrupoacesso />} intent={{ class: "Atividade_Admin", intentPage: "Gerenciar Grupos de Acesso" }} />} />
+            {/* // Atividade Administrativa */}
+            <Route path="/PagAddFunc" element={<PrivateRoute element={<PagAddFunc />} intent={{ class: "Atividade Administrativa", intentPage: "Adicionar Funcionário" }} />} />
+            <Route path="/PagRelatorios" element={<PrivateRoute element={<PagRelatorios />} intent={{ class: "Atividade Administrativa", intentPage: "Relatórios" }} />} />
+            <Route path="/PagFuncionarios" element={<PrivateRoute element={<PagFuncionarios />} intent={{ class: "Atividade Administrativa", intentPage: "Lista de Funcionarios" }} />} />
+            <Route path="/PagHistorico" element={<PrivateRoute element={<PagHistorico />} intent={{ class: "Atividade Administrativa", intentPage: "Histórico" }} />} />
+            <Route path="/DefGrupoAcesso" element={<PrivateRoute element={<PagGrupoacesso />} intent={{ class: "Atividade Administrativa", intentPage: "Gerenciar Grupos de Acesso" }} />} />
 
             {/* // Estoque */}
             <Route path="/PagProdutos" element={<PrivateRoute element={<PagProdutos />} intent={{ class: "Estoque", intentPage: "Adicionar Produtos" }} />} />
@@ -92,6 +92,7 @@ function AppRoutes() {
             <Route path="/PagInventario" element={<PrivateRoute element={<PagInventario />} intent={{ class: "Estoque", intentPage: "Inventário" }} />} />
             <Route path="/PagCurvaABC" element={<PrivateRoute element={<PagCurvaABC />} intent={{ class: "Estoque", intentPage: "Curva ABC" }} />} />
             <Route path="/PagCurvaABCPorValor" element={<PrivateRoute element={<PagCurvaABCPorValor />} intent={{ class: "Estoque", intentPage: "Curva ABC Por valor" }} />} />
+            <Route path="/PagVenderProduto" element={<PrivateRoute element={<PagVenderProduto />} intent={{ class: "Estoque", intentPage: "Página de Baixa" }} />} />
             <Route path="/PagUploadExcel" element={<PrivateRoute element={<PagUploadExcel />} intent={{ class: "Estoque", intentPage: "Upload de Excel ao estoque" }} />} />
             <Route path="/PagGerirCategoria" element={<PrivateRoute element={<GerirCategoria />} intent={{ class: "Estoque", intentPage: "Gerenciar Categorias" }} />} />
             <Route path="/PagPontoPedido" element={<PrivateRoute element={<PagPontoPedido />} intent={{ class: "Estoque", intentPage: "Ponto de Pedido" }} />} />

@@ -16,18 +16,18 @@ function CurvaABC() {
     const [categoriaSelecionada, setCategoriaSelecionada] = useState(null);
     const [qtdTotalConsumo, setQtdTotalConsumo] = useState(null);
 
-    const [classeA, setClasseA] = useState(() => 
+    const [classeA, setClasseA] = useState(() =>
         Number(localStorage.getItem('classeA')) || 50
     );
-    const [classeB, setClasseB] = useState(() => 
+    const [classeB, setClasseB] = useState(() =>
         Number(localStorage.getItem('classeB')) || 80
     );
 
     const [repescagem, setRepescagem] = useState(false);
     const [showModal, setShowModal] = useState(false);
 
-    const handleOpenModal = () => setShowModal(true); 
-    const handleCloseModal = () => setShowModal(false); 
+    const handleOpenModal = () => setShowModal(true);
+    const handleCloseModal = () => setShowModal(false);
 
 
     const navigate = useNavigate();
@@ -36,8 +36,8 @@ function CurvaABC() {
 
     const handleChangeClassificao = useCallback((valor, set) => {
         set(valor);
-        setRepescagem(prevState => !prevState); 
-    }, []); 
+        setRepescagem(prevState => !prevState);
+    }, []);
 
     useEffect(() => {
         const pegaTudo = async () => {
@@ -66,7 +66,7 @@ function CurvaABC() {
                             acumulado += parseFloat(produto.porcentagem);
 
                             let classificacao = '';
-                            if(acumulado <= classeA) classificacao = 'A'
+                            if (acumulado <= classeA) classificacao = 'A'
                             else if (acumulado <= classeB) classificacao = 'B'
                             else classificacao = 'C'
 
@@ -178,23 +178,23 @@ function CurvaABC() {
             />
 
             <header className="cabecalhoBtnAjuda">
-                <div className="Botaoajuda" onClick={() => {setShowPopup(true)}}> {/*crie um botão que no onClick faz o setShowPopup ficar true*/}
-                Ajuda
+                <div className="Botaoajuda" onClick={() => { setShowPopup(true) }}> {/*crie um botão que no onClick faz o setShowPopup ficar true*/}
+                    Ajuda
                 </div>
             </header>
 
             <div className="BtnAjuda">
-            {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
-                <BtnAjuda /* chama o btnAjuda */
-                fechar={() => {setShowPopup(false)}} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
-                msgChave={"CURVAABCFREQUENCIA"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
-                />
-            )}
-            </div> 
+                {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
+                    <BtnAjuda /* chama o btnAjuda */
+                        fechar={() => { setShowPopup(false) }} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
+                        msgChave={"CURVAABCFREQUENCIA"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
+                    />
+                )}
+            </div>
 
             <div className="btn">
             </div>
-            
+
             <div className="BuscarCategoriaCurvaABC">
                 <h3>Selecione a Categoria</h3>
                 <select value={categoriaSelecionada} onChange={handleChangeCategoria}>
@@ -207,17 +207,17 @@ function CurvaABC() {
                 </select>
             </div>
 
-            
+
 
             <ModalCurvaABC
-        isOpen={showModal}
-        onClose={handleCloseModal}
-        classeA={classeA}
-        setClasseA={setClasseA}
-        classeB={classeB}
-        setClasseB={setClasseB}
-        handleChangeClassificao={handleChangeClassificao}
-      />
+                isOpen={showModal}
+                onClose={handleCloseModal}
+                classeA={classeA}
+                setClasseA={setClasseA}
+                classeB={classeB}
+                setClasseB={setClasseB}
+                handleChangeClassificao={handleChangeClassificao}
+            />
 
             <div id="ParteSuperior">
                 <div className="CurvaABCGrafico">
@@ -227,26 +227,26 @@ function CurvaABC() {
                         dadosCurvaABC.msg ? (dadosCurvaABC.msg) : (
                             dadosCurvaABC.length > 0 && (
                                 <>
-                                <button onClick={handleOpenModal}>Valores sobre classificações</button>
-                                <ResponsiveContainer width="100%" height={400}>
-                                    <ComposedChart
-                                        data={dadosCurvaABC}
-                                        margin={{
-                                            top: 40,
-                                            right: 20,
-                                            bottom: 20,
-                                            left: 20,
-                                        }}
-                                    >
-                                        <CartesianGrid stroke="#f5f5f5" />
-                                        <XAxis dataKey="nome" tick={{ fontSize: 15 }} />
-                                        <YAxis domain={[0, 120]} tickCount={7} />
-                                        <Tooltip content={<CustomTooltip />} />
-                                        <Legend />
-                                        <Bar dataKey="porcentagemAcumulada" barSize={20} fill='#103CA9' />
-                                        <Line type="monotone" dataKey="porcentagemAcumulada" stroke="#FF4D00" />
-                                    </ComposedChart>
-                                </ResponsiveContainer>
+                                    <button onClick={handleOpenModal}>Valores sobre classificações</button>
+                                    <ResponsiveContainer width="100%" height={400}>
+                                        <ComposedChart
+                                            data={dadosCurvaABC}
+                                            margin={{
+                                                top: 40,
+                                                right: 20,
+                                                bottom: 20,
+                                                left: 20,
+                                            }}
+                                        >
+                                            <CartesianGrid stroke="#f5f5f5" />
+                                            <XAxis dataKey="nome" tick={{ fontSize: 15 }} />
+                                            <YAxis domain={[0, 120]} tickCount={7} />
+                                            <Tooltip content={<CustomTooltip />} />
+                                            <Legend />
+                                            <Bar dataKey="porcentagemAcumulada" barSize={20} fill='#103CA9' />
+                                            <Line type="monotone" dataKey="porcentagemAcumulada" stroke="#FF4D00" />
+                                        </ComposedChart>
+                                    </ResponsiveContainer>
                                 </>
                             )
                         ))}
@@ -282,7 +282,7 @@ function CurvaABC() {
                             <tr>
                                 <td colSpan="7">Nenhum produto encontrado</td>
                             </tr>
-                        )}  
+                        )}
                     </tbody>
                 </table>
             </div>
