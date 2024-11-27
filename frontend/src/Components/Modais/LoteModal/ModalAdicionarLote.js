@@ -88,7 +88,7 @@ const handleChangeFornecedor = (e) => {
     if (val === 'Vazio') {
       setFornecedor('')
     } else {
-    setFornecedor(JSON.parse(val));
+    setFornecedor(val);
     }
    
 
@@ -108,7 +108,7 @@ const handleChangeFornecedor = (e) => {
       <button onClick={fechar} className='botao-fechar'>X</button>
       </div>
 
-    <center><h1> {Produto.nome} </h1></center>
+    <center><h1> "{Produto.nome}" </h1></center>
     
   
 
