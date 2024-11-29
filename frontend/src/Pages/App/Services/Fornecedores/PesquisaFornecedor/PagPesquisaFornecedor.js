@@ -27,7 +27,7 @@ function Modal({ show, handleClose, produto, onConfirm }) {
                 <p>Produto: {produto.nome}</p>
                 <p>Código: {produto.id_produtos}</p>
                 <p>Data do Pedido: {dataAtual}</p> {/* Exibe a data atual */}
-                
+
                 {/* Campo de input para a quantidade */}
                 <div>
                     <label>Quantidade: </label>
@@ -40,7 +40,7 @@ function Modal({ show, handleClose, produto, onConfirm }) {
                         min="1"
                     />
                 </div>
-                
+
                 <br></br>
                 <button onClick={handleClose}>Fechar</button>
                 <button onClick={() => onConfirm(quantidade, dataAtual)}>Confirmar Pedido</button> {/* Confirma o pedido */}
@@ -51,8 +51,8 @@ function Modal({ show, handleClose, produto, onConfirm }) {
 
 function PagPesquisaFornecedor() {
     const { Alerta } = useAlerta(); // Usa o hook useAlerta
-    const UserOBJ = useContext(UserContext); 
-    const User = UserOBJ.User; 
+    const UserOBJ = useContext(UserContext);
+    const User = UserOBJ.User;
     const navigate = useNavigate();
     const [carregando, setCarregando] = useState(true);
     const [produtos, setProdutos] = useState([]);
@@ -64,7 +64,7 @@ function PagPesquisaFornecedor() {
     const [produtoSelecId, setProdutoSelecId] = useState(null);
     const [FiltroFornecedor, setFiltroFornecedorSelecionado] = useState('sem filtro');
     const [FiltroCategoria, setFiltroCategoriaSelecionada] = useState('sem filtro');
-    const [mensagemVazia, setMensagemVazia] = useState(false); 
+    const [mensagemVazia, setMensagemVazia] = useState(false);
     const [showModal, setShowModal] = useState(false);
 
     const [showPopup, setShowPopup] = useState(false); // variaveis para o btnAjuda
@@ -91,8 +91,8 @@ function PagPesquisaFornecedor() {
     const pegaProdutos = async () => {
         try {
             const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
-                funcao: 'pegaDadosComCatFornecedor', 
-                senha: '@7h$Pz!q2X^vR1&K' 
+                funcao: 'pegaDadosComCatFornecedor',
+                senha: '@7h$Pz!q2X^vR1&K'
             });
             setProdutos(response.data);
             console.log(response.data);
@@ -104,7 +104,7 @@ function PagPesquisaFornecedor() {
 
     const ColhendoFornecedor = async (setOBJ) => {
         try {
-            const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', { 
+            const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
                 funcao: 'pegarTodosFornecedores',
                 senha: '@7h$Pz!q2X^vR1&K'
             });
@@ -163,25 +163,31 @@ function PagPesquisaFornecedor() {
 
     const handleConfirmarPedido = async (quantidade, dataAtual) => {
         if (!produtoSelecionado) return;
-    
+
         try {
-             await axios.post('http://pggzettav3.mooo.com/api/index.php', {
+            await axios.post('http://pggzettav3.mooo.com/api/index.php', {
                 funcao: 'enviarPedido',
                 senha: '@7h$Pz!q2X^vR1&K',
                 nome_produto: produtoSelecionado.nome,
                 codigo: produtoSelecionado.id_produtos,
                 data_pedido: dataAtual,
-                quantidade: quantidade,     
+                quantidade: quantidade,
                 email: User.userData.Email,
                 nome: User.userData.Nome,
             });
             Alerta(2, "Pedido confirmado e enviado ao fornecedor");
-                               
+            console.log('Nome do Produto:', produtoSelecionado.nome);
+            console.log('Código do Produto:', produtoSelecionado.id_produtos);
+            console.log('Data do Pedido:', dataAtual);
+            console.log('Quantidade:', quantidade);
+            console.log('Email:', User.userData.Email);
+            console.log('Nome do Cliente:', User.userData.Nome);
+
         } catch (error) {
             console.error("Erro ao enviar o pedido: ", error);
             Alerta(3, "Erro ao enviar o pedido: " + error);
         }
-    
+
         handleModal(false);
     };
 
@@ -194,23 +200,23 @@ function PagPesquisaFornecedor() {
                 <AlertaNotificação />
 
                 <header className="cabecalhoBtnAjuda">
-                <div className="Botaoajuda" onClick={() => {setShowPopup(true)}}> {/*crie um botão que no onClick faz o setShowPopup ficar true */}
-                Ajuda
-                </div>
+                    <div className="Botaoajuda" onClick={() => { setShowPopup(true) }}> {/*crie um botão que no onClick faz o setShowPopup ficar true */}
+                        Ajuda
+                    </div>
                 </header>
 
-                <div className="BtnAjuda">
-                {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
-                    <BtnAjuda /* chama o btnAjuda */
-                    fechar={() => {setShowPopup(false)}} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
-                    msgChave={"PESQUISAPRODUTO"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
-                    />
-                )}
-                </div> 
+                <div className="BtnAjuda" >
+                    {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
+                        <BtnAjuda /* chama o btnAjuda */
+                            fechar={() => { setShowPopup(false) }} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
+                            msgChave={"PESQUISAPRODUTO"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
+                        />
+                    )}
+                </div>
                 <div className="telaInteira">
                     <div className="TelaConteudo">
                         <div className="terminal">
-                            
+
                             <div className="barra-pesquisa">
 
                                 <div className="teste">

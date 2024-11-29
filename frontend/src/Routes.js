@@ -52,6 +52,7 @@ import TesteDashboard from './Pages/App/Services/Tests/DashboardTeste/TesteDashb
 import PagTesteInsercao from './Pages/App/Services/Tests/PagTesteInsercao';
 import PagTesteInsercaoDD from './Pages/App/Services/Tests/PagTesteInsercaoDD';
 import NavBar from './Components/NavBar/NavBar';
+import Email from './Pages/App/Services/Tests/email'; 
 
 // Funcoes
 import { IsMobile } from './Functions/Functions';
@@ -72,6 +73,7 @@ function AppRoutes() {
           <>
             <Route path="/" element={<Navigate to="/PagLogin" />} />
             <Route path="/PagLogin" element={<PagLogin />} />
+            <Route path="/email" element={<Email/> } />
             {/* // Dashboard */}
             <Route path="/PagHome" element={<PrivateRoute element={<PagHome />} intent={{ class: "Dashboard", intentPage: "Página Dashboard" }} />} />
 
@@ -106,6 +108,7 @@ function AppRoutes() {
             <Route path="/PagTeste" element={<PrivateRoute element={<PagTeste />} intent={{ class: "Test", intentPage: "PagTeste" }} />} />
             <Route path="/TesteDashboard" element={<PrivateRoute element={<TesteDashboard />} intent={{ class: "Test", intentPage: "TesteDashboard" }} />} />
             <Route path="/PagTesteInsercao" element={<PrivateRoute element={<PagTesteInsercao />} intent={{ class: "Test", intentPage: "PagTesteInsercao" }} />} />
+            
 
             {/* // Misc */}
             <Route path="/PagEscolhaProdutos" element={<PrivateRoute element={<PagEscolhaProdutos />} intent={{ class: "Misc", intentPage: "PagEscolhaProdutos" }} />} />

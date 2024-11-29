@@ -4,7 +4,7 @@ const { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } = require(
 const { app } = require('./Firebase/Firebase.js');
 const { admin, db } = require('./Firebase/FirebaseAdmin.js');
 const { doc } = require('firebase/firestore');
-
+const { sendEmail } = require('./mailersend.js');
 
 routes.get('/teste', async (req, res) => {
     res.json("hahaha teste ");
@@ -567,7 +567,19 @@ routes.post('/pegaProdutosDeSubInformado', async (req, res) => {
     }
 });
 
+routes.post('/email', async (req, res) => {
+    try {
+        const { email_q_recebe, assunto, body, userObj } = req.body;
+        const resultado = await sendEmail(email_q_recebe, assunto, body, userObj); 
 
-
+        if (resultado) {
+            return res.status(200).json({ message: "deu certo kkkkkkkkk" });
+        } else {
+            return res.status(404).json({ error: "deu ruim kkkkkkkkk" });
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error', details: error.message });
+    }
+});
 
 module.exports = routes;
