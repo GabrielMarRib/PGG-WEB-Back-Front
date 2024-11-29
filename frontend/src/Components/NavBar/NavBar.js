@@ -85,80 +85,82 @@ const NavBar = () => {
 
   return (
     <div className="nav-container">
-      <div className={`sidebar ${open ? "open" : "collapsed"}`}>
-        <BsArrowLeftShort
-          className={`toggle-btn ${!open ? "rotate" : ""}`}
-          onClick={toggleSidebar}
-        />
-        <div className="logo-section">
-          <img
-            src={LogoIcon}
-            alt="Logo"
-            className={`logo ${!open ? "rotate-logo" : ""}`}
+      <div className={open ? "principalOpen" : "principalClosed"}>
+        <div className={`sidebar ${open ? "open" : "collapsed"}`}>
+          <BsArrowLeftShort
+            className={`toggle-btn ${!open ? "rotate" : ""}`}
+            onClick={toggleSidebar}
           />
-          {open && <h1 className="logo-text">PGG</h1>}
-        </div>
-        <div className={`search-box ${!open ? "collapsed-search" : ""}`}>
-          <BsSearch className="search-icon" />
-          {open && (
-            <input
-              type="text"
-              placeholder="Pesquisa"
-              value={TermoPesquisa}
-              onChange={(e) => setTermoPesquisa(e.target.value)}
+          <div className="logo-section">
+            <img
+              src={LogoIcon}
+              alt="Logo"
+              className={`logo ${!open ? "rotate-logo" : ""}`}
             />
-          )}
-        </div>
-        <ul className="menu-list">
-          {filteredMenus.map((menu, index) => (
-            <li key={index}>
-              <div
-                className={`menu-item ${menu.spacing ? "spaced" : ""}`}
-                onClick={() =>
-                  menu.submenu ? toggleSubmenu(index) : navigate(menu.path)
-                }
-              >
-                <RiDashboardFill className="menu-icon" />
-                {open && <span>{menu.title}</span>}
-                {menu.submenu && open && (
-                  <BsChevronDown
-                    className={`submenu-icon ${submenuOpen === index ? "rotated" : ""}`}
-                  />
-                )}
-              </div>
-              {menu.submenu && (
-                <ul
-                  className={`submenu-list ${submenuOpen === index && open ? "open" : ""}`}
+            {open && <h1 className="logo-text">PGG</h1>}
+          </div>
+          <div className={`search-box ${!open ? "collapsed-search" : ""}`}>
+            <BsSearch className="search-icon" />
+            {open && (
+              <input
+                type="text"
+                placeholder="Pesquisa"
+                value={TermoPesquisa}
+                onChange={(e) => setTermoPesquisa(e.target.value)}
+              />
+            )}
+          </div>
+          <ul className="menu-list">
+            {filteredMenus.map((menu, index) => (
+              <li key={index}>
+                <div
+                  className={`menu-item ${menu.spacing ? "spaced" : ""}`}
+                  onClick={() =>
+                    menu.submenu ? toggleSubmenu(index) : navigate(menu.path)
+                  }
                 >
-                  {menu.submenuItems
-                    .filter((submenuItem) =>
-                      submenuItem.title.toLowerCase().includes(TermoPesquisa.toLowerCase())
-                    )
-                    .map((submenuItem, subIndex) => (
-                      <li
-                        key={subIndex}
-                        className="submenu-item"
-                        onClick={() => navigate(submenuItem.path)}
-                      >
-                        {submenuItem.title}
-                      </li>
-                    ))}
-                </ul>
-              )}
-            </li>
-          ))}
-        </ul>
+                  <RiDashboardFill className="menu-icon" />
+                  {open && <span>{menu.title}</span>}
+                  {menu.submenu && open && (
+                    <BsChevronDown
+                      className={`submenu-icon ${submenuOpen === index ? "rotated" : ""}`}
+                    />
+                  )}
+                </div>
+                {menu.submenu && (
+                  <ul
+                    className={`submenu-list ${submenuOpen === index && open ? "open" : ""}`}
+                  >
+                    {menu.submenuItems
+                      .filter((submenuItem) =>
+                        submenuItem.title.toLowerCase().includes(TermoPesquisa.toLowerCase())
+                      )
+                      .map((submenuItem, subIndex) => (
+                        <li
+                          key={subIndex}
+                          className="submenu-item"
+                          onClick={() => navigate(submenuItem.path)}
+                        >
+                          {submenuItem.title}
+                        </li>
+                      ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ul>
 
-        <div className="footer-btns">
-          <div className="btnSair" onClick={() => navigate("/PagPerfil")}>
-            <img src={OptionIcon} alt="Option Icon" />
-          </div>
-          <div className="btnNotificacao">
-            <Notificacaodois />
-          </div>
-          <div className="btnSair" onClick={() => handleLogOut(navigate)}>
-            <div id="DivNotificação">
-              <img src={IconLogOut} alt="Logout Icon" />
+          <div className="footer-btns">
+            <div className="btnSair" style={{cursor: 'pointer'}} onClick={() => navigate("/PagPerfil")}>
+              <img src={OptionIcon} alt="Option Icon" />
+            </div>
+            <div className="btnNotificacao">
+              <Notificacaodois />
+            </div>
+            <div className="btnSair" style={{cursor: 'pointer'}} onClick={() => handleLogOut(navigate)}>
+              <div id="DivNotificação">
+                <img src={IconLogOut} alt="Logout Icon" />
+              </div>
             </div>
           </div>
         </div>

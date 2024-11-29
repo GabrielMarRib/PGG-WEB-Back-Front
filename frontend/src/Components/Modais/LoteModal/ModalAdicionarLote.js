@@ -88,7 +88,7 @@ const handleChangeFornecedor = (e) => {
     if (val === 'Vazio') {
       setFornecedor('')
     } else {
-    setFornecedor(JSON.parse(val));
+    setFornecedor(val);
     }
    
 
@@ -104,11 +104,11 @@ const handleChangeFornecedor = (e) => {
         <AlertaNotificação />
     <div className='conteudo-modal'>
       <div className='cabecalho-modal'>
-      <h1>Cadastrar novo Lote</h1>
+      <h1>Cadastrar Novo Lote</h1>
       <button onClick={fechar} className='botao-fechar'>X</button>
       </div>
 
-    <center><h1> {Produto.nome} </h1></center>
+    <center className='testeH1'><h1> "{Produto.nome}" </h1></center>
     
   
 

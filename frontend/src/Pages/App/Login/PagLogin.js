@@ -118,7 +118,7 @@ function Home() {
                       onChange={(e) => setPassword(e.target.value)}
                     />
                   </div>
-                  <button
+                  <button 
                   >
                     Enviar
                   </button>

@@ -207,7 +207,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
               <li
                 key={produto.id_produtos}
                 style={{
-                  color: produto.id_produtos === produtoOBJ.id_produtos ? '#e04d18' : 'inherit'
+                  color: produto.id_produtos === produtoOBJ.id_produtos ? '#191970' : 'inherit'
                 }}
               >
                 {produto.id_produtos === produtoOBJ.id_produtos ? produto.nome + " (produto selecionado)" : produto.nome}
@@ -517,7 +517,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
                   <p className="instrucao">Deseja alterar as informações de lote? Clique <Link to="/PagGerirLotes">AQUI</Link> e vá para a página de gereciamento de LOTE para um controle mais detalhado</p>
                 </>
                 : (
-                  <p>Selecione um lote</p>
+                  <p>Selecione um lote...</p>
                 )}
 
             </form>

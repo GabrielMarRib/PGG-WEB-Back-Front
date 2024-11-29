@@ -11,6 +11,7 @@ import userEvent from "@testing-library/user-event";
 import Titulo from "../../../../../Components/Titulo/Titulo.jsx";
 import BuscaCategoriasComponentes from "../../../../../Components/BuscaCategoria/BuscaCategoriasComponente.js";
 import BtnAjuda from "../../../../../Components/BotaoAjuda/BtnAjuda.js";
+import NavBar from "../../../../../Components/NavBar/NavBar.js";
 
 
 function PagVenderProduto() {
@@ -363,10 +364,9 @@ function PagVenderProduto() {
 
   return (
     <div className="PagVenderProduto">
+      
       <div className="DivForms">
-        <div className="CabecalhoHome">
-          <CabecalhoHome />
-        </div>
+        <NavBar />
         <Titulo
           tituloMsg='Baixa de Produtos'
         />
