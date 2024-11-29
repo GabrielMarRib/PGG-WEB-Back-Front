@@ -569,8 +569,8 @@ routes.post('/pegaProdutosDeSubInformado', async (req, res) => {
 
 routes.post('/email', async (req, res) => {
     try {
-        const { email_q_recebe, assunto, body, userObj } = req.body;
-        const resultado = await sendEmail(email_q_recebe, assunto, body, userObj); 
+        const { msg } = req.body;
+        const resultado = await sendEmail(msg); 
 
         if (resultado) {
             return res.status(200).json({ message: "deu certo kkkkkkkkk" });

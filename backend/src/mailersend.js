@@ -1,11 +1,11 @@
 const { MailerSend, EmailParams, Sender, Recipient } = require("mailersend");
-const sendEmail = async () => {
+const sendEmail = async (msg) => {
 
     const mailerSend = new MailerSend({
-        apiKey: "mlsn.38485878fc716d9d01adeda586fa2e52172209e25d8834793cdb1edce87a15ef",
+        apiKey: "mlsn.650ebd62a782cc156bf73a4a22f4113a12b02f5c721068adefd4aaafdaee6285",
     });
 
-    const sentFrom = new Sender("rigeltechtcc@gmail.com", "rigel tech");
+    const sentFrom = new Sender("MS_9bL20A@trial-z86org8vq51lew13.mlsender.net", "smtp.mailersend.net");
 
     const recipients = [
         new Recipient("acessofull92@gmail.com", "Your Client")
@@ -16,7 +16,7 @@ const sendEmail = async () => {
         .setTo(recipients)
         .setReplyTo(sentFrom)
         .setSubject("This is a Subject")
-        .setHtml("<strong>This is the HTML content</strong>")
+        .setHtml(`<strong>${msg}</strong>`)
         .setText("This is the text content");
 
     try {
