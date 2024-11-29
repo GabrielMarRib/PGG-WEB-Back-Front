@@ -80,7 +80,7 @@
 
 .PagGerirLotes .btnEditar {
     border-radius: 4px;
-    background-color: #1e293b;
+    background-color: #dc430c;
     border: none;
     cursor: pointer;
     color: #fff;
@@ -176,7 +176,7 @@
 .PagGerirLotes .voltar {
     padding: 10px;
     border-radius: 3px;
-    background-color: #1e293b;
+    background-color: #dc430c;
     border: none;
     cursor: pointer;
     color: #fff;
@@ -225,7 +225,7 @@
 .btnEditarGerirLotes {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 4px;
-    background-color: #1e293b;
+    background-color: #dc430c;
     border: none;
     cursor: pointer;
     color: #fff;

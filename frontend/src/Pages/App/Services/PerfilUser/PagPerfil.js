@@ -44,6 +44,8 @@ function PagPerfil() {
                         <h2> <img src={Cpf} alt="CPF" /> CPF: { User.userData.CPF}</h2>
                     </div>
 
+                <div> 
+                    <h2> Atividades Administrativas </h2>
                     <div className="acoes-funcionarios">
                         <button className="botao-func" onClick={() => { navigate('/PagAddFunc') }}>
                             <img src={AddPerfil} alt="Adicionar Funcionário" /> Adicionar Funcionário
@@ -57,10 +59,9 @@ function PagPerfil() {
                         <button className="botao-func" onClick={() => { navigate('/DefGrupoAcesso') }}>
                             <img src={grupos} alt="Grupos" /> Gerenciar Grupos de acesso
                         </button>
-
                     </div>
-
                 </div>
+            </div>
    
             }
         </div>

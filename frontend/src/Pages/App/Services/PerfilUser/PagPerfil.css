@@ -49,13 +49,18 @@
 
 .acoes-funcionarios {
     display: flex;
-    gap: 20px;
+    gap: 20px; /* Espaçamento entre elementos */
+    padding: 20px;
+    background-color: #fff;
+    border: 2px dashed #1e293b; /* Borda pontilhada */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Leve sombra para destaque */
 }
 
 .botao-func {
     display: flex;
     align-items: center;
-    background-color: #1e293b;
+    background-color: #dc430c;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -69,7 +74,7 @@
 }
 
 .botao-func:hover {
-    background-color: #c84315;
+    background-color: #fa871b;
 }
 
 .botao-func img {

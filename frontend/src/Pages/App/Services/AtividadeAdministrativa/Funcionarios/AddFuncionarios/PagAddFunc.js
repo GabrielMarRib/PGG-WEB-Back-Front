@@ -82,7 +82,7 @@ function PagAddFunc() {
         {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
           <BtnAjuda /* chama o btnAjuda */
             fechar={() => { setShowPopup(false) }} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
-            msgChave={"ADDFUNCIONARIOS"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
+            msgChave={"NOBRU"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
           />
         )}
       </div>

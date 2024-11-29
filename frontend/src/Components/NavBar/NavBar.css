@@ -12,7 +12,7 @@
 
 /* Sidebar */
 .nav-container .sidebar {
-  background-color: #1e293b;
+  background-color: #ff9b3f;
   color: white;
   height: 100%; /* Garante que a sidebar ocupe 100% da altura */
   width: 18rem; /* Expanded width */
@@ -99,7 +99,7 @@
 .nav-container .search-box {
   margin: 1rem;
   align-items: center;
-  background-color: #334155;
+  background-color: #fa871b;
   padding: 0.5rem;
   border-radius: 0.5rem;
   display: flex;
@@ -144,7 +144,7 @@
 }
 
 .nav-container .menu-item:hover {
-  background-color: #475569;
+  background-color: #fa871b;
 }
 
 .nav-container .menu-icon {
@@ -201,14 +201,14 @@
 }
 
 .nav-container .submenu-item:hover {
-  background-color: #64748b;
+  background-color: #fa871b;
 }
 
 /* Rodapé fixo */
 .nav-container .footer-btns {
   padding: 1rem;
-  background-color: #1e293b; /* Garante que o rodapé seja visível */
-  border-top: 1px solid #334155; /* Adiciona separação visual do menu */
+  background-color: #ff9b3f; /* Garante que o rodapé seja visível */
+  border-top: 1px solid #fa871b; /* Adiciona separação visual do menu */
   display: flex;
   flex-direction: row;
   justify-content: center;
