@@ -33,7 +33,7 @@
     margin: 8px 0;
     padding: 6px 10px; /* Reduzido para deixar o botão mais compacto */
     font-size: 14px; /* Tamanho da fonte já ajustado */
-    background-color: rgba(30, 41, 59, 0.9);
+    background-color: #dc430c;
     color: white;
     border-radius: 5px;
     cursor: pointer;

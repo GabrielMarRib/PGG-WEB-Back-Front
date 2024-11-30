@@ -555,7 +555,7 @@ const BtnAjuda = ({ msgChave, fechar }) => {
 
     ) 
 
-    case 'ADDFUNCIONARIOS':
+    case 'NOBRU':
       return (
         <> {/* TEM q ter esse baguio vazio englobando tudo (<>) pq o react é chato */}
     <h1>Guia de Ajuda - Tela de Adição de Funcionários</h1>

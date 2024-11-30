@@ -13,7 +13,7 @@
 
 .PagHome .sidebar {
     width: 20%;
-    background-color: #1e293b;
+    background-color: #ff9b3f;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -93,7 +93,7 @@
 .PagHome .user-name {
     font-size: 20px;
     font-weight: bold;
-    color: #ffffff;
+    color: #333;
 }
 
 .PagHome .menu {
@@ -155,7 +155,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #1e293b;
+    background-color: #ff9b3f;
     height: 80px;
     border-radius: 5px;
     color: #ffffff;
@@ -216,6 +216,7 @@
     align-items: center;
     padding-left: 0;
     padding-top: 5px;
+    background-color: #ff9b3f;
     transition: background-color 0.9s ease-in-out;
     transition: box-shadow 0.9s ease-in-out;
 }
@@ -232,11 +233,11 @@
     font-size: 24px;
     padding-left: 10px;
     text-align: left;
-    margin-top: 20px;
-    background-color: rgba(21, 34, 55, 0.9);
+    margin-top: 30px;
+    background-color: #f5d398;
     border-radius: 2px;
-    box-shadow: rgba(30, 41, 59, 0.9);
-    height: 50px;
+    box-shadow: 0px 0px 5px 10px #f5d398;
+
 }
 
 .PagHome .option-button {
@@ -244,7 +245,7 @@
     /* border: 2px solid black; */
     border-radius: 5px;
     display: flex;
-    background-color: rgba(30, 41, 59, 0.9);
+    background-color: #fcd38b;
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -323,7 +324,7 @@
     margin: 8px 0;
     padding: 6px 10px;
     font-size: 14px; 
-    background-color: rgba(30, 41, 59, 0.9);
+    background-color: #dc430c;
     color: white;
     border-radius: 5px;
     cursor: pointer;

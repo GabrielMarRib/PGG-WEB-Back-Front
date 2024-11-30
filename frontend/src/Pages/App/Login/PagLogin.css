@@ -112,32 +112,32 @@
 }
 @keyframes stroke {
   0% {
-    fill: rgba(30, 41, 59, 0); 
-    stroke: rgba(30, 41, 59, 1); 
+    fill: rgba(224,137,38,0);
+    stroke: rgba(235,102,54,1);
     stroke-dashoffset: 25%;
     stroke-dasharray: 0 50%;
     stroke-width: 2;
   }
   70% {
-    fill: rgba(30, 41, 59, 0); 
-    stroke: rgba(30, 41, 59, 1); 
+    fill: rgba(224,137,38,0); 
+    stroke: rgba(235,102,54,1)
   }
   80% {
-    fill: rgba(30, 41, 59, 0); 
-    stroke: rgba(30, 41, 59, 1);
+    fill: rgba(224,137,38,0); 
+    stroke: rgba(235,102,54,1);
     stroke-width: 2;
   }
   100% {
-    fill: rgba(30, 41, 59, 1); 
-    stroke: rgba(30, 41, 59, 0); 
+    fill: rgba(224,137,38,1); stroke: rgba(235,102,54,0);
     stroke-dashoffset: -25%;
     stroke-dasharray: 50% 0;
     stroke-width: 0;
   }
+
 }
 
 .elemento-com-animacao {
-  background-color: #1e293b; 
+  background-color: #ff9b3f;
   animation: stroke 2s infinite; 
   width: 200px; 
   height: 200px; 
@@ -159,7 +159,7 @@
   width: 45%;
   padding: 10px;
   border-radius: 3px;
-  background-color: #1e293b;
+  background-color: #dc430c;
   border: none;
   cursor: pointer;
   color: #fff;

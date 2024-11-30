@@ -65,7 +65,7 @@
 .CurvaABC .btn button {
     padding: 10px;
     border-radius: 3px;
-    background-color: #1e293b;
+    background-color: #dc430c;
     border: none;
     cursor: pointer;
     color: #fff;
@@ -293,7 +293,7 @@ tr:nth-child(even) {
 }
 
 th {
-    background-color: rgba(59, 72, 102, 0.9);
+    background-color: #dc430c;
     color: white;
 }
 
