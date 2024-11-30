@@ -23,7 +23,7 @@ const LoteMemo = memo(function ModalAtualizarLote({ LoteSelecionado, fechar, IdU
       console.log("Justificativa: " + Justificativa)
       console.log("Id User: " + IdUser);
       const response = await axios.post(
-        "http://pggzettav3.mooo.com/api/index.php",
+        "http://discordia.com.br/",
         {
           funcao: "atualizarLotes",
           senha: "@7h$Pz!q2X^vR1&K",
@@ -33,6 +33,13 @@ const LoteMemo = memo(function ModalAtualizarLote({ LoteSelecionado, fechar, IdU
           numerolote: LoteSelecionado.numerolote,
           id_usuario: IdUser, 
           justificativa: Justificativa
+        },
+        {
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Connection": "keep-alive",
+          },
         }
       );
       console.log(response.data);

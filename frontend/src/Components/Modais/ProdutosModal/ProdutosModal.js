@@ -60,11 +60,18 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
     const pegaProdutosCat = async () => {
       try {
         const response = await axios.post(
-          "http://pggzettav3.mooo.com/api/index.php",
+          "http://discordia.com.br/",
           {
             funcao: "pegaprodutosporcategoria",
             senha: "@7h$Pz!q2X^vR1&K",
             codcategoria: overwriteCat ? categoriaSelecionada.id_categorias : produtoOBJ.categoria
+          },
+          {
+            headers: {
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+              "Accept": "application/json, text/plain, */*",
+              "Connection": "keep-alive",
+            },
           }
         );
         setProdutosEmCat(response.data);
@@ -83,11 +90,18 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
     const pegaTUDO_old = async () => {
       try {
         const response = await axios.post(
-          "http://pggzettav3.mooo.com/api/index.php",
+          "http://discordia.com.br/",
           {
             funcao: "obterDadosProduto",
             senha: "@7h$Pz!q2X^vR1&K",
             id_produto: produtoOBJ.id_produtos
+          },
+          {
+            headers: {
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+              "Accept": "application/json, text/plain, */*",
+              "Connection": "keep-alive",
+            },
           }
         );
         setTudoOLD(response.data)
@@ -312,7 +326,14 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
 
   const atualizaDadosUniversal = async (funcao, setRefresh) => {
     try {
-      const response = await axios.post("http://pggzettav3.mooo.com/api/index.php", funcao);
+      const response = await axios.post("http://discordia.com.br/", funcao,
+        {
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Connection": "keep-alive",
+          },
+        });
 
       if (response.status === 200) {
         Alerta(2, "Alterado com Sucesso");

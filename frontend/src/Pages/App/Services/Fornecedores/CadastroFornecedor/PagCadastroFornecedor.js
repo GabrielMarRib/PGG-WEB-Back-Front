@@ -65,9 +65,16 @@ function PagVenderProduto() {
 
   const PegarFornecedores = async () => {
     try {
-      const Response = await axios.post("http://pggzettav3.mooo.com/api/index.php", {
+      const Response = await axios.post("http://discordia.com.br/", {
         funcao: "pegarTodosFornecedores",
         senha: "@7h$Pz!q2X^vR1&K",
+      },
+      {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+          "Accept": "application/json, text/plain, */*",
+          "Connection": "keep-alive",
+        },
       });
       setFornecedoresTabela(Response.data.fornecedores);
     } catch (error) {
@@ -122,7 +129,7 @@ function PagVenderProduto() {
 
     console.log({ NomeForcedor, CNPJ, Endereco, Telefone, Email, Status });
     try {
-      const Response = await axios.post("http://pggzettav3.mooo.com/api/index.php", {
+      const Response = await axios.post("http://discordia.com.br/", {
         funcao: "cadastrarFornecedor",
         senha: "@7h$Pz!q2X^vR1&K",
         nome: NomeForcedor,
@@ -131,6 +138,13 @@ function PagVenderProduto() {
         telefone: Telefone,
         email: Email,
         status: Status ? 'ativo' : 'inativo', // Convertendo booleano para string
+      },
+      {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+          "Accept": "application/json, text/plain, */*",
+          "Connection": "keep-alive",
+        },
       });
       Alerta(2, "Fornecedor cadastrado com sucesso.");
       // Resetando os campos

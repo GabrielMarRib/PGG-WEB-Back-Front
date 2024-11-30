@@ -19,9 +19,16 @@ function FiltragemComponente({ setFiltroSelecionado, FiltroSelecionado }) {
     const ColhendoCategoria = async (setOBJ) => {
   
       try { //tente...
-        const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {  // acessa via get (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
+        const response = await axios.post('http://discordia.com.br/', {  // acessa via get (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
           funcao: 'pegacategorias',
           senha: '@7h$Pz!q2X^vR1&K'
+        },
+        {
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Connection": "keep-alive",
+          },
         });
   
         setOBJ(response.data)

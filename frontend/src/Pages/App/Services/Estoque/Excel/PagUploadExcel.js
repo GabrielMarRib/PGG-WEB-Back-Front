@@ -36,9 +36,16 @@ function PagUploadExcel() {
     const buscarImportacoes = async () => {
         setCarregando(true);
         try {
-            const resposta = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
+            const resposta = await axios.post('http://discordia.com.br/', {
                 senha: "@7h$Pz!q2X^vR1&K",
                 funcao: "buscarImportacoes"
+            },
+            {
+              headers: {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+                "Accept": "application/json, text/plain, */*",
+                "Connection": "keep-alive",
+              },
             });
 
             if (resposta.data && resposta.data.importacoes) {
@@ -121,11 +128,18 @@ function PagUploadExcel() {
         }
         console.log("Enviando os seguintes dados para o servidor:", dadosImportados);
         try {
-            const resposta = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
+            const resposta = await axios.post('http://discordia.com.br/', {
                 senha: "@7h$Pz!q2X^vR1&K",
                 funcao: "uploadDados",
                 dados: dadosImportados,
                 nome_arquivo: nomeArquivo
+            },
+            {
+              headers: {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+                "Accept": "application/json, text/plain, */*",
+                "Connection": "keep-alive",
+              },
             });
 
             Alerta(2, "Dados importados com sucesso!"); // Alerta de sucesso
@@ -154,10 +168,17 @@ function PagUploadExcel() {
 
     const confirmarDelecao = async () => {
         try {
-            const resposta = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
+            const resposta = await axios.post('http://discordia.com.br/', {
                 senha: "@7h$Pz!q2X^vR1&K",
                 funcao: "deletarImportacao",
                 id: importacaoParaDeletar
+            },
+            {
+              headers: {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+                "Accept": "application/json, text/plain, */*",
+                "Connection": "keep-alive",
+              },
             });
 
             Alerta(2, "Importação deletada com sucesso!");
@@ -179,11 +200,18 @@ function PagUploadExcel() {
         if (!importacao) return;
 
         try {
-            const resposta = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
+            const resposta = await axios.post('http://discordia.com.br/', {
                 senha: "@7h$Pz!q2X^vR1&K",
                 funcao: "inserirProdutosJson",
                 id_importacoes: id,
                 id_usuario: User.id
+            },
+            {
+              headers: {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+                "Accept": "application/json, text/plain, */*",
+                "Connection": "keep-alive",
+              },
             });
 
             // Atualiza o estado da importação para refletir que foi enviada ao estoque

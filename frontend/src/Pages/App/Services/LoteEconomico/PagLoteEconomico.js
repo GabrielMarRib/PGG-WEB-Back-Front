@@ -63,7 +63,7 @@ function PagLoteEconomico() {
     const demandaAnualConvertida = converterParaAnual(demanda_anual);
 
     try {
-      const response = await axios.post("http://pggzettav3.mooo.com/api/index.php", {
+      const response = await axios.post("http://discordia.com.br/", {
         funcao: "atualizaLoteEconomico",
         senha: "@7h$Pz!q2X^vR1&K",
         Valor_despesas_Anuais: despesasAnuaisConvertidas,
@@ -72,6 +72,13 @@ function PagLoteEconomico() {
         Numero_Pedidos_Anuais: pedidosAnuaisConvertidos,
         periodo: periodo,
         idProduto,
+      },
+      {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+          "Accept": "application/json, text/plain, */*",
+          "Connection": "keep-alive",
+        },
       });
 
       Alerta(2, "Dados Atualizados");
@@ -136,9 +143,16 @@ function PagLoteEconomico() {
 
   const pegaDadosLoteEconomico = async () => {
     try {
-      const response = await axios.post("http://pggzettav3.mooo.com/api/index.php", {
+      const response = await axios.post("http://discordia.com.br/", {
         funcao: "pegaDadosLoteEconomico",
         senha: "@7h$Pz!q2X^vR1&K",
+      },
+      {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+          "Accept": "application/json, text/plain, */*",
+          "Connection": "keep-alive",
+        },
       });
       if (response.status === 200) {
         setDadosLoteEconomico(response.data);

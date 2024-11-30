@@ -7,22 +7,6 @@ import RedirectAcesso from '../../../../../Functions/RedirectAcesso';
 import axios from 'axios';
 function PagEscolhaCurvaABC() {
 
-    useEffect(()=>{
-        const pegaDados = async () =>{  
-            try{
-                const response = await axios.get('http://pggzettav3.mooo.com/api/index.php');
-                console.log(response.data);
-            }catch(err){
-                console.log(err)
-            }
-        };
-        pegaDados();
-    },[])
-    const UserOBJ = useContext(UserContext);
-    const User = UserOBJ.User;
-
-
-    RedirectAcesso(User,1)
     const navigate = useNavigate();
     const [menuOpen, setMenuOpen] = useState(false);
     const toggleMenu = () => {

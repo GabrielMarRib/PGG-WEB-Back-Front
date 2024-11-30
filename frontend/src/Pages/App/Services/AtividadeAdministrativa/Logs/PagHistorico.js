@@ -25,10 +25,17 @@ function PagHistorico() {
       try {
 
         const response = await axios.post(
-          "http://pggzettav3.mooo.com/api/index.php",
+          "http://discordia.com.br/",
           {
             funcao: "consultarHistorico",
             senha: "@7h$Pz!q2X^vR1&K",
+          },
+          {
+            headers: {
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+              "Accept": "application/json, text/plain, */*",
+              "Connection": "keep-alive",
+            },
           }
         );
         setHistorico(response.data);
@@ -46,18 +53,32 @@ function PagHistorico() {
       try {
 
         const response = await axios.post(
-          "http://pggzettav3.mooo.com/api/index.php",
+          "http://discordia.com.br/",
           {
             funcao: "PegaTodosDadosCurvaABC",
             senha: "@7h$Pz!q2X^vR1&K",
+          },
+          {
+            headers: {
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+              "Accept": "application/json, text/plain, */*",
+              "Connection": "keep-alive",
+            },
           }
         );
         setAdicionaisCurva(response.data);
         const responseLote = await axios.post(
-          "http://pggzettav3.mooo.com/api/index.php",
+          "http://discordia.com.br/",
           {
             funcao: "PegarLotes",
             senha: "@7h$Pz!q2X^vR1&K",
+          },
+          {
+            headers: {
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+              "Accept": "application/json, text/plain, */*",
+              "Connection": "keep-alive",
+            },
           }
         );
         setAdicionaisLote(responseLote.data)

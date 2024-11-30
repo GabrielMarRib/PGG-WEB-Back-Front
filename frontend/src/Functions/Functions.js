@@ -90,7 +90,7 @@ export const handleAdicionarUser = async (nome, cpf, email, telefone, acesso, us
         });
         const id = response.data.id;
         
-        const responseMysql = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
+        const responseMysql = await axios.post('http://discordia.com.br/', {
             funcao: 'insereUser', 
             senha: '@7h$Pz!q2X^vR1&K',
             id: id,
@@ -99,6 +99,13 @@ export const handleAdicionarUser = async (nome, cpf, email, telefone, acesso, us
             Email: email,
             Grupo_Acesso: acesso,
             Nome: nome
+        },
+        {
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Connection": "keep-alive",
+          },
         });
 
         return [response.data.message, false];
@@ -232,17 +239,31 @@ export const exibeMsg = async (setMsg, conteudo, tempo, erro, SetStyle) => {
 };
 
 export const RelatorioPP = async () => {
-    const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
+    const response = await axios.post('http://discordia.com.br/', {
         funcao: 'pegaRelatorioPP', 
         senha: '@7h$Pz!q2X^vR1&K',
+    },
+    {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+        "Accept": "application/json, text/plain, */*",
+        "Connection": "keep-alive",
+      },
     });
     return (response.data)
 }
 
 export const RelatorioVendas = async () => {
-    const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
+    const response = await axios.post('http://discordia.com.br/', {
         funcao: 'pegaRelatorioVendas', 
         senha: '@7h$Pz!q2X^vR1&K',
+    },
+    {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+        "Accept": "application/json, text/plain, */*",
+        "Connection": "keep-alive",
+      },
     });
     return Array.isArray(response.data) ? response.data : [];
 }
@@ -250,9 +271,16 @@ export const RelatorioVendas = async () => {
 export const pegaCategorias = async (setOBJ) =>{
 
     try { //tente...
-        const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {  // acessa via get (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
+        const response = await axios.post('http://discordia.com.br/', {  // acessa via get (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
             funcao: 'pegacategorias', 
             senha: '@7h$Pz!q2X^vR1&K',
+        },
+        {
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Connection": "keep-alive",
+          },
         });
         console.log(response.data) 
         setOBJ(response.data) 
@@ -265,10 +293,17 @@ export const pegaCategorias = async (setOBJ) =>{
 
 export const VerificaCategorias = async (SubCat, Result) =>{
     try { 
-        const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {  // acessa via get (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
+        const response = await axios.post('http://discordia.com.br/', {  // acessa via get (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
                 funcao: 'verificacategorias', 
                 senha: '@7h$Pz!q2X^vR1&K',
                 subCat: SubCat // ( Exemplo: 1, 2 ) Vou pegar por Id
+        },
+        {
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Connection": "keep-alive",
+          },
         });
         Result(response.data) 
     } catch (error) { 
@@ -282,7 +317,7 @@ export const insereHistorico = async (info) =>{
             return false;
         }
 
-        const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', { 
+        const response = await axios.post('http://discordia.com.br/', { 
             funcao: "insereHistorico",
             senha: '@7h$Pz!q2X^vR1&K',
             campos: info.campos,
@@ -293,6 +328,13 @@ export const insereHistorico = async (info) =>{
             idTabela: info.idTabela,
             nomeTabela: info.nomeTabela,
             aux: info?.aux ?? null
+        },
+        {
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Connection": "keep-alive",
+          },
         });
         console.log(response)
         return (response.status === 200)

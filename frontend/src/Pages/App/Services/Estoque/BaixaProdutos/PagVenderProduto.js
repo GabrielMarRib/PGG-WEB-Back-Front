@@ -40,9 +40,16 @@ function PagVenderProduto() {
 
   const pegaCategorias = async () => {
     try {
-      const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
+      const response = await axios.post('http://discordia.com.br/', {
         funcao: 'pegacategorias',
         senha: '@7h$Pz!q2X^vR1&K',
+      },
+      {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+          "Accept": "application/json, text/plain, */*",
+          "Connection": "keep-alive",
+        },
       });
       
       setCategorias(response.data || []);
@@ -60,11 +67,18 @@ function PagVenderProduto() {
     const pegaProdutin = async () => {
       try {
         const response = await axios.post(
-          "http://pggzettav3.mooo.com/api/index.php",
+          "http://discordia.com.br/",
           {
             funcao: "obterProdutosPorCategoriaComLote",
             senha: "@7h$Pz!q2X^vR1&K",
             categoria: categoriaSelecionada.id_categorias,
+          },
+          {
+            headers: {
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+              "Accept": "application/json, text/plain, */*",
+              "Connection": "keep-alive",
+            },
           }
         );
         console.log(response.data)
@@ -180,10 +194,17 @@ function PagVenderProduto() {
   const handleBaixaDoProduto = async () => {
     try {
   
-      await axios.post("http://pggzettav3.mooo.com/api/index.php", {
+      await axios.post("http://discordia.com.br/", {
        funcao: "DeletarProduto",
        senha: "@7h$Pz!q2X^vR1&K",
        produtoid: produtoSelecionado.id,
+     },
+     {
+       headers: {
+         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+         "Accept": "application/json, text/plain, */*",
+         "Connection": "keep-alive",
+       },
      });
 
      Alerta(2, "Baixa concluida!");
@@ -203,13 +224,20 @@ function PagVenderProduto() {
   const handleBaixaqtdeEstoque = async () => {
     try {
   
-      await axios.post("http://pggzettav3.mooo.com/api/index.php", {
+      await axios.post("http://discordia.com.br/", {
        funcao: "BaixaQtedProduto",
        senha: "@7h$Pz!q2X^vR1&K",
        produtoid: produtoSelecionado.id,
        quantidade: quantidadeVenda,
        motivo: DescricaoBaixa,
        autorId: User.id
+     },
+     {
+       headers: {
+         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+         "Accept": "application/json, text/plain, */*",
+         "Connection": "keep-alive",
+       },
      });
 
      Alerta(2, "Baixa concluida!");
@@ -231,7 +259,7 @@ function PagVenderProduto() {
     if (User && User.userData && User.userData.Nome) {
       try {
      
-         await axios.post("http://pggzettav3.mooo.com/api/index.php", {
+         await axios.post("http://discordia.com.br/", {
           funcao: "insereMovimento",
           senha: "@7h$Pz!q2X^vR1&K",
           id: produtoSelecionado.id,
@@ -242,6 +270,13 @@ function PagVenderProduto() {
           id_usuario: User.id,
           NomeCliente: cliente,
           vlr_venda: custoUnitario
+        },
+        {
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Connection": "keep-alive",
+          },
         });
 
 
@@ -274,11 +309,18 @@ function PagVenderProduto() {
       if (!produtoSelecionado || produtoSelecionado.length === 0)
         return
       const response = await axios.post(
-        "http://pggzettav3.mooo.com/api/index.php",
+        "http://discordia.com.br/",
         {
           funcao: "PegaPPpeloProdutoId",
           senha: "@7h$Pz!q2X^vR1&K",
           idProduto: produtoSelecionado.id
+        },
+        {
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Connection": "keep-alive",
+          },
         }
       );
       return response.data[0]
@@ -317,7 +359,7 @@ function PagVenderProduto() {
       }
 
       const msg = `URGENTE!! O Produto '${produtoSelecionado.nome}' de id: '${produtoSelecionado.id}', atingiu o nível de ponto de pedido!!! O produto se encontra com APENAS ${qtdeSobra}/${PP} (PP) UNIDADES`;
-      const response = await axios.post("http://pggzettav3.mooo.com/api/index.php", {
+      const response = await axios.post("http://discordia.com.br/", {
         funcao: "geraRelatorioPP",
         senha: "@7h$Pz!q2X^vR1&K",
         pp: PP,
@@ -328,6 +370,13 @@ function PagVenderProduto() {
         Qtd_At: qtdeSobra,
         Produto_ID: produtoSelecionado.id,
         nome_produto:produtoSelecionado.nome
+      },
+      {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+          "Accept": "application/json, text/plain, */*",
+          "Connection": "keep-alive",
+        },
       });
     }
   };
@@ -339,7 +388,7 @@ function PagVenderProduto() {
       const qtdeSeiLaNumSei = Number(quantidadeDisponivel)+Number(quantidadeVenda)
 
       try {
-        await axios.post("http://pggzettav3.mooo.com/api/index.php", {
+        await axios.post("http://discordia.com.br/", {
           funcao: "geraRelatorioVenda",
           senha: "@7h$Pz!q2X^vR1&K",
           produtoVendidoId: produtoSelecionado.id,
@@ -351,6 +400,13 @@ function PagVenderProduto() {
           nome_produto: produtoSelecionado.nome,
           Autor_nome: User.userData.Nome,
           Qtd_Old: quantidadeDisponivel
+        },
+        {
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Connection": "keep-alive",
+          },
         });
       } catch (eee) {
         console.log("deu merda");

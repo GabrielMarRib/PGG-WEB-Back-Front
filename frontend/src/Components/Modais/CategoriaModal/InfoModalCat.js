@@ -36,11 +36,18 @@ const InfoModalCat = ({ titulo, msgObj, fechar, reFetch }) => {
   const pegaProdutos = async () => {
     console.log(msgObj)
     try {
-      const response = await axios.post("http://pggzettav3.mooo.com/api/index.php",
+      const response = await axios.post("http://discordia.com.br/",
         {
           funcao: "pegaprodutosporcategoria",
           senha: "@7h$Pz!q2X^vR1&K",
           codcategoria: titulo === 'Editando Subcategoria' ? msgObj.subCatId : msgObj.catId
+        },
+        {
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Connection": "keep-alive",
+          },
         });
       console.log("PegaprodutoPorCategoria" + JSON.stringify(response.data));
       setProdutos(response.data);
@@ -58,12 +65,19 @@ const InfoModalCat = ({ titulo, msgObj, fechar, reFetch }) => {
       //Mudar o nome da categoria
       try{
       const response = await axios.post(
-        "http://pggzettav3.mooo.com/api/index.php",
+        "http://discordia.com.br/",
         {
           funcao: "UpdNomeCategoria",
           senha: "@7h$Pz!q2X^vR1&K",
           codcategoria: CodCatFilhoAtual,
           newname: CategoriaAtualizada
+        },
+        {
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Connection": "keep-alive",
+          },
         }
       );
       Alerta(2, "Alteração concluída com êxito");

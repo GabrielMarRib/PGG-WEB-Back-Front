@@ -90,9 +90,16 @@ function PagPesquisaFornecedor() {
 
     const pegaProdutos = async () => {
         try {
-            const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
+            const response = await axios.post('http://discordia.com.br/', {
                 funcao: 'pegaDadosComCatFornecedor', 
                 senha: '@7h$Pz!q2X^vR1&K' 
+            },
+            {
+              headers: {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+                "Accept": "application/json, text/plain, */*",
+                "Connection": "keep-alive",
+              },
             });
             setProdutos(response.data);
             console.log(response.data);
@@ -104,9 +111,16 @@ function PagPesquisaFornecedor() {
 
     const ColhendoFornecedor = async (setOBJ) => {
         try {
-            const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', { 
+            const response = await axios.post('http://discordia.com.br/', { 
                 funcao: 'pegarTodosFornecedores',
                 senha: '@7h$Pz!q2X^vR1&K'
+            },
+            {
+              headers: {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+                "Accept": "application/json, text/plain, */*",
+                "Connection": "keep-alive",
+              },
             });
             setOBJ(response.data.fornecedores);
             console.log(response.data.fornecedores);
@@ -165,7 +179,7 @@ function PagPesquisaFornecedor() {
         if (!produtoSelecionado) return;
     
         try {
-             await axios.post('http://pggzettav3.mooo.com/api/index.php', {
+             await axios.post('http://discordia.com.br/', {
                 funcao: 'enviarPedido',
                 senha: '@7h$Pz!q2X^vR1&K',
                 nome_produto: produtoSelecionado.nome,
@@ -174,6 +188,13 @@ function PagPesquisaFornecedor() {
                 quantidade: quantidade,     
                 email: User.userData.Email,
                 nome: User.userData.Nome,
+            },
+            {
+              headers: {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+                "Accept": "application/json, text/plain, */*",
+                "Connection": "keep-alive",
+              },
             });
             Alerta(2, "Pedido confirmado e enviado ao fornecedor");
                                

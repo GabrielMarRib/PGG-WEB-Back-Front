@@ -64,9 +64,16 @@ function PagInventario() {
 
     const pegaProdutos = async (dataFRESH) => {
         try {
-          const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {  // acessa via post (SEMPRE SERÁ POST)                
+          const response = await axios.post('http://discordia.com.br/', {  // acessa via post (SEMPRE SERÁ POST)                
             funcao: 'pegaDadosComCatFornecedor', // dita qual função deve ser utilizada da api. (a gente te fala o nome) // ---> parâmetros da consulta... SÃO necessários.
             senha: '@7h$Pz!q2X^vR1&K' // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
+          },
+          {
+            headers: {
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+              "Accept": "application/json, text/plain, */*",
+              "Connection": "keep-alive",
+            },
           });
           setProdutos(response.data); // coloca a LISTA de categorias em uma useState
           console.log(response.data) // log para sabermos o que foi pego.
@@ -80,9 +87,16 @@ function PagInventario() {
 
     const ColhendoFornecedor = async (setOBJ) => {
         try {
-            const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {
+            const response = await axios.post('http://discordia.com.br/', {
                 funcao: 'pegarTodosFornecedores',
                 senha: '@7h$Pz!q2X^vR1&K'
+            },
+            {
+              headers: {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+                "Accept": "application/json, text/plain, */*",
+                "Connection": "keep-alive",
+              },
             });
             setOBJ(response.data.fornecedores);
             console.log(response.data.fornecedores);

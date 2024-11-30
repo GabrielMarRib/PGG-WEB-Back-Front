@@ -15,13 +15,13 @@ import { PermissoesContextProvider } from './Context/PermissoesContext';
 function App() {
   return (
     <PermissoesContextProvider>
-    <AlertaProvider>
-      <UserContextProvider>
-        <div>
-          <AppRoutes />
-        </div>
-      </UserContextProvider>
-    </AlertaProvider>
+      <AlertaProvider>
+        <UserContextProvider>
+          <div>
+            <AppRoutes />
+          </div>
+        </UserContextProvider>
+      </AlertaProvider>
     </PermissoesContextProvider>
   );
 }

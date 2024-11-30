@@ -21,10 +21,17 @@ function PagPontoPedido() {
                 try {
                     setCarregando(true)
                     setMsg("...carregando")
-                    const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {  // acessa via post (SEMPRE SERÁ POST)                
+                    const response = await axios.post('http://discordia.com.br/', {  // acessa via post (SEMPRE SERÁ POST)                
                         funcao: 'pegaDadosPP', // dita qual função deve ser utilizada da api. (a gente te fala o nome) // ---> parâmetros da consulta... SÃO necessários.
                         senha: '@7h$Pz!q2X^vR1&K', // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
                         codigoPP: categoriaSelecionada.id_categorias
+                    },
+                    {
+                      headers: {
+                        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+                        "Accept": "application/json, text/plain, */*",
+                        "Connection": "keep-alive",
+                      },
                     });
                     console.log(response)
                     setDadosPP(response.data)

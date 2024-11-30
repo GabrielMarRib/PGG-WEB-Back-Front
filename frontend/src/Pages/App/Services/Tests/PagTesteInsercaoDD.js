@@ -42,9 +42,16 @@ function PagTesteInsercaoDD() {
     useEffect(() => { // useEffect para pegar informações da LISTA de categorias...
         const pegaCategorias = async () => { // função existe para separar async do useEffect...
             try {
-                const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {  // acessa via post (SEMPRE SERÁ POST)                
+                const response = await axios.post('http://discordia.com.br/', {  // acessa via post (SEMPRE SERÁ POST)                
                     funcao: 'pegacategorias', // dita qual função deve ser utilizada da api. (a gente te fala o nome) // ---> parâmetros da consulta... SÃO necessários.
                     senha: '@7h$Pz!q2X^vR1&K' // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
+                },
+                {
+                  headers: {
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+                    "Accept": "application/json, text/plain, */*",
+                    "Connection": "keep-alive",
+                  },
                 });
                 setCategorias(response.data); // coloca a LISTA de categorias em uma useState
                 console.log(response.data) // log para sabermos o que foi pego.
@@ -61,9 +68,16 @@ function PagTesteInsercaoDD() {
             // isso acontece pois o axios terá que acesar a internet para fazer a operação, e isso demanda tempo, e se não esperarmos,
             // o programa "pula" a vez do axios e ele não consegue voltar com a operação...
             try { //tente...
-                const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {  // acessa via post (SEMPRE SERÁ POST)
+                const response = await axios.post('http://discordia.com.br/', {  // acessa via post (SEMPRE SERÁ POST)
                     funcao: 'pegadadoscomcat', // dita qual função deve ser utilizada da api. (a gente te fala o nome)
                     senha: '@7h$Pz!q2X^vR1&K' // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
+                },
+                {
+                  headers: {
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+                    "Accept": "application/json, text/plain, */*",
+                    "Connection": "keep-alive",
+                  },
                 });
                 setDados(response.data) // coloca as informações que acabou de pegar da api na variável useState
                 console.log(response.data) // log para sabermos o que foi pego.
@@ -95,7 +109,7 @@ function PagTesteInsercaoDD() {
 
         //inserção de produtos...
         try {
-            const response = await axios.post('http://pggzettav3.mooo.com/api/index.php', {  // acessa via get (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
+            const response = await axios.post('http://discordia.com.br/', {  // acessa via get (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
                 //parâmetros da consulta... SÃO necessários.
                 funcao: 'insereProduto', // dita qual função deve ser utilizada da api. (a gente te fala o nome)
                 senha: '@7h$Pz!q2X^vR1&K', // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
@@ -105,6 +119,13 @@ function PagTesteInsercaoDD() {
                 descricao: descricao,
                 codigoBarras: codigoDeBarras, // na api, referenciamos como 'codigoBarras' não 'codigoDeBarras'... Regra: o da esquerda é oq vc manda pra gente do backend
                 categoria: categoriaSelecionada //categoria q é selecionada pelo usuario no select...
+            },
+            {
+              headers: {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+                "Accept": "application/json, text/plain, */*",
+                "Connection": "keep-alive",
+              },
             });
             
             
