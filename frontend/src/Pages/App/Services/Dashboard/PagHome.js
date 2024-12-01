@@ -297,14 +297,14 @@ function PagHome() {
       )}
       <div className={`sidebar ${!sidebarVisible ? "hidden" : isMobile ? "overlay" : ""}`}>
         <div className="sidebar-top-buttons">
-          <div className="btnSair" onClick={() => navigate("/PagPerfil")}>
+          <div className="btnSair" style={{cursor: 'pointer'}} onClick={() => navigate("/PagPerfil")}>
             <img src={OptionIcon} />
           </div>
           <div className="btnNotificacao">
             <Notificacao />
           </div>
 
-          <div className="btnSair" onClick={() => { handleLogOut(navigate); }}>
+          <div className="btnSair" style={{cursor: 'pointer'}} onClick={() => { handleLogOut(navigate); }}>
             <div id="DivNotificação">
               <img src={IconLogOut} />
             </div>
@@ -391,7 +391,7 @@ function PagHome() {
             <span className="button-title">Logs</span>
           </PrivateButtonSolo>
 
-          <button className={"menu-button"} onClick={() => { navigate('/PagPerfil') }}>
+          <button className={"menu-button"}  onClick={() => { navigate('/PagPerfil') }}>
             <img src={OptionIcon} alt={"Logs"} className="button-image" />
             <span className="button-title">Options</span>
           </button>
