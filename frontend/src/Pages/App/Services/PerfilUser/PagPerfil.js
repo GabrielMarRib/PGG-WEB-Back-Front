@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 import Titulo from "../../../../Components/Titulo/Titulo.jsx";
 import { PermissoesContext } from "../../../../Context/PermissoesContext.js";
 import NavBar from "../../../../Components/NavBar/NavBar.js";
-
+import PrivateComponent from "../../../../Config/PrivateComponent.jsx";
 
 function PagPerfil() {
     const UserOBJ = useContext(UserContext);
@@ -32,39 +32,40 @@ function PagPerfil() {
             <Titulo
                 tituloMsg='Gerenciamento de Informações'
             />
-            <div className="marginNavbar"> 
-            {User &&
-                <div className="Corpo">
-                    <div className="dados-usuario">
-                        <h1>Suas informações</h1>
-                        <h2> <img src={ImageProfile} alt="User" /> Nome: {User.userData.Nome} </h2>
-                        <h2> <img src={ImageEmail} alt="Email" /> Email: {User.userData.Email}</h2>
-                        <h2> <img src={NivelAcesso} alt="Nível de Acesso" /> Grupo de Acesso: {User.userData.Grupo_Acesso} ({PermissoesNome})</h2>
-                        <h2> <img src={Telefone} alt="Telefone" /> Telefone: { User.userData.Celular} </h2>
-                        <h2> <img src={Cpf} alt="CPF" /> CPF: { User.userData.CPF}</h2>
-                    </div>
+            <div className="marginNavbar">
+                {User &&
+                    <div className="Corpo">
+                        <div className="dados-usuario">
+                            <h1>Suas informações</h1>
+                            <h2> <img src={ImageProfile} alt="User" /> Nome: {User.userData.Nome} </h2>
+                            <h2> <img src={ImageEmail} alt="Email" /> Email: {User.userData.Email}</h2>
+                            <h2> <img src={NivelAcesso} alt="Nível de Acesso" /> Grupo de Acesso: {User.userData.Grupo_Acesso} ({PermissoesNome})</h2>
+                            <h2> <img src={Telefone} alt="Telefone" /> Telefone: {User.userData.Celular} </h2>
+                            <h2> <img src={Cpf} alt="CPF" /> CPF: {User.userData.CPF}</h2>
+                        </div>
 
-                <div> 
-                    <h2> Atividades Administrativas </h2>
-                    <div className="acoes-funcionarios">
-                        <button className="botao-func" onClick={() => { navigate('/PagAddFunc') }}>
-                            <img src={AddPerfil} alt="Adicionar Funcionário" /> Adicionar Funcionário
-                        </button>
-                        <button className="botao-func" onClick={() => { navigate('/PagFuncionarios') }}>
-                            <img src={IconListaFunc} alt="Lista de Funcionários" /> Lista de Funcionários
-                        </button>
-                        <button className="botao-func" onClick={() => { navigate('/PagRelatorios') }}>
-                            <img src={IconListaFunc} alt="Relatórios" /> Relatórios
-                        </button>
-                        <button className="botao-func" onClick={() => { navigate('/DefGrupoAcesso') }}>
-                            <img src={grupos} alt="Grupos" /> Gerenciar Grupos de acesso
-                        </button>
+                        <PrivateComponent classe={"Atividade Administrativa"}>
+                            <div>
+                                <h2> Atividades Administrativas </h2>
+                                <div className="acoes-funcionarios">
+                                    <button className="botao-func" onClick={() => { navigate('/PagAddFunc') }}>
+                                        <img src={AddPerfil} alt="Adicionar Funcionário" /> Adicionar Funcionário
+                                    </button>
+                                    <button className="botao-func" onClick={() => { navigate('/PagFuncionarios') }}>
+                                        <img src={IconListaFunc} alt="Lista de Funcionários" /> Lista de Funcionários
+                                    </button>
+                                    <button className="botao-func" onClick={() => { navigate('/PagRelatorios') }}>
+                                        <img src={IconListaFunc} alt="Relatórios" /> Relatórios
+                                    </button>
+                                    <button className="botao-func" onClick={() => { navigate('/DefGrupoAcesso') }}>
+                                        <img src={grupos} alt="Grupos" /> Gerenciar Grupos de acesso
+                                    </button>
+                                </div>
+                            </div>
+                        </PrivateComponent>
                     </div>
-                </div>
+                }
             </div>
-   
-            }
-        </div>
         </div>
     );
 }
