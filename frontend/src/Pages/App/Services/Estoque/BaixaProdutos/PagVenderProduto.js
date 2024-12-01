@@ -255,8 +255,18 @@ function PagVenderProduto() {
 
   }
   const handleInsercaoVendas = async () => {
-
     const nowMySQL = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
+
+    console.log("Valores: " 
+      + produtoSelecionado.id + " /"
+      +  quantidadeVenda + " /"
+      +  receitaEstimada + " /" 
+      +  nowMySQL + " /" 
+      +  User.id + " /" 
+      +  cliente + " /" 
+      + custoUnitario 
+    )
     if (User && User.userData && User.userData.Nome) {
       try {
      
@@ -295,9 +305,9 @@ function PagVenderProduto() {
 
         setReceitaEstimada(0);
         setQuantidadeVenda(0);
-        setQuantidadeDisponivel(0);
-        setCustoUnitario(0);
-        setProdutoSelecionado([]);
+        
+        
+        
         setcliente("");
 
       } catch (error) {
@@ -345,7 +355,7 @@ function PagVenderProduto() {
     setMotivoBaixa(MotivoSelecionado)
   }
 
-  const handleGerarRelatorioPP = async (produto) => {
+  const handleGerarRelatorioPP = async (produto) => { //N ta querendo, AINDA
     const dados = await PegaDadosPP()
     if (dados) {
       const PP = dados.ponto_pedido;
@@ -358,9 +368,24 @@ function PagVenderProduto() {
         // se ainda pode vender, manda pra casa do krl
         return;
       }
+      
+  
+
+      const nowMySQL = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
       const msg = `URGENTE!! O Produto '${produtoSelecionado.nome}' de id: '${produtoSelecionado.id}', atingiu o nível de ponto de pedido!!! O produto se encontra com APENAS ${qtdeSobra}/${PP} (PP) UNIDADES`;
-      const response = await axios.post("http://discordia.com.br/", {
+      console.log("Valores: " 
+        + PP + " /"
+        +  QV + " /"
+        +  TR + " /" 
+        +  ES + " /" 
+        +  msg + " /" 
+        +  cliente + " /" 
+        + qtdeSobra + " /" 
+        + produtoSelecionado.id + " /" 
+        + produtoSelecionado.nome + " /" 
+      )
+      await axios.post("http://discordia.com.br/", {
         funcao: "geraRelatorioPP",
         senha: "@7h$Pz!q2X^vR1&K",
         pp: PP,
@@ -370,7 +395,8 @@ function PagVenderProduto() {
         MSG: msg,
         Qtd_At: qtdeSobra,
         Produto_ID: produtoSelecionado.id,
-        nome_produto:produtoSelecionado.nome
+        nome_produto: produtoSelecionado.nome,
+        Data: nowMySQL
       },
       {
         headers: {
@@ -388,8 +414,23 @@ function PagVenderProduto() {
       const qtdeSobra = quantidadeDisponivel - quantidadeVenda;
       const qtdeSeiLaNumSei = Number(quantidadeDisponivel)+Number(quantidadeVenda)
 
+      const nowMySQL = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    console.log("Valores: " 
+      + produtoSelecionado.id + " /"
+      +  quantidadeVenda + " /"
+      +  receitaEstimada + " /" 
+      +  User.id + " /" 
+      + qtdeSobra + " /"
+      + custoUnitario + " /" 
+      + produtoSelecionado.nome + " /" 
+      +  User.userData.Nome + " /" 
+      +  quantidadeDisponivel + " /" 
+      + nowMySQL
+    )
+
+
       try {
-        await axios.post("http://discordia.com.br/", {
+        const response = await axios.post("http://discordia.com.br/", {
           funcao: "geraRelatorioVenda",
           senha: "@7h$Pz!q2X^vR1&K",
           produtoVendidoId: produtoSelecionado.id,
@@ -400,7 +441,8 @@ function PagVenderProduto() {
           custoUnitario: custoUnitario,
           nome_produto: produtoSelecionado.nome,
           Autor_nome: User.userData.Nome,
-          Qtd_Old: quantidadeDisponivel
+          Qtd_Old: quantidadeDisponivel,
+          Data_Venda: nowMySQL
         },
         {
           headers: {
