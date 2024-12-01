@@ -24,7 +24,7 @@
 }
 
 .PagGrupoacesso .btn button {
-    background-color: #1e293b;
+    background-color: #dc430c;
     border-color: transparent;
     color: #fff;
     border-radius: 4px;
@@ -69,7 +69,7 @@
     width: calc(100% - 40px);
     padding: 10px;
     margin: 5px 20px;
-    border: 1px solid #1e293b;
+    border: 1px solid #dc430c;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -186,7 +186,7 @@
 }
 
 .PagGrupoacesso .botaoPermissao {
-    background-color: #1e293b; /* Main color */
+    background-color: #dc430c; /* Main color */
     color: white; /* Text color */
     font-size: 16px; /* Font size */
     font-weight: bold; /* Bold text */
@@ -197,20 +197,12 @@
     transition: all 0.3s ease; /* Smooth transition for hover effects */
 }
 
-.PagGrupoacesso .botaoPermissao:hover {
-    background-color: #212d41; /* Darker shade for hover */
-    transform: translateY(-2px); /* Slight lift effect on hover */
-}
 
 .PagGrupoacesso .botaoPermissao:active {
-    background-color: #293850; /* Even darker shade when pressed */
+    background-color: #dc430c; /* Even darker shade when pressed */
     transform: translateY(0); /* Button returns to normal when pressed */
 }
 
-.PagGrupoacesso .botaoPermissao:focus {
-    outline: none; /* Remove focus outline */
-    background-color: #344664; /* Subtle glow effect on focus */
-}
 
 .PagGrupoacesso .conteudoBotao{
     background-color: #f0f0f0;

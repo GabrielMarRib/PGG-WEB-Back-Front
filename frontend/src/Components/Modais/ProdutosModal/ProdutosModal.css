@@ -179,17 +179,17 @@
 }
 
 .ProdutosModal h3{
-    color: #191970;
+    color: #dc430c;
 }
 .ProdutosModal u{
-    color: #191970;
+    color: #dc430c;
 }
 
 .ProdutosModal .botao-testar {
     padding: 10px;
     margin-left: 20px;
     border-radius: 3px;
-    background-color: #1e293b;
+    background-color: #dc430c;
     border: none;
     cursor: pointer;
     color: #fff;
@@ -313,7 +313,7 @@
     /* Remove default border */
     border-radius: 4px;
     /* Rounded corners for the button */
-    background-color: #1e293b;
+    background-color: #dc430c;
     /* Primary color for the button */
     color: white;
     /* White text color */
