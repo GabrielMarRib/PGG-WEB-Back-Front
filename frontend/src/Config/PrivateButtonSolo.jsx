@@ -23,3 +23,8 @@ function PrivateButtonSolo({ route, intent, children, ...rest }) {
 }
 
 export default PrivateButtonSolo
+
+
+/**
+ * Botão órfão, sem pais
+ */

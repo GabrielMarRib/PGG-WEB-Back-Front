@@ -21,3 +21,8 @@ function PrivateButtonPai({ classe, children, ...rest}) {
 }
 
 export default PrivateButtonPai
+
+
+/**
+ * Botão pai
+ */

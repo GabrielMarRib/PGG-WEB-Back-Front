@@ -391,7 +391,7 @@ function PagHome() {
             <span className="button-title">Logs</span>
           </PrivateButtonSolo>
 
-          <button className={"menu-button"} onClick={()=>{navigate('/PagPerfil')}}>
+          <button className={"menu-button"} onClick={() => { navigate('/PagPerfil') }}>
             <img src={OptionIcon} alt={"Logs"} className="button-image" />
             <span className="button-title">Options</span>
           </button>

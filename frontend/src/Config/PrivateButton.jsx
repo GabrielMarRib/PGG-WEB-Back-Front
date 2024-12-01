@@ -28,5 +28,5 @@ function PrivateButton({ route, intent, className, nome, ...rest }) {
 export default PrivateButton
 
 /**
- * Utilizado para uma rota específica, sem children, componente compacto
+ * Botão filho de PrivateButtonPai
  */
