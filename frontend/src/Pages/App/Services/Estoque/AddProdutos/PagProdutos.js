@@ -60,13 +60,13 @@ function PagProdutos() {
         funcao: 'pegadadoscomcat', // dita qual função deve ser utilizada da api. (a gente te fala o nome) // ---> parâmetros da consulta... SÃO necessários.
         senha: '@7h$Pz!q2X^vR1&K' // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
       },
-      {
-        headers: {
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
-          "Accept": "application/json, text/plain, */*",
-          "Connection": "keep-alive",
-        },
-      });
+        {
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Connection": "keep-alive",
+          },
+        });
       setProdutos(response.data); // coloca a LISTA de categorias em uma useState
       console.log(response.data) // log para sabermos o que foi pego.
       setCarregando(false);
@@ -82,13 +82,13 @@ function PagProdutos() {
         funcao: 'pegarTodosFornecedores', // dita qual função deve ser utilizada da api. (a gente te fala o nome) // ---> parâmetros da consulta... SÃO necessários.
         senha: '@7h$Pz!q2X^vR1&K' // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
       },
-      {
-        headers: {
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
-          "Accept": "application/json, text/plain, */*",
-          "Connection": "keep-alive",
-        },
-      });
+        {
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Connection": "keep-alive",
+          },
+        });
       setFornecedorSelect(response.data.fornecedores); // coloca a LISTA de categorias em uma useState
       console.log(response.data) // log para sabermos o que foi pego
     } catch (error) {
@@ -112,6 +112,7 @@ function PagProdutos() {
       Alerta(1, "Campos não preenchidos");
       return;
     }
+    const fornecedorParse = JSON.parse(fornecedor)
 
     const diaDeHj = new Date();
     const diaOK = diaDeHj.toLocaleString('sv-SE').replace('T', ' ');
@@ -134,16 +135,16 @@ function PagProdutos() {
         id_usuario: User.id,
         data_movimento: diaOK,
         Mov: "E",
-        NomeCliente: fornecedor,
-        fornecedor: fornecedor
+        NomeCliente: fornecedorParse.nome,
+        fornecedor: fornecedorParse.id
       },
-      {
-        headers: {
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
-          "Accept": "application/json, text/plain, */*",
-          "Connection": "keep-alive",
-        },
-      })
+        {
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Connection": "keep-alive",
+          },
+        })
       if (response.status === 200) {
         console.log(response.data);
         Alerta(2, "Inserção realizada");
@@ -196,13 +197,13 @@ function PagProdutos() {
         codcategoria: FiltroSelecionado ? FiltroSelecionado.id_categorias : "todos", //null.id_categorias -> null
         senha: '@7h$Pz!q2X^vR1&K'
       },
-      {
-        headers: {
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
-          "Accept": "application/json, text/plain, */*",
-          "Connection": "keep-alive",
-        },
-      });
+        {
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Connection": "keep-alive",
+          },
+        });
 
       setProdutos(response.data);
       setCarregando(false);
@@ -240,7 +241,7 @@ function PagProdutos() {
 
   const MapearFornecedor = (Fornecedor) => {
     return (
-      <option value={Fornecedor.nome}>{Fornecedor.id_fornecedor} - {Fornecedor.nome}</option>
+      <option value={JSON.stringify({id: Fornecedor.id_fornecedor, nome: Fornecedor.nome})}>{Fornecedor.id_fornecedor} - {Fornecedor.nome}</option>
     );
   }
 
@@ -254,7 +255,7 @@ function PagProdutos() {
     console.log(val)
   }
 
-  const [showPopup, setShowPopup] = useState(false); 
+  const [showPopup, setShowPopup] = useState(false);
 
   return (
     <div className="Produtos">
@@ -266,15 +267,15 @@ function PagProdutos() {
         />
 
         <header className="cabecalhoBtnAjuda">
-          <div className="Botaoajuda" onClick={() => {setShowPopup(true)}}> {/*crie um botão que no onClick faz o setShowPopup ficar true*/}
+          <div className="Botaoajuda" onClick={() => { setShowPopup(true) }}> {/*crie um botão que no onClick faz o setShowPopup ficar true*/}
             Ajuda
           </div>
         </header>
 
-          <div className="BtnAjuda">
+        <div className="BtnAjuda">
           {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
             <BtnAjuda /* chama o btnAjuda */
-              fechar={() => {setShowPopup(false)}} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
+              fechar={() => { setShowPopup(false) }} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
               msgChave={"CATEGORIAS"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
             />
           )}
@@ -361,8 +362,6 @@ function PagProdutos() {
                       ) : (
                         null
                       )
-
-
                       }
                     </select>
                   </div>

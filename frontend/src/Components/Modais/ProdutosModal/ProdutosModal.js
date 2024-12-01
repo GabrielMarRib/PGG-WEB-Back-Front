@@ -457,8 +457,8 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
             <form className='formCat'>
               <select className='selectLote' onChange={(e) => setLote(e.target.value)}>
                 <option value={""}>Selecionar Lote</option>
-                {tudoOLD.numerolotes.split(',').map((lote, index) => (
-                  <option value={index}>Lote id: '{lote.trim()}' - Fornecedor: {tudoOLD.fornecedores ? tudoOLD.fornecedores.split(',')[index] : "Não possui"}</option>
+                {tudoOLD.numerolotes?.split(',')?.map((lote, index) => (
+                  <option value={index}>Lote id: '{lote?.trim()}' - Fornecedor: {tudoOLD.fornecedores ? tudoOLD?.fornecedores?.split(',')[index] : "Não possui"}</option>
                 ))}
               </select>
 
@@ -471,7 +471,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
                         cursor: 'not-allowed',
                         opacity: 2
                       }}
-                      placeholder={tudoOLD.fornecedores ? tudoOLD.fornecedores.split(',')[lote].trim() : 'Não possui'}
+                      placeholder={tudoOLD.fornecedores ? tudoOLD.fornecedores.split(',')[lote]?.trim() : 'Não possui'}
                       readOnly
                     />
                   </label>
