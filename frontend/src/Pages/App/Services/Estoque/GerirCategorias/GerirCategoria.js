@@ -92,7 +92,8 @@ function GerirCategoria() {
 
   }, []);
   useEffect(() => {
-    SetCodigoDisponivel(categorias.length + 1);
+    let maiorIdCategoria = Math.max(...categorias.map(item => parseInt(item.id_categorias)))
+    SetCodigoDisponivel(maiorIdCategoria + 1);
   }, [categorias]);
 
   useEffect(() => {
