@@ -50,4 +50,22 @@ export const checaPermissaoVisualizacao = (permissao, role, intent) =>{
     return check
 }
 
+export const checaPaiPermissao = (permissao, role, classJSON) =>{
+    const permissaoParse = JSON.parse(permissao)
+    const permissoes  = permissaoParse[role].permissoes[classJSON]
+    for (const key in permissoes) {
+        if (permissoes[key].visualizacao !== false) {  
+            return true; // viu cada um, achou um q não é false, retorna true, tem pelo menos 1 true
+        }
+    }
+
+    return false; // viu cada um, nao achou nenhum true, ou seja, nem exibe o componente filho
+}
+
+export const checaPaiPermissaoEspecifico = (permissao, role, classJSON, chave) =>{
+    const permissaoParse = JSON.parse(permissao)
+    const permissoes  = permissaoParse[role].permissoes[classJSON][chave]
+
+    return false; // viu cada um, nao achou nenhum true, ou seja, nem exibe o componente filho
+}
 

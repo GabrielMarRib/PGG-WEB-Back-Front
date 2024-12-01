@@ -1,17 +1,21 @@
 {
     "admin": {
         "permissoes": {
+            "Curva ABC":{ 
+              "Curva ABC Por Frequencia": { "visualizacao": true, "edicao": true },
+              "Curva ABC Por Valor": { "visualizacao": true, "edicao": true }
+            },
+            "Ponto de Pedido":{
+              "Página de Ponto de Pedido": { "visualizacao": true, "edicao": true }
+            },
             "Estoque": { 
                 "Adicionar Produtos": { "visualizacao": true, "edicao": true },
                 "Movimento": { "visualizacao": true, "edicao": true },
                 "Gerenciar Lotes": { "visualizacao": true, "edicao": true },
                 "Inventário": { "visualizacao": true, "edicao": true },
-                "Curva ABC": { "visualizacao": true, "edicao": true },
-                "Curva ABC Por valor": { "visualizacao": true, "edicao": true },
                 "Página de Baixa": { "visualizacao": true, "edicao": true },
                 "Upload de Excel ao estoque": { "visualizacao": true, "edicao": true },
                 "Gerenciar Categorias": { "visualizacao": true, "edicao": true },
-                "Ponto de Pedido": { "visualizacao": true, "edicao": true },
                 "Lote econômico": { "visualizacao": true, "edicao": true }
             },
             "Dashboard": {
@@ -49,49 +53,53 @@
 ,
 
 "estoque": {
-  "permissoes": {
-    "Estoque": {
-      "Adicionar Produtos": {"visualizacao": true, "edicao": true},
-      "Movimento": {"visualizacao": true, "edicao": false},
-      "Gerenciar Lotes": {"visualizacao": true, "edicao": true},
-      "Inventário": {"visualizacao": true, "edicao": true},
-      "Curva ABC": {"visualizacao": false, "edicao": false},
-      "Curva ABC Por valor": { "visualizacao": true, "edicao": true },
-      "Página de Baixa": { "visualizacao": true, "edicao": true },
-      "Upload de Excel ao estoque": {"visualizacao": false, "edicao": false},
-      "Gerenciar Categorias": {"visualizacao": false, "edicao": false},
-      "Ponto de Pedido": {"visualizacao": false, "edicao": false},
-      "Lote econômico": {"visualizacao": false, "edicao": false}
-    },
-    "Dashboard": {
-      "Página Dashboard": {"visualizacao": true, "edicao": true}
-    },
-    "Atividade Administrativa": {
-      "Histórico": {"visualizacao": false, "edicao": false},
-      "Relatórios": {"visualizacao": false, "edicao": false},
-      "Gerenciar Grupos de Acesso": {"visualizacao": false, "edicao": false},
-      "Adicionar Funcionário": {"visualizacao": false, "edicao": false},
-      "Lista de Funcionarios": {"visualizacao": false, "edicao": false}
-    },
-    "Test": {
-      "PagTeste": {"visualizacao": false, "edicao": false},
-      "TesteDashboard": {"visualizacao": false, "edicao": false},
-      "PagTesteInsercao": {"visualizacao": false, "edicao": false}
-    },
-    "Fornecedor": {
-      "Cadastrar Fornecedor": {"visualizacao": false, "edicao": false},
-      "Pesquisar Fornecedor": {"visualizacao": false, "edicao": false}
-    },
-    "Misc": {
-      "PagNavBar": {"visualizacao": true, "edicao": true},
-      "PagEscolhaCurvaABC": {"visualizacao": false, "edicao": false},
-      "PagEscolhaProdutos": {"visualizacao": true, "edicao": true},
-      "PagTesteInsercaoDD": {"visualizacao": false, "edicao": false},
-      "PagEscolhaPontoDePedido": {"visualizacao": false, "edicao": false}
-    },
-    "Perfil": {
-      "Página de Perfil": {"visualizacao": true, "edicao": true}
+        "permissoes": {
+            "Curva ABC": {
+                "Curva ABC Por Valor": { "visualizacao": false, "edicao": false },
+                "Curva ABC Por Frequencia": { "visualizacao": false, "edicao": false }
+            },
+            "Ponto de Pedido": {
+                "Página de Ponto de Pedido": { "visualizacao": false, "edicao": false }
+            },
+            "Estoque": {
+                "Adicionar Produtos": { "visualizacao": false, "edicao": false },
+                "Movimento": { "visualizacao": false, "edicao": false },
+                "Gerenciar Lotes": { "visualizacao": false, "edicao": false },
+                "Inventário": { "visualizacao": false, "edicao": false },
+                "Página de Baixa": { "visualizacao": false, "edicao": false },
+                "Upload de Excel ao estoque": { "visualizacao": false, "edicao": false },
+                "Gerenciar Categorias": { "visualizacao": false, "edicao": false },
+                "Lote econômico": { "visualizacao": false, "edicao": false }
+            },
+            "Dashboard": {
+                "Página Dashboard": { "visualizacao": true, "edicao": true }
+            },
+            "Atividade Administrativa": {
+                "Histórico": { "visualizacao": false, "edicao": false },
+                "Relatórios": { "visualizacao": false, "edicao": false },
+                "Gerenciar Grupos de Acesso": { "visualizacao": false, "edicao": false },
+                "Adicionar Funcionário": { "visualizacao": false, "edicao": false },
+                "Lista de Funcionarios": { "visualizacao": false, "edicao": false }
+            },
+            "Test": {
+                "PagTeste": { "visualizacao": false, "edicao": false },
+                "TesteDashboard": { "visualizacao": false, "edicao": false },
+                "PagTesteInsercao": { "visualizacao": false, "edicao": false }
+            },
+            "Fornecedor": {
+                "Cadastrar Fornecedor": { "visualizacao": false, "edicao": false },
+                "Pesquisar Fornecedor": { "visualizacao": false, "edicao": false }
+            },
+            "Misc": {
+                "PagNavBar": { "visualizacao": true, "edicao": true },
+                "PagEscolhaCurvaABC": { "visualizacao": true, "edicao": true },
+                "PagEscolhaProdutos": { "visualizacao": true, "edicao": true },
+                "PagTesteInsercaoDD": { "visualizacao": true, "edicao": false },
+                "PagEscolhaPontoDePedido": { "visualizacao": false, "edicao": false }
+            },
+            "Perfil": {
+                "Página de Perfil": { "visualizacao": true, "edicao": true }
+            }
+        }
     }
-  }
-}
 }

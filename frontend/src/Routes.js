@@ -92,14 +92,19 @@ function AppRoutes() {
             <Route path="/PagMovimentos" element={<PrivateRoute element={<PagMovimentos />} intent={{ class: "Estoque", intentPage: "Movimento" }} />} />
             <Route path="/PagGerirLotes" element={<PrivateRoute element={<GerirLotes />} intent={{ class: "Estoque", intentPage: "Gerenciar Lotes" }} />} />
             <Route path="/PagInventario" element={<PrivateRoute element={<PagInventario />} intent={{ class: "Estoque", intentPage: "Inventário" }} />} />
-            <Route path="/PagCurvaABC" element={<PrivateRoute element={<PagCurvaABC />} intent={{ class: "Estoque", intentPage: "Curva ABC" }} />} />
-            <Route path="/PagCurvaABCPorValor" element={<PrivateRoute element={<PagCurvaABCPorValor />} intent={{ class: "Estoque", intentPage: "Curva ABC Por valor" }} />} />
             <Route path="/PagVenderProduto" element={<PrivateRoute element={<PagVenderProduto />} intent={{ class: "Estoque", intentPage: "Página de Baixa" }} />} />
             <Route path="/PagUploadExcel" element={<PrivateRoute element={<PagUploadExcel />} intent={{ class: "Estoque", intentPage: "Upload de Excel ao estoque" }} />} />
             <Route path="/PagGerirCategoria" element={<PrivateRoute element={<GerirCategoria />} intent={{ class: "Estoque", intentPage: "Gerenciar Categorias" }} />} />
-            <Route path="/PagPontoPedido" element={<PrivateRoute element={<PagPontoPedido />} intent={{ class: "Estoque", intentPage: "Ponto de Pedido" }} />} />
+           
             <Route path="/PagLoteEconomico" element={<PrivateRoute element={<PagLoteEconomico />} intent={{ class: "Estoque", intentPage: "Lote econômico" }} />} />
 
+            {/* // Curva ABC */}
+            <Route path="/PagCurvaABC" element={<PrivateRoute element={<PagCurvaABC />} intent={{ class: "Curva ABC", intentPage: "Curva ABC Por Frequencia" }} />} />
+            <Route path="/PagCurvaABCPorValor" element={<PrivateRoute element={<PagCurvaABCPorValor />} intent={{ class: "Curva ABC", intentPage: "Curva ABC Por Valor" }} />} />
+
+            {/* // Ponto de pedido */}
+            <Route path="/PagPontoPedido" element={<PrivateRoute element={<PagPontoPedido />} intent={{ class: "Ponto de Pedido", intentPage: "Página de Ponto de Pedido" }} />} />
+            
             {/* // Fornecedor */}
             <Route path="/PagCadFornecedor" element={<PrivateRoute element={<PagCadastroFornecedor />} intent={{ class: "Fornecedor", intentPage: "Cadastrar Fornecedor" }} />} />
             <Route path="/PagPesquisaFornecedor" element={<PrivateRoute element={<PagPesquisaFornecedor />} intent={{ class: "Fornecedor", intentPage: "Pesquisar Fornecedor" }} />} />

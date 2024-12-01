@@ -19,7 +19,9 @@ import GraficoTeste from "../../../../Components/Graficos/GraficoVendaMensal/Gra
 import { UserContext } from "../../../../Context/UserContext.js";
 import OptionIcon from "../../../../Assets/OptionsWhite.png";
 import axios from "axios";
-
+import PrivateButton from "../../../../Config/PrivateButton.jsx";
+import PrivateButtonPai from "../../../../Config/PrivateButtonPai.jsx";
+import PrivateButtonSolo from "../../../../Config/PrivateButtonSolo.jsx";
 
 function PagHome() {
 
@@ -50,13 +52,13 @@ function PagHome() {
           funcao: 'pegacategorias', // dita qual função deve ser utilizada da api. (a gente te fala o nome) // ---> parâmetros da consulta... SÃO necessários.
           senha: '@7h$Pz!q2X^vR1&K' // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
         },
-        {
-          headers: {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
-            "Accept": "application/json, text/plain, */*",
-            "Connection": "keep-alive",
-          },
-        });
+          {
+            headers: {
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+              "Accept": "application/json, text/plain, */*",
+              "Connection": "keep-alive",
+            },
+          });
         console.log(response.data) // log para sabermos o que foi pego.
         setCategorias(response.data)
       } catch (error) {
@@ -73,13 +75,13 @@ function PagHome() {
           funcao: 'ObterTotaisComprasEVendas',
           senha: '@7h$Pz!q2X^vR1&K'
         },
-        {
-          headers: {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
-            "Accept": "application/json, text/plain, */*",
-            "Connection": "keep-alive",
-          },
-        });
+          {
+            headers: {
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+              "Accept": "application/json, text/plain, */*",
+              "Connection": "keep-alive",
+            },
+          });
 
         setTotalCompras(response.data.total_compras);
         setTotalVendas(response.data.total_vendas);
@@ -98,13 +100,13 @@ function PagHome() {
           funcao: 'verificaProdutosProximosVencimento',
           senha: '@7h$Pz!q2X^vR1&K'
         },
-        {
-          headers: {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
-            "Accept": "application/json, text/plain, */*",
-            "Connection": "keep-alive",
-          },
-        });
+          {
+            headers: {
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+              "Accept": "application/json, text/plain, */*",
+              "Connection": "keep-alive",
+            },
+          });
 
         if (response.data.message) {
           setProdutosProximosVencimento(response.data.message);
@@ -225,16 +227,6 @@ function PagHome() {
 
   ];
 
-  const buttons = [
-    { title: "Estoque", img: ImageCaixa, link: "/PagEscolhaProdutos" },
-    { title: "Curva ABC", img: ImageABC, link: "/PagEscolhaCurvaABC", access: 1 },
-    { title: "Ponto de Pedido", img: ImagePedido, link: "/PagPontoPedido" },
-    { title: "PEPS", img: ImagePEPS, link: "/PagMovimentos" },
-    { title: "Lote Econômico", img: ImageLote, link: "/PagLoteEconomico" },
-    { title: "Logs", img: historia, link: "/PagHistorico" },
-    { title: "Options", img: OptionIcon, link: "/PagPerfil" }
-  ];
-
   const handleResize = () => {
     setIsMobile(window.innerWidth <= 1000);
     if (window.innerWidth > 1000) {
@@ -296,6 +288,7 @@ function PagHome() {
 
 
   return (
+
     <div className="PagHome">
       {isMobile && (
         <div className="toggle-text" onClick={toggleSidebar}>
@@ -304,28 +297,18 @@ function PagHome() {
       )}
       <div className={`sidebar ${!sidebarVisible ? "hidden" : isMobile ? "overlay" : ""}`}>
         <div className="sidebar-top-buttons">
-
-
-
-
-
           <div className="btnSair" onClick={() => navigate("/PagPerfil")}>
             <img src={OptionIcon} />
           </div>
-
           <div className="btnNotificacao">
             <Notificacao />
           </div>
-
-
 
           <div className="btnSair" onClick={() => { handleLogOut(navigate); }}>
             <div id="DivNotificação">
               <img src={IconLogOut} />
             </div>
           </div>
-
-
 
         </div>
         <div className="user-info">
@@ -345,53 +328,73 @@ function PagHome() {
           />
           <span className="user-name">{User?.userData.Nome}</span>
         </div>
+
         <div className="menu">
-          <button className={isSelectEstoque ? "menu-button-Select" : "menu-button"} onClick={handleEstoqueClick}>
-            <img src={buttons[0].img} alt={buttons[0].title} className="button-image" />
-            <span className="button-title">{buttons[0].title}</span>
-          </button>
+          <PrivateButtonPai classe={"Estoque"} className={isSelectEstoque ? "menu-button-Select" : "menu-button"} onClick={handleEstoqueClick}>
+            <img src={ImageCaixa} alt={"Estoque"} className="button-image" />
+            <span className="button-title">Estoque</span>
+          </PrivateButtonPai>
+
           {showEstoqueOptions && (
             <div className="estoque-options">
-              <button className="option-button" onClick={() => navigate("/PagInventario")}>Inventário</button>
-              <button className="option-button" onClick={() => navigate("/PagProdutos")}>Gerir/Add Produtos</button>
-              <button className="option-button" onClick={() => navigate("/PagVenderProduto")}>Dar Baixa Produtos</button>
-              <button className="option-button" onClick={() => navigate("/PagGerirCategoria")}>Gerir Categorias</button>
-              <button className="option-button" onClick={() => navigate("/PagGerirLotes")}>Gerir lotes</button>
-              <button className="option-button" onClick={() => navigate("/PagMovimentos")}>Mostrar Movimentos</button>
-              <button className="option-button" onClick={() => {navigate('/PagUploadExcel') }}>Importar Planilha</button>
-              <button className="option-button" onClick={() => navigate("/PagCadFornecedor")}>Cadastro de Fornecedor</button>
-              <button className="option-button" onClick={() => navigate("/PagPesquisaFornecedor")}>Encomenda de Produtos</button>
+              <PrivateButton className="option-button" nome="Inventário" route={'/PagInventario'} intent={{ class: 'Estoque', intentPage: 'Inventário' }} />
+              <PrivateButton className="option-button" nome="Gerir/Add Produtos" route={'/PagProdutos'} intent={{ class: 'Estoque', intentPage: 'Adicionar Produtos' }} />
+              <PrivateButton className="option-button" nome="Baixa Produtos" route={'/PagVenderProduto'} intent={{ class: 'Estoque', intentPage: 'Página de Baixa' }} />
+              <PrivateButton className="option-button" nome="Gerir Categorias" route={'/PagGerirCategoria'} intent={{ class: 'Estoque', intentPage: 'Gerenciar Categorias' }} />
+              <PrivateButton className="option-button" nome="Gerir Lotes" route={'/PagGerirLotes'} intent={{ class: 'Estoque', intentPage: 'Gerenciar Lotes' }} />
+              <PrivateButton className="option-button" nome="Movimentos" route={'/PagMovimentos'} intent={{ class: 'Estoque', intentPage: 'Movimento' }} />
+              <PrivateButton className="option-button" nome="Importar Planilha" route={'/PagUploadExcel'} intent={{ class: 'Estoque', intentPage: 'Upload de Excel ao estoque' }} />
+
+              {/* not sure pq isso tá aqui, mas ok */}
+              <PrivateButton className="option-button" nome="Cadastro de Fornecedor" route={'/PagCadFornecedor'} intent={{ class: 'Fornecedor', intentPage: 'Cadastrar Fornecedor' }} />
+              <PrivateButton className="option-button" nome="Encomenda de Produtos" route={'/PagPesquisaFornecedor'} intent={{ class: 'Fornecedor', intentPage: 'Pesquisar Fornecedor' }} />
+
             </div>
           )}
 
-          <button className={isSelectCurvaAbc ? "menu-button-Select" : "menu-button"} onClick={handleABCClick}>
-            <img src={buttons[1].img} alt={buttons[1].title} className="button-image" />
-            <span className="button-title">{buttons[1].title}</span>
-          </button>
+          {/*Curva ABC: */}
+          <PrivateButtonPai classe={"Curva ABC"} className={isSelectCurvaAbc ? "menu-button-Select" : "menu-button"} onClick={handleABCClick}>
+            <img src={ImageABC} alt={"Curva ABC"} className="button-image" />
+            <span className="button-title">Curva ABC</span>
+          </PrivateButtonPai>
 
           {showABCOptions && (
             <div className="abc-options">
-              <button className="option-button" onClick={() => navigate("/PagCurvaABC")}>Por Frequência</button>
-              <button className="option-button" onClick={() => navigate("/PagCurvaABCPorValor")}>Por Valor</button>
+              <PrivateButton className="option-button" nome="Por Frequência" route={'/PagCurvaABC'} intent={{ class: 'Curva ABC', intentPage: 'Curva ABC Por Frequencia' }} />
+              <PrivateButton className="option-button" nome="Por Valor" route={'/PagCurvaABCPorValor'} intent={{ class: 'Curva ABC', intentPage: 'Curva ABC Por Valor' }} />
             </div>
           )}
 
+          <PrivateButtonPai classe={"Ponto de Pedido"} className={isSelectPontoPedido ? "menu-button-Select" : "menu-button"} onClick={handlePontoPedidoClick}>
+            <img src={ImagePedido} alt={"Ponto de Pedido"} className="button-image" />
+            <span className="button-title">Ponto de Pedido</span>
+          </PrivateButtonPai>
 
-          <button
-            className="menu-button"
-            onClick={() => navigate("/PagPontoPedido")}
-          >
-            <img src={buttons[2].img} alt={buttons[2].title} className="button-image" />
-            <span className="button-title">{buttons[2].title}</span>
+          {showPontoPedido && (
+            <div className="abc-options">
+              <PrivateButton className="option-button" nome="Página de Ponto de Pedido" route={'/PagPontoPedido'} intent={{ class: 'Ponto de Pedido', intentPage: 'Página de Ponto de Pedido' }} />
+            </div>
+          )}
+
+          <PrivateButtonSolo className={"menu-button"} route={'/PagMovimentos'} intent={{ class: 'Estoque', intentPage: 'Movimento' }}  >
+            <img src={PEPS} alt={"PEPS"} className="button-image" />
+            <span className="button-title">PEPS</span>
+          </PrivateButtonSolo>
+
+          <PrivateButtonSolo className={"menu-button"} route={'/PagLoteEconomico'} intent={{ class: 'Estoque', intentPage: 'Lote econômico' }}  >
+            <img src={ImageLote} alt={"Lote Economico"} className="button-image" />
+            <span className="button-title">Lote Economico</span>
+          </PrivateButtonSolo>
+
+          <PrivateButtonSolo className={"menu-button"} route={'/PagHistorico'} intent={{ class: 'Atividade Administrativa', intentPage: 'Histórico' }}  >
+            <img src={historia} alt={"Logs"} className="button-image" />
+            <span className="button-title">Logs</span>
+          </PrivateButtonSolo>
+
+          <button className={"menu-button"} onClick={()=>{navigate('/PagPerfil')}}>
+            <img src={OptionIcon} alt={"Logs"} className="button-image" />
+            <span className="button-title">Options</span>
           </button>
-
-          {buttons.slice(3).map((button, index) => (
-            <button key={index} className="menu-button" onClick={() => navigate(button.link)}>
-              <img src={button.img} alt={button.title} className="button-image" />
-              <span className="button-title">{button.title}</span>
-            </button>
-          ))}
-
         </div>
       </div>
 
