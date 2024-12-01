@@ -49,10 +49,12 @@
 
 .acoes-funcionarios {
     display: flex;
-    gap: 20px; /* Espaçamento entre elementos */
-    padding: 20px;
+    gap: 30px;
+    padding: 10px;
+    flex-direction: row;
+    justify-content: space-around;
     background-color: #fff;
-    border: 2px dashed #1e293b; /* Borda pontilhada */
+    border: 2px dashed #1e293b; 
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Leve sombra para destaque */
 }

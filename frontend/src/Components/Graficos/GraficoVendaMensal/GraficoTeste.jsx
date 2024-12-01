@@ -35,7 +35,7 @@ function GraficoTeste() {
         ];
         setRaw(Number(response?.data[0].max_acc_valor));
         response.data.forEach(item => {
-          const monthIndex = new Date(item.data).getMonth(); 
+          const monthIndex = new Date(item.datas).getMonth(); 
           months[monthIndex] = {
             name: months[monthIndex].name,
             receita: item.acc_valor || 0,

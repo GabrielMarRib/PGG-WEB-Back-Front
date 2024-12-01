@@ -22,7 +22,8 @@ import axios from "axios";
 import PrivateButton from "../../../../Config/PrivateButton.jsx";
 import PrivateButtonPai from "../../../../Config/PrivateButtonPai.jsx";
 import PrivateButtonSolo from "../../../../Config/PrivateButtonSolo.jsx";
-
+import PrivateComponent from "../../../../Config/PrivateComponent.jsx";
+import PrivateComponentEspecifico from "../../../../Config/PrivateComponentEspecifico.jsx";
 function PagHome() {
 
   const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
@@ -169,7 +170,8 @@ function PagHome() {
         </div>
       )
     },
-    { title: "Ponto de Pedido", content: <DashboardPP /> },
+    { title: <PrivateComponentEspecifico intent={{class: "Ponto de Pedido", intentPage: "Página de Ponto de Pedido"}}>Ponto de Pedido</PrivateComponentEspecifico> , 
+      content: <PrivateComponentEspecifico intent={{class: "Ponto de Pedido", intentPage: "Página de Ponto de Pedido"}}><DashboardPP /></PrivateComponentEspecifico> },
     {
       title: "",
       content: (

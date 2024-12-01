@@ -17,6 +17,7 @@ import Titulo from "../../../../Components/Titulo/Titulo.jsx";
 import { PermissoesContext } from "../../../../Context/PermissoesContext.js";
 import NavBar from "../../../../Components/NavBar/NavBar.js";
 import PrivateComponent from "../../../../Config/PrivateComponent.jsx";
+import PrivateButtonSolo from "../../../../Config/PrivateButtonSolo.jsx";
 
 function PagPerfil() {
     const UserOBJ = useContext(UserContext);
@@ -48,18 +49,22 @@ function PagPerfil() {
                             <div>
                                 <h2> Atividades Administrativas </h2>
                                 <div className="acoes-funcionarios">
-                                    <button className="botao-func" onClick={() => { navigate('/PagAddFunc') }}>
+
+                                    <PrivateButtonSolo className="botao-func" route={'/PagAddFunc'} intent={{ class: "Atividade Administrativa", intentPage: "Adicionar Funcionário" }}>
                                         <img src={AddPerfil} alt="Adicionar Funcionário" /> Adicionar Funcionário
-                                    </button>
-                                    <button className="botao-func" onClick={() => { navigate('/PagFuncionarios') }}>
-                                        <img src={IconListaFunc} alt="Lista de Funcionários" /> Lista de Funcionários
-                                    </button>
-                                    <button className="botao-func" onClick={() => { navigate('/PagRelatorios') }}>
+                                    </PrivateButtonSolo>
+
+                                    <PrivateButtonSolo className="botao-func" route={'/PagFuncionarios'} intent={{ class: "Atividade Administrativa", intentPage: "Lista de Funcionarios" }}>
+                                        <img src={IconListaFunc} alt="Lista de Funcionarios" /> Lista de Funcionários
+                                    </PrivateButtonSolo>
+
+                                    <PrivateButtonSolo className="botao-func" route={'/PagRelatorios'} intent={{ class: "Atividade Administrativa", intentPage: "Relatórios" }}>
                                         <img src={IconListaFunc} alt="Relatórios" /> Relatórios
-                                    </button>
-                                    <button className="botao-func" onClick={() => { navigate('/DefGrupoAcesso') }}>
+                                    </PrivateButtonSolo>
+
+                                    <PrivateButtonSolo className="botao-func" route={'/DefGrupoAcesso'} intent={{ class: "Atividade Administrativa", intentPage: "Gerenciar Grupos de Acesso" }}>
                                         <img src={grupos} alt="Grupos" /> Gerenciar Grupos de acesso
-                                    </button>
+                                    </PrivateButtonSolo>
                                 </div>
                             </div>
                         </PrivateComponent>
