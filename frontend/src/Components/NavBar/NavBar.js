@@ -35,10 +35,16 @@ const NavBar = () => {
 
   const toggleSidebar = () => {
     if (open) {
+      // Fechar todos os submenus quando a NavBar for fechada
       setSubmenuOpen(null);
+      setShowEstoqueOptions(false);
+      setShowABCOptions(false);
+      setshowPontoPedido(false);
+      setshowAdmin(false);
     }
     setOpen(!open);
   };
+  
 
   const handleEstoqueClick = () => {
     if (!open) return;  // Impede que o submenu seja aberto se a navbar estiver fechada
