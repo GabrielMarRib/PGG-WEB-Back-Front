@@ -92,8 +92,12 @@ function GerirCategoria() {
 
   }, []);
   useEffect(() => {
-    let maiorIdCategoria = Math.max(...categorias.map(item => parseInt(item.id_categorias)))
-    SetCodigoDisponivel(maiorIdCategoria + 1);
+    if(categorias.length == 0){
+      SetCodigoDisponivel(0)
+    }else{
+      let maiorIdCategoria = Math.max(...categorias.map(item => parseInt(item.id_categorias)))
+      SetCodigoDisponivel(maiorIdCategoria + 1);
+    }
   }, [categorias]);
 
   useEffect(() => {
@@ -507,7 +511,13 @@ function GerirCategoria() {
           {carregando ? ( // Renderização condicional baseada no estado de carregamento
             <p>Carregando...</p>
           ) : (
-            <ul>{categorias.map(MapearCategorias)}</ul>
+            categorias.length == 0 ? 
+              <>
+              Nenhuma categoria criada
+              </>
+             : 
+              <ul>{categorias.map(MapearCategorias)}</ul>
+            
           )}
         </div>
       </div>
