@@ -51,25 +51,26 @@ function PagPerfil() {
                                 <h2> Atividades Administrativas </h2>
                                 <div className="acoes-funcionarios">
 
-                                    <PrivateButtonSolo className="botao-func" route={'/PagAddFunc'} intent={{ class: "Atividade Administrativa", intentPage: "Adicionar Funcionário" }}>
-                                        <img src={AddPerfil} alt="Adicionar Funcionário" /> Adicionar Funcionário
-                                    </PrivateButtonSolo>
-
-                                    <PrivateButtonSolo className="botao-func" route={'/PagHistorico'} intent={{ class: "Atividade Administrativa", intentPage: "Histórico" }}>
-                                        <img src={historia} alt="Histórico" /> Logs
+                                    <PrivateButtonSolo className="botao-func" route={'/PagRelatorios'} intent={{ class: "Atividade Administrativa", intentPage: "Relatórios" }}>
+                                        <img src={IconListaFunc} alt="Relatórios" /> Relatórios
                                     </PrivateButtonSolo>
 
                                     <PrivateButtonSolo className="botao-func" route={'/PagFuncionarios'} intent={{ class: "Atividade Administrativa", intentPage: "Lista de Funcionarios" }}>
                                         <img src={IconListaFunc} alt="Lista de Funcionarios" /> Lista de Funcionários
                                     </PrivateButtonSolo>
 
-                                    <PrivateButtonSolo className="botao-func" route={'/PagRelatorios'} intent={{ class: "Atividade Administrativa", intentPage: "Relatórios" }}>
-                                        <img src={IconListaFunc} alt="Relatórios" /> Relatórios
+                                    <PrivateButtonSolo className="botao-func" route={'/PagAddFunc'} intent={{ class: "Atividade Administrativa", intentPage: "Adicionar Funcionário" }}>
+                                        <img src={AddPerfil} alt="Adicionar Funcionário" /> Adicionar Funcionário
                                     </PrivateButtonSolo>
 
                                     <PrivateButtonSolo className="botao-func" route={'/DefGrupoAcesso'} intent={{ class: "Atividade Administrativa", intentPage: "Gerenciar Grupos de Acesso" }}>
                                         <img src={grupos} alt="Grupos" /> Gerenciar Grupos de acesso
                                     </PrivateButtonSolo>
+
+                                    <PrivateButtonSolo className="botao-func" route={'/PagHistorico'} intent={{ class: "Atividade Administrativa", intentPage: "Histórico" }}>
+                                        <img src={historia} alt="Histórico" /> Logs
+                                    </PrivateButtonSolo>
+
                                 </div>
                             </div>
                         </PrivateComponent>
