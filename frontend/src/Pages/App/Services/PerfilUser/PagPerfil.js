@@ -8,6 +8,7 @@ import Telefone from '../../../../Assets/userProfile/TELEFONE.png';
 import Cpf from '../../../../Assets/userProfile/CPF.png';
 import excel from '../../../../Assets/excel.png';
 import pessoas from '../../../../Assets/pessoas.png';
+import historia from '../../../../Assets/historia.png';
 import grupos from '../../../../Assets/grupos.png';
 import AddPerfil from '../../../../Assets/add-userWhite.png';
 import IconListaFunc from '../../../../Assets/ListaFunc.png';
@@ -52,6 +53,10 @@ function PagPerfil() {
 
                                     <PrivateButtonSolo className="botao-func" route={'/PagAddFunc'} intent={{ class: "Atividade Administrativa", intentPage: "Adicionar Funcionário" }}>
                                         <img src={AddPerfil} alt="Adicionar Funcionário" /> Adicionar Funcionário
+                                    </PrivateButtonSolo>
+
+                                    <PrivateButtonSolo className="botao-func" route={'/PagHistorico'} intent={{ class: "Atividade Administrativa", intentPage: "Histórico" }}>
+                                        <img src={historia} alt="Histórico" /> Logs
                                     </PrivateButtonSolo>
 
                                     <PrivateButtonSolo className="botao-func" route={'/PagFuncionarios'} intent={{ class: "Atividade Administrativa", intentPage: "Lista de Funcionarios" }}>
