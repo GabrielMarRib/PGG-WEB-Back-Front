@@ -41,6 +41,7 @@ const PagMovimentos = () => {
         const movimentosData = response.data;
         setMovimentos(movimentosData);
         setMovimentosFiltrados(movimentosData);
+        console.log(movimentosData)
 
         const codigos = [...new Set(movimentosData.map(mov => mov.produto))];
         setCodigosUnicos(codigos);
@@ -155,10 +156,10 @@ const PagMovimentos = () => {
       ValorTotal = Movimento.qtde * Movimento.valor
       idProduto = Movimento.produto
       CustoMedio = ValorTotal / QuantidadeTotal
-
+      console.log(Movimento.datas)
       return (
         <tr key={Movimento.id_mov}>
-          <td>{Movimento.data}</td>
+          <td>{Movimento.datas}</td>
           <td>{Movimento.produtosNome}</td>
           <td>{Movimento.Autor}</td>
           <td>{Movimento.mov}</td>
@@ -185,7 +186,7 @@ const PagMovimentos = () => {
 
         return (
           <tr key={Movimento.id_mov}>
-            <td>{Movimento.data}</td>
+            <td>{Movimento.datas}</td>
             <td>{Movimento.produtosNome}</td>
             <td>{Movimento.Autor}</td>
             <td>{Movimento.mov}</td>
@@ -204,7 +205,7 @@ const PagMovimentos = () => {
 
         return (
           <tr key={Movimento.id_mov}>
-            <td>{Movimento.data}</td>
+            <td>{Movimento.datas}</td>
             <td>{Movimento.produtosNome}</td>
             <td>{Movimento.Autor}</td>
             <td>{Movimento.mov}</td>
@@ -292,7 +293,7 @@ const PagMovimentos = () => {
           <>
             <td>{movTraduzido.produto}</td>
             <td>{movTraduzido.produtosNome}</td>
-            <td>{movTraduzido.data}</td>
+            <td>{movTraduzido.datas}</td>
             <td>{movTraduzido.qtde}</td>
             <td>{movTraduzido.valor}</td>
             <td>{movTraduzido.mov}</td>

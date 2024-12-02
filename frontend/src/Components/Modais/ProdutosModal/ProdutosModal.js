@@ -221,7 +221,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
               <li
                 key={produto.id_produtos}
                 style={{
-                  color: produto.id_produtos === produtoOBJ.id_produtos ? '#191970' : 'inherit'
+                  color: produto.id_produtos === produtoOBJ.id_produtos ? '#dc430c' : 'inherit'
                 }}
               >
                 {produto.id_produtos === produtoOBJ.id_produtos ? produto.nome + " (produto selecionado)" : produto.nome}

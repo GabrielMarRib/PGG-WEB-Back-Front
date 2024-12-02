@@ -124,21 +124,23 @@ function PagHome() {
     {
       title: "",
       content: (
-        <div className="card">
-          <h3 className="card-title">Importar Planilha Excel</h3>
-          <p className="card-text">
-            <span className="destaque-texto">Novo!</span> Importe seus dados do excel de maneira fácil e rápida.
-          </p>
-          <center>
-            <center><img src={ExcelIcon} className="button-image" style={{ height: '50px', width: '50px' }} /> </center>
-            <button
-              onClick={() => navigate("/PagUploadExcel")}
-              className="btn-padrao"
-            >
-              Iniciar Importação
-            </button>
-          </center>
-        </div>
+        <PrivateComponentEspecifico intent={{ class: "Estoque", intentPage: "Upload de Excel ao estoque" }}>
+          <div className="card">
+            <h3 className="card-title">Importar Planilha Excel</h3>
+            <p className="card-text">
+              <span className="destaque-texto">Novo!</span> Importe seus dados do excel de maneira fácil e rápida.
+            </p>
+            <center>
+              <center><img src={ExcelIcon} className="button-image" style={{ height: '50px', width: '50px' }} /> </center>
+              <button
+                onClick={() => navigate("/PagUploadExcel")}
+                className="btn-padrao"
+              >
+                Iniciar Importação
+              </button>
+            </center>
+          </div>
+        </PrivateComponentEspecifico>
       )
     },
     {
@@ -153,43 +155,49 @@ function PagHome() {
     {
       title: "",
       content: (
-        <div className="card">
-          <h3 className="card-title">Cálculo do Custo Médio</h3>
-          <p className="card-text">
-            Selecione "Custo Médio" no filtro e o produto para ver o cálculo com base nos movimentos.
-          </p>
-          <center><img src={custoMedio} className="button-image" style={{ height: '50px', width: '50px' }} /> </center>
-          <center>
-            <button
-              onClick={() => navigate("/PagMovimentos")}
-              className="btn-padrao"
-            >
-              Ir para Movimentos
-            </button>
-          </center>
-        </div>
+        <PrivateComponentEspecifico intent={{ class: "Estoque", intentPage: "Movimento" }}>
+          <div className="card">
+            <h3 className="card-title">Cálculo do Custo Médio</h3>
+            <p className="card-text">
+              Selecione "Custo Médio" no filtro e o produto para ver o cálculo com base nos movimentos.
+            </p>
+            <center><img src={custoMedio} className="button-image" style={{ height: '50px', width: '50px' }} /> </center>
+            <center>
+              <button
+                onClick={() => navigate("/PagMovimentos")}
+                className="btn-padrao"
+              >
+                Ir para Movimentos
+              </button>
+            </center>
+          </div>
+        </PrivateComponentEspecifico>
       )
     },
-    { title: <PrivateComponentEspecifico intent={{class: "Ponto de Pedido", intentPage: "Página de Ponto de Pedido"}}>Ponto de Pedido</PrivateComponentEspecifico> , 
-      content: <PrivateComponentEspecifico intent={{class: "Ponto de Pedido", intentPage: "Página de Ponto de Pedido"}}><DashboardPP /></PrivateComponentEspecifico> },
+    {
+      title: <PrivateComponentEspecifico intent={{ class: "Ponto de Pedido", intentPage: "Página de Ponto de Pedido" }}>Ponto de Pedido</PrivateComponentEspecifico>,
+      content: <PrivateComponentEspecifico intent={{ class: "Ponto de Pedido", intentPage: "Página de Ponto de Pedido" }}><DashboardPP /></PrivateComponentEspecifico>
+    },
     {
       title: "",
       content: (
-        <div className="card">
-          <h3 className="card-title">Cálculo PEPS</h3>
-          <p className="card-text">
-            Selecione "PEPS" no filtro e o produto para ver o cálculo baseado no método de Primeiro a Entrar, Primeiro a Sair.
-          </p>
-          <center><img src={PEPS} className="button-image" style={{ height: '50px', width: '50px' }} /> </center>
-          <center>
-            <button
-              onClick={() => navigate("/PagMovimentos")}
-              className="btn-padrao"
-            >
-              Ir para Movimentos
-            </button>
-          </center>
-        </div>
+        <PrivateComponentEspecifico intent={{ class: "Estoque", intentPage: "Movimento" }}>
+          <div className="card">
+            <h3 className="card-title">Cálculo PEPS</h3>
+            <p className="card-text">
+              Selecione "PEPS" no filtro e o produto para ver o cálculo baseado no método de Primeiro a Entrar, Primeiro a Sair.
+            </p>
+            <center><img src={PEPS} className="button-image" style={{ height: '50px', width: '50px' }} /> </center>
+            <center>
+              <button
+                onClick={() => navigate("/PagMovimentos")}
+                className="btn-padrao"
+              >
+                Ir para Movimentos
+              </button>
+            </center>
+          </div>
+        </PrivateComponentEspecifico>
       )
     },
     {
@@ -299,14 +307,14 @@ function PagHome() {
       )}
       <div className={`sidebar ${!sidebarVisible ? "hidden" : isMobile ? "overlay" : ""}`}>
         <div className="sidebar-top-buttons">
-          <div className="btnSair" style={{cursor: 'pointer'}} onClick={() => navigate("/PagPerfil")}>
+          <div className="btnSair" style={{ cursor: 'pointer' }} onClick={() => navigate("/PagPerfil")}>
             <img src={OptionIcon} />
           </div>
           <div className="btnNotificacao">
             <Notificacao />
           </div>
 
-          <div className="btnSair" style={{cursor: 'pointer'}} onClick={() => { handleLogOut(navigate); }}>
+          <div className="btnSair" style={{ cursor: 'pointer' }} onClick={() => { handleLogOut(navigate); }}>
             <div id="DivNotificação">
               <img src={IconLogOut} />
             </div>
@@ -393,7 +401,7 @@ function PagHome() {
             <span className="button-title">Logs</span>
           </PrivateButtonSolo>
 
-          <button className={"menu-button"}  onClick={() => { navigate('/PagPerfil') }}>
+          <button className={"menu-button"} onClick={() => { navigate('/PagPerfil') }}>
             <img src={OptionIcon} alt={"Logs"} className="button-image" />
             <span className="button-title">Options</span>
           </button>
@@ -417,6 +425,7 @@ function PagHome() {
             >
               <h2>{section.title}</h2>
               <p>{section.content}</p>
+
               {section.isChart && <div className="chart-placeholder"><GraficoTeste></GraficoTeste></div>}
             </div>
           ))}

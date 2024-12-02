@@ -365,7 +365,7 @@ function GerirLotes() {
               )
              )
           ) : (
-            <p>Nenhum lote disponível ou ocorreu um problema.</p> // Mostra caso n tenha porra nenhuma no blg lá
+            <p>Nenhum lote cadastrado...</p> // Mostra caso n tenha porra nenhuma no blg lá
           )}
         </div>
       </div>

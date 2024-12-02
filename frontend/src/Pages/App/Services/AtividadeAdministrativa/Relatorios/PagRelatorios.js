@@ -326,6 +326,8 @@ function PagRelatorios() {
                         </div>
                     ) : (
                         <div className="EspacoReservado">
+                            <br></br>
+                            <br></br>
                             Selecione um relatório para ver as informações...
                         </div>
                     )}

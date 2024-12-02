@@ -59,7 +59,6 @@ function PagUploadExcel() {
             }
         } catch (error) {
             console.log("Erro ao buscar importações:", error.response ? error.response.data : error.message);
-            Alerta(3, "Erro ao carregar as importações. Tente novamente mais tarde.");
         } finally {
             setCarregando(false);
         }

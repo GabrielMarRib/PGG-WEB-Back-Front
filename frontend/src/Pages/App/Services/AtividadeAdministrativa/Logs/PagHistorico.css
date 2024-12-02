@@ -10,7 +10,7 @@
     margin-bottom: 20px;
 }
 
-.PagHistorico button {
+.PagHistorico .button {
     padding: 10px 20px;
     border-radius: 3px;
     background-color: #e04d18;
@@ -98,6 +98,7 @@
 .PagHistorico .tag-novos {
     background-color: #32cd32; 
 }
+
 
 @media (max-width: 768px) {
     .PagHistorico .historicoVendas {

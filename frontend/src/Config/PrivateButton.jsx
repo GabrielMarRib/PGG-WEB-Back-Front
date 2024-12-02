@@ -3,6 +3,7 @@ import { checaPermissaoVisualizacao } from './Permissoes'
 import { PermissoesContext } from '../Context/PermissoesContext'
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import "../Components/NavBar/NavBar.css";
 
 function PrivateButton({ route, intent, className, nome, ...rest }) {
   const { Permissoes, isLoadingP } = useContext(PermissoesContext)

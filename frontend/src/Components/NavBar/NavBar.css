@@ -1,5 +1,5 @@
 /* General layout and transitions */
-.principalOpen {
+.nav-container .principalOpen {
   display: flex;
   height: 100vh;
   overflow: hidden;
@@ -9,7 +9,8 @@
   width: 18rem; /* Largura inicial da sidebar */
   z-index: 100; /* Certifica-se que fique sobre o conteúdo */
 }
-.principalClosed {
+
+.nav-container .principalClosed {
   display: flex;
   height: 100vh;
   overflow: hidden;
@@ -18,10 +19,10 @@
   left: 0;
   width: 5rem; /* Largura inicial da sidebar */
   z-index: 100; /* Certifica-se que fique sobre o conteúdo */
-   transition: 0.5s ease-in;
+  transition: 0.5s ease-in;
 }
 
-.nav-container-open{
+.nav-container-open {
   display: flex;
   height: 100vh;
   overflow: hidden;
@@ -149,11 +150,12 @@
   list-style: none;
   padding: 0;
   margin-left: 0;
+  margin-bottom: 0px;
 }
 
 .nav-container .menu-item {
   display: flex;
-  align-items: center;
+  align-items: left;
   justify-content: space-between; /* Distribui texto e ícone quando aberto */
   padding: 0.75rem 1rem;
   cursor: pointer;
@@ -161,12 +163,14 @@
 }
 
 .nav-container .sidebar.collapsed .menu-item {
-  justify-content: center; /* Centraliza o ícone quando fechado */
+  pointer-events: none;
+  opacity: 0.5;  /* Torna o item menos visível quando a navbar estiver fechada */
 }
 
 .nav-container .menu-item:hover {
   background-color: #fa871b;
 }
+
 
 .nav-container .menu-icon {
   font-size: 1.5rem;
@@ -254,3 +258,217 @@
   height: 30px;
   width: 30px;
 }
+
+/* Estilo para o PrivateButtonPai */
+.nav-container .private-button-pai {
+  background-color: #ff9b3f; /* Garante que o rodapé seja visível */
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: flex;
+  align-items: left;
+  justify-content: center;
+  width: 100%;
+}
+
+.nav-container .private-button-pai:hover {
+  background-color: #fa871b;
+  transform: scale(1.05); /* Suave efeito de zoom */
+}
+
+.nav-container .private-button-pai:focus {
+  outline: none; /* Remove o contorno ao focar */
+}
+
+.nav-container .private-button-pai:disabled {
+  background-color: #d1d1d1;
+  cursor: not-allowed;
+}
+
+/* Adicionando classe para ajustes de tamanho no PrivateButtonPai */
+.nav-container .private-button-pai.small {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.nav-container .private-button-pai.large {
+  padding: 1rem 2rem;
+  font-size: 1.25rem;
+}
+
+/* Estilos para os botões de estoque */
+.nav-container .estoque-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0rem; /* Espaçamento entre os botões */
+  justify-content: flex-start; /* Garante que os itens fiquem alinhados à esquerda */
+  text-align: left; /* Alinha o texto à esquerda */
+}
+
+.nav-container .estoque-options .option-button {
+  background-color: #ff9b3f;
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+}
+
+.nav-container .estoque-options .option-button:hover {
+  background-color: #fa871b;
+  transform: scale(1.05); /* Suave efeito de zoom */
+}
+
+.nav-container .estoque-options .option-button:focus {
+  outline: none; /* Remove o contorno ao focar */
+}
+
+.nav-container .estoque-options .option-button:disabled {
+  background-color: #d1d1d1;
+  cursor: not-allowed;
+}
+
+/* Estilo para os PrivateButtonSolo */
+.nav-container .menu-button {
+  background-color: #ff9b3f;
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: flex;
+  align-items: left;
+  justify-content: left;
+  width: 100%;
+}
+
+.nav-container .menu-button {
+  background-color: #ff9b3f;
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center; /* Manter o alinhamento vertical centrado */
+  justify-content: left; /* Padrão, quando a navbar está fechada */
+  width: 100%;
+}
+
+.nav-container .menu-button.center {
+  justify-content: left; /* Alinha ao centro quando a navbar está aberta */
+}
+
+.nav-container .menu-button.left {
+  justify-content: center; /* Alinha à esquerda quando a navbar está fechada */
+}
+
+
+.nav-container .menu-button:hover {
+  background-color: #fa871b;
+  transform: scale(1.05); /* Suave efeito de zoom */
+}
+
+.nav-container .menu-button:focus {
+  outline: none; /* Remove o contorno ao focar */
+}
+
+.nav-container .menu-button:disabled {
+  background-color: #d1d1d1;
+  cursor: not-allowed;
+}
+
+.nav-container .abc-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0rem; /* Espaçamento entre os botões */
+  justify-content: flex-start; /* Garante que os itens fiquem alinhados à esquerda */
+  text-align: left; /* Alinha o texto à esquerda */
+}
+
+.nav-container .abc-options .option-button {
+  background-color: #ff9b3f;
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+}
+
+.nav-container .abc-options .option-button:hover {
+  background-color: #fa871b;
+  transform: scale(1.05); /* Suave efeito de zoom */
+}
+
+.nav-container .abc-options .option-button:focus {
+  outline: none; /* Remove o contorno ao focar */
+}
+
+.nav-container .abc-options .option-button:disabled {
+  background-color: #d1d1d1;
+  cursor: not-allowed;
+}
+
+/* Submenu Arrow */
+.nav-container .submenu-icon {
+  font-size: 1rem;
+  margin-left: auto; /* Posiciona o ícone à direita */
+  transition: transform 0.3s ease; /* Adiciona transição para a rotação */
+}
+
+.nav-container .submenu-icon.rotated {
+  transform: rotate(180deg); /* Rota a seta quando o item está selecionado */
+}
+
+
+/* Restante do código para os botões */
+.nav-container .estoque-options .option-button,
+.nav-container .abc-options .option-button {
+  background-color: #ff9b3f;
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 89%;
+  margin-left: 1rem;
+  text-align: left; /* Garantir que o texto dentro do botão também esteja alinhado à esquerda */
+}
+
+.nav-container .estoque-options .option-button:hover,
+.nav-container .abc-options .option-button:hover {
+  background-color: #fa871b;
+  transform: scale(1.05); /* Suave efeito de zoom */
+}
+
+.nav-container .estoque-options .option-button:focus,
+.nav-container .abc-options .option-button:focus {
+  outline: none; /* Remove o contorno ao focar */
+}
+
+.nav-container .estoque-options .option-button:disabled,
+.nav-container .abc-options .option-button:disabled {
+  background-color: #d1d1d1;
+  cursor: not-allowed;
+}
+
+.nav-container input::placeholder {
+  color: rgb(255, 255, 255); /* Substitua 'gray' pela cor que você deseja */
+}
+

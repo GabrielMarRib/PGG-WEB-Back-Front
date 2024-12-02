@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
-
+import { pegaPermissoesWHERE } from '../Config/Permissoes';
 export const PermissoesContext = createContext();
 
 export const PermissoesContextProvider = ({ children }) => {
@@ -7,6 +7,7 @@ export const PermissoesContextProvider = ({ children }) => {
   const [isLoadingP, setIsLoadingP] = useState(true);
 
   useEffect(() => {
+
     const savedPermissoes = localStorage.getItem('Permissoes');
     console.log("LocalStorage: " + savedPermissoes);
     if (savedPermissoes) {

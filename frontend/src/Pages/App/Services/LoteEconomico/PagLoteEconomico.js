@@ -73,13 +73,13 @@ function PagLoteEconomico() {
         periodo: periodo,
         idProduto,
       },
-      {
-        headers: {
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
-          "Accept": "application/json, text/plain, */*",
-          "Connection": "keep-alive",
-        },
-      });
+        {
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Connection": "keep-alive",
+          },
+        });
 
       Alerta(2, "Dados Atualizados");
       setValor_despesas_Anuais('');
@@ -101,7 +101,7 @@ function PagLoteEconomico() {
     setItemAtual(item);
     setIdProduto(hashAtual);
   };
-  
+
   const FecharJanela = () => {
     setIsVisibleForms(!isVisibleForms);
   };
@@ -109,7 +109,7 @@ function PagLoteEconomico() {
   const pegaProdutos = (item) => {
     let CP = item.custoPedido === null ? "Nenhum valor ainda" : Math.sqrt(item.custoPedido).toFixed(2);
     let CA = item.custoArmazem === null ? "Nenhum valor ainda" : Math.sqrt(item.custoArmazem).toFixed(2);
-    let LE = item.calculoLote === null ? "Nenhum valor ainda" : Math.sqrt(item.calculoLote).toFixed(2); 
+    let LE = item.calculoLote === null ? "Nenhum valor ainda" : Math.sqrt(item.calculoLote).toFixed(2);
 
     return (
       <div key={item.idProduto} className="DivsItens">
@@ -147,13 +147,13 @@ function PagLoteEconomico() {
         funcao: "pegaDadosLoteEconomico",
         senha: "@7h$Pz!q2X^vR1&K",
       },
-      {
-        headers: {
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
-          "Accept": "application/json, text/plain, */*",
-          "Connection": "keep-alive",
-        },
-      });
+        {
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Connection": "keep-alive",
+          },
+        });
       if (response.status === 200) {
         setDadosLoteEconomico(response.data);
       } else {
@@ -178,19 +178,19 @@ function PagLoteEconomico() {
       <Titulo tituloMsg='Gestão do Lote Econômico' />
 
       <header className="cabecalhoBtnAjuda">
-          <div className="Botaoajuda" onClick={() => {setShowPopup(true)}}> {/*crie um botão que no onClick faz o setShowPopup ficar true */}
+        <div className="Botaoajuda" onClick={() => { setShowPopup(true) }}> {/*crie um botão que no onClick faz o setShowPopup ficar true */}
           Ajuda
-          </div>
-        </header>
+        </div>
+      </header>
 
-        <div className="BtnAjuda">
-          {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
-            <BtnAjuda /* chama o btnAjuda */
-              fechar={() => {setShowPopup(false)}} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
-              msgChave={"GESTAOLOTEECONOMICO"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
-            />
-          )}
-        </div> 
+      <div className="BtnAjuda">
+        {showPopup && ( // showPopup && significa: se tiver showPopup (no caso, se for true), faz isso ai embaixo:
+          <BtnAjuda /* chama o btnAjuda */
+            fechar={() => { setShowPopup(false) }} // props do bixo: fechar (passa o setshowPopup como false) (será executado quando a função fechar for chamada no componente btnAjuda)
+            msgChave={"GESTAOLOTEECONOMICO"}                   // passa a chave que dita a msg no componente (veja as chaves válidas no componente)
+          />
+        )}
+      </div>
       <div className="btn">
       </div>
       <div className="ConteudoDaPagina">
@@ -207,16 +207,24 @@ function PagLoteEconomico() {
             />
           </div>
 
-          <ul className="lista-produtos">
-            {produtosFiltrados.map(pegaProdutos)}
-          </ul>
+          <div className="lista-produtos">
+            {produtosFiltrados.length > 0 ? (
+              <ul>
+                {produtosFiltrados.map(pegaProdutos)}
+              </ul>
+            ) : (
+              <p className="mensagem-sem-lotes">Nenhum lote econômico cadastrado...</p>
+            )}
+          </div>
         </div>
 
         <div className={isVisibleForms ? "ContainerFormularioLoteEconomicoShow" : "ContainerFormularioLoteEconomico"}>
           <div className="container-tela-produtos">
             <div className="grupo-input-produto">
               <center>
-                <h2>Lote Economico: {ItemAtual}</h2>
+                <h2>
+                  Lote Economico: <span className="h2loteEco">"{ItemAtual}"</span>
+                </h2>
               </center>
 
               <div className="grupo-input">
@@ -270,8 +278,8 @@ function PagLoteEconomico() {
                 />
               </div>
               <div className="AtuaFechar">
-              <button onClick={CalcularLoteEconomico}>Atualizar</button>
-              <button onClick={() => FecharJanela()} >fechar</button>
+                <button onClick={CalcularLoteEconomico}>Atualizar</button>
+                <button onClick={() => FecharJanela()} >fechar</button>
               </div>
             </div>
           </div>
