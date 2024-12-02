@@ -31,6 +31,8 @@ const NavBar = () => {
   const [showAdmin, setshowAdmin] = useState(false);
   const [isSelectAdmin, setisSelectAdmin] = useState(false);
 
+  
+
   const toggleSidebar = () => {
     if (open) {
       setSubmenuOpen(null);
@@ -39,21 +41,26 @@ const NavBar = () => {
   };
 
   const handleEstoqueClick = () => {
-    setisSelectEstoque(prevState => !prevState)
+    if (!open) return;  // Impede que o submenu seja aberto se a navbar estiver fechada
+    setisSelectEstoque(prevState => !prevState);
     setShowEstoqueOptions(!showEstoqueOptions);
-  }
-
+  };
+  
   const handleABCClick = () => {
-    setisSelectCurvaAbc(prevState => !prevState)
+    if (!open) return;  // Impede que o submenu seja aberto se a navbar estiver fechada
+    setisSelectCurvaAbc(prevState => !prevState);
     setShowABCOptions(!showABCOptions);
   };
-
+  
   const handlePontoPedidoClick = () => {
-    setisSelectPontoPedido(prevState => !prevState)
+    if (!open) return;  // Impede que o submenu seja aberto se a navbar estiver fechada
+    setisSelectPontoPedido(prevState => !prevState);
     setshowPontoPedido(!showPontoPedido);
   };
+  
   const handleAdminClick = () => {
-    setisSelectAdmin(prevState => !prevState)
+    if (!open) return;  // Impede que o submenu seja aberto se a navbar estiver fechada
+    setisSelectAdmin(prevState => !prevState);
     setshowAdmin(!showAdmin);
   };
 
@@ -87,13 +94,20 @@ const NavBar = () => {
           </div>
           <ul className="menu-list">
 
-          <PrivateButtonSolo className={"menu-button"} route={'/PagHome'} intent={{ class: 'Dashboard', intentPage: 'Página Dashboard' }}  >
-            <span className="button-title">Home</span>
+          <PrivateButtonSolo 
+            className={`menu-button ${open ? "center" : "left"}`} // Condicionalmente adicionando as classes "center" ou "left" 
+            route={'/PagHome'} 
+            intent={{ class: 'Dashboard', intentPage: 'Página Dashboard' }}  
+          >
+            {open ? <span className="button-title">Home</span> : <RiDashboardFill />}
           </PrivateButtonSolo>
 
-            <PrivateButtonPai classe={"Estoque"} className={""} onClick={handleEstoqueClick}>
-              <span className="button-title">Estoque</span>
-            </PrivateButtonPai>
+          <PrivateButtonPai classe={"Estoque"} className={""} onClick={handleEstoqueClick}>
+          {open ? <span className="button-title">Estoque</span> : <RiDashboardFill />}
+            <BsChevronDown
+              className={`submenu-icon ${isSelectEstoque ? "rotated" : ""}`}
+            />
+          </PrivateButtonPai>
 
             {showEstoqueOptions && (
               <div className="estoque-options">
@@ -115,7 +129,10 @@ const NavBar = () => {
 
             {/*Curva ABC: */}
             <PrivateButtonPai classe={"Curva ABC"} className={""} onClick={handleABCClick}>
-              <span className="button-title">Curva ABC</span>
+            {open ? <span className="button-title">Curva ABC</span> : <RiDashboardFill />}
+              <BsChevronDown
+                className={`submenu-icon ${isSelectCurvaAbc ? "rotated" : ""}`}
+              />
             </PrivateButtonPai>
 
             {showABCOptions && (
@@ -129,8 +146,12 @@ const NavBar = () => {
 
           {/*Ponto de Pedido: */}
           <PrivateButtonPai classe={"Ponto de Pedido"} className={""} onClick={handlePontoPedidoClick}>
-            <span className="button-title">Ponto de Pedido</span>
+          {open ? <span className="button-title">Ponto de Pedido</span> : <RiDashboardFill />}
+            <BsChevronDown
+              className={`submenu-icon ${isSelectPontoPedido ? "rotated" : ""}`}
+            />
           </PrivateButtonPai>
+
 
           {showPontoPedido && (
             <div className="abc-options">
@@ -141,26 +162,31 @@ const NavBar = () => {
 
 
           {/* botoes sem pai: */}
-          <PrivateButtonSolo className={"menu-button"} route={'/PagMovimentos'} intent={{ class: 'Estoque', intentPage: 'Movimento' }}  >
-            <span className="button-title">PEPS</span>
+          {/* Botões sem pai */}
+          <PrivateButtonSolo className={`menu-button ${open ? "center" : "left"}`} route={'/PagMovimentos'} intent={{ class: 'Estoque', intentPage: 'Movimento' }} >
+            {open ? <span className="button-title">PEPS</span> : <RiDashboardFill />}
           </PrivateButtonSolo>
 
-          <PrivateButtonSolo className={"menu-button"} route={'/PagLoteEconomico'} intent={{ class: 'Estoque', intentPage: 'Lote econômico' }}  >
-            <span className="button-title">Lote Economico</span>
+          <PrivateButtonSolo className={`menu-button ${open ? "center" : "left"}`} route={'/PagLoteEconomico'} intent={{ class: 'Estoque', intentPage: 'Lote econômico' }} >
+            {open ? <span className="button-title">Lote Economico</span> : <RiDashboardFill />}
           </PrivateButtonSolo>
 
-          <PrivateButtonSolo className={"menu-button"} route={'/PagHistorico'} intent={{ class: 'Atividade Administrativa', intentPage: 'Histórico' }}  >
-            <span className="button-title">Logs</span>
+          <PrivateButtonSolo className={`menu-button ${open ? "center" : "left"}`} route={'/PagHistorico'} intent={{ class: 'Atividade Administrativa', intentPage: 'Histórico' }} >
+            {open ? <span className="button-title">Logs</span> : <RiDashboardFill />}
           </PrivateButtonSolo>
 
-          <PrivateButtonSolo className={"menu-button"} route={'/PagPerfil'} intent={{ class: 'Perfil', intentPage: 'Página de Perfil' }}  >
-            <span className="button-title">Suas informações</span>
+          <PrivateButtonSolo className={`menu-button ${open ? "center" : "left"}`} route={'/PagPerfil'} intent={{ class: 'Perfil', intentPage: 'Página de Perfil' }}>
+            {open ? <span className="button-title">Suas Informações</span> : <RiDashboardFill />}
           </PrivateButtonSolo>
+
 
 
           {/*Atividade Admin: */}
           <PrivateButtonPai classe={"Atividade Administrativa"} className={""} onClick={handleAdminClick}>
-            <span className="button-title">Atividade Administrativa</span>
+          {open ? <span className="button-title">Atividade Administrativa</span> : <RiDashboardFill />}
+            <BsChevronDown
+              className={`submenu-icon ${isSelectAdmin ? "rotated" : ""}`}
+            />
           </PrivateButtonPai>
 
           {showAdmin && (

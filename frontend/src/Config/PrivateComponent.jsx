@@ -3,6 +3,8 @@ import { checaPaiPermissao } from './Permissoes'
 import { PermissoesContext } from '../Context/PermissoesContext'
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import "../Components/NavBar/NavBar.css";
+
 
 function PrivateComponent({ classe, children }) {
     const { Permissoes, isLoadingP } = useContext(PermissoesContext)
