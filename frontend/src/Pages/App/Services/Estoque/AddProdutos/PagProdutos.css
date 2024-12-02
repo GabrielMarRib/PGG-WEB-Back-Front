@@ -34,7 +34,8 @@
 .Produtos .TelaConteudo {
   display: flex;
   background-color: #ffffff;
-  max-width: 1440px;
+  min-width: 70%;
+  max-width: 80%;
 }
 
 

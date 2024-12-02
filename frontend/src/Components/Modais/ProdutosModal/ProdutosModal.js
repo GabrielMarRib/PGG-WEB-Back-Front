@@ -1033,12 +1033,6 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
           >
             Extras
           </button>
-          <button
-            className={`botao-aba ${abaAtiva === 'Deletar' ? 'ativa' : ''}`}
-            onClick={() => handleClickAba('Deletar')}
-          >
-            Deletar Produto
-          </button>
 
           <button onClick={fechar} className='botao-fechar'>X</button>
         </div>

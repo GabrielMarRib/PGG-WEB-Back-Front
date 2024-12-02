@@ -14,6 +14,7 @@ import BtnAjuda from "../../../../../Components/BotaoAjuda/BtnAjuda.js";
 import { PermissoesContext } from "../../../../../Context/PermissoesContext.js";
 import { checaPermissaoVisualizacao } from "../../../../../Config/Permissoes.js";
 import NavBar from "../../../../../Components/NavBar/NavBar.js";
+import TodosProd from "../../../../../Components/pegaTodosProdutos/TodosProd.jsx";
 // Componente Modal
 
 function PagInventario() {
@@ -219,7 +220,7 @@ function PagInventario() {
                                     onChange={(e) => setPesquisaProduto(e.target.value)}
                                 />
                             </div>
-
+                            <TodosProd></TodosProd>
                             {carregando ? (
                                 <div>Carregando...</div>
                             ) : (
