@@ -273,7 +273,7 @@ const PagMovimentos = () => {
               <PEPS produto={movimentos.find(mov => mov.produto === valorFiltro)}/>
             </> :
             <>
-              Selecione um produto para consultar o PEPS
+              Selecione um produto para consultar o PEPS...
             </>
         )
       }
