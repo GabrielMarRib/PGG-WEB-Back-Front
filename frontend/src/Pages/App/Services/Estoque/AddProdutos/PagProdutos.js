@@ -135,8 +135,8 @@ function PagProdutos() {
         id_usuario: User.id,
         data_movimento: diaOK,
         Mov: "E",
-        NomeCliente: fornecedorParse.nome,
-        fornecedor: fornecedorParse.id
+        NomeCliente: fornecedorParse?.nome ?? "Sem fornecedor",
+        fornecedor: fornecedorParse?.id ?? null
       },
         {
           headers: {

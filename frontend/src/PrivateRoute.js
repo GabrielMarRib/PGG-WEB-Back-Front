@@ -4,6 +4,7 @@ import { UserContext } from './Context/UserContext';
 import { PermissoesContext } from './Context/PermissoesContext';
 import { checaPermissaoVisualizacao } from './Config/Permissoes';
 import { pegaPermissoesWHERE } from './Config/Permissoes';
+import Loading from './Components/LoadingScreen/Loading';
 
 const PrivateRoute = ({ element: Component, intent: Intent, ...rest }) => {
   const { User, isLoading } = useContext(UserContext);
@@ -31,7 +32,7 @@ const PrivateRoute = ({ element: Component, intent: Intent, ...rest }) => {
   }, [User, Permissoes, setPermissoes, permissionsReady]);
 
   if (isLoading || isLoadingP || (!permissionsReady && Permissoes)) {
-    return <div>Carregando...</div>;
+    return <Loading></Loading>
   }
 
   if (User) {
