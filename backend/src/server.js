@@ -10,6 +10,7 @@ const app = express();
 //npm i firebase-admin
 //npm i nodemon
 //npm i axios
+//npm i mailersend
 
 app.use(express.json());
 app.use(cors());
