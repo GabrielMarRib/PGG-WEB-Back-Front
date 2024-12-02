@@ -76,6 +76,21 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.CurvaABC .CurvaABCGrafico button {
+    padding: 10px;
+    border-radius: 3px;
+    background-color: #dc430c;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-size: 20px;
+    font-family: 'JetBrains Mono';
+    margin-top: 20px;
+    margin-right: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
 .CurvaABC .Container-Textos {
     background-color: #000000;
     text-align: center;
