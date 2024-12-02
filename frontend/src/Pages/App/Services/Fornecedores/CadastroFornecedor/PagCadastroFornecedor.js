@@ -79,7 +79,6 @@ function PagVenderProduto() {
       setFornecedoresTabela(Response.data.fornecedores);
     } catch (error) {
       console.error("Erro ao buscar fornecedores:", error);
-      Alerta(3, "Erro ao buscar fornecedores.");
     }
   };
 

@@ -207,9 +207,15 @@ function PagLoteEconomico() {
             />
           </div>
 
-          <ul className="lista-produtos">
-            {produtosFiltrados.map(pegaProdutos)}
-          </ul>
+          <div className="lista-produtos">
+            {produtosFiltrados.length > 0 ? (
+              <ul>
+                {produtosFiltrados.map(pegaProdutos)}
+              </ul>
+            ) : (
+              <p className="mensagem-sem-lotes">Nenhum lote econômico cadastrado...</p>
+            )}
+          </div>
         </div>
 
         <div className={isVisibleForms ? "ContainerFormularioLoteEconomicoShow" : "ContainerFormularioLoteEconomico"}>

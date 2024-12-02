@@ -456,7 +456,7 @@ function PagProdutos() {
                 <div>Carregando...</div>
               ) : (
                 mensagemVazia ? (
-                  <div>Nenhum produto encontrado na categoria selecionada.</div>
+                  <div>Nenhum produto ou categoria cadastrada/selecionada...</div>
                 ) : (
                   produtosFiltrados.length > 0 ? (
                     produtosFiltrados.map((produto) => (
