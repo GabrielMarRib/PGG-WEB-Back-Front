@@ -355,7 +355,7 @@ function GerirCategoria() {
 
     Alerta(2, "Categoria Adicionada!");
     setCategoriaInput("");
-
+    SetCategoriaSelecionada("Add")
     await fetchData(LetRender2Select)
 
   };
@@ -372,6 +372,7 @@ function GerirCategoria() {
     LetRender2Select = true;
     await AdicaoCategoria(LetRender2Select);
 
+   
   };
 
   const handleFecharModal = () => {

@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import CabecalhoHome from "../../../../../Components/Cabecalho/CabecalhoHome.js";
-//import "../../../Styles/App/Service/PagVenderProduto.css"; ???????????????????
+import "./CadFornecedor.css"; 
 import { UserContext } from "../../../../../Context/UserContext.js";
 import AlertaNotificação from "../../../../../Components/NotificacaoAlert/AlertaNotificação.js";
 import { useAlerta } from "../../../../../Context/AlertaContext.js";
