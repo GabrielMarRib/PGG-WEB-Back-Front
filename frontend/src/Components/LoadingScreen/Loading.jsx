@@ -8,9 +8,9 @@ function Loading({ erro=false }) {
           {'PGG'.split('').map((letter, index) => (
             <span key={index} className="loading-letter" style={{ animationDelay: `${index * 0.3}s` }}>
               {letter}
-              {erro && "Erro crítico detectado, tente novamente mais tarde"}
             </span>
           ))}
+         {erro && "Erro crítico detectado, tente novamente mais tarde"}
       </div>
     </div>
   );

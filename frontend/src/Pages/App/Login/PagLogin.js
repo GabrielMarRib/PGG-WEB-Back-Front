@@ -41,7 +41,7 @@ function Home() {
       console.log("PagLoginUseffectBBBBB");
       navigate("/PagHome");
     }
-  }, [User, navigate]);
+  }, [User, navigate, Permissoes, isLoadingP]);
 
   const HandleFormLogin = async (e) => {
     e.preventDefault();
