@@ -22,7 +22,7 @@
 
 
 .InfoModal .modal-content button {
-    background-color: #1e293b;
+    background-color: #dc430c;
     border-color: transparent;
     color: #fff;
     border-radius: 4px;
@@ -94,7 +94,7 @@
     border-radius: 30px !important;
     width: 20px;
     font-size: 10px !important;
-    background-color: #1e293b !important;
+    background-color: rgb(255, 57, 57) !important;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 

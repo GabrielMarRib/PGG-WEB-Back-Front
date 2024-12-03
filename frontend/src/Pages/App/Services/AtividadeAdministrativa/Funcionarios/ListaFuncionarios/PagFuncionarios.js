@@ -16,9 +16,8 @@ function PagFuncionarios() {
     const [carregando, setCarregando] = useState(true);
     const [erro, setErro] = useState(null);
     const navegar = useNavigate();
-    const { Usuario } = useContext(UserContext);
+    const { User } = useContext(UserContext);
     const [showPopup, setShowPopup] = useState(false); // variaveis para o btnAjuda
-
     useEffect(() => {
         const buscarFuncionarios = async () => {
             try {
@@ -139,6 +138,7 @@ function PagFuncionarios() {
                         {funcionariosFiltrados.map((funcionario) => (
                             <div
                                 key={funcionario.id}
+                                style={User.id === funcionario.id ? {backgroundColor: '#f1dad2'} : null}
                                 className={`ItemFuncionario ${funcionarioSelecionado && funcionarioSelecionado.id === funcionario.id ? 'selecionado' : ''}`}
                                 onClick={() => selecionarFuncionario(funcionario.id)}
                             >

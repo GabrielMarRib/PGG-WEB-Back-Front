@@ -8,6 +8,7 @@
     justify-content: center;
     vertical-align: middle;
     margin-top: 5%;
+    
   }
   
   .LoteEconomico .ConteudoDaPagina button {
@@ -61,7 +62,7 @@
   }
   
   .LoteEconomico .terminalShow {
-      width: 36%;
+      width: 40%;
       border: 1px solid #000000;
       padding: 15px;
       border-radius: 5px;
@@ -201,7 +202,7 @@
   .LoteEconomico .container-tela-produtos {
     display: flex;
     background-color: #ffffff;
-    width: 80%;
+    width: 90%;
     height: 435px;
     font-size: 20px;
     border-radius: 5px;
@@ -209,7 +210,6 @@
     color: #000000;
     padding: 25px 0px 25px 130px;
     justify-content: center;
-
   }
 
   .LoteEconomico .grupo-input-produto {

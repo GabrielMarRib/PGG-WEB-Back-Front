@@ -69,13 +69,13 @@ function PagVenderProduto() {
         funcao: "pegarTodosFornecedores",
         senha: "@7h$Pz!q2X^vR1&K",
       },
-      {
-        headers: {
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
-          "Accept": "application/json, text/plain, */*",
-          "Connection": "keep-alive",
-        },
-      });
+        {
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Connection": "keep-alive",
+          },
+        });
       setFornecedoresTabela(Response.data.fornecedores);
     } catch (error) {
       console.error("Erro ao buscar fornecedores:", error);
@@ -138,13 +138,13 @@ function PagVenderProduto() {
         email: Email,
         status: Status ? 'ativo' : 'inativo', // Convertendo booleano para string
       },
-      {
-        headers: {
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
-          "Accept": "application/json, text/plain, */*",
-          "Connection": "keep-alive",
-        },
-      });
+        {
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Connection": "keep-alive",
+          },
+        });
       Alerta(2, "Fornecedor cadastrado com sucesso.");
       // Resetando os campos
       setNomeForcedor('');
@@ -167,11 +167,14 @@ function PagVenderProduto() {
     return (
       <div className="Fornecedores" key={Fornecedor.id_fornecedor}>
         <center>
-          <label><strong>Fornecedor(a): </strong>{Fornecedor.nome}</label>
-          <label> - {Fornecedor.id_fornecedor}</label>
+          <u>
+            <label><strong>Fornecedor(a): </strong>"{Fornecedor.nome}</label>
+            <label> - {Fornecedor.id_fornecedor}"</label>
+          </u>
         </center>
         <br />
         <label><strong>CNPJ:</strong> {Fornecedor.cnpj} </label>
+        <br />
         <label><strong>Endereço:</strong> {Fornecedor.endereco} </label>
         <br />
         <label><strong>Email:</strong> {Fornecedor.email} </label>
@@ -239,17 +242,17 @@ function PagVenderProduto() {
                   {/* Exibindo as informações do CEP em tempo real */}
                   {inputCep.length === 9 && !cepError && cepData && Object.keys(cepData).length > 0 ? (
                     <div className="teste">
-                    <div className="cep-info">
-                      <p><strong>Rua:</strong> {cepData.logradouro}</p>
-                      <p><strong>Bairro:</strong> {cepData.bairro}</p>
-                      <p><strong>Cidade:</strong> {cepData.localidade}</p>
-                      <p><strong>UF:</strong> {cepData.uf}</p>
-                    </div>
+                      <div className="cep-info">
+                        <p><strong>Rua:</strong> {cepData.logradouro}</p>
+                        <p><strong>Bairro:</strong> {cepData.bairro}</p>
+                        <p><strong>Cidade:</strong> {cepData.localidade}</p>
+                        <p><strong>UF:</strong> {cepData.uf}</p>
+                      </div>
                     </div>
                   ) : (
                     inputCep.length === 9 && cepError && (
                       <div className="teste">
-                      <p className="cep-error">{cepError}</p>
+                        <p className="cep-error">{cepError}</p>
                       </div>
                     )
                   )}
@@ -288,7 +291,7 @@ function PagVenderProduto() {
             </form>
             <div className="formulario">
               <div className="ListaFornecedores">
-                <h2>Lista de fornecedores</h2>
+                <h2>Lista de Fornecedores</h2>
                 {FornecedoresTabela.length > 0 ? (
                   FornecedoresTabela.map(MapearFornecedores)
                 ) : (

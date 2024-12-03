@@ -167,8 +167,8 @@ const PagMovimentos = () => {
           <td>{Movimento.valor}</td> {/* Custo unitario */}
           <td>{Movimento.qtde * Movimento.valor}</td>  {/* VALOR */}
           <td>{QuantidadeTotal}</td>
-          <td>{ValorTotal}</td>
-          <td>{CustoMedio.toFixed(2)}</td>
+          <td>{Math.abs(ValorTotal)}</td>
+          <td>{Math.abs(CustoMedio).toFixed(2)}</td>
         </tr>
       )
     } else {
@@ -194,8 +194,8 @@ const PagMovimentos = () => {
             <td>{Movimento.valor}</td> {/* Custo unitario */}
             <td>{Movimento.qtde * Movimento.valor}</td>  {/* VALOR */}
             <td>{QuantidadeTotal}</td>
-            <td>{ValorTotal}</td>
-            <td>{CustoMedio.toFixed(2)}</td>
+            <td>{Math.abs(ValorTotal)}</td>
+            <td>{Math.abs(CustoMedio).toFixed(2)}</td>
           </tr>
         )
       } else {
@@ -273,7 +273,7 @@ const PagMovimentos = () => {
               <PEPS produto={movimentos.find(mov => mov.produto === valorFiltro)}/>
             </> :
             <>
-              Selecione um produto para consultar o PEPS
+              Selecione um produto para consultar o PEPS...
             </>
         )
       }

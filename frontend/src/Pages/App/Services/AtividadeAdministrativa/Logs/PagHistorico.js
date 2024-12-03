@@ -225,7 +225,7 @@ function PagHistorico() {
                             Categoria: <span style={{ fontWeight: '700' }}>{achados?.id_categorias} - {achados?.catNome}</span>
                           </div>
                         )
-                      } else if (registro?.tabela === 'lote') {
+                      } else if (registro?.tabela === 'Lote') {
                         const achados = adicionaisLote.find((adicional) => adicional.numerolote === registro.id_tabela)
                         return (
                           <div className="infoAdicional">

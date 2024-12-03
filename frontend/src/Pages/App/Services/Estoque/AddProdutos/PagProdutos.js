@@ -16,7 +16,7 @@ import ProdutosModal from "../../../../../Components/Modais/ProdutosModal/Produt
 import Titulo from "../../../../../Components/Titulo/Titulo.jsx";
 import BtnAjuda from "../../../../../Components/BotaoAjuda/BtnAjuda.js";
 import NavBar from "../../../../../Components/NavBar/NavBar.js";
-
+import TodosProd from "../../../../../Components/pegaTodosProdutos/TodosProd.jsx";
 function PagProdutos() {
   const UserOBJ = useContext(UserContext); // pega o UserOBJ inteiro, q tem tanto o User quanto o setUser...
   const User = UserOBJ.User; //Pega só o User....
@@ -452,6 +452,7 @@ function PagProdutos() {
                   onChange={(e) => setPesquisaProduto(e.target.value)}
                 />
               </div>
+              <TodosProd/>
               {carregando ? (
                 <div>Carregando...</div>
               ) : (
