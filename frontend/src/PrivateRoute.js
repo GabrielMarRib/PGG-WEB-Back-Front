@@ -24,15 +24,12 @@ const PrivateRoute = ({ element: Component, intent: Intent, ...rest }) => {
       const fetchPermissions = async () => {
         const id_grupo = User?.userData?.Grupo_Acesso;
         const permissoes_OBJ = await pegaPermissoesWHERE(id_grupo, true);
-        if (
-          permissoes_OBJ == null ||
-          (Permissoes == null && permissionsReady)
-        ) {
+        if (permissoes_OBJ == null || (Permissoes == null && permissionsReady)) {
           console.log("G");
           setErroDetectado(true);
         } else {
           console.log("H");
-          if (permissoes_OBJ !== Permissoes) {
+          if (permissoes_OBJ?.data !== Permissoes?.data) {
             console.log("I");
             setPermissoes(permissoes_OBJ);
           }
@@ -53,8 +50,8 @@ const PrivateRoute = ({ element: Component, intent: Intent, ...rest }) => {
     return () => clearTimeout(loadingTimer);
   }, [User, Permissoes, setPermissoes, permissionsReady, loadingVisible]);
 
-  if (isLoading || isLoadingP || (!permissionsReady && Permissoes)) {
-    erroDetectado ? <Loading erro={true} /> : <Loading />;
+  if (isLoading || isLoadingP || (!permissionsReady && Permissoes) || loadingVisible) {
+    return erroDetectado ? <Loading erro={true}/> : <Loading />
   }
 
   if (User && Permissoes) {
