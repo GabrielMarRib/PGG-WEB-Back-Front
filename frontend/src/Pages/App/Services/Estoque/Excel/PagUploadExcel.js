@@ -36,7 +36,7 @@ function PagUploadExcel() {
     const buscarImportacoes = async () => {
         setCarregando(true);
         try {
-            const resposta = await axios.post('http://discordia.com.br/', {
+            const resposta = await axios.post('http://localhost:80/php/', {
                 senha: "@7h$Pz!q2X^vR1&K",
                 funcao: "buscarImportacoes"
             },
@@ -127,7 +127,7 @@ function PagUploadExcel() {
         }
         console.log("Enviando os seguintes dados para o servidor:", dadosImportados);
         try {
-            const resposta = await axios.post('http://discordia.com.br/', {
+            const resposta = await axios.post('http://localhost:80/php/', {
                 senha: "@7h$Pz!q2X^vR1&K",
                 funcao: "uploadDados",
                 dados: dadosImportados,
@@ -167,7 +167,7 @@ function PagUploadExcel() {
 
     const confirmarDelecao = async () => {
         try {
-            const resposta = await axios.post('http://discordia.com.br/', {
+            const resposta = await axios.post('http://localhost:80/php/', {
                 senha: "@7h$Pz!q2X^vR1&K",
                 funcao: "deletarImportacao",
                 id: importacaoParaDeletar
@@ -199,7 +199,7 @@ function PagUploadExcel() {
         if (!importacao) return;
 
         try {
-            const resposta = await axios.post('http://discordia.com.br/', {
+            const resposta = await axios.post('http://localhost:80/php/', {
                 senha: "@7h$Pz!q2X^vR1&K",
                 funcao: "inserirProdutosJson",
                 id_importacoes: id,

@@ -72,7 +72,7 @@ function PermissoesSubModal({ fechar, grupoOBJ, nome_grupo, classe, alvo, id, up
     Object = {...Object, newPS}
 
     try {
-      const response = await axios.post('http://discordia.com.br/', {
+      const response = await axios.post('http://localhost:80/php/', {
         funcao: 'atualizaPermissoesGrupo', // dita qual função deve ser utilizada da api. (a gente te fala o nome)
         senha: '@7h$Pz!q2X^vR1&K', // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
         novaPermissao: JSON.stringify(permissoesJson),

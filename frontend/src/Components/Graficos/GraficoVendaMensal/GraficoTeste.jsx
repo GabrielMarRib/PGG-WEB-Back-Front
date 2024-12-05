@@ -8,7 +8,7 @@ function GraficoTeste() {
   useEffect(() => {
     const fetchVendas = async () => {
       try {
-        const response = await axios.post('http://discordia.com.br/', {
+        const response = await axios.post('http://localhost:80/php/', {
           funcao: 'pegarVendaAcumulada',
           senha: '@7h$Pz!q2X^vR1&K'
         },

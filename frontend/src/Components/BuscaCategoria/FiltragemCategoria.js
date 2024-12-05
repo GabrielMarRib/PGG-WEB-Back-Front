@@ -19,7 +19,7 @@ function FiltragemCategoria({ setFiltroSelecionado, FiltroSelecionado }) {
     const ColhendoCategoria = async (setOBJ) => {
   
       try { //tente...
-        const response = await axios.post('http://discordia.com.br/', {  // acessa via get (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
+        const response = await axios.post('http://localhost:80/php/', {  // acessa via get (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
           funcao: 'pegacategorias',
           senha: '@7h$Pz!q2X^vR1&K'
         },

@@ -41,7 +41,7 @@ function PagVenderProduto() {
 
   const pegaCategorias = async () => {
     try {
-      const response = await axios.post('http://discordia.com.br/', {
+      const response = await axios.post('http://localhost:80/php/', {
         funcao: 'pegacategorias',
         senha: '@7h$Pz!q2X^vR1&K',
       },
@@ -68,7 +68,7 @@ function PagVenderProduto() {
     const pegaProdutin = async () => {
       try {
         const response = await axios.post(
-          "http://discordia.com.br/",
+          "http://localhost:80/php/",
           {
             funcao: "obterProdutosPorCategoriaComLote",
             senha: "@7h$Pz!q2X^vR1&K",
@@ -195,7 +195,7 @@ function PagVenderProduto() {
   const handleBaixaDoProduto = async () => {
     try {
   
-      await axios.post("http://discordia.com.br/", {
+      await axios.post("http://localhost:80/php/", {
        funcao: "DeletarProduto",
        senha: "@7h$Pz!q2X^vR1&K",
        produtoid: produtoSelecionado.id,
@@ -225,7 +225,7 @@ function PagVenderProduto() {
   const handleBaixaqtdeEstoque = async () => {
     try {
   
-      await axios.post("http://discordia.com.br/", {
+      await axios.post("http://localhost:80/php/", {
        funcao: "BaixaQtedProduto",
        senha: "@7h$Pz!q2X^vR1&K",
        produtoid: produtoSelecionado.id,
@@ -270,7 +270,7 @@ function PagVenderProduto() {
     if (User && User.userData && User.userData.Nome) {
       try {
      
-         await axios.post("http://discordia.com.br/", {
+         await axios.post("http://localhost:80/php/", {
           funcao: "insereMovimento",
           senha: "@7h$Pz!q2X^vR1&K",
           id: produtoSelecionado.id,
@@ -320,7 +320,7 @@ function PagVenderProduto() {
       if (!produtoSelecionado || produtoSelecionado.length === 0)
         return
       const response = await axios.post(
-        "http://discordia.com.br/",
+        "http://localhost:80/php/",
         {
           funcao: "PegaPPpeloProdutoId",
           senha: "@7h$Pz!q2X^vR1&K",
@@ -385,7 +385,7 @@ function PagVenderProduto() {
         + produtoSelecionado.id + " /" 
         + produtoSelecionado.nome + " /" 
       )
-      await axios.post("http://discordia.com.br/", {
+      await axios.post("http://localhost:80/php/", {
         funcao: "geraRelatorioPP",
         senha: "@7h$Pz!q2X^vR1&K",
         pp: PP,
@@ -430,7 +430,7 @@ function PagVenderProduto() {
 
 
       try {
-        const response = await axios.post("http://discordia.com.br/", {
+        const response = await axios.post("http://localhost:80/php/", {
           funcao: "geraRelatorioVenda",
           senha: "@7h$Pz!q2X^vR1&K",
           produtoVendidoId: produtoSelecionado.id,

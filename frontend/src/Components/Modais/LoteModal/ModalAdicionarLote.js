@@ -21,7 +21,7 @@ const LoteMemo = memo(function ModalAddLote({ Produto, fechar }) { // teoricamen
 
   const pegarTodosFornecedores = async () => {
     try {
-      const response = await axios.post('http://discordia.com.br/', {  // acessa via post (SEMPRE SERÁ POST)                
+      const response = await axios.post('http://localhost:80/php/', {  // acessa via post (SEMPRE SERÁ POST)                
         funcao: 'pegarTodosFornecedores', // dita qual função deve ser utilizada da api. (a gente te fala o nome) // ---> parâmetros da consulta... SÃO necessários.
         senha: '@7h$Pz!q2X^vR1&K' // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
       },
@@ -57,7 +57,7 @@ const LoteMemo = memo(function ModalAddLote({ Produto, fechar }) { // teoricamen
 
    
     try {
-        const response = await axios.post('http://discordia.com.br/', {
+        const response = await axios.post('http://localhost:80/php/', {
           funcao: 'inserelote', 
           senha: '@7h$Pz!q2X^vR1&K',
           dt_compra: dataCompra,

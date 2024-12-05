@@ -23,7 +23,7 @@ const LoteMemo = memo(function ModalAtualizarLote({ LoteSelecionado, fechar, IdU
       console.log("Justificativa: " + Justificativa)
       console.log("Id User: " + IdUser);
       const response = await axios.post(
-        "http://discordia.com.br/",
+        "http://localhost:80/php/",
         {
           funcao: "atualizarLotes",
           senha: "@7h$Pz!q2X^vR1&K",

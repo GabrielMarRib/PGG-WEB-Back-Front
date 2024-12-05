@@ -10,7 +10,7 @@ function TodosProd() {
     useEffect(() => {
         const pegaData = async () => {
             try {
-                const response = await axios.post('http://discordia.com.br/', {
+                const response = await axios.post('http://localhost:80/php/', {
                     funcao: 'pegaCategoriasComTotalProdutos',
                     senha: '@7h$Pz!q2X^vR1&K'
                 }, {

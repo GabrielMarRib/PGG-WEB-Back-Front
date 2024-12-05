@@ -36,7 +36,7 @@ const InfoModalCat = ({ titulo, msgObj, fechar, reFetch }) => {
   const pegaProdutos = async () => {
     console.log(msgObj)
     try {
-      const response = await axios.post("http://discordia.com.br/",
+      const response = await axios.post("http://localhost:80/php/",
         {
           funcao: "pegaprodutosporcategoria",
           senha: "@7h$Pz!q2X^vR1&K",
@@ -65,7 +65,7 @@ const InfoModalCat = ({ titulo, msgObj, fechar, reFetch }) => {
       //Mudar o nome da categoria
       try{
       const response = await axios.post(
-        "http://discordia.com.br/",
+        "http://localhost:80/php/",
         {
           funcao: "UpdNomeCategoria",
           senha: "@7h$Pz!q2X^vR1&K",

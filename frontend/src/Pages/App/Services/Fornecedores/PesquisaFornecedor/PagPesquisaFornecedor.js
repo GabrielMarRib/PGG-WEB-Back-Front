@@ -90,7 +90,7 @@ function PagPesquisaFornecedor() {
 
     const pegaProdutos = async () => {
         try {
-            const response = await axios.post('http://discordia.com.br/', {
+            const response = await axios.post('http://localhost:80/php/', {
                 funcao: 'pegaDadosComCatFornecedor', 
                 senha: '@7h$Pz!q2X^vR1&K' 
             },
@@ -111,7 +111,7 @@ function PagPesquisaFornecedor() {
 
     const ColhendoFornecedor = async (setOBJ) => {
         try {
-            const response = await axios.post('http://discordia.com.br/', { 
+            const response = await axios.post('http://localhost:80/php/', { 
                 funcao: 'pegarTodosFornecedores',
                 senha: '@7h$Pz!q2X^vR1&K'
             },
@@ -142,7 +142,7 @@ function PagPesquisaFornecedor() {
         return produtos.filter((produto) => {
             const nomeProdutoMatch = isNaN(pesquisaProduto)
                 ? produto.nome.toLowerCase().includes(pesquisaProduto.toLowerCase())
-                : produto.id_produtos.includes(pesquisaProduto);
+                : String(produto.id_produtos)?.includes(pesquisaProduto);
 
             const fornecedorMatch = FiltroFornecedor !== 'sem filtro'
                 ? produto.fornecedor === FiltroFornecedor.id_fornecedor
@@ -179,7 +179,7 @@ function PagPesquisaFornecedor() {
         if (!produtoSelecionado) return;
 
         try {
-             await axios.post('http://discordia.com.br/', {
+             await axios.post('http://localhost:80/php/', {
                 funcao: 'enviarPedido',
                 senha: '@7h$Pz!q2X^vR1&K',
                 nome_produto: produtoSelecionado.nome,

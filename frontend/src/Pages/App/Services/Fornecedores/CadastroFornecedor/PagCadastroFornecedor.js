@@ -65,7 +65,7 @@ function PagVenderProduto() {
 
   const PegarFornecedores = async () => {
     try {
-      const Response = await axios.post("http://discordia.com.br/", {
+      const Response = await axios.post("http://localhost:80/php/", {
         funcao: "pegarTodosFornecedores",
         senha: "@7h$Pz!q2X^vR1&K",
       },
@@ -128,7 +128,7 @@ function PagVenderProduto() {
 
     console.log({ NomeForcedor, CNPJ, Endereco, Telefone, Email, Status });
     try {
-      const Response = await axios.post("http://discordia.com.br/", {
+      const Response = await axios.post("http://localhost:80/php/", {
         funcao: "cadastrarFornecedor",
         senha: "@7h$Pz!q2X^vR1&K",
         nome: NomeForcedor,

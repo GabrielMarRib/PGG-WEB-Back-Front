@@ -49,7 +49,7 @@ function PagHome() {
   useEffect(function () {
     const pegaCategorias = async () => { // função existe para separar async do useEffect...
       try {
-        const response = await axios.post('http://discordia.com.br/', {  // acessa via post (SEMPRE SERÁ POST)                
+        const response = await axios.post('http://localhost:80/php/', {  // acessa via post (SEMPRE SERÁ POST)                
           funcao: 'pegacategorias', // dita qual função deve ser utilizada da api. (a gente te fala o nome) // ---> parâmetros da consulta... SÃO necessários.
           senha: '@7h$Pz!q2X^vR1&K' // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
         },
@@ -72,7 +72,7 @@ function PagHome() {
   useEffect(() => {
     const obterTotais = async () => {
       try {
-        const response = await axios.post('http://discordia.com.br/', {
+        const response = await axios.post('http://localhost:80/php/', {
           funcao: 'ObterTotaisComprasEVendas',
           senha: '@7h$Pz!q2X^vR1&K'
         },
@@ -97,7 +97,7 @@ function PagHome() {
   useEffect(() => {
     const obterProdutosProximosVencimento = async () => {
       try {
-        const response = await axios.post('http://discordia.com.br/', {
+        const response = await axios.post('http://localhost:80/php/', {
           funcao: 'verificaProdutosProximosVencimento',
           senha: '@7h$Pz!q2X^vR1&K'
         },

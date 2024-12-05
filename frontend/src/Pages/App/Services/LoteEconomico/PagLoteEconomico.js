@@ -63,7 +63,7 @@ function PagLoteEconomico() {
     const demandaAnualConvertida = converterParaAnual(demanda_anual);
 
     try {
-      const response = await axios.post("http://discordia.com.br/", {
+      const response = await axios.post("http://localhost:80/php/", {
         funcao: "atualizaLoteEconomico",
         senha: "@7h$Pz!q2X^vR1&K",
         Valor_despesas_Anuais: despesasAnuaisConvertidas,
@@ -143,7 +143,7 @@ function PagLoteEconomico() {
 
   const pegaDadosLoteEconomico = async () => {
     try {
-      const response = await axios.post("http://discordia.com.br/", {
+      const response = await axios.post("http://localhost:80/php/", {
         funcao: "pegaDadosLoteEconomico",
         senha: "@7h$Pz!q2X^vR1&K",
       },

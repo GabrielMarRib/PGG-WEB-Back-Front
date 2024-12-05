@@ -114,7 +114,7 @@ function PagRelatorios() {
 
     const deletaRelatorio = async (tipo, teste) => {
         try {
-              await axios.post('http://discordia.com.br/', {
+              await axios.post('http://localhost:80/php/', {
                 funcao: 'deletaRelatorio', 
                 senha: '@7h$Pz!q2X^vR1&K',
                 TipoRelatorio: tipo,

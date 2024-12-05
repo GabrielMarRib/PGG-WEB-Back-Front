@@ -21,7 +21,7 @@ function PagPontoPedido() {
                 try {
                     setCarregando(true)
                     setMsg("...carregando")
-                    const response = await axios.post('http://discordia.com.br/', {  // acessa via post (SEMPRE SERÁ POST)                
+                    const response = await axios.post('http://localhost:80/php/', {  // acessa via post (SEMPRE SERÁ POST)                
                         funcao: 'pegaDadosPP', // dita qual função deve ser utilizada da api. (a gente te fala o nome) // ---> parâmetros da consulta... SÃO necessários.
                         senha: '@7h$Pz!q2X^vR1&K', // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
                         codigoPP: categoriaSelecionada.id_categorias

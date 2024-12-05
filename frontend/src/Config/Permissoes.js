@@ -5,7 +5,7 @@ import axios from "axios";
 export const pegaPermissoesTotais = async () => {
   try {
     const response = await axios.post(
-      "http://discordia.com.br/",
+      "http://localhost:80/php/",
       {
         funcao: "SelectGrupoAcesso",
         senha: "@7h$Pz!q2X^vR1&K",
@@ -31,7 +31,7 @@ export const pegaPermissoesWHERE = async (where, context) => {
     console.log("Where: " + where);
     console.log(context);
     const response = await axios.post(
-      "http://discordia.com.br/",
+      "http://localhost:80/php/",
       {
         funcao: "SelectPermissoesWhere",
         senha: "@7h$Pz!q2X^vR1&K",

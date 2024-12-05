@@ -90,7 +90,7 @@ export const handleAdicionarUser = async (nome, cpf, email, telefone, acesso, us
         });
         const id = response.data.id;
         
-        const responseMysql = await axios.post('http://discordia.com.br/', {
+        const responseMysql = await axios.post('http://localhost:80/php/', {
             funcao: 'insereUser', 
             senha: '@7h$Pz!q2X^vR1&K',
             id: id,
@@ -239,7 +239,7 @@ export const exibeMsg = async (setMsg, conteudo, tempo, erro, SetStyle) => {
 };
 
 export const RelatorioPP = async () => {
-    const response = await axios.post('http://discordia.com.br/', {
+    const response = await axios.post('http://localhost:80/php/', {
         funcao: 'pegaRelatorioPP', 
         senha: '@7h$Pz!q2X^vR1&K',
     },
@@ -254,7 +254,7 @@ export const RelatorioPP = async () => {
 }
 
 export const RelatorioVendas = async () => {
-    const response = await axios.post('http://discordia.com.br/', {
+    const response = await axios.post('http://localhost:80/php/', {
         funcao: 'pegaRelatorioVendas', 
         senha: '@7h$Pz!q2X^vR1&K',
     },
@@ -271,7 +271,7 @@ export const RelatorioVendas = async () => {
 export const pegaCategorias = async (setOBJ) =>{
 
     try { //tente...
-        const response = await axios.post('http://discordia.com.br/', {  // acessa via get (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
+        const response = await axios.post('http://localhost:80/php/', {  // acessa via get (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
             funcao: 'pegacategorias', 
             senha: '@7h$Pz!q2X^vR1&K',
         },
@@ -293,7 +293,7 @@ export const pegaCategorias = async (setOBJ) =>{
 
 export const VerificaCategorias = async (SubCat, Result) =>{
     try { 
-        const response = await axios.post('http://discordia.com.br/', {  // acessa via get (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
+        const response = await axios.post('http://localhost:80/php/', {  // acessa via get (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
                 funcao: 'verificacategorias', 
                 senha: '@7h$Pz!q2X^vR1&K',
                 subCat: SubCat // ( Exemplo: 1, 2 ) Vou pegar por Id
@@ -317,7 +317,7 @@ export const insereHistorico = async (info) =>{
             return false;
         }
 
-        const response = await axios.post('http://discordia.com.br/', { 
+        const response = await axios.post('http://localhost:80/php/', { 
             funcao: "insereHistorico",
             senha: '@7h$Pz!q2X^vR1&K',
             campos: info.campos,

@@ -56,7 +56,7 @@ function PagProdutos() {
 
   const pegaProdutos = async (dataFRESH) => {
     try {
-      const response = await axios.post('http://discordia.com.br/', {  // acessa via post (SEMPRE SERÁ POST)                
+      const response = await axios.post('http://localhost:80/php/', {  // acessa via post (SEMPRE SERÁ POST)                
         funcao: 'pegadadoscomcat', // dita qual função deve ser utilizada da api. (a gente te fala o nome) // ---> parâmetros da consulta... SÃO necessários.
         senha: '@7h$Pz!q2X^vR1&K' // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
       },
@@ -67,6 +67,7 @@ function PagProdutos() {
             "Connection": "keep-alive",
           },
         });
+        console.log(response.data)
       setProdutos(response.data); // coloca a LISTA de categorias em uma useState
       console.log(response.data) // log para sabermos o que foi pego.
       setCarregando(false);
@@ -78,7 +79,7 @@ function PagProdutos() {
   };
   const pegarTodosFornecedores = async () => {
     try {
-      const response = await axios.post('http://discordia.com.br/', {  // acessa via post (SEMPRE SERÁ POST)                
+      const response = await axios.post('http://localhost:80/php/', {  // acessa via post (SEMPRE SERÁ POST)                
         funcao: 'pegarTodosFornecedores', // dita qual função deve ser utilizada da api. (a gente te fala o nome) // ---> parâmetros da consulta... SÃO necessários.
         senha: '@7h$Pz!q2X^vR1&K' // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
       },
@@ -117,7 +118,7 @@ function PagProdutos() {
     const diaDeHj = new Date();
     const diaOK = diaDeHj.toLocaleString('sv-SE').replace('T', ' ');
     try {
-      const response = await axios.post('http://discordia.com.br/', {  // acessa via get (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
+      const response = await axios.post('http://localhost:80/php/', {  // acessa via get (post é usado quando se passa informações mais complexas), por exemplo, passar variáveis para a api, etc.
         //parâmetros da consulta... SÃO necessários.
         funcao: 'inserirProdutoLoteEMovimento', // dita qual função deve ser utilizada da api. (a gente te fala o nome)
         senha: '@7h$Pz!q2X^vR1&K', // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
@@ -171,9 +172,9 @@ function PagProdutos() {
 
   }
 
-  const produtosFiltrados = produtos.filter((produto) =>
-    isNaN(pesquisaProduto) ? produto.nome.toLowerCase().includes(pesquisaProduto.toLowerCase()) : produto.id_produtos.includes(pesquisaProduto)
-  );
+  const produtosFiltrados = produtos.filter((produto) => 
+     true
+);
 
   const atualizaProd = async () => {
     console.log("passou no restrito")
@@ -192,7 +193,7 @@ function PagProdutos() {
   const buscarProdutosPorCategoria = async () => {
     try {
       setCarregando(true);
-      const response = await axios.post('http://discordia.com.br/', {
+      const response = await axios.post('http://localhost:80/php/', {
         funcao: 'PegaProdutosECategoriaPorCategoria',
         codcategoria: FiltroSelecionado ? FiltroSelecionado.id_categorias : "todos", //null.id_categorias -> null
         senha: '@7h$Pz!q2X^vR1&K'
@@ -211,13 +212,13 @@ function PagProdutos() {
       // Exibe a mensagem se não houver produtos na categoria
       console.log(response.data)
       if (response.data.length === 0) {
-        setMensagemVazia(true);
+        setMensagemVazia(false);
       } else {
         setMensagemVazia(false);
       }
     } catch (error) {
       console.log("Erro ao buscar produtos por categoria: " + error);
-      setMensagemVazia(true);
+      setMensagemVazia(false);
       setCarregando(false); // Adiciona aqui também para evitar carregamento infinito em caso de erro
     }
   };
@@ -459,8 +460,8 @@ function PagProdutos() {
                 mensagemVazia ? (
                   <div>Nenhum produto ou categoria cadastrada/selecionada...</div>
                 ) : (
-                  produtosFiltrados.length > 0 ? (
-                    produtosFiltrados.map((produto) => (
+                  produtos != null ? (
+                    produtos.map((produto) => (
                       <ul key={produto.id_produtos} className="produtoGerado">
                         <div className="conteudoProdutoGerado">
                           <li className="liGerado">{produto.nome}</li>

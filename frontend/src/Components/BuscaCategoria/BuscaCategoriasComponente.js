@@ -23,7 +23,7 @@ function BuscaCategoriasComponente({
   const ColhendoCategoria = async (setOBJ) => {
     try {
       const response = await axios.post(
-        "http://discordia.com.br/",
+        "http://localhost:80/php/",
         {
           funcao: "pegacategorias",
           senha: "@7h$Pz!q2X^vR1&K",

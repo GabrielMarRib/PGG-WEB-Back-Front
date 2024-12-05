@@ -25,7 +25,7 @@ function PagHistorico() {
       try {
 
         const response = await axios.post(
-          "http://discordia.com.br/",
+          "http://localhost:80/php/",
           {
             funcao: "consultarHistorico",
             senha: "@7h$Pz!q2X^vR1&K",
@@ -53,7 +53,7 @@ function PagHistorico() {
       try {
 
         const response = await axios.post(
-          "http://discordia.com.br/",
+          "http://localhost:80/php/",
           {
             funcao: "PegaTodosDadosCurvaABC",
             senha: "@7h$Pz!q2X^vR1&K",
@@ -68,7 +68,7 @@ function PagHistorico() {
         );
         setAdicionaisCurva(response.data);
         const responseLote = await axios.post(
-          "http://discordia.com.br/",
+          "http://localhost:80/php/",
           {
             funcao: "PegarLotes",
             senha: "@7h$Pz!q2X^vR1&K",

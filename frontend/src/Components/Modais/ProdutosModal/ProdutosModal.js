@@ -60,7 +60,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
     const pegaProdutosCat = async () => {
       try {
         const response = await axios.post(
-          "http://discordia.com.br/",
+          "http://localhost:80/php/",
           {
             funcao: "pegaprodutosporcategoria",
             senha: "@7h$Pz!q2X^vR1&K",
@@ -90,7 +90,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
     const pegaTUDO_old = async () => {
       try {
         const response = await axios.post(
-          "http://discordia.com.br/",
+          "http://localhost:80/php/",
           {
             funcao: "obterDadosProduto",
             senha: "@7h$Pz!q2X^vR1&K",
@@ -326,7 +326,7 @@ const produtoMemo = memo(function ProdutosModal({ fechar, produtoOBJ, opcao, atu
 
   const atualizaDadosUniversal = async (funcao, setRefresh) => {
     try {
-      const response = await axios.post("http://discordia.com.br/", funcao,
+      const response = await axios.post("http://localhost:80/php/", funcao,
         {
           headers: {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",

@@ -43,7 +43,7 @@ function CurvaABCPorValor() {
         const pegaTudo = async () => {
             if (categoriaSelecionada !== null) {
                 try {
-                    const response = await axios.post('http://discordia.com.br/', {
+                    const response = await axios.post('http://localhost:80/php/', {
                         funcao: 'PegaDadosPorCategoriaComCurvaAbcLoteOrderByValorVendaComCustoTotalAtreladoAutomaticamenteEcustoTotalAcumulado',
                         senha: '@7h$Pz!q2X^vR1&K',
                         categoriaCodigo: categoriaSelecionada
@@ -98,7 +98,7 @@ function CurvaABCPorValor() {
     useEffect(() => {
         const pegaCategorias = async () => {
             try {
-                const response = await axios.post('http://discordia.com.br/', {
+                const response = await axios.post('http://localhost:80/php/', {
                     funcao: 'pegaCategoriasComConsumo',
                     senha: '@7h$Pz!q2X^vR1&K'
                 },

@@ -47,7 +47,7 @@ function GerirLotes() {
  
 
       const response = await axios.post(
-        "http://discordia.com.br/",
+        "http://localhost:80/php/",
         {
           funcao: "PegarLotes",
           senha: "@7h$Pz!q2X^vR1&K",
@@ -75,7 +75,7 @@ function GerirLotes() {
 
 
       const response = await axios.post(
-        "http://discordia.com.br/",
+        "http://localhost:80/php/",
         {
           funcao: "pegadados",
           senha: "@7h$Pz!q2X^vR1&K",

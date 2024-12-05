@@ -65,7 +65,7 @@ function PagInventario() {
 
     const pegaProdutos = async (dataFRESH) => {
         try {
-          const response = await axios.post('http://discordia.com.br/', {  // acessa via post (SEMPRE SERÁ POST)                
+          const response = await axios.post('http://localhost:80/php/', {  // acessa via post (SEMPRE SERÁ POST)                
             funcao: 'pegaDadosComCatFornecedor', // dita qual função deve ser utilizada da api. (a gente te fala o nome) // ---> parâmetros da consulta... SÃO necessários.
             senha: '@7h$Pz!q2X^vR1&K' // teoricamente essa senha tem q ser guardada em um .env, mas isso é trabalho do DEIVYD :)
           },
@@ -88,7 +88,7 @@ function PagInventario() {
 
     const ColhendoFornecedor = async (setOBJ) => {
         try {
-            const response = await axios.post('http://discordia.com.br/', {
+            const response = await axios.post('http://localhost:80/php/', {
                 funcao: 'pegarTodosFornecedores',
                 senha: '@7h$Pz!q2X^vR1&K'
             },
@@ -117,9 +117,10 @@ function PagInventario() {
     // Função para aplicar filtros e pesquisa antes de agrupar
     const filtrarProdutos = () => {
         return produtos.filter((produto) => {
+            console.log(produto)
             const nomeProdutoMatch = isNaN(pesquisaProduto)
                 ? produto.nome.toLowerCase().includes(pesquisaProduto.toLowerCase())
-                : produto.id_produtos.includes(pesquisaProduto);
+                : String(produto.id_produtos)?.includes(pesquisaProduto);
 
             const fornecedorMatch = FiltroFornecedor !== 'sem filtro'
                 ? produto.fornecedor === FiltroFornecedor.id_fornecedor
